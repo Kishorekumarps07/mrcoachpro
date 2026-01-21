@@ -1,0 +1,583 @@
+.main {
+    min-height: 100vh;
+    background-color: var(--bg-primary);
+}
+
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 40px;
+    /* Increased side padding */
+}
+
+/* Hero with Glassy Image Background */
+.hero {
+    position: relative;
+    height: 100vh;
+    min-height: 800px;
+    max-height: 1080px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 5%;
+    overflow: hidden;
+    background-color: #FFFFFF;
+    /* Plain white background */
+}
+
+/* Reusing the structure, but styled for Image + Glass */
+.videoBackground {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Video Background */
+    z-index: 0;
+}
+
+.videoElement {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* The Glassy Overlay */
+.videoOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Glass Effect layers */
+    /* Stronger Glass Effect */
+    background: rgba(255, 255, 255, 0.15);
+    /* Slightly more opaque tint */
+    backdrop-filter: blur(24px);
+    /* Increased Blur */
+    -webkit-backdrop-filter: blur(24px);
+
+    /* High-contrast dark gradient for sheen */
+    background: linear-gradient(105deg,
+            rgba(255, 255, 255, 0.05) 0%,
+            rgba(0, 0, 0, 0.6) 50%,
+            rgba(0, 0, 0, 0.9) 100%);
+    z-index: 1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    /* Bottom glass edge reflection */
+}
+
+/* Ensure noise is removed or adjusted */
+.videoOverlay::after {
+    display: none;
+}
+
+.heroContent {
+    position: relative;
+    z-index: 50;
+    /* Increased from 10 to stay above announcement bar */
+    width: 100%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding-top: 20px;
+    /* Reduced from 140px for tighter desktop spacing */
+    padding-left: 20px;
+    padding-right: 20px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 60px;
+    align-items: center;
+    /* Restore center alignment */
+    height: 100%;
+}
+
+@media (max-width: 1024px) {
+    .heroContent {
+        grid-template-columns: 1fr;
+        padding-top: 160px;
+        /* Increased from 120px for more space from announcement bar on mobile */
+        gap: 80px;
+    }
+}
+
+.carouselZone {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 20px;
+}
+
+.floatingCard {
+    /* Local Theme Override for Glass Dark Mode */
+    --text-primary: #FFFFFF;
+    --bg-secondary: transparent;
+
+    position: relative;
+    overflow: visible;
+    background: transparent;
+    /* Transparent */
+    border: none;
+    border-left: none;
+    padding: 0;
+    /* Remove padding */
+    width: 100%;
+    max-width: 850px;
+    /* Increased from 650px for larger carousel */
+    box-shadow: none;
+    animation: fadeIn 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.floatingCard::before {
+    display: none;
+}
+
+.floatingCard::after {
+    display: none;
+}
+
+.cardHeader {
+    margin-top: 25px;
+    /* Reduced to 25px for tighter spacing from announcement bar */
+    margin-bottom: 15px;
+    /* Further reduced from 30px for minimal space before service cards */
+    text-align: center;
+    /* Changed from left to center align with service cards */
+    padding-left: 0;
+    /* Removed left padding for center alignment */
+    position: relative;
+    z-index: 60;
+    /* Ensure text stays on top */
+}
+
+/* ... existing title/subtitle styles ... */
+
+
+.cardTitle {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    /* Reduced from 3rem to fit on single line */
+    font-weight: 700;
+    background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+    /* Moon black gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    /* Reduced from 24px for tighter spacing with subtitle */
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    white-space: nowrap;
+    /* Force single line */
+}
+
+.cardSubtitle {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    /* Slightly reduced */
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    /* Tighter tracking */
+    background: linear-gradient(135deg, #2a2a2a 0%, rgba(74, 74, 74, 0.7) 100%);
+    /* Moon black gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 500;
+    /* Lighter weight */
+    max-width: 500px;
+}
+
+.serviceGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 Columns for balance */
+    gap: 24px;
+    /* Clean gap */
+}
+
+.gridItemPrimary,
+.gridItemSecondary {
+    transition: all 0.3s cubic-bezier(0.2, 0.4, 0.2, 1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    /* Subtle dark border for white background */
+    position: relative;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.02);
+    /* Very light gray tint */
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    height: 140px;
+    /* Taller for breathing room */
+}
+
+.gridItemSecondary {
+    background-color: rgba(0, 0, 0, 0.03);
+    height: 120px;
+}
+
+/* LIGHT THEME SECTIONS (Services & Pricing) */
+.section {
+    padding: 120px 0;
+    background-color: var(--bg-light);
+    color: var(--text-inverse);
+}
+
+.sectionDark {
+    padding: 120px 0;
+    background-color: var(--bg-light);
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+    position: relative;
+    background: linear-gradient(180deg, #F4F4F5 0%, #EBEBEB 100%);
+}
+
+.sectionHeading {
+    font-size: 2.25rem;
+    color: var(--text-inverse);
+    margin-bottom: 80px;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+/* Tabs */
+.tabsHeader {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-bottom: 100px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 0px;
+    position: relative;
+}
+
+.tabButton {
+    font-size: 0.9375rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    padding: 0 0 20px 0;
+    position: relative;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.tabButton:hover {
+    color: var(--text-inverse);
+}
+
+.activeTab {
+    color: var(--text-inverse);
+    font-weight: 700;
+}
+
+.activeTab::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--accent-yellow);
+    box-shadow: 0 0 10px var(--accent-yellow-glow);
+    animation: expandLine 0.2s ease-out forwards;
+}
+
+@keyframes expandLine {
+    from {
+        transform: scaleX(0);
+    }
+
+    to {
+        transform: scaleX(1);
+    }
+}
+
+.tabContent {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.serviceDetail {
+    animation: slideUpFade 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    width: 100%;
+}
+
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.serviceTitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    letter-spacing: 0.06em;
+    color: var(--text-inverse);
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.serviceDesc {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+    /* Use Serif for body copy */
+}
+
+/* Feature List (No Dots) */
+.featureList {
+    list-style: none;
+    /* remove dots */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+}
+
+.featureList li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-inverse);
+}
+
+.checkIcon {
+    color: var(--accent-yellow);
+    flex-shrink: 0;
+}
+
+.ageTitle {
+    font-size: 1.5rem;
+    /* Reduced from 1.75rem */
+    font-weight: 700;
+    color: var(--text-inverse);
+    /* Dark */
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.planPrice {
+    font-size: 3rem;
+    /* Reduced from 4rem */
+    font-weight: 800;
+    margin-bottom: 48px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    text-align: center;
+}
+
+.period {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-left: 4px;
+    opacity: 0.6;
+}
+
+.planFeatures {
+    list-style: none;
+    margin-bottom: 56px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 16px;
+}
+
+.planFeatures li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.checkIcon {
+    color: var(--accent-yellow);
+    /* Always yellow check */
+    opacity: 1;
+    flex-shrink: 0;
+}
+
+.highlightCheck {
+    color: var(--accent-yellow) !important;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .pricingGrid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 0 20px;
+    }
+
+    .highlightCard {
+        transform: none;
+        margin: 20px 0;
+        border-top: 4px solid var(--accent-yellow);
+    }
+
+    .highlightCard:hover {
+        transform: translateY(-4px);
+    }
+}
+
+/* Home Page Specific Mobile Styles */
+@media (max-width: 768px) {
+    .hero {
+        height: auto;
+        min-height: 100vh;
+        padding: 0;
+        align-items: flex-start;
+    }
+
+    .heroContent {
+        display: flex;
+        flex-direction: column-reverse;
+        /* Carousel top (if desired) or Card top. Let's keep card top? No, let's stack normally but maybe adjust order. If card is first in DOM, it's on top. flex-direction: column puts card on top. */
+        flex-direction: column;
+        gap: 40px;
+        padding-top: 100px;
+        /* Space for navbar */
+        padding-bottom: 60px;
+        height: auto;
+    }
+
+    .floatingCard {
+        padding: 0;
+        /* Remove padding for full mobile width */
+        margin-top: 0;
+    }
+
+    .cardHeader {
+        margin-bottom: 40px;
+        /* Reduced from 60px on mobile */
+        padding-left: 0;
+        /* Remove left padding */
+    }
+
+    .cardTitle {
+        font-size: 1.3rem;
+        /* Reduced to fit on single line on mobile */
+        line-height: 1.3;
+        margin-bottom: 16px;
+        white-space: nowrap;
+        /* Force single line */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /* Add ellipsis if still too long */
+    }
+
+    .cardSubtitle {
+        font-size: 0.75rem;
+        /* Further reduced on mobile */
+        opacity: 0.6;
+        /* Additional opacity reduction */
+        letter-spacing: 0.12em;
+        max-width: 100%;
+    }
+
+    .serviceGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .gridItemPrimary {
+        height: 120px;
+        /* Increased from 100px for better tap targets */
+        min-height: 120px;
+    }
+
+    .carouselZone {
+        height: 300px;
+        /* Constrain carousel height */
+        padding-left: 0;
+    }
+
+    /* Tabs */
+    .tabsHeader {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 12px;
+        gap: 32px;
+        mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+        /* Hide Scrollbar */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .tabsHeader::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tabButton {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    /* Content Sections */
+    .section,
+    .sectionDark {
+        padding: 60px 0;
+    }
+
+    .serviceTitle {
+        font-size: 2.5rem;
+    }
+
+    .featureList {
+        flex-direction: column;
+        gap: 20px;
+        align-items: flex-start;
+        padding-left: 20px;
+    }
+
+    /* Age Grid */
+    .ageGrid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .ageCard {
+        padding: 32px 24px;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

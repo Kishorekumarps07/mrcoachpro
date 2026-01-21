@@ -1,0 +1,85 @@
+.bar {
+    position: absolute;
+    top: 64px;
+    /* Position directly at navbar bottom (no gap) */
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background-color: #FFFFFF;
+    /* Pure white background */
+    backdrop-filter: blur(4px);
+    z-index: 5;
+    /* Reduced from 20 to stay below hero content */
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    /* Subtle dark border */
+}
+
+.scroller {
+    display: flex;
+    white-space: nowrap;
+    will-change: transform;
+}
+
+/* Duplicated content for seamless loop */
+.scrollTrack {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    animation: scrollText 60s linear infinite;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    color: #1a1a1a;
+    /* Moon black text */
+    font-size: 0.8125rem;
+    /* 13px */
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0 32px;
+}
+
+.highlight {
+    color: var(--accent-yellow);
+}
+
+.separator {
+    width: 4px;
+    height: 4px;
+    background-color: var(--accent-yellow);
+    border-radius: 50%;
+    margin-left: 32px;
+}
+
+@keyframes scrollText {
+    from {
+        transform: translateX(0%);
+    }
+
+    to {
+        transform: translateX(-50%);
+        /* Move half way (one full set) */
+    }
+}
+
+/* Interactions */
+.bar:hover .scrollTrack {
+    animation-play-state: paused;
+}
+
+@media (max-width: 768px) {
+    .item {
+        font-size: 0.75rem;
+        /* Smaller on mobile */
+        padding: 0 24px;
+    }
+
+    .separator {
+        margin-left: 24px;
+    }
+}

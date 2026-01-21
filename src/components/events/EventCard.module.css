@@ -1,0 +1,113 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    /* White card background */
+    border-radius: 16px;
+    /* Rounded corners */
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    /* Soft shadow only */
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    /* Prevent shrinking in flex */
+    width: 280px;
+    /* Fixed width for horizontal scroll */
+    scroll-snap-align: start;
+    /* Snap alignment */
+}
+
+@media (min-width: 640px) {
+    .card {
+        width: 320px;
+        /* Slightly wider on tablet */
+    }
+}
+
+@media (min-width: 1024px) {
+    .card {
+        width: 360px;
+        /* Wider on desktop */
+    }
+}
+
+.card:active {
+    opacity: 0.9;
+    /* Subtle press feedback on mobile */
+}
+
+@media (min-width: 769px) {
+    .card:hover {
+        transform: translateY(-4px);
+        /* Minimal lift on desktop only */
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    }
+}
+
+.imageWrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    /* Landscape ratio for discovery */
+    overflow: hidden;
+    background-color: #f4f4f5;
+}
+
+.image {
+    object-fit: cover;
+    transition: none;
+    /* No image animations */
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 8px;
+}
+
+.date {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-yellow);
+    /* Yellow accent */
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+}
+
+.title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    /* Medium weight */
+    color: #1a1a1a;
+    line-height: 1.4;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* Max 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.location {
+    font-size: 0.85rem;
+    color: #666;
+    /* Muted neutral */
+    font-weight: 400;
+    /* Regular weight */
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.price {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent-yellow);
+    /* Yellow accent */
+    margin-top: 4px;
+}

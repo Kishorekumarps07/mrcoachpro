@@ -1,0 +1,111 @@
+.filterBarContainer {
+    position: relative;
+    width: 100%;
+    padding: 24px 0;
+    background-color: rgba(255, 255, 255, 0.98);
+    /* Cleaner white */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 64px;
+    z-index: 900;
+    backdrop-filter: blur(16px);
+}
+
+.scrollWrapper {
+    display: flex;
+    gap: 40px;
+    /* Increased for comfortable spacing */
+    overflow-x: auto;
+    padding: 0 40px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 1024px) {
+    .scrollWrapper {
+        justify-content: flex-start;
+        /* Enable horizontal scroll */
+        mask-image: linear-gradient(to right, black 90%, transparent 100%);
+        /* Edge fade for scroll indication */
+    }
+}
+
+@media (max-width: 768px) {
+    .scrollWrapper {
+        padding: 0 20px;
+        gap: 20px;
+        /* Increased from 16px for comfort */
+    }
+
+    .filterBarContainer {
+        padding: 16px 0;
+        top: 60px;
+    }
+}
+
+.scrollWrapper::-webkit-scrollbar {
+    display: none;
+}
+
+.filterPill {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    /* Increased for better tap targets */
+    border-radius: 40px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: #666;
+    /* Muted default color */
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    /* Slightly smaller */
+    font-weight: 500;
+    /* Medium weight only */
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    white-space: nowrap;
+    text-transform: none;
+    /* No uppercase */
+    letter-spacing: 0.01em;
+    /* Subtle tracking */
+}
+
+.filterPill:hover {
+    background: rgba(0, 0, 0, 0.05);
+    /* Slightly stronger hover */
+    color: #333;
+    /* Darker on hover */
+}
+
+.filterPill.active {
+    background-color: #000;
+    /* Strong contrast */
+    color: #fff;
+    font-weight: 600;
+    /* Slightly bolder for authority */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    /* Subtle shadow */
+    border: 1px solid #000;
+}
+
+.icon {
+    opacity: 1;
+    width: 16px;
+    height: 16px;
+}
+
+/* Fade effects for scroll indication */
+.fadeRight {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff);
+    pointer-events: none;
+}

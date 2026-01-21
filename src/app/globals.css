@@ -1,42 +1,143 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --bg-primary: #0E0E0E;
+  /* Deep Charcoal */
+  --bg-secondary: #161616;
+  /* Lighter Charcoal for cards */
+  --bg-tertiary: #1C1C1C;
+  --bg-light: #F4F4F5;
+  /* Light mode background */
+  --bg-white: #FFFFFF;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+  --text-primary: #FFFFFF;
+  --text-inverse: #0E0E0E;
+  /* Text on light background */
+  --text-secondary: #A0A0A0;
+  --text-muted: #525252;
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
+  --accent-yellow: #FFD000;
+  /* Warmer, stronger yellow */
+  --accent-yellow-dim: rgba(255, 208, 0, 0.1);
+  --accent-yellow-glow: rgba(255, 208, 0, 0.5);
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --border-subtle: #333333;
+  --border-light: #E5E5E5;
+  /* Border for light mode */
+  --border-accent: #FFD000;
+
+  /* Fonts */
+  --font-heading: var(--font-dm-sans);
+  --font-body: var(--font-dm-sans);
+
+  --radius-sm: 4px;
+  --radius-md: 10px;
+
+  --container-width: 1200px;
+  --header-height: 64px;
 }
 
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: var(--font-body) !important;
+  /* FORCE GLOBAL FONT */
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body) !important;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+  /* Slightly tight tracking default */
+  font-weight: 600;
+  /* Increased from 400 for bolder body text */
 }
 
 a {
   color: inherit;
   text-decoration: none;
+  background-image: linear-gradient(var(--accent-yellow), var(--accent-yellow));
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  transition: background-size 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.15s ease;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+a:hover {
+  background-size: 100% 1px;
+  color: var(--accent-yellow);
+  /* Slight tint on hover */
+}
+
+/* Match Reference Look: Editorial, Athletic, Breathable */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  /* Increased to 800 for full bold */
+  color: var(--text-primary);
+  letter-spacing: 0.08em;
+  /* Relaxed tracking (0.08-0.12em) */
+  text-transform: uppercase;
+  line-height: 1.2;
+  /* Relaxed line-height */
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444;
+}
+
+/* Mobile Typography Optimizations */
+@media (max-width: 768px) {
+  body {
+    line-height: 1.7;
+    /* Increased from 1.6 for mobile readability */
+    padding-bottom: 80px;
+    /* Space for mobile bottom navigation */
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.3;
+    /* Increased from 1.2 for mobile breathing room */
+  }
+
+  p {
+    line-height: 1.75;
+    /* Comfortable reading on mobile */
   }
 }
