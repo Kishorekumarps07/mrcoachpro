@@ -12,6 +12,13 @@ interface SearchOverlayProps {
 
 type Category = 'Service' | 'Program' | 'Event' | 'Page';
 
+interface SearchItem {
+    id: string;
+    title: string;
+    category: Category | string;
+    href: string;
+}
+
 import { ALL_SERVICES } from '@/data/services';
 
 // Generate dynamic search data
