@@ -25,8 +25,8 @@
   --border-accent: #FFD000;
 
   /* Fonts */
-  --font-heading: var(--font-dm-sans);
-  --font-body: var(--font-dm-sans);
+  --font-heading: var(--font-roboto);
+  --font-body: var(--font-roboto);
 
   --radius-sm: 4px;
   --radius-md: 10px;

@@ -459,47 +459,41 @@
 
     .heroContent {
         display: flex;
-        flex-direction: column-reverse;
-        /* Carousel top (if desired) or Card top. Let's keep card top? No, let's stack normally but maybe adjust order. If card is first in DOM, it's on top. flex-direction: column puts card on top. */
         flex-direction: column;
-        gap: 40px;
-        padding-top: 100px;
-        /* Space for navbar */
-        padding-bottom: 60px;
+        gap: 24px;
+        /* Reduced gap */
+        padding-top: 80px;
+        /* Reduced from 100px to pull content up */
+        padding-bottom: 40px;
         height: auto;
     }
 
     .floatingCard {
         padding: 0;
-        /* Remove padding for full mobile width */
         margin-top: 0;
     }
 
     .cardHeader {
-        margin-bottom: 40px;
-        /* Reduced from 60px on mobile */
+        margin-bottom: 24px;
+        /* Reduced from 40px */
         padding-left: 0;
-        /* Remove left padding */
     }
 
     .cardTitle {
         font-size: 1.3rem;
-        /* Reduced to fit on single line on mobile */
-        line-height: 1.3;
-        margin-bottom: 16px;
+        line-height: 1.2;
+        margin-bottom: 8px;
+        /* Tighter spacing */
         white-space: nowrap;
-        /* Force single line */
         overflow: hidden;
         text-overflow: ellipsis;
-        /* Add ellipsis if still too long */
     }
 
     .cardSubtitle {
         font-size: 0.75rem;
-        /* Further reduced on mobile */
-        opacity: 0.6;
-        /* Additional opacity reduction */
-        letter-spacing: 0.12em;
+        opacity: 0.8;
+        /* Increased visibility */
+        letter-spacing: 0.1em;
         max-width: 100%;
     }
 
@@ -509,9 +503,9 @@
     }
 
     .gridItemPrimary {
-        height: 120px;
-        /* Increased from 100px for better tap targets */
-        min-height: 120px;
+        height: 110px;
+        /* Slightly reduced to ensure 2 rows fit easily */
+        min-height: 110px;
     }
 
     .carouselZone {

@@ -1,7 +1,11 @@
 .section {
     padding: 80px 0;
-    background: #FFFFFF;
-    /* White background */
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFFAF0 100%);
+    /* Subtle warm gradient */
+    border-top: 4px solid var(--accent-yellow);
+    /* Top highlight border */
+    position: relative;
+    overflow: hidden;
 }
 
 .container {
@@ -11,34 +15,47 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 120px;
+    gap: 80px;
 }
 
 .metric {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
+    padding: 32px 48px;
+    background: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    min-width: 250px;
+}
+
+.metric:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(255, 208, 0, 0.15);
+    border-color: var(--accent-yellow);
 }
 
 .number {
     font-family: var(--font-heading);
-    font-size: 3.5rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    /* Moon black */
+    font-size: 4rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #1a1a1a 30%, #4a4a4a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     line-height: 1;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
 }
 
 .label {
     font-family: var(--font-body);
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: #1a1a1a;
-    opacity: 0.6;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #666;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
 }
 
 /* Mobile Layout */
@@ -48,21 +65,23 @@
     }
 
     .container {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        /* 3 columns for single row */
-        gap: 20px;
-        /* Reduced gap */
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
         padding: 0 20px;
     }
 
+    .metric {
+        width: 100%;
+        padding: 24px;
+        min-width: auto;
+    }
+
     .number {
-        font-size: 1.8rem;
-        /* Reduced from 2.5rem to fit 3 in a row */
+        font-size: 3rem;
     }
 
     .label {
-        font-size: 0.65rem;
-        /* Reduced from 0.75rem */
+        font-size: 0.8rem;
     }
 }
