@@ -25,8 +25,8 @@ const CONSUMER_FAQS = [
 
 const PRO_FAQS = [
     {
-        question: "How does Mr. Coach Pro help venue owners?",
-        answer: "Mr. Coach Pro provides a dashboard to manage bookings, track revenue, and handle memberships efficiently. It also lists your venue on our user app for maximum visibility."
+        question: "How does Mr.Coach Pro App help venue owners?",
+        answer: "Mr.Coach Pro App provides a dashboard to manage bookings, track revenue, and handle memberships efficiently. It also lists your venue on our user app for maximum visibility."
     },
     {
         question: "What are the commission rates?",
@@ -34,11 +34,11 @@ const PRO_FAQS = [
     },
     {
         question: "Can I manage multiple staff members?",
-        answer: "Absolutely. The Pro app allows you to create staff accounts with different permissions, assign shifts, and track individual performance."
+        answer: "Absolutely. The Mr.Coach Pro App allows you to create staff accounts with different permissions, assign shifts, and track individual performance."
     },
     {
         question: "Is marketing support included?",
-        answer: "Yes, Pro partners get featured placement in search results, social media shoutouts, and access to our marketing assets to grow their business."
+        answer: "Yes, Mr.Coach Pro App partners get featured placement in search results, social media shoutouts, and access to our marketing assets to grow their business."
     }
 ];
 
@@ -52,19 +52,19 @@ export const FAQSection = () => {
                 </div>
 
                 <div className={styles.grid}>
-                    {/* Column 1: Mr. Coach App */}
+                    {/* Column 1: Mr.Coach App */}
                     <div className={styles.column}>
                         <div className={styles.columnHeader}>
-                            <h3 className={styles.columnTitle}>Mr. Coach App</h3>
+                            <h3 className={styles.columnTitle}>Mr.Coach App</h3>
                             <span className={styles.badge}>For Users</span>
                         </div>
                         <FAQList items={CONSUMER_FAQS} />
                     </div>
 
-                    {/* Column 2: Mr. Coach Pro App */}
+                    {/* Column 2: Mr.Coach Pro App */}
                     <div className={styles.column}>
                         <div className={styles.columnHeader}>
-                            <h3 className={styles.columnTitle}>Mr. Coach Pro App</h3>
+                            <h3 className={styles.columnTitle}>Mr.Coach Pro App</h3>
                             <span className={styles.badgePro}>For Partners</span>
                         </div>
                         <FAQList items={PRO_FAQS} />

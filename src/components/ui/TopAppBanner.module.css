@@ -1,11 +1,47 @@
 .banner {
-    background-color: var(--accent-yellow);
-    /* Brand Yellow */
+    background-color: #FFFFFF;
     color: #1a1a1a;
     position: relative;
     z-index: 1100;
-    /* Above Navbar (1000) */
     overflow: hidden;
+    border-bottom: 2px solid var(--accent-yellow);
+    /* Branding highlight */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    /* Subtle lift */
+    background-image: linear-gradient(180deg,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(249, 217, 73, 0.05) 100%);
+}
+
+/* Premium Glossy Shine */
+.banner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.8) 50%,
+            rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-25deg);
+    animation: shine 8s infinite ease-in-out;
+    pointer-events: none;
+}
+
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+
+    20% {
+        left: 200%;
+    }
+
+    100% {
+        left: 200%;
+    }
 }
 
 .container {
@@ -33,45 +69,56 @@
     font-size: 0.9rem;
     line-height: 1.4;
     text-align: center;
+    font-weight: 600;
+    /* Slightly bolder for readability */
+    color: #1a1a1a;
 }
 
 .downloadBtn {
-    background-color: #1a1a1a;
-    color: #FFFFFF;
+    background-color: var(--accent-yellow);
+    /* Brand Yellow Button */
+    color: #000000;
     border: none;
-    border-radius: 4px;
-    padding: 6px 16px;
+    border-radius: 6px;
+    padding: 8px 18px;
     font-size: 0.85rem;
-    font-weight: 700;
+    font-weight: 800;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     font-family: var(--font-heading);
     letter-spacing: 0.02em;
     white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(249, 217, 73, 0.3);
 }
 
 .downloadBtn:hover {
     background-color: #000000;
-    transform: translateY(-1px);
+    color: var(--accent-yellow);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
 .closeBtn {
     position: absolute;
     right: 20px;
-    background: transparent;
+    background: rgba(0, 0, 0, 0.05);
+    /* Subtle circle background */
     border: none;
     cursor: pointer;
     color: #1a1a1a;
-    opacity: 0.7;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4px;
-    transition: opacity 0.2s;
+    padding: 0;
+    transition: all 0.2s ease;
 }
 
 .closeBtn:hover {
-    opacity: 1;
+    background: rgba(0, 0, 0, 0.1);
+    transform: scale(1.1);
 }
 
 /* Link reset */

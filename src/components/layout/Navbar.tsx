@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/Button';
 import { SearchOverlay } from '@/components/ui/SearchOverlay';
 import { useModal } from '@/context/ModalContext'; // Import Context
 import styles from './Navbar.module.css';
-import { ALL_SERVICES } from '@/data/services';
+import { CORE_SERVICES } from '@/data/services';
 
 const NAV_LINKS = [
     { href: '/services', label: 'Services' },
@@ -25,7 +25,7 @@ export const Navbar = () => {
 
     // Search Placeholder Cycling Logic
     const [placeholderIndex, setPlaceholderIndex] = useState(0);
-    const placeholders = ALL_SERVICES;
+    const placeholders = CORE_SERVICES;
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -54,6 +54,15 @@ export const Navbar = () => {
                             width={180}
                             height={48}
                             className={styles.logoImage}
+                            priority
+                            style={{ objectFit: 'contain' }}
+                        />
+                        <Image
+                            src="/mobile-logo.png"
+                            alt="MR.COACH Logo"
+                            width={40}
+                            height={40}
+                            className={styles.logoMobile}
                             priority
                             style={{ objectFit: 'contain' }}
                         />

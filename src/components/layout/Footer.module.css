@@ -1,19 +1,12 @@
 .footer {
     position: relative;
-    /* Essential for overlays if needed, but using background shorthand here */
-    background:
-        linear-gradient(rgba(255, 230, 0, 0.85), rgba(255, 215, 0, 0.95)),
-        /* Yellow Tint */
-        url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop');
-    /* Abstract Gold Fluid */
-    background-size: cover;
-    background-position: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    /* Glassy top border */
+    background-color: var(--accent-yellow);
     padding: 80px 0 40px;
     color: #1a1a1a;
-    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
-    /* Lift it slightly */
+    margin-top: -1px;
+    /* Eliminate sub-pixel gap with section above */
+    border: none;
+    box-shadow: none;
 }
 
 .container {
@@ -116,7 +109,8 @@
 
 @media (max-width: 768px) {
     .footer {
-        padding: 60px 0 30px;
+        padding: 60px 0 120px;
+        /* Increased bottom padding to clear floating nav */
     }
 
     .container {

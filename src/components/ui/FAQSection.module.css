@@ -73,6 +73,8 @@
     font-size: 1.5rem;
     font-weight: 700;
     color: #1a1a1a;
+    text-transform: none;
+    /* Preserve requested casing */
 }
 
 .badge,

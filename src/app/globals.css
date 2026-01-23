@@ -14,15 +14,15 @@
   --text-secondary: #A0A0A0;
   --text-muted: #525252;
 
-  --accent-yellow: #FFD000;
-  /* Warmer, stronger yellow */
-  --accent-yellow-dim: rgba(255, 208, 0, 0.1);
-  --accent-yellow-glow: rgba(255, 208, 0, 0.5);
+  --accent-yellow: #F9D949;
+  /* Refined, softer brand yellow */
+  --accent-yellow-dim: rgba(249, 217, 73, 0.1);
+  --accent-yellow-glow: rgba(249, 217, 73, 0.5);
 
   --border-subtle: #333333;
   --border-light: #E5E5E5;
   /* Border for light mode */
-  --border-accent: #FFD000;
+  --border-accent: #F9D949;
 
   /* Fonts */
   --font-heading: var(--font-roboto);

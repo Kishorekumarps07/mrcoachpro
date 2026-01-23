@@ -20,5 +20,15 @@ export const SPECIALIZATION_SERVICES: Record<string, string[]> = {
     ]
 };
 
+// Core services for search placeholders
+export const CORE_SERVICES = [
+    "Fitness",
+    "Physio",
+    "Sports",
+    "Yoga",
+    "Online Coaching",
+    "Nutrition"
+];
+
 // Flatten all services into a single array for the search bar
 export const ALL_SERVICES = Object.values(SPECIALIZATION_SERVICES).flat();

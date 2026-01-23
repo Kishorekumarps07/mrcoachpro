@@ -1,30 +1,33 @@
 .section {
-    padding: 80px 0;
-    margin: 40px 20px;
-    border-radius: 24px;
-    background: var(--accent-yellow);
+    padding: 80px 20px;
+    background-color: var(--accent-yellow);
+    /* Subtle Yellow Outer */
     position: relative;
     overflow: hidden;
 }
 
-/* Add a subtle brand glow */
-.section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
-    pointer-events: none;
-}
+/* Marker highlight effect removed to ensure seamless transition with Footer */
+
 
 .container {
-    max-width: 800px;
+    max-width: 960px;
     margin: 0 auto;
     text-align: center;
     position: relative;
     z-index: 1;
+    background-color: #FFFFFF;
+    /* Glossy White Card */
+    padding: 60px 40px;
+    border-radius: 40px;
+    box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    background-image: linear-gradient(165deg,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(248, 248, 250, 0.4) 40%,
+            rgba(255, 255, 255, 0.9) 100%);
+    overflow: hidden;
 }
 
 .title {
@@ -35,6 +38,8 @@
     line-height: 1.2;
     margin-bottom: 16px;
     letter-spacing: -0.02em;
+    text-transform: none;
+    /* Allow mixed casing */
 }
 
 .highlight {
@@ -72,27 +77,33 @@
 
 @media (max-width: 768px) {
     .section {
-        margin: 40px 16px;
-        padding: 48px 24px;
-        border-radius: 20px;
+        padding: 40px 16px;
+    }
+
+    .container {
+        padding: 40px 20px !important;
+        border-radius: 24px;
     }
 
     .title {
-        font-size: 1.8rem;
+        font-size: 1.45rem;
+        line-height: 1.35;
+        margin-bottom: 12px;
     }
 
     .subtitle {
-        font-size: 1rem;
-        margin-bottom: 32px;
+        font-size: 0.9rem;
+        margin-bottom: 24px;
+        line-height: 1.5;
     }
 
     .storeButtons {
-        gap: 16px;
+        gap: 12px;
         flex-direction: column;
         align-items: center;
     }
 
     .storeBadge {
-        height: 50px;
+        height: 48px;
     }
 }

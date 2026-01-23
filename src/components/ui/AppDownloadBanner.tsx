@@ -10,10 +10,10 @@ export const AppDownloadBanner = () => {
             <div className={styles.container}>
                 <div className={styles.content}>
                     <h2 className={styles.title}>
-                        Get the <span className={styles.highlight}>Mr. Coach</span> app for a seamless experience!
+                        Get the <span className={styles.highlight}>Mr.Coach App</span> for a Seamless Experience!
                     </h2>
                     <p className={styles.subtitle}>
-                        Book coaches, manage sessions, and track your performance on the go.
+                        Book Coaches, Manage Sessions, and Track your Performance on the go.
                     </p>
 
                     <div className={styles.storeButtons}>

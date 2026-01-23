@@ -1,4 +1,3 @@
-/* Light Yellow Navbar Theme */
 .header {
     position: sticky;
     top: 0;
@@ -6,25 +5,16 @@
     right: 0;
     height: var(--header-height);
     z-index: 1000;
-    /* Lower than banner (1100) */
-    /* Super high z-index */
-    transition: background-color 0.3s ease, border-bottom 0.3s ease;
-    /* ... rest ... */
-    background:
-        linear-gradient(rgba(255, 230, 0, 0.85), rgba(255, 215, 0, 0.95)),
-        url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop');
-    background-size: cover;
-    background-position: center;
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: var(--accent-yellow);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-
-
 .scrolled {
-    background-color: rgba(255, 253, 208, 0.95);
-    /* More solid on scroll */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    background-color: rgba(249, 217, 73, 0.98);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 /* ... container, logo ... */
@@ -49,6 +39,10 @@
     height: 48px;
     width: auto;
     object-fit: contain;
+}
+
+.logoMobile {
+    display: none;
 }
 
 .desktopNav {
@@ -245,9 +239,14 @@
     }
 
     .logoImage {
-        height: 32px;
-        /* Slightly smaller to fit search bar */
+        display: none;
+    }
+
+    .logoMobile {
+        display: block;
+        height: 36px;
         width: auto;
+        object-fit: contain;
     }
 
     .desktopNav {
@@ -277,7 +276,7 @@
         display: flex;
         align-items: center;
         gap: 8px;
-        background: #FFD60A;
+        background: var(--accent-yellow);
         border-radius: 30px;
         padding: 8px 16px;
         flex: 1;
