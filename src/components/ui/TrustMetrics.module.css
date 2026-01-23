@@ -8,6 +8,33 @@
     overflow: hidden;
 }
 
+.header {
+    text-align: center;
+    margin-bottom: 60px;
+    padding: 0 20px;
+}
+
+.mainTitle {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+}
+
+.mainTitle::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--accent-yellow);
+    margin: 16px auto 0;
+    border-radius: 2px;
+}
+
 .container {
     max-width: 1280px;
     margin: 0 auto;
@@ -62,6 +89,15 @@
 @media (max-width: 768px) {
     .section {
         padding: 60px 0;
+    }
+
+    .header {
+        margin-bottom: 40px;
+    }
+
+    .mainTitle {
+        font-size: 1.1rem;
+        letter-spacing: 0.1em;
     }
 
     .container {

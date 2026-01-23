@@ -35,13 +35,24 @@
 @media (max-width: 768px) {
     .scrollWrapper {
         padding: 0 20px;
-        gap: 20px;
-        /* Increased from 16px for comfort */
+        gap: 12px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-content: stretch;
+        overflow-x: visible;
+        mask-image: none;
     }
 
     .filterBarContainer {
         padding: 16px 0;
         top: 60px;
+        position: sticky;
+    }
+
+    .filterPill {
+        justify-content: center;
+        padding: 12px 12px;
+        font-size: 0.85rem;
     }
 }
 

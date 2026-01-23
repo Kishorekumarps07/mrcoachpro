@@ -111,9 +111,14 @@
 .navItem.primary .label {
     color: #1a1a1a;
     font-weight: 800;
-    font-size: 0.9rem;
-    /* Larger primary label */
-    margin-top: 0px;
+    font-size: 0.75rem;
+    /* Reduced slightly to fit two lines or tight space */
+    line-height: 1;
+    margin-top: 2px;
+    max-width: 80px;
+    /* Constrain width */
+    white-space: normal;
+    /* Allow wrapping if needed */
 }
 
 .navItem.primary:active .iconWrapper {

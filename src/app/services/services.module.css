@@ -1,0 +1,97 @@
+.main {
+    min-height: 100vh;
+    background-color: #FFFFFF;
+}
+
+.hero {
+    position: relative;
+    padding: 180px 20px 80px;
+    background-color: #FFFFFF;
+    text-align: center;
+    overflow: hidden;
+}
+
+.heroContent {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+}
+
+.heroTitle {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    text-transform: uppercase;
+}
+
+.heroSubtitle {
+    font-size: 1.25rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.gridSection {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 60px 20px 120px;
+}
+
+.servicesGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+.serviceCardWrapper {
+    height: 320px;
+    /* Taller for dedicated page */
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.serviceCardWrapper:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Make inner card fill height */
+.serviceCardWrapper>div {
+    height: 100%;
+}
+
+@media (max-width: 1024px) {
+    .servicesGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding-top: 140px;
+        padding-bottom: 60px;
+    }
+
+    .heroTitle {
+        font-size: 2.5rem;
+    }
+
+    .servicesGrid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .serviceCardWrapper {
+        height: 280px;
+    }
+}

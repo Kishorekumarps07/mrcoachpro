@@ -5,9 +5,9 @@ import { motion, useInView, useSpring, useTransform } from 'framer-motion';
 import styles from './TrustMetrics.module.css';
 
 const METRICS = [
-    { value: 1000, label: 'Clients' },
-    { value: 100, label: 'Trainers' },
-    { value: 25, label: 'Locations' }
+    { value: 10000, label: 'Clients' },
+    { value: 1000, label: 'Trainers' },
+    { value: 500, label: 'Cities in India' }
 ];
 
 const CountingNumber = ({ value }: { value: number }) => {
@@ -38,6 +38,9 @@ const CountingNumber = ({ value }: { value: number }) => {
 export const TrustMetrics = () => {
     return (
         <section className={styles.section}>
+            <div className={styles.header}>
+                <h2 className={styles.mainTitle}>INDIA'S NO.1 FITNESS COMPANY</h2>
+            </div>
             <div className={styles.container}>
                 {METRICS.map((metric, index) => (
                     <motion.div

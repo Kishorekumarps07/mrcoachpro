@@ -1,6 +1,6 @@
 .bar {
     position: absolute;
-    top: 64px;
+    top: 0;
     /* Position directly at navbar bottom (no gap) */
     left: 0;
     width: 100%;

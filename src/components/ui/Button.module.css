@@ -53,8 +53,10 @@
 /* Secondary: Outline with Yellow Pulse */
 .secondary {
     background-color: transparent;
-    color: currentColor;
-    border: 1px solid rgba(140, 140, 140, 0.5);
+    color: #1a1a1a;
+    /* Explicit dark color for visibility on light bg */
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    /* Darker border */
 }
 
 .secondary:hover {

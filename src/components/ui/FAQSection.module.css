@@ -1,0 +1,130 @@
+.section {
+    padding: 100px 0;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.mainTitle {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    position: relative;
+    display: inline-block;
+}
+
+.mainTitle::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--accent-yellow);
+    margin: 12px auto 0;
+    border-radius: 2px;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    /* Generous gap between columns */
+    align-items: start;
+}
+
+.column {
+    background: #FAFAFA;
+    padding: 40px;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.columnHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+}
+
+.columnTitle {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.badge,
+.badgePro {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.badge {
+    background-color: #E0E0E0;
+    color: #333;
+}
+
+.badgePro {
+    background-color: #1a1a1a;
+    color: var(--accent-yellow);
+}
+
+@media (max-width: 1024px) {
+    .grid {
+        gap: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .section {
+        padding: 60px 0;
+    }
+
+    .container {
+        padding: 0 20px;
+    }
+
+    .header {
+        margin-bottom: 40px;
+    }
+
+    .mainTitle {
+        font-size: 1.8rem;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        /* Stack columns on mobile */
+        gap: 40px;
+    }
+
+    .column {
+        padding: 24px;
+    }
+}

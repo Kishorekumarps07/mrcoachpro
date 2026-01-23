@@ -3,6 +3,7 @@ import { Roboto } from 'next/font/google';
 import './globals.css';
 import { Footer } from '@/components/layout/Footer';
 import { MobileBottomNav } from '@/components/layout/MobileBottomNav';
+import { ModalProvider } from '@/context/ModalContext';
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -24,9 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${roboto.variable}`}>
       <body suppressHydrationWarning>
-        {children}
-        <MobileBottomNav />
-        <Footer />
+        <ModalProvider>
+          {children}
+          <MobileBottomNav />
+          <Footer />
+        </ModalProvider>
       </body>
     </html>
   );

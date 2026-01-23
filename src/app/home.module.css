@@ -18,12 +18,21 @@
     max-height: 1080px;
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    /* Align to top to control spacing manually */
     justify-content: flex-start;
     padding: 0 5%;
     overflow: hidden;
     background-color: #FFFFFF;
     /* Plain white background */
+}
+
+@media (max-width: 768px) {
+    .hero {
+        overflow: visible;
+        /* Allow content to flow */
+        height: auto;
+    }
 }
 
 /* Reusing the structure, but styled for Image + Glass */
@@ -82,24 +91,24 @@
     width: 100%;
     max-width: var(--container-width);
     margin: 0 auto;
-    padding-top: 20px;
-    /* Reduced from 140px for tighter desktop spacing */
+    padding-top: 70px;
+    /* 20px breathing room below 40px bar */
     padding-left: 20px;
     padding-right: 20px;
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
     gap: 60px;
-    align-items: center;
-    /* Restore center alignment */
+    align-items: start;
+    /* Force content to top to respect padding-top */
     height: 100%;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
     .heroContent {
         grid-template-columns: 1fr;
-        padding-top: 160px;
-        /* Increased from 120px for more space from announcement bar on mobile */
-        gap: 80px;
+        padding-top: 70px;
+        /* Reduced from 160px for tighter fit */
+        gap: 60px;
     }
 }
 
@@ -108,7 +117,8 @@
     width: 100%;
     height: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    /* Pushed to top to reduce space from announcement bar */
     justify-content: center;
     padding-left: 20px;
 }
@@ -142,8 +152,8 @@
 }
 
 .cardHeader {
-    margin-top: 25px;
-    /* Reduced to 25px for tighter spacing from announcement bar */
+    margin-top: 0;
+    /* Removed margin for tight spacing */
     margin-bottom: 15px;
     /* Further reduced from 30px for minimal space before service cards */
     text-align: center;
@@ -462,8 +472,8 @@
         flex-direction: column;
         gap: 24px;
         /* Reduced gap */
-        padding-top: 80px;
-        /* Reduced from 100px to pull content up */
+        padding-top: 50px;
+        /* Reduced from 80px to pull content up */
         padding-bottom: 40px;
         height: auto;
     }
@@ -474,7 +484,8 @@
     }
 
     .cardHeader {
-        margin-bottom: 24px;
+        margin-top: 0;
+        margin-bottom: 16px;
         /* Reduced from 40px */
         padding-left: 0;
     }

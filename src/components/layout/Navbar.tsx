@@ -7,11 +7,12 @@ import clsx from 'clsx';
 import { Menu, X, Search, MapPin, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { SearchOverlay } from '@/components/ui/SearchOverlay';
-import { BookDemoModal } from '@/components/ui/BookDemoModal';
+import { useModal } from '@/context/ModalContext'; // Import Context
 import styles from './Navbar.module.css';
 import { ALL_SERVICES } from '@/data/services';
 
 const NAV_LINKS = [
+    { href: '/services', label: 'Services' },
     { href: '/events', label: 'Events' },
     { href: '/about', label: 'About' },
 ];
@@ -20,6 +21,7 @@ export const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const { openModal } = useModal(); // Use Context
 
     // Search Placeholder Cycling Logic
     const [placeholderIndex, setPlaceholderIndex] = useState(0);
@@ -40,8 +42,6 @@ export const Navbar = () => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-
-    const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
 
     return (
         <>
@@ -79,8 +79,6 @@ export const Navbar = () => {
                                 <span className={styles.locationText}>Nungambakkam, Chennai</span>
                                 <ChevronDown size={16} className={styles.chevIcon} />
                             </button>
-
-
                         </div>
 
                         {NAV_LINKS.map((link) => (
@@ -92,20 +90,23 @@ export const Navbar = () => {
                         <Button
                             size="sm"
                             className={styles.ctaButton}
-                            onClick={() => setIsDemoModalOpen(true)}
+                            onClick={openModal} // Use Context
                         >
                             Book a Demo
                         </Button>
                     </nav>
 
+                    {/* Mobile Search Bar (New) */}
+                    <div className={styles.mobileSearchBar} onClick={() => setIsSearchOpen(true)}>
+                        <Search size={18} className={styles.mobileSearchIcon} />
+                        <span className={styles.mobileSearchPlaceholder}>
+                            Search for '{placeholders[placeholderIndex]}'
+                        </span>
+                    </div>
+
                     {/* Mobile Toggle */}
                     <div className={styles.mobileControls}>
-                        <button
-                            className={styles.searchTriggerMobile}
-                            onClick={() => setIsSearchOpen(true)}
-                        >
-                            <Search size={24} />
-                        </button>
+                        {/* Removed independent search icon trigger since we have the bar now */}
                         <button
                             className={styles.mobileToggle}
                             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -135,7 +136,7 @@ export const Navbar = () => {
                             fullWidth
                             onClick={() => {
                                 setIsMobileMenuOpen(false);
-                                setIsDemoModalOpen(true);
+                                openModal(); // Use Context
                             }}
                         >
                             Book a Demo
@@ -145,7 +146,6 @@ export const Navbar = () => {
             )}
 
             <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
-            <BookDemoModal isOpen={isDemoModalOpen} onClose={() => setIsDemoModalOpen(false)} />
         </>
     );
 };

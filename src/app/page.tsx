@@ -24,14 +24,23 @@ const SERVICE_TABS = ['Fitness', 'Performance', 'Recovery'];
 
 import { AnnouncementBar } from '@/components/ui/AnnouncementBar';
 import { HeroCarousel } from '@/components/ui/HeroCarousel';
+import { TrendingEvents } from '@/components/ui/TrendingEvents';
+import { FAQSection } from '@/components/ui/FAQSection';
+import { AppDownloadBanner } from '@/components/ui/AppDownloadBanner';
+import { TopAppBanner } from '@/components/ui/TopAppBanner';
 
 // ... (existing imports)
 
+// ...
+import { useModal } from '@/context/ModalContext'; // Import context
+
 export default function Home() {
   const [activeTab, setActiveTab] = useState(SERVICE_TABS[0]);
+  const { openModal } = useModal(); // Use context
 
   return (
     <main className={styles.main}>
+      <TopAppBanner />
       <Navbar />
 
       {/* HERO SECTION */}
@@ -47,7 +56,6 @@ export default function Home() {
 
             <div className={styles.serviceGrid}>
               {SERVICES.map((service, index) => {
-                const isPrimary = true; // All 4 are primary now
                 return (
                   <ServiceCard
                     key={index}
@@ -55,6 +63,7 @@ export default function Home() {
                     icon={service.icon}
                     backgroundImage={service.backgroundImage}
                     className={styles.gridItemPrimary}
+                    onClick={openModal} // OPEN MODAL ON CLICK
                   />
                 );
               })}
@@ -71,7 +80,14 @@ export default function Home() {
       {/* TRUST METRICS */}
       <TrustMetrics />
 
+      {/* TRENDING EVENTS */}
+      <TrendingEvents />
 
+      {/* FAQs */}
+      <FAQSection />
+
+      {/* App Download Banner */}
+      <AppDownloadBanner />
     </main>
   );
 }

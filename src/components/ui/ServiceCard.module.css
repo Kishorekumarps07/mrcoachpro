@@ -17,6 +17,16 @@
     min-height: 140px;
 }
 
+.backgroundImage {
+    object-fit: cover;
+    z-index: 0;
+    transition: transform 0.3s ease;
+}
+
+.card:hover .backgroundImage {
+    transform: scale(1.1);
+}
+
 /* Dark overlay for text visibility */
 .overlay {
     position: absolute;

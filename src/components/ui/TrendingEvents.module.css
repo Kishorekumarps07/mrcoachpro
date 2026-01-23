@@ -1,0 +1,108 @@
+.section {
+    padding: 80px 0;
+    background-color: #FAFAFA;
+    /* Slightly off-white to distinguish from metrics */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.header {
+    text-align: center;
+    position: relative;
+    padding-bottom: 24px;
+}
+
+.title {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+}
+
+.title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--accent-yellow);
+    margin: 12px auto 0;
+    border-radius: 2px;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+}
+
+/* Horizontal Scroll Container */
+.scrollContainer {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 20px;
+    /* Space for scrollbar or shadow */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.scrollContainer::-webkit-scrollbar {
+    display: none;
+    /* Chrome/Safari */
+}
+
+.grid {
+    display: flex;
+    gap: 24px;
+    padding: 4px;
+    /* Space for shadows */
+}
+
+.cardWrapper {
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .section {
+        padding: 60px 0;
+    }
+
+    .container {
+        padding: 0;
+        /* Full bleed scroll on mobile */
+    }
+
+    .header {
+        padding: 0 20px 24px;
+    }
+
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .grid {
+        padding: 4px 20px;
+        /* Padding inside scroll container */
+        gap: 16px;
+    }
+
+    .grid::after {
+        content: '';
+        display: block;
+        width: 4px;
+        /* Right padding buffer */
+        flex-shrink: 0;
+    }
+}

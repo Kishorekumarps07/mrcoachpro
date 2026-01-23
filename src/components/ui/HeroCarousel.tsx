@@ -60,6 +60,7 @@ export const HeroCarousel = () => {
                         src={image.src}
                         alt={image.alt}
                         fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
                         style={{ objectFit: 'cover' }}
                         priority={index === 0}
                     />

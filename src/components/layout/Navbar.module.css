@@ -1,11 +1,12 @@
 /* Light Yellow Navbar Theme */
 .header {
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     right: 0;
     height: var(--header-height);
-    z-index: 9999;
+    z-index: 1000;
+    /* Lower than banner (1100) */
     /* Super high z-index */
     transition: background-color 0.3s ease, border-bottom 0.3s ease;
     /* ... rest ... */
@@ -105,6 +106,11 @@
     font-weight: 500;
 }
 
+.mobileSearchBar {
+    display: none;
+    /* Hidden on desktop */
+}
+
 .locationBtn:hover {
     background: rgba(255, 255, 255, 0.8);
     border-color: rgba(0, 0, 0, 0.1);
@@ -177,6 +183,8 @@
 .mobileMenu {
     position: fixed;
     top: 60px;
+    /* Fallback */
+    top: var(--header-height);
     left: 0;
     right: 0;
     bottom: 0;
@@ -233,11 +241,13 @@
 
     .container {
         padding: 0 16px;
+        gap: 12px;
     }
 
     .logoImage {
-        height: 36px;
-        /* Smaller logo */
+        height: 32px;
+        /* Slightly smaller to fit search bar */
+        width: auto;
     }
 
     .desktopNav {
@@ -247,7 +257,9 @@
     .mobileControls {
         display: flex;
         align-items: center;
-        gap: 16px;
+        gap: 8px;
+        /* Reduced gap */
+        flex-shrink: 0;
     }
 
     .mobileToggle {
@@ -256,16 +268,54 @@
     }
 
     .searchTriggerMobile {
-        background: none;
-        border: none;
-        color: #1a1a1a;
-        padding: 4px;
-        cursor: pointer;
+        display: none;
+        /* Hide old icon trigger */
     }
+
+    /* Yellow Mobile Search Bar */
+    .mobileSearchBar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #FFD60A;
+        border-radius: 30px;
+        padding: 8px 16px;
+        flex: 1;
+        /* Allow flexible width */
+        min-width: 0;
+        /* Enable shrinking below content size */
+        margin-left: auto;
+        margin-right: 12px;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(255, 214, 10, 0.3);
+        height: 40px;
+    }
+
+    .mobileSearchIcon {
+        color: #1a1a1a;
+        flex-shrink: 0;
+    }
+
+    .mobileSearchPlaceholder {
+        font-size: 0.85rem;
+        color: #333;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 500;
+        pointer-events: none;
+        flex: 1;
+        /* Take up available space */
+        min-width: 0;
+        /* Enable shrinking */
+    }
+
 
     .mobileToggle {
         display: block;
         color: #000 !important;
+        flex-shrink: 0;
+        /* Keep menu button visible */
     }
 
     /* Fix menu top alignment */
