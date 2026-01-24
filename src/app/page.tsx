@@ -10,7 +10,7 @@ import clsx from 'clsx';
 import styles from './home.module.css';
 
 const SERVICES = [
-  { title: 'Fitness', icon: Dumbbell, backgroundImage: '/images/fitness-bg.png' },
+  { title: 'Fitness', icon: Dumbbell, backgroundImage: '/images/fitness-bg-bright.png' },
   { title: 'Physio', icon: Activity, backgroundImage: '/images/physio-bg.png' },
   { title: 'Sports', icon: Heart, backgroundImage: '/images/sports-bg.png' },
   { title: 'Yoga', icon: UserCheck, backgroundImage: '/images/yoga-bg.png' },

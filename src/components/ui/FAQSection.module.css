@@ -79,12 +79,13 @@
 
 .badge,
 .badgePro {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     font-weight: 600;
-    padding: 4px 12px;
+    padding: 6px 14px;
     border-radius: 20px;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    /* text-transform: uppercase; Removed to respect capitalization */
+    letter-spacing: 0.02em;
+    /* Reduced spacing for mixed case */
 }
 
 .badge {

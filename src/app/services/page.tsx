@@ -10,16 +10,56 @@ import { Dumbbell, Activity, Heart, UserCheck, Laptop, Utensils } from 'lucide-r
 import styles from './services.module.css';
 
 const SERVICES = [
-    { title: 'Fitness', icon: Dumbbell, backgroundImage: '/images/fitness-bg.png', description: 'State-of-the-art equipment and personal training.' },
-    { title: 'Physio', icon: Activity, backgroundImage: '/images/physio-bg.png', description: 'Expert physiotherapy for recovery and performance.' },
-    { title: 'Sports', icon: Heart, backgroundImage: '/images/sports-bg.png', description: 'Professional coaching for various competitive sports.' },
-    { title: 'Yoga', icon: UserCheck, backgroundImage: '/images/yoga-bg.png', description: 'Mindfulness and flexibility training for all levels.' },
-    { title: 'Online', icon: Laptop, backgroundImage: '/images/online-bg.png', description: 'Virtual coaching sessions available anywhere.' },
-    { title: 'Nutrition', icon: Utensils, backgroundImage: '/images/nutrition-bg.png', description: 'Customized meal plans and nutritional guidance.' }
+    {
+        title: 'Fitness',
+        icon: Dumbbell,
+        backgroundImage: '/images/fitness-bg-bright.png',
+        description: 'Comprehensive fitness programs tailored to your goals. Access state-of-the-art equipment and personalized coaching.',
+        features: ['Personal Training', 'Group Classes', 'Strength & Conditioning', 'Cardio Zones']
+    },
+    {
+        title: 'Physio',
+        icon: Activity,
+        backgroundImage: '/images/physio-bg.png',
+        description: 'Expert physiotherapy to help you recover faster and perform better. Our specialists focus on injury prevention and rehabilitation.',
+        features: ['Injury Rehabilitation', 'Sports Massage', 'Mobility Work', 'Pain Management']
+    },
+    {
+        title: 'Sports',
+        icon: Heart,
+        backgroundImage: '/images/sports-bg.png',
+        description: 'Professional coaching for competitive sports. We train athletes to excel in their discipline with sport-specific drills.',
+        features: ['Skill Development', 'Tactical Training', 'Team Coaching', 'Athletic Performance']
+    },
+    {
+        title: 'Yoga',
+        icon: UserCheck,
+        backgroundImage: '/images/yoga-bg.png',
+        description: 'Find balance and strength through our expert-led yoga sessions. Suitable for all levels, from beginners to advanced practitioners.',
+        features: ['Hatha & Vinyasa', 'Meditation', 'Flexibility Training', 'Stress Relief']
+    },
+    {
+        title: 'Online',
+        icon: Laptop,
+        backgroundImage: '/images/online-bg.png',
+        description: 'Get world-class coaching from anywhere. Our online programs provide the guidance and accountability you need remotely.',
+        features: ['Virtual Sessions', 'App-Based Tracking', 'Video Analysis', '24/7 Support']
+    },
+    {
+        title: 'Nutrition',
+        icon: Utensils,
+        backgroundImage: '/images/nutrition-bg.png',
+        description: 'Fuel your body right. Our certified nutritionists create customized meal plans to support your training and lifestyle.',
+        features: ['Custom Meal Plans', 'Dietary Analysis', 'Supplement Guidance', 'Weight Management']
+    }
 ];
 
 // ...
+
 import { useModal } from '@/context/ModalContext'; // Import context
+import { Check } from 'lucide-react'; // Import Check icon
+import Image from 'next/image';
+import { Button } from '@/components/ui/Button';
 
 export default function ServicesPage() {
     const { openModal } = useModal(); // Use context
@@ -43,20 +83,48 @@ export default function ServicesPage() {
             <section className={styles.gridSection}>
                 <div className={styles.servicesGrid}>
                     {SERVICES.map((service, index) => (
-                        <div key={index} className={styles.serviceCardWrapper}>
-                            <ServiceCard
-                                title={service.title}
-                                icon={service.icon}
-                                backgroundImage={service.backgroundImage}
-                                className="" // Wrapper handles sizing
-                                onClick={openModal} // OPEN MODAL ON CLICK
-                            />
+                        <div key={index} className={styles.richCardWrapper}>
+                            <div className={styles.richCard}>
+                                {/* Image Header */}
+                                <div className={styles.imageHeader}>
+                                    <Image
+                                        src={service.backgroundImage}
+                                        alt={service.title}
+                                        fill
+                                        style={{ objectFit: 'cover' }}
+                                    />
+                                </div>
+
+                                {/* Card Body */}
+                                <div className={styles.cardBody}>
+                                    <h3 className={styles.cardTitle}>
+                                        <service.icon size={24} className={styles.cardIcon} />
+                                        {service.title}
+                                    </h3>
+                                    <p className={styles.cardDescription}>{service.description}</p>
+
+                                    <ul className={styles.featuresList}>
+                                        {service.features.map((feature, idx) => (
+                                            <li key={idx} className={styles.featureItem}>
+                                                <Check size={16} className={styles.checkIcon} />
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <Button
+                                        fullWidth
+                                        className={styles.bookBtn}
+                                        onClick={openModal}
+                                    >
+                                        Book Now
+                                    </Button>
+                                </div>
+                            </div>
                         </div>
                     ))}
                 </div>
             </section>
-// ...
-
 
             {/* Footer Banner */}
             <AppDownloadBanner />

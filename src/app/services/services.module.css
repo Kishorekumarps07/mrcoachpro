@@ -5,7 +5,7 @@
 
 .hero {
     position: relative;
-    padding: 180px 20px 80px;
+    padding: 200px 20px 80px;
     background-color: #FFFFFF;
     text-align: center;
     overflow: hidden;
@@ -23,7 +23,7 @@
     font-size: 3.5rem;
     font-weight: 800;
     color: #1a1a1a;
-    margin-bottom: 24px;
+    margin-bottom: 4px;
     letter-spacing: -0.02em;
     line-height: 1.1;
     text-transform: uppercase;
@@ -49,24 +49,93 @@
     gap: 32px;
 }
 
-.serviceCardWrapper {
-    height: 320px;
-    /* Taller for dedicated page */
-    border-radius: 20px;
+/* Rich Service Card Styles */
+.richCardWrapper {
+    height: 100%;
+    display: flex;
+}
+
+.richCard {
+    background: #FFFFFF;
+    border-radius: 16px;
     overflow: hidden;
-    position: relative;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.serviceCardWrapper:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+.richCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.1);
 }
 
-/* Make inner card fill height */
-.serviceCardWrapper>div {
-    height: 100%;
+.imageHeader {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    background-color: #f4f4f5;
+    overflow: hidden;
+}
+
+.cardBody {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.cardTitle {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cardIcon {
+    color: var(--accent-yellow);
+}
+
+.cardDescription {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.featuresList {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.featureItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: #444;
+    font-weight: 500;
+}
+
+.checkIcon {
+    color: var(--accent-yellow);
+    flex-shrink: 0;
+}
+
+.bookBtn {
+    width: 100%;
+    margin-top: auto;
 }
 
 @media (max-width: 1024px) {
@@ -88,10 +157,10 @@
 
     .servicesGrid {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 30px;
     }
 
-    .serviceCardWrapper {
-        height: 280px;
+    .imageHeader {
+        height: 180px;
     }
 }

@@ -6,7 +6,7 @@ import styles from './TrustMetrics.module.css';
 
 const METRICS = [
     { value: 10000, label: 'Clients' },
-    { value: 1000, label: 'Trainers' },
+    { value: 5000, label: 'Coaches' },
     { value: 500, label: 'Cities in India' }
 ];
 
@@ -39,7 +39,22 @@ export const TrustMetrics = () => {
     return (
         <section className={styles.section}>
             <div className={styles.header}>
-                <h2 className={styles.mainTitle}>INDIA'S NO.1 FITNESS COMPANY</h2>
+                <motion.h2
+                    className={styles.mainTitle}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                    <span style={{ position: 'relative', zIndex: 2 }}>INDIA'S NO.1 FITNESS COMPANY</span>
+                    <motion.span
+                        className={styles.highlight}
+                        initial={{ width: 0 }}
+                        whileInView={{ width: '100%' }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+                    />
+                </motion.h2>
             </div>
             <div className={styles.container}>
                 {METRICS.map((metric, index) => (

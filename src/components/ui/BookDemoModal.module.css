@@ -26,33 +26,39 @@
 
 /* Header */
 .header {
-    background: linear-gradient(135deg, #1a1a1a 0%, #000 100%);
-    padding: 30px;
-    color: #fff;
+    background: #FFFFFF;
+    padding: 30px 30px 20px;
+    color: #1a1a1a;
     position: relative;
+    border-bottom: 1px solid #f0f0f0;
 }
 
 .title {
-    font-size: 1.75rem;
-    font-weight: 700;
+    font-size: 1.8rem;
+    font-weight: 800;
     margin-bottom: 8px;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
 }
 
 .subtitle {
-    opacity: 0.8;
-    font-size: 0.95rem;
+    opacity: 0.7;
+    font-size: 1rem;
     line-height: 1.5;
+    color: #666;
+    font-weight: 500;
 }
 
 .closeButton {
     position: absolute;
     top: 24px;
     right: 24px;
-    background: rgba(255, 255, 255, 0.15);
+    background: #f5f5f5;
     border: none;
-    color: #fff;
-    width: 32px;
-    height: 32px;
+    color: #333;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -63,7 +69,8 @@
 }
 
 .closeButton:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: #eeeeee;
+    color: #000;
     transform: rotate(90deg);
 }
 
@@ -134,8 +141,8 @@
 .input:focus,
 .select:focus {
     background: #fff;
-    border-color: #000;
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+    border-color: #D4A000;
+    box-shadow: 0 0 0 3px rgba(212, 160, 0, 0.1);
 }
 
 .textarea {
@@ -221,8 +228,9 @@
 }
 
 .submitButton {
-    background: #000;
-    color: #fff;
+    background: #D4A000;
+    /* Brand Gold */
+    color: #1a1a1a;
     border: none;
     padding: 12px 32px;
     border-radius: 10px;
@@ -231,18 +239,24 @@
     cursor: pointer;
     transition: all 0.2s ease;
     min-width: 120px;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
 }
 
 .submitButton:hover {
-    background: #333;
+    background: #bfa000;
+    /* Darker Gold */
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(212, 160, 0, 0.3);
 }
 
 .submitButton:disabled {
-    opacity: 0.7;
+    opacity: 0.6;
     cursor: not-allowed;
     transform: none;
+    background: #e0e0e0;
+    color: #888;
+    box-shadow: none;
 }
 
 /* Success State */

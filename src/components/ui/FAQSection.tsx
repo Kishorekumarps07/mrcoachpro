@@ -65,7 +65,7 @@ export const FAQSection = () => {
                     <div className={styles.column}>
                         <div className={styles.columnHeader}>
                             <h3 className={styles.columnTitle}>Mr.Coach Pro App</h3>
-                            <span className={styles.badgePro}>For Partners</span>
+                            <span className={styles.badgePro}>For Coaches</span>
                         </div>
                         <FAQList items={PRO_FAQS} />
                     </div>

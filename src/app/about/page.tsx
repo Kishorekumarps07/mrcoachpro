@@ -63,6 +63,42 @@ export default function AboutPage() {
                 </div>
             </section>
 
+            {/* APP SHOWCASE */}
+            <section className={styles.appSection}>
+                <div className={styles.container}>
+                    <h2 className={styles.sectionHeading}>One Platform. <span className={styles.highlight}>Two Ecosystems.</span></h2>
+                    <div className={styles.appGrid}>
+                        {/* User App */}
+                        <div className={styles.appCard}>
+                            <span className={`${styles.appBadge} ${styles.badgeUser}`}>For Users</span>
+                            <h3 className={styles.appTitle}>Mr.Coach App</h3>
+                            <p className={styles.appDesc}>
+                                Your personal performance hub. Track workouts, access elite programming, and stay accountable to your goals with real-time analytics.
+                            </p>
+                            <div className={styles.appImageWrapper}>
+                                <div style={{ width: '100%', height: '100%', backgroundColor: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '1.2rem', fontWeight: 'bold' }}>
+                                    User App UI
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Coach App */}
+                        <div className={styles.appCard}>
+                            <span className={`${styles.appBadge} ${styles.badgeCoach}`}>For Coaches</span>
+                            <h3 className={styles.appTitle}>Mr.Coach Pro App</h3>
+                            <p className={styles.appDesc}>
+                                The ultimate toolkit for certified coaches. Manage clients, build programs, and scale your business without the administrative headache.
+                            </p>
+                            <div className={styles.appImageWrapper}>
+                                <div style={{ width: '100%', height: '100%', backgroundColor: '#D4A000', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#000', fontSize: '1.2rem', fontWeight: 'bold' }}>
+                                    Pro App UI
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* CORE VALUES */}
             <section className={styles.valuesSection}>
                 <div className={styles.container}>

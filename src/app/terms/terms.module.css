@@ -1,0 +1,73 @@
+.main {
+    min-height: 100vh;
+    background-color: #ffffff;
+    color: #333333;
+    font-family: system-ui, -apple-system, sans-serif;
+    padding-top: 100px;
+    /* Space for Navbar */
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 60px 24px 100px;
+}
+
+.header {
+    margin-bottom: 48px;
+    text-align: center;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: #111;
+    letter-spacing: -0.02em;
+}
+
+.date {
+    font-size: 0.95rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.content {
+    line-height: 1.7;
+    font-size: 1.05rem;
+    color: #444;
+}
+
+.paragraph {
+    margin-bottom: 24px;
+}
+
+.list {
+    margin: 24px 0 32px 24px;
+    padding-left: 20px;
+    list-style-type: disc;
+}
+
+.listItem {
+    margin-bottom: 16px;
+    padding-left: 8px;
+}
+
+.disclaimer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid #eaeaea;
+    font-size: 0.9rem;
+    color: #888;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 40px 20px 80px;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+}

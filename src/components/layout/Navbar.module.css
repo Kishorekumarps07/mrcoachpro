@@ -247,6 +247,8 @@
         height: 36px;
         width: auto;
         object-fit: contain;
+        border-radius: 8px;
+        /* Soften edges */
     }
 
     .desktopNav {
@@ -337,4 +339,23 @@
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.ctaButton {
+    border: 2px solid #000000 !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    box-shadow: 0 4px 0 #000000 !important;
+    /* Retro/Bold 3D effect */
+    transition: all 0.2s ease !important;
+}
+
+.ctaButton:hover {
+    transform: translate(2px, 2px) !important;
+    box-shadow: 0 2px 0 #000000 !important;
+}
+
+.ctaButton:active {
+    transform: translate(4px, 4px) !important;
+    box-shadow: none !important;
 }
