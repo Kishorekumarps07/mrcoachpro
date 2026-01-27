@@ -458,8 +458,12 @@
     }
 }
 
-/* Home Page Specific Mobile Styles */
 @media (max-width: 768px) {
+    .container {
+        padding: 0 20px;
+        /* Standardized mobile padding */
+    }
+
     .hero {
         height: auto;
         min-height: 100vh;
@@ -475,6 +479,9 @@
         padding-top: 50px;
         /* Reduced from 80px to pull content up */
         padding-bottom: 40px;
+        padding-left: 20px;
+        padding-right: 20px;
+        /* Verified side padding */
         height: auto;
     }
 
@@ -485,37 +492,39 @@
 
     .cardHeader {
         margin-top: 0;
-        margin-bottom: 16px;
-        /* Reduced from 40px */
+        margin-bottom: 24px;
+        /* Improved spacing */
         padding-left: 0;
     }
 
     .cardTitle {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
+        /* Improved readability */
         line-height: 1.2;
         margin-bottom: 8px;
         /* Tighter spacing */
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        white-space: normal;
+        /* Allow wrapping on mobile if long */
     }
 
     .cardSubtitle {
-        font-size: 0.75rem;
-        opacity: 0.8;
+        font-size: 0.8rem;
+        opacity: 0.9;
         /* Increased visibility */
         letter-spacing: 0.1em;
         max-width: 100%;
+        line-height: 1.4;
     }
 
     .serviceGrid {
         grid-template-columns: repeat(2, 1fr);
+        /* 2 col x 3 rows = 6 items (User's 3x3 request interpreted as 3 rows) */
         gap: 12px;
     }
 
     .gridItemPrimary {
         height: 110px;
-        /* Slightly reduced to ensure 2 rows fit easily */
+        /* Standard height for grid */
         min-height: 110px;
     }
 
@@ -523,6 +532,7 @@
         height: 300px;
         /* Constrain carousel height */
         padding-left: 0;
+        margin-top: 20px;
     }
 
     /* Tabs */
@@ -530,7 +540,9 @@
         justify-content: flex-start;
         overflow-x: auto;
         padding-bottom: 12px;
-        gap: 32px;
+        padding-left: 20px;
+        /* Align start with container */
+        gap: 24px;
         mask-image: linear-gradient(to right, black 85%, transparent 100%);
         -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
         /* Hide Scrollbar */
@@ -545,6 +557,7 @@
     .tabButton {
         white-space: nowrap;
         flex-shrink: 0;
+        font-size: 0.85rem;
     }
 
     /* Content Sections */
@@ -554,7 +567,12 @@
     }
 
     .serviceTitle {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        padding: 0 20px;
+    }
+
+    .serviceDesc {
+        padding: 0 20px;
     }
 
     .featureList {
@@ -562,16 +580,18 @@
         gap: 20px;
         align-items: flex-start;
         padding-left: 20px;
+        padding-right: 20px;
     }
 
     /* Age Grid */
     .ageGrid {
         grid-template-columns: 1fr;
         gap: 24px;
+        padding: 0 20px;
     }
 
     .ageCard {
-        padding: 32px 24px;
+        padding: 24px;
     }
 }
 

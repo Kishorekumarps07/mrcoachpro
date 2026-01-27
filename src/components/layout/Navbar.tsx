@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import clsx from 'clsx';
-import { Menu, X, Search, MapPin, ChevronDown } from 'lucide-react';
+import { Menu, X, Search, MapPin, ChevronDown, Sparkles, Calendar, Info } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { SearchOverlay } from '@/components/ui/SearchOverlay';
 import { useModal } from '@/context/ModalContext'; // Import Context
@@ -12,9 +12,9 @@ import styles from './Navbar.module.css';
 import { CORE_SERVICES } from '@/data/services';
 
 const NAV_LINKS = [
-    { href: '/services', label: 'Services' },
-    { href: '/events', label: 'Events' },
-    { href: '/about', label: 'About' },
+    { href: '/services', label: 'Services', icon: Sparkles },
+    { href: '/events', label: 'Events', icon: Calendar },
+    { href: '/about', label: 'About', icon: Info },
 ];
 
 export const Navbar = () => {
@@ -118,40 +118,56 @@ export const Navbar = () => {
                         {/* Removed independent search icon trigger since we have the bar now */}
                         <button
                             className={styles.mobileToggle}
-                            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                            onClick={() => setIsMobileMenuOpen(true)}
                         >
-                            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                            <Menu size={24} />
                         </button>
                     </div>
 
                 </div>
             </header>
 
-            {/* Mobile Menu - Moved outside header to avoid stacking context issues */}
+            {/* Mobile Side Drawer */}
             {isMobileMenuOpen && (
-                <div className={styles.mobileMenu}>
-                    {NAV_LINKS.map((link) => (
-                        <Link
-                            key={link.href}
-                            href={link.href}
-                            className={styles.mobileNavLink}
-                            onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                            {link.label}
-                        </Link>
-                    ))}
-                    <div className={styles.mobileCta}>
-                        <Button
-                            fullWidth
-                            onClick={() => {
-                                setIsMobileMenuOpen(false);
-                                openModal(); // Use Context
-                            }}
-                        >
-                            Book a Demo
-                        </Button>
+                <>
+                    <div
+                        className={styles.mobileMenuOverlay}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                    />
+                    <div className={styles.mobileMenu}>
+                        <div className={styles.mobileMenuHeader}>
+                            <button
+                                className={styles.closeButton}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                                <X size={24} />
+                            </button>
+                        </div>
+
+                        {NAV_LINKS.map((link) => (
+                            <Link
+                                key={link.href}
+                                href={link.href}
+                                className={styles.mobileNavLink}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                                <link.icon size={20} className={styles.menuIcon} />
+                                {link.label}
+                            </Link>
+                        ))}
+                        <div className={styles.mobileCta}>
+                            <Button
+                                fullWidth
+                                onClick={() => {
+                                    setIsMobileMenuOpen(false);
+                                    openModal(); // Use Context
+                                }}
+                            >
+                                Book a Demo
+                            </Button>
+                        </div>
                     </div>
-                </div>
+                </>
             )}
 
             <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />

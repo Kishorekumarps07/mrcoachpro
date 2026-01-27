@@ -41,7 +41,7 @@
     .scrollWrapper {
         display: flex;
         gap: 12px;
-        padding: 0 16px;
+        padding: 0 20px;
         overflow-x: auto;
         justify-content: flex-start;
         align-items: center;

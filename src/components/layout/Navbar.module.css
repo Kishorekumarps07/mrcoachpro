@@ -174,41 +174,119 @@
     /* Clickable */
 }
 
-.mobileMenu {
+/* Mobile Side Drawer */
+.mobileMenuOverlay {
     position: fixed;
-    top: 60px;
-    /* Fallback */
-    top: var(--header-height);
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(255, 255, 255, 0.85);
-    /* Transparent Glass */
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-    padding: 24px;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 2147483646;
+    /* Max Layer Overlay */
+    animation: fadeIn 0.3s ease-out;
+}
+
+.mobileMenu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 80%;
+    max-width: 320px;
+    background: rgba(255, 255, 255, 0.95);
+    /* Frosty Glass */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+    padding: 32px 24px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
-    animation: slideDown 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-    z-index: 9998;
+    gap: 8px;
+    /* Spacing between links */
+    animation: slideInRight 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: 2147483647;
+    /* Max Layer Drawer */
     overflow-y: auto;
 }
 
-.mobileNavLink {
-    font-size: 1.5rem;
-    font-weight: 700;
+.mobileMenuHeader {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.closeButton {
+    background: none;
+    border: none;
     color: #1a1a1a;
-    padding: 16px 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    text-align: center;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.closeButton:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.mobileNavLink {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #444;
+    padding: 16px 20px;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    border-bottom: none;
+    /* Remove old border */
+}
+
+.mobileNavLink:hover,
+.mobileNavLink:active {
+    background: rgba(255, 215, 0, 0.15);
+    /* Yellow Tint */
+    color: #000;
+    transform: translateX(8px);
+}
+
+.menuIcon {
+    color: #888;
+    transition: color 0.2s;
+}
+
+.mobileNavLink:hover .menuIcon {
+    color: #000;
 }
 
 .mobileCta {
     margin-top: auto;
     padding-bottom: 40px;
     width: 100%;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .mobileControls {
@@ -323,10 +401,8 @@
         /* Keep menu button visible */
     }
 
-    /* Fix menu top alignment */
-    .mobileMenu {
-        top: 60px;
-    }
+    /* Fix menu top alignment handled by global class */
+    /* Removed conflicting top: 60px */
 }
 
 @keyframes slideDown {

@@ -109,8 +109,8 @@
     }
 
     .container {
-        padding: 0 16px;
-        /* Reduced side padding */
+        padding: 0 20px;
+        /* Standardized mobile padding */
     }
 
     .gridTitle {
@@ -135,6 +135,12 @@
         gap: 24px;
         place-items: center;
         /* Center cards if they don't fill width */
+    }
+
+    .searchInput,
+    .sortSelect {
+        font-size: 16px;
+        /* Prevent iOS zoom */
     }
 }
 
