@@ -1,236 +1,544 @@
-.container {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 24px;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 40px;
+.main {
+    min-height: 100vh;
+    background: #FFFFFF;
 }
 
-@media (min-width: 1024px) {
-    .container {
-        grid-template-columns: 2fr 1fr;
-    }
-}
-
-.heroImageWrapper {
+/* Hero Section */
+.hero {
     position: relative;
-    width: 100%;
-    aspect-ratio: 16/9;
-    background-color: #f0f0f0;
-    margin-bottom: 40px;
-    border-radius: 16px;
+    height: 500px;
     overflow: hidden;
 }
 
 .heroImage {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.image {
     object-fit: cover;
 }
 
-.mainContent {
+.heroOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+    z-index: 1;
+}
+
+.heroContent {
     position: relative;
-}
-
-.eventTitle {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 16px;
-    line-height: 1.1;
-    color: #1a1a1a;
-    letter-spacing: -0.02em;
-}
-
-.metaRow {
+    z-index: 2;
+    height: 100%;
     display: flex;
+    align-items: flex-end;
+    padding-bottom: 60px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    width: 100%;
+}
+
+.categoryBadge {
+    display: inline-block;
+    background: var(--accent-yellow);
+    color: #1a1a1a;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: 900;
+    color: #FFFFFF;
+    margin-bottom: 24px;
+    line-height: 1.1;
+    font-family: var(--font-heading);
+}
+
+.metaInfo {
+    display: flex;
+    gap: 32px;
     flex-wrap: wrap;
-    gap: 24px;
-    margin-bottom: 32px;
-    padding-bottom: 32px;
-    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
 }
 
 .metaItem {
     display: flex;
     align-items: center;
     gap: 8px;
+    color: #FFFFFF;
     font-size: 1rem;
-    color: #555;
     font-weight: 500;
 }
 
-.sectionTitle {
-    font-size: 1.25rem;
+.shareButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 0.95rem;
     font-weight: 600;
-    margin: 32px 0 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.shareButton:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Content Grid */
+.contentGrid {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 48px;
+    padding: 60px 0;
+}
+
+.mainContent {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
+
+.section {
+    background: #FFFFFF;
+}
+
+.sectionTitle {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 24px;
+    font-family: var(--font-heading);
+}
+
+.paragraph {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #444;
+    margin-bottom: 16px;
+}
+
+/* Highlights */
+.highlightsList {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+}
+
+.highlightItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 1rem;
+    color: #444;
+    padding: 16px;
+    background: #FFFAF0;
+    border-radius: 12px;
+    border-left: 4px solid var(--accent-yellow);
+}
+
+.checkIcon {
+    color: var(--accent-yellow);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+/* Agenda */
+.agenda {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.agendaItem {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 24px;
+    padding: 20px;
+    background: #F9F9F9;
+    border-radius: 12px;
+    border-left: 4px solid var(--accent-yellow);
+}
+
+.agendaTime {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    font-weight: 700;
     color: #1a1a1a;
 }
 
-.description {
-    line-height: 1.8;
-    color: #444;
-    font-size: 1.05rem;
-    margin-bottom: 32px;
-}
-
-.highlightGrid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    margin-bottom: 40px;
-}
-
-.highlightCard {
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 12px;
+.agendaContent {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.highlightLabel {
+.agendaTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.agendaDescription {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+.agendaSpeaker {
+    font-size: 0.9rem;
+    color: #888;
+    font-style: italic;
+}
+
+/* Organizer */
+.organizerCard {
+    display: flex;
+    gap: 24px;
+    padding: 24px;
+    background: #FFFAF0;
+    border-radius: 16px;
+    border: 2px solid var(--accent-yellow);
+}
+
+.organizerImage {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.organizerInfo {
+    flex: 1;
+}
+
+.organizerName {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+}
+
+.organizerRole {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.organizerBio {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 16px;
+}
+
+.credentials {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.credential {
+    font-size: 0.8rem;
+    background: #FFFFFF;
+    color: #666;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+/* Testimonials */
+.testimonials {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.testimonialCard {
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    background: #F9F9F9;
+    border-radius: 12px;
+    border-left: 4px solid var(--accent-yellow);
+}
+
+.testimonialImage {
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.testimonialContent {
+    flex: 1;
+}
+
+.testimonialText {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    font-style: italic;
+}
+
+.testimonialAuthor {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* Sidebar */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.pricingCard {
+    background: #FFFFFF;
+    border: 2px solid #E0E0E0;
+    border-radius: 16px;
+    padding: 24px;
+    position: sticky;
+    top: 100px;
+}
+
+.pricingTitle {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+}
+
+.pricingTier {
+    padding: 16px;
+    background: #FFFAF0;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    border: 1px solid #E0E0E0;
+}
+
+.tierHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.tierName {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.tierPrice {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--accent-yellow);
+}
+
+.tierDescription {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.tierFeatures {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.tierFeature {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: #444;
+}
+
+.tierFeature svg {
+    color: var(--accent-yellow);
+    flex-shrink: 0;
+}
+
+.registerButton {
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+
+.deadline {
+    text-align: center;
     font-size: 0.85rem;
     color: #666;
+}
+
+.tagsCard {
+    background: #F9F9F9;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.tagsTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    background: var(--accent-yellow);
+    color: #1a1a1a;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 0.8rem;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
 
-.highlightValue {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #1a1a1a;
+/* Mobile Sticky CTA */
+.mobileStickyCta {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #FFFFFF;
+    border-top: 1px solid #E0E0E0;
+    padding: 16px 20px;
+    z-index: 100;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.05);
 }
 
-/* Sidebar */
-.sidebarWrapper {
-    position: relative;
-}
-
-.stickyCard {
-    position: sticky;
-    top: 100px;
-    /* Below Nav */
-    background: #fff;
-    border: 1px solid #e0e0e0;
-    padding: 32px;
-    border-radius: 20px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-}
-
-.sidebarTitle {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 24px;
-    color: #1a1a1a;
-}
-
-.detailRow {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 16px;
-    font-size: 0.95rem;
-}
-
-.detailLabel {
-    color: #666;
-}
-
-.detailValue {
-    font-weight: 600;
-    color: #1a1a1a;
-}
-
-.divider {
-    height: 1px;
-    background: #eee;
-    margin: 24px 0;
-}
-
-.priceTag {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 8px;
-}
-
-.priceSub {
-    font-size: 0.85rem;
-    color: #666;
-    margin-bottom: 24px;
-}
-
-.bookButton {
-    width: 100%;
-    margin-bottom: 12px;
-}
-
-.secureText {
-    font-size: 0.8rem;
-    color: #888;
-    text-align: center;
+.mobileCtaContent {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 6px;
+    justify-content: space-between;
+    gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
+.mobileCtaInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.mobileCtaPrice {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #1a1a1a;
+}
+
+.mobileCtaLabel {
+    font-size: 0.75rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.mobileRegisterBtn {
+    background: var(--accent-yellow);
+    color: #1a1a1a;
+    font-weight: 700;
+    min-width: 160px;
+}
+
+/* Responsive */
 @media (max-width: 1024px) {
-    .container {
-        gap: 0;
+    .contentGrid {
+        grid-template-columns: 1fr;
+        padding-bottom: 20px;
     }
 
-    .sidebarWrapper {
-        /* Placeholder to prevent overlap with bottom bar */
-        height: 100px;
+    .sidebar {
+        order: 1;
+        /* Keep sidebar below content on mobile since we have sticky CTA */
     }
 
-    .stickyCard {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        top: auto;
-        border-radius: 20px 20px 0 0;
-        border: none;
-        border-top: 1px solid rgba(0, 0, 0, 0.1);
-        padding: 16px 24px 24px;
-        /* Safe area padding */
-        z-index: 100;
-        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 16px;
-        animation: slideUp 0.3s ease-out;
-    }
-
-    .sidebarTitle,
-    .detailRow,
-    .divider,
-    .priceSub,
-    .secureText {
-        display: none;
-    }
-
-    .priceTag {
-        margin-bottom: 0;
-        font-size: 1.25rem;
-    }
-
-    .bookButton {
-        width: auto;
-        flex-grow: 1;
-        margin-bottom: 0;
-        height: 48px;
+    .pricingCard {
+        position: static;
     }
 }
 
-@keyframes slideUp {
-    from {
-        transform: translateY(100%);
+@media (max-width: 768px) {
+    .main {
+        padding-bottom: 80px;
+        /* Space for sticky CTA */
     }
 
-    to {
-        transform: translateY(0);
+    .hero {
+        height: 380px;
+    }
+
+    .heroContent {
+        padding-bottom: 40px;
+    }
+
+    .title {
+        font-size: 2rem;
+        word-break: break-word;
+    }
+
+    .metaInfo {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .mobileStickyCta {
+        display: block;
+        padding-bottom: max(16px, env(safe-area-inset-bottom));
+    }
+
+    .agendaItem {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .organizerCard {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .organizerInfo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .credentials {
+        justify-content: center;
+    }
+
+    .highlightsList {
+        grid-template-columns: 1fr;
     }
 }

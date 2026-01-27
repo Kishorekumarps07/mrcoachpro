@@ -9,82 +9,163 @@
 
 .container {
     max-width: 1280px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 24px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.gridTitle {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+    font-family: var(--font-heading);
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Search and Sort Controls */
+.controls {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.searchWrapper {
+    position: relative;
+    flex: 1;
+    min-width: 300px;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    pointer-events: none;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 14px 16px 14px 48px;
+    border: 2px solid #E0E0E0;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: #1a1a1a;
+    background: #FFFFFF;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.searchInput:focus {
+    border-color: var(--accent-yellow);
+    box-shadow: 0 0 0 4px rgba(212, 160, 0, 0.1);
+}
+
+.searchInput::placeholder {
+    color: #999;
+}
+
+.sortSelect {
+    padding: 14px 16px;
+    border: 2px solid #E0E0E0;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: #1a1a1a;
+    background: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+    min-width: 200px;
+}
+
+.sortSelect:focus {
+    border-color: var(--accent-yellow);
+    box-shadow: 0 0 0 4px rgba(212, 160, 0, 0.1);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 32px;
+    margin-bottom: 40px;
 }
 
 @media (max-width: 768px) {
     .gridSection {
-        padding: 60px 0 100px;
+        padding: 40px 0 80px;
+        /* Reduced top padding */
     }
 
     .container {
-        padding: 0 20px;
+        padding: 0 16px;
+        /* Reduced side padding */
     }
-}
 
-.gridTitle {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 48px;
-    letter-spacing: -0.02em;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
+    .gridTitle {
+        font-size: 1.75rem;
+    }
 
-.gridTitle::before {
-    content: '';
-    display: block;
-    width: 6px;
-    height: 6px;
-    background-color: var(--accent-yellow);
-    border-radius: 50%;
-}
+    .controls {
+        flex-direction: column;
+        gap: 12px;
+    }
 
-.grid {
-    display: flex;
-    /* Horizontal layout */
-    overflow-x: auto;
-    /* Enable horizontal scroll */
-    overflow-y: hidden;
-    gap: 20px;
-    padding-bottom: 16px;
-    /* Space for scrollbar */
-    scroll-snap-type: x mandatory;
-    /* Snap to cards */
-    -webkit-overflow-scrolling: touch;
-    /* Smooth iOS scroll */
-    scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
-}
+    .searchWrapper {
+        min-width: 100%;
+    }
 
-.grid::-webkit-scrollbar {
-    height: 6px;
-}
+    .sortSelect {
+        width: 100%;
+    }
 
-.grid::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.grid::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 3px;
-}
-
-.grid::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.3);
-}
-
-@media (min-width: 640px) {
     .grid {
+        grid-template-columns: 1fr;
         gap: 24px;
+        place-items: center;
+        /* Center cards if they don't fill width */
     }
 }
 
-@media (min-width: 1024px) {
-    .grid {
-        gap: 28px;
-    }
+/* Empty State */
+.emptyState {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.emptyText {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 24px;
+}
+
+.resetButton {
+    background: var(--accent-yellow);
+    color: #1a1a1a;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.resetButton:hover {
+    background: #bfa000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 160, 0, 0.2);
 }

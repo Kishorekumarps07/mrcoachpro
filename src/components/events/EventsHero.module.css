@@ -86,34 +86,43 @@
 
 @media (max-width: 768px) {
     .container {
-        padding: 0 20px;
+        padding: 0 16px;
     }
 
     .infoColumn {
         min-height: auto;
+        gap: 16px;
+        /* Explicit gap for flex column */
     }
 
     .heroSection {
-        padding-top: 120px;
-        padding-bottom: 60px;
+        padding-top: 100px;
+        /* Reduced top padding */
+        padding-bottom: 40px;
         min-height: auto;
+        display: block;
+        /* Stack content naturally */
+    }
+
+    .contentGrid {
+        gap: 32px;
+        /* Reduced gap between info and poster */
     }
 
     .title {
-        font-size: 1.8rem;
-        /* Slightly reduced for mobile */
-        line-height: 1.3;
-        /* Increased for readability */
-        margin-bottom: 32px;
+        font-size: 1.75rem;
+        line-height: 1.2;
+        margin-bottom: 24px;
         max-width: 100%;
-        /* Full width on mobile */
     }
 
     .dateBadge {
-        margin-bottom: 24px;
-        /* Reduced spacing on mobile */
+        margin-bottom: 16px;
+        font-size: 0.75rem;
+        padding: 4px 12px;
     }
 }
+
 
 .dateBadge {
     font-size: 0.8rem;

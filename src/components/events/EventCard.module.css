@@ -2,46 +2,40 @@
     display: flex;
     flex-direction: column;
     background: #FFFFFF;
-    /* White card background */
     border-radius: 16px;
-    /* Rounded corners */
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    /* Soft shadow only */
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     flex-shrink: 0;
-    /* Prevent shrinking in flex */
-    width: 280px;
-    /* Fixed width for horizontal scroll */
+    width: 100%;
+    max-width: 360px;
+    /* Default max-width for consistency */
     scroll-snap-align: start;
-    /* Snap alignment */
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 @media (min-width: 640px) {
     .card {
         width: 320px;
-        /* Slightly wider on tablet */
     }
 }
 
 @media (min-width: 1024px) {
     .card {
         width: 360px;
-        /* Wider on desktop */
     }
 }
 
 .card:active {
     opacity: 0.9;
-    /* Subtle press feedback on mobile */
 }
 
 @media (min-width: 769px) {
     .card:hover {
         transform: translateY(-4px);
-        /* Minimal lift on desktop only */
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        box-shadow: 0 8px 24px rgba(212, 160, 0, 0.15);
+        border-color: var(--accent-yellow);
     }
 }
 
@@ -49,36 +43,90 @@
     position: relative;
     width: 100%;
     aspect-ratio: 16/9;
-    /* Landscape ratio for discovery */
     overflow: hidden;
     background-color: #f4f4f5;
 }
 
 .image {
     object-fit: cover;
-    transition: none;
-    /* No image animations */
+    transition: transform 0.3s ease;
+}
+
+.card:hover .image {
+    transform: scale(1.05);
+}
+
+/* Status Badge */
+.statusBadge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    backdrop-filter: blur(8px);
+}
+
+.soldOut {
+    background: rgba(239, 68, 68, 0.9);
+    color: white;
+}
+
+.fillingFast {
+    background: rgba(251, 146, 60, 0.9);
+    color: white;
+}
+
+.limitedSpots {
+    background: rgba(234, 179, 8, 0.9);
+    color: #1a1a1a;
+}
+
+.available {
+    background: rgba(34, 197, 94, 0.9);
+    color: white;
 }
 
 .content {
     display: flex;
     flex-direction: column;
     padding: 20px;
+    gap: 12px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 8px;
 }
 
 .date {
+    display: flex;
+    align-items: center;
+    gap: 4px;
     font-size: 0.75rem;
     font-weight: 700;
     color: #1a1a1a;
     background-color: var(--accent-yellow);
     padding: 4px 10px;
     border-radius: 20px;
-    display: inline-block;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    margin-bottom: 8px;
-    align-self: flex-start; /* Ensure it doesn't stretch */
+}
+
+.categoryTag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #666;
+    background: #f5f5f5;
+    padding: 4px 8px;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .title {
@@ -86,7 +134,6 @@
     font-weight: 700;
     color: #1a1a1a;
     line-height: 1.3;
-    margin-bottom: 8px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -98,16 +145,58 @@
     font-size: 0.85rem;
     color: #666;
     font-weight: 500;
-    margin-bottom: 12px;
     display: flex;
     align-items: center;
     gap: 6px;
 }
 
+/* Highlights Preview */
+.highlights {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.highlightItem {
+    font-size: 0.8rem;
+    color: #666;
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.4;
+}
+
+.highlightItem::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent-yellow);
+    font-weight: 700;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid #f0f0f0;
+}
+
 .price {
     font-size: 1.25rem;
     font-weight: 800;
-    color: #1a1a1a; /* Dark for contrast */
-    margin-top: auto; /* Push to bottom if needed */
+    color: #1a1a1a;
     letter-spacing: -0.02em;
+}
+
+.capacity {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.8rem;
+    color: #666;
+    font-weight: 600;
 }

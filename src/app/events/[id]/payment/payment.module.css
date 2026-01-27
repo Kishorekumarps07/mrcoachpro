@@ -1,0 +1,337 @@
+.main {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #FFFFFF 0%, #FFFAF0 100%);
+    padding-bottom: 80px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.backButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 24px;
+    transition: color 0.2s ease;
+}
+
+.backButton:hover {
+    color: #1a1a1a;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    font-family: var(--font-heading);
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+.contentGrid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 48px;
+}
+
+.paymentSection {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.section {
+    margin-bottom: 32px;
+}
+
+.sectionTitle {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+}
+
+.paymentMethods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.paymentMethod {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 20px;
+    border: 2px solid #E0E0E0;
+    border-radius: 12px;
+    background: #FFFFFF;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #666;
+}
+
+.paymentMethod:hover {
+    border-color: var(--accent-yellow);
+}
+
+.paymentMethod.active {
+    border-color: var(--accent-yellow);
+    background: #FFFAF0;
+    color: #1a1a1a;
+}
+
+.paymentMethod svg {
+    color: #666;
+}
+
+.paymentMethod.active svg {
+    color: var(--accent-yellow);
+}
+
+.cardForm,
+.upiForm,
+.walletForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.formRow {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 16px;
+}
+
+.label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.input {
+    padding: 12px 16px;
+    border: 2px solid #E0E0E0;
+    border-radius: 10px;
+    font-size: 1rem;
+    color: #1a1a1a;
+    background: #FFFFFF;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.input:focus {
+    border-color: var(--accent-yellow);
+    box-shadow: 0 0 0 4px rgba(212, 160, 0, 0.1);
+}
+
+.upiNote,
+.walletNote {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: center;
+    padding: 16px;
+    background: #F9F9F9;
+    border-radius: 8px;
+}
+
+.walletOptions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.walletOption {
+    padding: 16px;
+    border: 2px solid #E0E0E0;
+    border-radius: 10px;
+    background: #FFFFFF;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.walletOption:hover {
+    border-color: var(--accent-yellow);
+    background: #FFFAF0;
+}
+
+.termsSection {
+    padding: 20px;
+    background: #FFFAF0;
+    border-radius: 12px;
+    border: 2px solid var(--accent-yellow);
+}
+
+.checkboxLabel {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.payButton {
+    margin-top: 24px;
+}
+
+.secureNote {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 16px;
+}
+
+.sidebar {
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+}
+
+.summaryCard {
+    background: #FFFFFF;
+    border: 2px solid #E0E0E0;
+    border-radius: 16px;
+    padding: 24px;
+}
+
+.summaryTitle {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+}
+
+.eventInfo {
+    margin-bottom: 20px;
+}
+
+.eventName {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.eventDate,
+.eventLocation {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.summaryItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.summaryDivider {
+    height: 1px;
+    background: #E0E0E0;
+    margin: 16px 0;
+}
+
+.summaryTotal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #1a1a1a;
+}
+
+.summaryTotal span:last-child {
+    color: var(--accent-yellow);
+}
+
+@media (max-width: 1024px) {
+    .contentGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        position: static;
+        order: -1;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 24px 16px;
+    }
+
+    .title {
+        font-size: 1.8rem;
+    }
+
+    .paymentMethods {
+        grid-template-columns: 1fr;
+    }
+
+    .paymentSection {
+        padding: 24px 16px;
+        /* Reduced side padding on mobile card */
+    }
+
+    .formRow {
+        grid-template-columns: 1fr;
+    }
+
+    .walletOptions {
+        grid-template-columns: 1fr;
+    }
+
+    .input {
+        font-size: 16px;
+        /* Prevent iOS zoom */
+        height: 48px;
+    }
+
+    .summaryCard {
+        padding: 20px;
+        background: #F9F9F9;
+    }
+}

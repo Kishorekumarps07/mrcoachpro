@@ -1,0 +1,239 @@
+.main {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #FFFAF0 0%, #FFF5E1 100%);
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.successCard {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 40px 32px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    border: 2px solid var(--accent-yellow);
+    max-width: 550px;
+    width: 100%;
+}
+
+.iconWrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.successIcon {
+    color: #22C55E;
+    animation: scaleIn 0.5s ease-out;
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+    font-family: var(--font-heading);
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 32px;
+    line-height: 1.5;
+}
+
+.bookingDetails {
+    background: #FFFAF0;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 28px;
+    border: 2px solid var(--accent-yellow);
+}
+
+.detailItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.detailItem:last-child {
+    border-bottom: none;
+}
+
+.detailLabel {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 600;
+}
+
+.detailValue {
+    font-size: 0.9rem;
+    color: #1a1a1a;
+    font-weight: 700;
+    text-align: right;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 28px;
+    justify-content: center;
+}
+
+.actionButton {
+    flex: 1;
+    max-width: 220px;
+    font-size: 0.95rem;
+}
+
+.infoBox {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    background: #F0F9FF;
+    border-radius: 12px;
+    border-left: 3px solid #3B82F6;
+    margin-bottom: 28px;
+}
+
+.infoBox svg {
+    color: #3B82F6;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.infoBox p {
+    font-size: 0.85rem;
+    color: #444;
+    text-align: left;
+    line-height: 1.5;
+}
+
+.navigation {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    padding-top: 24px;
+    border-top: 1px solid #E0E0E0;
+}
+
+.navigation button {
+    min-width: 160px;
+    font-size: 0.95rem;
+}
+
+/* Desktop */
+@media (min-width: 769px) {
+    .container {
+        padding: 60px 40px;
+    }
+
+    .successCard {
+        padding: 48px 40px;
+    }
+
+    .title {
+        font-size: 2.25rem;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .container {
+        padding: 24px 16px;
+    }
+
+    .successCard {
+        padding: 32px 24px;
+    }
+
+    .title {
+        font-size: 1.75rem;
+    }
+
+    .subtitle {
+        font-size: 0.95rem;
+    }
+
+    .bookingDetails {
+        padding: 20px;
+    }
+
+    .detailItem {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        padding: 12px 0;
+    }
+
+    .detailLabel,
+    .detailValue {
+        font-size: 0.85rem;
+    }
+
+    .detailValue {
+        text-align: left;
+    }
+
+    .actions {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .actionButton {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .navigation {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .navigation button {
+        width: 100%;
+        min-width: auto;
+    }
+
+    .infoBox {
+        padding: 14px;
+    }
+
+    .infoBox p {
+        font-size: 0.8rem;
+    }
+}

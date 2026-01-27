@@ -136,7 +136,7 @@
 }
 
 .nextBtn {
-    background: var(--accent-yellow);
+    background: #FFD700 !important;
     color: #1a1a1a;
     border: none;
     border-radius: 12px;
@@ -150,10 +150,9 @@
 }
 
 .nextBtn:hover {
-    background: #E5AD00;
-    /* Slightly darker gold */
+    background: #e9df2a !important;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(212, 160, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
 }
 
 .row {
