@@ -180,7 +180,13 @@ export const EventDetailView = ({ event }: EventDetailViewProps) => {
                         <div className={styles.pricingCard}>
                             <h3 className={styles.pricingTitle}>Select Your Ticket</h3>
                             {event.pricingTiers.map((tier, index) => (
-                                <div key={index} className={styles.pricingTier}>
+                                <div
+                                    key={index}
+                                    className={`${styles.pricingTier} ${styles.clickableTier}`}
+                                    onClick={() => router.push(`/events/${event.id}/register?tier=${index}`)}
+                                    role="button"
+                                    tabIndex={0}
+                                >
                                     <div className={styles.tierHeader}>
                                         <h4 className={styles.tierName}>{tier.name}</h4>
                                         <p className={styles.tierPrice}>{tier.price}</p>
@@ -199,7 +205,7 @@ export const EventDetailView = ({ event }: EventDetailViewProps) => {
                             <Button
                                 fullWidth
                                 size="lg"
-                                onClick={() => router.push(`/events/${event.id}/register`)}
+                                onClick={() => router.push(`/events/${event.id}/register?tier=0`)} // Default to first tier
                                 className={styles.registerButton}
                             >
                                 Register Now

@@ -23,12 +23,18 @@
 
 .introLine {
     font-family: var(--font-heading);
-    font-size: 1.1rem;
-    font-weight: 400;
-    color: rgba(26, 26, 26, 0.5);
+    font-size: 1.5rem;
+    /* Increased from 1.1rem */
+    font-weight: 500;
+    /* Increased weight slightly for better ratio */
+    color: rgba(26, 26, 26, 0.6);
     letter-spacing: 0.05em;
     margin: 0;
 }
+
+/* ... existing code ... */
+
+
 
 .mainTitle {
     font-family: var(--font-heading);
@@ -59,20 +65,29 @@
 }
 
 .trademark {
-    font-size: 0.5em;
-    font-weight: 400;
+    font-size: 0.4em;
+    /* Slightly smaller for cleaner look */
+    font-weight: 500;
     color: rgba(26, 26, 26, 0.6);
     margin-left: 0.1em;
     -webkit-text-fill-color: rgba(26, 26, 26, 0.6);
+
+    /* Position top-right */
+    vertical-align: top;
+    position: relative;
+    top: -0.4em;
+    /* Lift it up */
 }
 
 .supportingLine {
     font-family: var(--font-heading);
-    font-size: 0.95rem;
+    font-size: 1.25rem;
+    /* Increased from 0.95rem */
     font-weight: 500;
-    color: rgba(26, 26, 26, 0.6);
+    color: rgba(26, 26, 26, 0.7);
     letter-spacing: 0.08em;
-    margin: 8px 0 0 0;
+    margin: 12px 0 0 0;
+    /* Increased margin */
 }
 
 .container {
@@ -109,7 +124,7 @@
     font-family: var(--font-heading);
     font-size: 4rem;
     font-weight: 800;
-    background: linear-gradient(180deg, #F9D949 0%, #FFF4C4 100%);
+    background: linear-gradient(180deg, #E5A50A 0%, #FFFFFF 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -141,7 +156,8 @@
     }
 
     .introLine {
-        font-size: 0.9rem;
+        font-size: 1.2rem;
+        /* Increased from 0.9rem */
     }
 
     .mainTitle {
@@ -154,7 +170,8 @@
     }
 
     .supportingLine {
-        font-size: 0.8rem;
+        font-size: 1rem;
+        /* Increased from 0.8rem */
         letter-spacing: 0.06em;
     }
 

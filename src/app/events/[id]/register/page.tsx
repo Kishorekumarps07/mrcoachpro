@@ -1,19 +1,24 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Navbar } from '@/components/layout/Navbar';
 import { EVENTS } from '@/data/events';
 import { Button } from '@/components/ui/Button';
-import { ChevronLeft, ChevronRight, Check } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Check, MapPin, Shirt, Droplet } from 'lucide-react';
 import styles from './registration.module.css';
 
 export default function RegistrationPage() {
     const params = useParams();
     const router = useRouter();
+    const searchParams = useSearchParams();
     const event = EVENTS.find(e => e.id === params.id);
 
     const [currentStep, setCurrentStep] = useState(1);
+
+    // Initialize selected tier from URL or default to 0
+    const initialTier = parseInt(searchParams.get('tier') || '0');
+
     const [formData, setFormData] = useState({
         // Step 1: Attendee Info
         firstName: '',
@@ -23,8 +28,13 @@ export default function RegistrationPage() {
         emergencyContact: '',
         emergencyPhone: '',
 
+        // New Fields
+        bloodGroup: '',
+        tshirtSize: '',
+        location: '',
+
         // Step 2: Ticket Selection
-        selectedTier: 0,
+        selectedTier: !isNaN(initialTier) ? initialTier : 0,
         quantity: 1,
         addOns: [] as string[],
 
@@ -49,6 +59,15 @@ export default function RegistrationPage() {
     };
 
     const handleNext = () => {
+        // Validation for Step 1
+        if (currentStep === 1) {
+            if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone ||
+                !formData.emergencyContact || !formData.emergencyPhone ||
+                !formData.bloodGroup || !formData.tshirtSize || !formData.location) {
+                alert('Please fill in all required fields');
+                return;
+            }
+        }
         if (currentStep < 3) setCurrentStep(currentStep + 1);
     };
 
@@ -104,6 +123,7 @@ export default function RegistrationPage() {
                         {currentStep === 1 && (
                             <div className={styles.step}>
                                 <h2 className={styles.stepTitle}>Attendee Information</h2>
+                                <p className={styles.stepVibe}>Please provide your details for registration.</p>
                                 <div className={styles.formGrid}>
                                     <div className={styles.formGroup}>
                                         <label className={styles.label}>First Name *</label>
@@ -145,6 +165,59 @@ export default function RegistrationPage() {
                                             required
                                         />
                                     </div>
+
+                                    {/* New Required Fields */}
+                                    <div className={styles.formGroup}>
+                                        <label className={styles.label}>Blood Group *</label>
+                                        <div className={styles.inputIconWrapper}>
+                                            <Droplet size={16} className={styles.inputIcon} />
+                                            <select
+                                                value={formData.bloodGroup}
+                                                onChange={(e) => handleInputChange('bloodGroup', e.target.value)}
+                                                className={styles.selectInput}
+                                                required
+                                            >
+                                                <option value="">Select Blood Group</option>
+                                                {['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'].map(bg => (
+                                                    <option key={bg} value={bg}>{bg}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div className={styles.formGroup}>
+                                        <label className={styles.label}>T-Shirt Size *</label>
+                                        <div className={styles.inputIconWrapper}>
+                                            <Shirt size={16} className={styles.inputIcon} />
+                                            <select
+                                                value={formData.tshirtSize}
+                                                onChange={(e) => handleInputChange('tshirtSize', e.target.value)}
+                                                className={styles.selectInput}
+                                                required
+                                            >
+                                                <option value="">Select Size</option>
+                                                {['XS', 'S', 'M', 'L', 'XL', 'XXL'].map(size => (
+                                                    <option key={size} value={size}>{size}</option>
+                                                ))}
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div className={styles.formGroup}>
+                                        <label className={styles.label}>Current City / Location *</label>
+                                        <div className={styles.inputIconWrapper}>
+                                            <MapPin size={16} className={styles.inputIcon} />
+                                            <input
+                                                type="text"
+                                                value={formData.location}
+                                                onChange={(e) => handleInputChange('location', e.target.value)}
+                                                className={styles.inputWithIcon}
+                                                placeholder="e.g. Mumbai, Bandra"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
                                     <div className={styles.formGroup}>
                                         <label className={styles.label}>Emergency Contact Name *</label>
                                         <input
@@ -173,6 +246,8 @@ export default function RegistrationPage() {
                         {currentStep === 2 && (
                             <div className={styles.step}>
                                 <h2 className={styles.stepTitle}>Select Your Ticket</h2>
+                                <p className={styles.stepVibe}>Choose the best package for your experience.</p>
+
                                 <div className={styles.ticketOptions}>
                                     {event.pricingTiers.map((tier, index) => (
                                         <div
@@ -181,29 +256,38 @@ export default function RegistrationPage() {
                                             onClick={() => handleInputChange('selectedTier', index)}
                                         >
                                             <div className={styles.ticketHeader}>
-                                                <h3 className={styles.ticketName}>{tier.name}</h3>
-                                                <p className={styles.ticketPrice}>{tier.price}</p>
+                                                <div className={styles.radioButton}>
+                                                    <div className={styles.radioInner} />
+                                                </div>
+                                                <div className={styles.ticketInfoMain}>
+                                                    <h3 className={styles.ticketName}>{tier.name}</h3>
+                                                    <p className={styles.ticketPrice}>{tier.price}</p>
+                                                </div>
                                             </div>
                                             <p className={styles.ticketDescription}>{tier.description}</p>
+                                            <div className={styles.divider} />
                                             <ul className={styles.ticketFeatures}>
                                                 {tier.features.map((feature, idx) => (
-                                                    <li key={idx}>{feature}</li>
+                                                    <li key={idx}><Check size={14} className={styles.check} /> {feature}</li>
                                                 ))}
                                             </ul>
                                         </div>
                                     ))}
                                 </div>
-                                <div className={styles.formGroup}>
+
+                                <div className={styles.quantitySection}>
                                     <label className={styles.label}>Number of Tickets</label>
-                                    <select
-                                        value={formData.quantity}
-                                        onChange={(e) => handleInputChange('quantity', parseInt(e.target.value))}
-                                        className={styles.select}
-                                    >
-                                        {[1, 2, 3, 4, 5].map(num => (
-                                            <option key={num} value={num}>{num}</option>
-                                        ))}
-                                    </select>
+                                    <div className={styles.quantityControl}>
+                                        <button
+                                            className={styles.qtyBtn}
+                                            onClick={() => handleInputChange('quantity', Math.max(1, formData.quantity - 1))}
+                                        >-</button>
+                                        <span className={styles.qtyValue}>{formData.quantity}</span>
+                                        <button
+                                            className={styles.qtyBtn}
+                                            onClick={() => handleInputChange('quantity', Math.min(10, formData.quantity + 1))}
+                                        >+</button>
+                                    </div>
                                 </div>
                             </div>
                         )}
@@ -215,16 +299,25 @@ export default function RegistrationPage() {
                                 <div className={styles.reviewSection}>
                                     <div className={styles.reviewGroup}>
                                         <h3 className={styles.reviewTitle}>Attendee Information</h3>
-                                        <p><strong>Name:</strong> {formData.firstName} {formData.lastName}</p>
-                                        <p><strong>Email:</strong> {formData.email}</p>
-                                        <p><strong>Phone:</strong> {formData.phone}</p>
-                                        <p><strong>Emergency Contact:</strong> {formData.emergencyContact} ({formData.emergencyPhone})</p>
+                                        <div className={styles.reviewGrid}>
+                                            <p><strong>Name:</strong> {formData.firstName} {formData.lastName}</p>
+                                            <p><strong>Email:</strong> {formData.email}</p>
+                                            <p><strong>Phone:</strong> {formData.phone}</p>
+                                            <p><strong>Blood Group:</strong> {formData.bloodGroup}</p>
+                                            <p><strong>T-Shirt Size:</strong> {formData.tshirtSize}</p>
+                                            <p><strong>Location:</strong> {formData.location}</p>
+                                            <p><strong>Emergency Contact:</strong> {formData.emergencyContact} ({formData.emergencyPhone})</p>
+                                        </div>
                                     </div>
                                     <div className={styles.reviewGroup}>
                                         <h3 className={styles.reviewTitle}>Ticket Details</h3>
-                                        <p><strong>Ticket Type:</strong> {selectedTier?.name}</p>
-                                        <p><strong>Quantity:</strong> {formData.quantity}</p>
-                                        <p><strong>Price per ticket:</strong> {selectedTier?.price}</p>
+                                        <div className={styles.ticketReviewCard}>
+                                            <div className={styles.ticketReviewHeader}>
+                                                <span className={styles.ticketReviewName}>{selectedTier?.name}</span>
+                                                <span className={styles.ticketReviewPrice}>{selectedTier?.price} x {formData.quantity}</span>
+                                            </div>
+                                            <p className={styles.ticketReviewTotal}>Total: ₹{totalPrice.toLocaleString()}</p>
+                                        </div>
                                     </div>
                                     <div className={styles.termsGroup}>
                                         <label className={styles.checkboxLabel}>

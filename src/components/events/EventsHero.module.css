@@ -125,24 +125,20 @@
 
 
 .dateBadge {
-    font-size: 0.8rem;
-    /* Reduced for subtlety */
-    font-weight: 600;
-    /* Lighter weight */
+    font-size: 0.85rem;
+    font-weight: 700;
     margin-bottom: 32px;
-    /* Increased spacing */
-    color: #666;
-    /* Muted color */
+    color: #1a1a1a;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     display: inline-block;
-    border: 1px solid #ddd;
-    /* Lighter border */
-    padding: 6px 14px;
-    /* Reduced padding */
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    /* Subtle transparency */
+
+    /* Yellow Glassmorphic Highlight */
+    background: rgba(255, 215, 0, 0.25);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    padding: 8px 20px;
+    border-radius: 30px;
     align-self: flex-start;
 }
 
@@ -173,28 +169,39 @@
 
 .location {
     font-size: 1rem;
-    /* Slightly reduced */
-    font-weight: 500;
-    margin-bottom: 16px;
-    /* Increased spacing */
-    color: #555;
-    /* Muted secondary color */
-    display: flex;
+    font-weight: 600;
+    margin-bottom: 24px;
+    color: #1a1a1a;
+    display: inline-flex;
     align-items: center;
     gap: 8px;
-    opacity: 0.9;
+
+    /* Yellow Glassmorphic Highlight */
+    background: rgba(255, 215, 0, 0.15);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    padding: 8px 16px;
+    border-radius: 30px;
 }
 
 .price {
-    font-size: 0.95rem;
-    /* Reduced for calm presentation */
-    font-weight: 600;
-    /* Lighter weight */
+    font-size: 1.1rem;
+    /* Slightly Increased */
+    font-weight: 800;
+    /* Bolder */
     margin-bottom: 48px;
-    /* Increased spacing */
-    color: #333;
-    /* Calmer color */
-    opacity: 0.85;
+    color: #1a1a1a;
+    /* Darker for contrast */
+    opacity: 1;
+    /* Remove opacity */
+
+    /* Yellow Glassmorphic Highlight */
+    background: rgba(255, 215, 0, 0.25);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    padding: 10px 24px;
+    border-radius: 16px;
+    display: inline-block;
 }
 
 .bookBtn {

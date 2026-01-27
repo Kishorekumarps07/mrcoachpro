@@ -85,20 +85,23 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: #FFFFFF;
-    padding: 10px 20px;
+    background: #FFD000;
+    /* Bright Yellow */
+    color: #1a1a1a;
+    border: none;
+    padding: 10px 24px;
     border-radius: 10px;
     font-size: 0.95rem;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(255, 208, 0, 0.3);
 }
 
 .shareButton:hover {
-    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 208, 0, 0.4);
+    background: #FFC700;
 }
 
 /* Content Grid */
@@ -185,6 +188,14 @@
     font-size: 0.95rem;
     font-weight: 700;
     color: #1a1a1a;
+
+    /* Yellow Glassmorphic Highlight */
+    background: rgba(255, 215, 0, 0.2);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    padding: 6px 14px;
+    border-radius: 20px;
+    width: fit-content;
 }
 
 .agendaContent {
@@ -336,6 +347,17 @@
     border-radius: 12px;
     margin-bottom: 16px;
     border: 1px solid #E0E0E0;
+    transition: all 0.2s ease;
+}
+
+.clickableTier {
+    cursor: pointer;
+}
+
+.clickableTier:hover {
+    border-color: var(--accent-yellow);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
 }
 
 .tierHeader {
@@ -354,7 +376,15 @@
 .tierPrice {
     font-size: 1.3rem;
     font-weight: 800;
-    color: var(--accent-yellow);
+    color: #1a1a1a;
+    /* Darker text */
+
+    /* Yellow Glassmorphic Highlight */
+    background: rgba(255, 215, 0, 0.25);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    padding: 6px 12px;
+    border-radius: 12px;
 }
 
 .tierDescription {
@@ -457,6 +487,13 @@
     font-size: 1.25rem;
     font-weight: 800;
     color: #1a1a1a;
+
+    /* Yellow Glassmorphic Highlight */
+    background: rgba(255, 215, 0, 0.25);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    padding: 6px 12px;
+    border-radius: 12px;
 }
 
 .mobileCtaLabel {

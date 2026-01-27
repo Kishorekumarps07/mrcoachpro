@@ -174,28 +174,129 @@
     margin-bottom: 24px;
 }
 
+/* Enhanced Ticket Option */
 .ticketOption {
     padding: 20px;
     border: 2px solid #E0E0E0;
     border-radius: 12px;
+    background: #FFFFFF;
     cursor: pointer;
     transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .ticketOption:hover {
-    border-color: var(--accent-yellow);
+    border-color: #DDD;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .ticketOption.selected {
     border-color: var(--accent-yellow);
     background: #FFFAF0;
+    box-shadow: 0 4px 16px rgba(255, 208, 0, 0.15);
 }
 
 .ticketHeader {
     display: flex;
-    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.radioButton {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #CCC;
+    border-radius: 50%;
+    display: flex;
     align-items: center;
-    margin-bottom: 8px;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.selected .radioButton {
+    border-color: var(--accent-yellow);
+    background: #FFFFFF;
+}
+
+.radioInner {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent-yellow);
+    transform: scale(0);
+    transition: transform 0.2s ease;
+}
+
+.selected .radioInner {
+    transform: scale(1);
+}
+
+.ticketInfoMain {
+    flex: 1;
+}
+
+.divider {
+    height: 1px;
+    background: #EEE;
+    margin: 4px 0;
+}
+
+.check {
+    color: var(--accent-yellow);
+    flex-shrink: 0;
+}
+
+/* Quantity Control */
+.quantitySection {
+    margin-top: 32px;
+    padding: 20px;
+    background: #FAFAFA;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.quantityControl {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #FFFFFF;
+    padding: 4px;
+    border-radius: 8px;
+    border: 1px solid #E0E0E0;
+}
+
+.qtyBtn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: #F0F0F0;
+    border-radius: 6px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.qtyBtn:hover {
+    background: #E0E0E0;
+}
+
+.qtyValue {
+    font-size: 1.1rem;
+    font-weight: 700;
+    min-width: 24px;
+    text-align: center;
+    color: #1a1a1a;
 }
 
 .ticketName {
@@ -300,6 +401,98 @@
 
 .nextButton {
     margin-left: auto;
+}
+
+/* Vibe Text */
+.stepVibe {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 24px;
+    font-weight: 500;
+}
+
+/* Input with Icons */
+.inputIconWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.inputIcon {
+    position: absolute;
+    left: 12px;
+    color: #888;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.inputWithIcon {
+    width: 100%;
+    padding: 12px;
+    padding-left: 40px;
+    /* Space for icon */
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #1a1a1a;
+    transition: all 0.2s ease;
+    background: #FAFAFA;
+}
+
+.selectInput {
+    width: 100%;
+    padding: 12px;
+    padding-left: 40px;
+    /* Space for icon */
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #1a1a1a;
+    transition: all 0.2s ease;
+    background: #FAFAFA;
+    appearance: none;
+    /* Hide default arrow to use custom or keep clean */
+    cursor: pointer;
+}
+
+.inputWithIcon:focus,
+.selectInput:focus {
+    outline: none;
+    border-color: var(--accent-yellow);
+    box-shadow: 0 0 0 3px rgba(255, 208, 0, 0.1);
+    background: #FFFFFF;
+}
+
+/* Review Section Styling */
+.reviewGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.ticketReviewCard {
+    background: #FAFAFA;
+    padding: 16px;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-yellow);
+}
+
+.ticketReviewHeader {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+}
+
+.ticketReviewTotal {
+    text-align: right;
+    font-weight: 800;
+    color: var(--accent-yellow);
+    font-size: 1.1rem;
+    margin: 0;
 }
 
 /* Sidebar */
