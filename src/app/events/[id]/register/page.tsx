@@ -244,7 +244,7 @@ export default function RegistrationPage() {
                         {/* Navigation Buttons */}
                         <div className={styles.navigation}>
                             {currentStep > 1 && (
-                                <Button variant="outline" onClick={handleBack}>
+                                <Button variant="secondary" onClick={handleBack}>
                                     <ChevronLeft size={18} />
                                     Back
                                 </Button>
