@@ -219,7 +219,7 @@ export const EventDetailView = ({ event }: EventDetailViewProps) => {
                         <div className={styles.bulkBookingCard}>
                             <div className={styles.bulkIconWrapper}>
                                 <div className={styles.bulkIconCircle}>
-                                    <Building2 size={24} color="#1a1a1a" />
+                                    <Building2 size={24} className={styles.bulkIcon} />
                                 </div>
                             </div>
                             <h3 className={styles.bulkTitle}>Corporate & Bulk Booking</h3>

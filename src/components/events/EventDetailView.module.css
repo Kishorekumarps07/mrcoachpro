@@ -504,25 +504,27 @@
 
 /* Bulk Booking Card */
 .bulkBookingCard {
-    background: #1a1a1a;
-    /* Dark contrast card */
+    background: #FFFFFF;
+    /* Light theme */
+    border: 2px solid var(--accent-yellow);
     border-radius: 16px;
     padding: 24px;
-    color: #FFFFFF;
+    color: #1a1a1a;
     text-align: center;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .bulkBookingCard::before {
-    /* Abstract decorative circle */
+    /* Abstract decorative circle - subtle yellow */
     content: '';
     position: absolute;
     top: -20px;
     right: -20px;
     width: 100px;
     height: 100px;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 208, 0, 0.1);
     border-radius: 50%;
 }
 
@@ -535,37 +537,42 @@
 .bulkIconCircle {
     width: 48px;
     height: 48px;
-    background: var(--accent-yellow);
+    background: #FFFAF0;
+    /* Light yellow bg */
+    border: 1px solid var(--accent-yellow);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+    color: var(--accent-yellow);
 }
 
 .bulkTitle {
     font-size: 1.25rem;
     font-weight: 800;
-    color: #FFFFFF;
+    color: #1a1a1a;
     margin-bottom: 8px;
     font-family: var(--font-heading);
 }
 
 .bulkText {
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: #666;
     margin-bottom: 20px;
     line-height: 1.5;
 }
 
 .bulkButton {
-    border-color: rgba(255, 255, 255, 0.3) !important;
-    color: #FFFFFF !important;
+    /* Since we use variant="secondary", we might not need overrides, 
+       but let's ensure it pops */
+    background: transparent !important;
+    border: 2px solid var(--accent-yellow) !important;
+    color: #1a1a1a !important;
+    font-weight: 700 !important;
 }
 
 .bulkButton:hover {
-    background: #FFFFFF !important;
-    color: #1a1a1a !important;
+    background: var(--accent-yellow) !important;
 }
 
 .mobileRegisterBtn {
