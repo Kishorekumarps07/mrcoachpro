@@ -42,11 +42,12 @@
 }
 
 .tagline {
-    color: #333;
-    font-size: 0.8rem;
-    font-weight: 600;
+    color: #1a1a1a;
+    font-size: 1rem;
+    font-weight: 700;
     /* Removed text-transform: uppercase to respect precise capitalization */
-    letter-spacing: 0.1em;
+    letter-spacing: 0.05em;
+    margin-top: 4px;
 }
 
 .navCol {
