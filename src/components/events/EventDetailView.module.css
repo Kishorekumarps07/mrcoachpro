@@ -502,6 +502,72 @@
     font-weight: 500;
 }
 
+/* Bulk Booking Card */
+.bulkBookingCard {
+    background: #1a1a1a;
+    /* Dark contrast card */
+    border-radius: 16px;
+    padding: 24px;
+    color: #FFFFFF;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.bulkBookingCard::before {
+    /* Abstract decorative circle */
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+}
+
+.bulkIconWrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.bulkIconCircle {
+    width: 48px;
+    height: 48px;
+    background: var(--accent-yellow);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+}
+
+.bulkTitle {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-bottom: 8px;
+    font-family: var(--font-heading);
+}
+
+.bulkText {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.bulkButton {
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    color: #FFFFFF !important;
+}
+
+.bulkButton:hover {
+    background: #FFFFFF !important;
+    color: #1a1a1a !important;
+}
+
 .mobileRegisterBtn {
     background: var(--accent-yellow);
     color: #1a1a1a;

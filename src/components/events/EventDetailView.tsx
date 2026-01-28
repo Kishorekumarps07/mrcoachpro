@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Event } from '@/data/events';
-import { Calendar, Clock, MapPin, Users, Share2, CheckCircle } from 'lucide-react';
+import { Calendar, Clock, MapPin, Users, Share2, CheckCircle, Building2 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import styles from './EventDetailView.module.css';
 
@@ -213,6 +213,27 @@ export const EventDetailView = ({ event }: EventDetailViewProps) => {
                             <p className={styles.deadline}>
                                 Registration closes: {event.registrationDeadline}
                             </p>
+                        </div>
+
+                        {/* Bulk / Corporate Booking */}
+                        <div className={styles.bulkBookingCard}>
+                            <div className={styles.bulkIconWrapper}>
+                                <div className={styles.bulkIconCircle}>
+                                    <Building2 size={24} color="#1a1a1a" />
+                                </div>
+                            </div>
+                            <h3 className={styles.bulkTitle}>Corporate & Bulk Booking</h3>
+                            <p className={styles.bulkText}>
+                                Planning to bring your team? Get exclusive discounts and custom packages for groups of 10 or more.
+                            </p>
+                            <Button
+                                fullWidth
+                                variant="secondary"
+                                className={styles.bulkButton}
+                                onClick={() => window.location.href = 'mailto:corporate@mrcoach.in?subject=Bulk Booking Inquiry'}
+                            >
+                                Get Corporate Quote
+                            </Button>
                         </div>
 
                         {/* Event Tags */}
