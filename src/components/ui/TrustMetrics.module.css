@@ -65,18 +65,19 @@
 }
 
 .trademark {
-    font-size: 0.4em;
-    /* Slightly smaller for cleaner look */
-    font-weight: 500;
-    color: rgba(26, 26, 26, 0.6);
-    margin-left: 0.1em;
-    -webkit-text-fill-color: rgba(26, 26, 26, 0.6);
+    font-size: 0.6em;
+    /* Increased from 0.4em for visibility */
+    font-weight: 600;
+    color: rgba(26, 26, 26, 0.7);
+    margin-left: 2px;
+    -webkit-text-fill-color: rgba(26, 26, 26, 0.7);
 
-    /* Position top-right */
-    vertical-align: top;
+    /* Better position alignment */
     position: relative;
-    top: -0.4em;
-    /* Lift it up */
+    top: -0.5em;
+    /* Lift it clearly above text */
+    vertical-align: baseline;
+    /* Reset vertical-align to rely on relative positioning */
 }
 
 .supportingLine {

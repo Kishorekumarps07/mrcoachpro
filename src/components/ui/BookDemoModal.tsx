@@ -132,10 +132,65 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
         }
 
         setIsSubmitting(true);
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        setIsSubmitting(false);
-        setIsSuccess(true);
+
+        try {
+            // lookup IDs
+            const selectedState = statesList.find(s => s.name === formData.state);
+            const selectedDistrict = districtsList.find(d => d.name === formData.district);
+            const selectedCategory = categoriesList.find(c => c.name === formData.specializations);
+
+            const subcategoryIds = selectedCategory
+                ? selectedCategory.subcategories
+                    .filter(sub => formData.servicesProvided.includes(sub.name))
+                    .map(sub => sub.id)
+                : [];
+
+            // Map Payload
+            const payload = {
+                name: formData.name,
+                email: formData.email,
+                phone: formData.phone,
+                gender: formData.gender.toLowerCase(), // "Male" -> "male"
+                area: formData.area,
+                pincode: formData.pincode,
+                start_plan: formData.startPreference === 'Immediately' ? 'immediately'
+                    : formData.startPreference === 'Within a Month' ? 'within_a_month'
+                        : 'not_sure', // simplistic mapping
+                available_days: formData.availability === 'Any Day' ? 'any_day'
+                    : formData.availability === 'Weekdays' ? 'weekdays'
+                        : 'weekends',
+                source_website: 'mrcoachpro_web', // hardcoded identifier
+                state_id: selectedState ? selectedState.id : 0,
+                district_id: selectedDistrict ? selectedDistrict.id : 0,
+                service_type: formData.serviceType === 'Home Services' ? 'home_services' : 'online_services',
+                category_id: selectedCategory ? selectedCategory.id : 0,
+                subcategory_ids: subcategoryIds
+            };
+
+            const res = await fetch('/api/demo', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                setIsSuccess(true);
+            } else {
+                console.error('Submission failed response:', data);
+                // Show specific validation errors if available
+                const errorMsg = data.message || 'Unknown error';
+                const details = data.details ? JSON.stringify(data.details) : '';
+                alert(`Submission failed: ${errorMsg}\n${details}`);
+            }
+
+        } catch (error) {
+            console.error('Submission error:', error);
+            alert('An error occurred. Please try again.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     if (!mounted || !isOpen) return null;

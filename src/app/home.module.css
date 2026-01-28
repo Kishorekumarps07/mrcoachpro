@@ -606,3 +606,50 @@
         transform: translateY(0);
     }
 }
+
+/* Small Mobile Devices (iPhone SE, Small Androids) */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 16px;
+    }
+
+    .heroContent {
+        padding-left: 16px;
+        padding-right: 16px;
+        gap: 20px;
+    }
+
+    .cardTitle {
+        font-size: 1.25rem;
+        /* Scale down from 1.5rem */
+    }
+
+    .cardSubtitle {
+        font-size: 0.75rem;
+    }
+
+    .serviceGrid {
+        gap: 10px;
+        /* Tighter gap */
+    }
+
+    .gridItemPrimary {
+        height: 100px;
+        min-height: 100px;
+    }
+
+    .serviceTitle {
+        font-size: 1.75rem;
+        padding: 0 16px;
+    }
+
+    .serviceDesc {
+        padding: 0 16px;
+        font-size: 1rem;
+    }
+
+    .featureList {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}

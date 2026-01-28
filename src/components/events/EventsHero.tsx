@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { EVENTS } from '@/data/events';
@@ -102,7 +103,9 @@ export const EventsHero = () => {
                         <p className={styles.price}>{featuredEvent.price}</p>
 
                         <div className={styles.actions}>
-                            <Button size="lg" className={styles.bookBtn}>Book tickets</Button>
+                            <Link href={`/events/${featuredEvent.id}/register`}>
+                                <Button size="lg" className={styles.bookBtn}>Book tickets</Button>
+                            </Link>
                         </div>
                     </div>
 

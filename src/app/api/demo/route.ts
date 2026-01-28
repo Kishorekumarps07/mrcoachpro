@@ -1,0 +1,61 @@
+import { NextResponse } from 'next/server';
+
+export async function POST(request: Request) {
+    try {
+        const body = await request.json();
+        const externalApiUrl = 'https://api.mrcoachpro.in/api/users/receive';
+
+        // Use environment variable for API Key if provided
+        // Adjust the header key (e.g., 'Authorization', 'x-api-key') based on your specific API requirements
+        const headers: HeadersInit = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        };
+
+        if (process.env.DEMO_API_KEY) {
+            headers['Authorization'] = `Bearer ${process.env.DEMO_API_KEY}`;
+        }
+
+        console.log('--- PROXYING REQUEST ---');
+        console.log('Target:', externalApiUrl);
+
+        const response = await fetch(externalApiUrl, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(body)
+        });
+
+        // Read raw text first to avoid JSON parse errors crashing the route
+        const responseText = await response.text();
+        console.log('External API Status:', response.status);
+        console.log('External API Body:', responseText);
+
+        let data;
+        try {
+            data = JSON.parse(responseText);
+        } catch (e) {
+            console.warn('Failed to parse external API JSON:', e);
+            data = { raw_response: responseText };
+        }
+
+        if (!response.ok) {
+            console.error('External API Request Failed', data);
+            return NextResponse.json(
+                {
+                    success: false,
+                    message: data.message || `External API Error: ${response.status}`,
+                    details: data
+                },
+                { status: response.status }
+            );
+        }
+
+        return NextResponse.json({ success: true, data });
+    } catch (error: any) {
+        console.error('CRITICAL PROXY ERROR:', error);
+        return NextResponse.json(
+            { success: false, message: `Internal Proxy Error: ${error.message}` },
+            { status: 500 }
+        );
+    }
+}

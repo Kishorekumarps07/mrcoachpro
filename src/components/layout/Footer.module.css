@@ -45,7 +45,7 @@
     color: #333;
     font-size: 0.8rem;
     font-weight: 600;
-    text-transform: uppercase;
+    /* Removed text-transform: uppercase to respect precise capitalization */
     letter-spacing: 0.1em;
 }
 

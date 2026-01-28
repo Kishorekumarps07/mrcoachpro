@@ -27,7 +27,7 @@ export const Footer = () => {
                                 style={{ objectFit: 'contain' }}
                             />
                         </Link>
-                        <p className={styles.tagline}>Performance. Discipline. Energy.</p>
+                        <p className={styles.tagline}>Mr. Coach – India’s Smart Fitness App</p>
                     </div>
 
                     <nav className={styles.navCol}>

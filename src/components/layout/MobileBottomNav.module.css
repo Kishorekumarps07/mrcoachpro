@@ -128,8 +128,8 @@
 
     /* Push it up out of the box */
     margin-bottom: 4px;
-    transform: translateY(-32px);
-    /* Increased visual shift up */
+    transform: translateY(-16px);
+    /* Half-in / Half-out position */
 }
 
 .navItem.primary .icon {
@@ -145,12 +145,12 @@
     white-space: nowrap;
 
     /* Counter-balance lag from transform if needed, or just let it sit */
-    transform: translateY(-18px);
+    transform: translateY(-6px);
     /* Move label up with icon */
 }
 
 .navItem.primary:active .iconWrapper {
-    transform: translateY(-24px) scale(0.92);
+    transform: translateY(-8px) scale(0.92);
     box-shadow: 0 2px 8px rgba(255, 208, 0, 0.3),
         0 4px 12px rgba(0, 0, 0, 0.1);
 }
