@@ -30,12 +30,12 @@ export default function RegistrationPage() {
 
         // New Fields
         bloodGroup: '',
-        tshirtSize: '',
         location: '',
 
         // Step 2: Ticket Selection
         selectedTier: !isNaN(initialTier) ? initialTier : 0,
         quantity: 1,
+        tshirtSizes: [''] as string[], // Changed to array
         addOns: [] as string[],
 
         // Step 3: Review
@@ -55,19 +55,68 @@ export default function RegistrationPage() {
     }
 
     const handleInputChange = (field: string, value: any) => {
-        setFormData(prev => ({ ...prev, [field]: value }));
+        setFormData(prev => {
+            const updates = { ...prev, [field]: value };
+
+            // If quantity changes, resize tshirtSizes array if needed
+            if (field === 'quantity') {
+                const newQuantity = value as number;
+                const currentSizes = [...prev.tshirtSizes];
+
+                // If increasing, pad with empty strings
+                if (newQuantity > currentSizes.length) {
+                    for (let i = currentSizes.length; i < newQuantity; i++) {
+                        currentSizes.push('');
+                    }
+                }
+                // If decreasing, trim (optional, but keeps data clean)
+                else if (newQuantity < currentSizes.length) {
+                    currentSizes.splice(newQuantity);
+                }
+
+                updates.tshirtSizes = currentSizes;
+            }
+
+            return updates;
+        });
     };
+
+    const handleTshirtChange = (index: number, value: string) => {
+        setFormData(prev => {
+            const newSizes = [...prev.tshirtSizes];
+            newSizes[index] = value;
+            return { ...prev, tshirtSizes: newSizes };
+        });
+    };
+
+    // Ensure initial T-shirt array has at least one item
+    useEffect(() => {
+        if (formData.tshirtSizes.length === 0) {
+            setFormData(prev => ({ ...prev, tshirtSizes: [''] }));
+        }
+    }, []);
 
     const handleNext = () => {
         // Validation for Step 1
         if (currentStep === 1) {
             if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone ||
                 !formData.emergencyContact || !formData.emergencyPhone ||
-                !formData.bloodGroup || !formData.tshirtSize || !formData.location) {
+                !formData.bloodGroup || !formData.location) {
                 alert('Please fill in all required fields');
                 return;
             }
         }
+
+        // Validation for Step 2
+        if (currentStep === 2) {
+            // Check if all T-shirt sizes are selected
+            const unfilledTshirts = formData.tshirtSizes.slice(0, formData.quantity).some(size => !size);
+            if (unfilledTshirts) {
+                alert(`Please select T-Shirt sizes for all ${formData.quantity} tickets.`);
+                return;
+            }
+        }
+
         if (currentStep < 3) setCurrentStep(currentStep + 1);
     };
 
@@ -186,24 +235,6 @@ export default function RegistrationPage() {
                                     </div>
 
                                     <div className={styles.formGroup}>
-                                        <label className={styles.label}>T-Shirt Size *</label>
-                                        <div className={styles.inputIconWrapper}>
-                                            <Shirt size={16} className={styles.inputIcon} />
-                                            <select
-                                                value={formData.tshirtSize}
-                                                onChange={(e) => handleInputChange('tshirtSize', e.target.value)}
-                                                className={styles.selectInput}
-                                                required
-                                            >
-                                                <option value="">Select Size</option>
-                                                {['XS', 'S', 'M', 'L', 'XL', 'XXL'].map(size => (
-                                                    <option key={size} value={size}>{size}</option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div className={styles.formGroup}>
                                         <label className={styles.label}>Current City / Location *</label>
                                         <div className={styles.inputIconWrapper}>
                                             <MapPin size={16} className={styles.inputIcon} />
@@ -289,6 +320,32 @@ export default function RegistrationPage() {
                                         >+</button>
                                     </div>
                                 </div>
+
+                                {/* Dynamic T-Shirt Selection */}
+                                <div style={{ marginTop: '32px' }}>
+                                    <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '16px', color: '#1a1a1a' }}>Participant T-Shirt Sizes</h3>
+                                    <div className={styles.formGrid}>
+                                        {Array.from({ length: formData.quantity }).map((_, index) => (
+                                            <div key={index} className={styles.formGroup}>
+                                                <label className={styles.label}>Size for Ticket #{index + 1} *</label>
+                                                <div className={styles.inputIconWrapper}>
+                                                    <Shirt size={16} className={styles.inputIcon} />
+                                                    <select
+                                                        value={formData.tshirtSizes[index] || ''}
+                                                        onChange={(e) => handleTshirtChange(index, e.target.value)}
+                                                        className={styles.selectInput}
+                                                        required
+                                                    >
+                                                        <option value="">Select Size</option>
+                                                        {['XS - 36', 'S - 38', 'M - 40', 'L - 42', 'XL - 44', 'XXL - 46'].map(size => (
+                                                            <option key={size} value={size}>{size}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
                         )}
 
@@ -304,7 +361,6 @@ export default function RegistrationPage() {
                                             <p><strong>Email:</strong> {formData.email}</p>
                                             <p><strong>Phone:</strong> {formData.phone}</p>
                                             <p><strong>Blood Group:</strong> {formData.bloodGroup}</p>
-                                            <p><strong>T-Shirt Size:</strong> {formData.tshirtSize}</p>
                                             <p><strong>Location:</strong> {formData.location}</p>
                                             <p><strong>Emergency Contact:</strong> {formData.emergencyContact} ({formData.emergencyPhone})</p>
                                         </div>
@@ -316,7 +372,23 @@ export default function RegistrationPage() {
                                                 <span className={styles.ticketReviewName}>{selectedTier?.name}</span>
                                                 <span className={styles.ticketReviewPrice}>{selectedTier?.price} x {formData.quantity}</span>
                                             </div>
-                                            <p className={styles.ticketReviewTotal}>Total: ₹{totalPrice.toLocaleString()}</p>
+                                            <div style={{ marginTop: '12px', padding: '12px 0', borderTop: '1px solid #EEE' }}>
+                                                <p style={{ fontWeight: 600, marginBottom: '8px', fontSize: '0.9rem' }}>Selected T-Shirt Sizes:</p>
+                                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                                                    {formData.tshirtSizes.slice(0, formData.quantity).map((size, idx) => (
+                                                        <span key={idx} style={{
+                                                            background: '#EEE',
+                                                            padding: '4px 8px',
+                                                            borderRadius: '4px',
+                                                            fontSize: '0.85rem',
+                                                            fontWeight: 500
+                                                        }}>
+                                                            #{idx + 1}: {size}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                            <p className={styles.ticketReviewTotal} style={{ marginTop: '16px' }}>Total: ₹{totalPrice.toLocaleString()}</p>
                                         </div>
                                     </div>
                                     <div className={styles.termsGroup}>

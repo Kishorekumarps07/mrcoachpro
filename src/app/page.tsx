@@ -26,6 +26,7 @@ import { AnnouncementBar } from '@/components/ui/AnnouncementBar';
 import { HeroCarousel } from '@/components/ui/HeroCarousel';
 import { TrendingEvents } from '@/components/ui/TrendingEvents';
 import { FAQSection } from '@/components/ui/FAQSection';
+import { CorporateBookingSection } from '@/components/ui/CorporateBookingSection';
 import { AppDownloadBanner } from '@/components/ui/AppDownloadBanner';
 import { TopAppBanner } from '@/components/ui/TopAppBanner';
 
@@ -82,6 +83,9 @@ export default function Home() {
 
       {/* TRENDING EVENTS */}
       <TrendingEvents />
+
+      {/* Corporate Booking Section */}
+      <CorporateBookingSection />
 
       {/* FAQs */}
       <FAQSection />

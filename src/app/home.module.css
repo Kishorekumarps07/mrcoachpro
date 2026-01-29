@@ -629,8 +629,9 @@
     }
 
     .serviceGrid {
-        gap: 10px;
-        /* Tighter gap */
+        grid-template-columns: 1fr;
+        /* Stack on small screens */
+        gap: 16px;
     }
 
     .gridItemPrimary {

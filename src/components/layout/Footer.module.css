@@ -158,9 +158,13 @@
         gap: 16px;
     }
 
+    .contactCol {
+        align-items: center;
+        text-align: center;
+    }
+
     .link {
         font-size: 1.1rem;
-        /* Larger touch targets */
         padding: 4px 0;
     }
 }

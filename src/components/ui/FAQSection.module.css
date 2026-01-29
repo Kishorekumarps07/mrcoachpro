@@ -94,8 +94,8 @@
 }
 
 .badgePro {
-    background-color: #1a1a1a;
-    color: var(--accent-yellow);
+    background-color: #E0E0E0;
+    color: #333;
 }
 
 @media (max-width: 1024px) {

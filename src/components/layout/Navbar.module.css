@@ -213,8 +213,14 @@
 
 .mobileMenuHeader {
     display: flex;
-    justify-content: flex-end;
-    margin-bottom: 20px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.mobileMenuLogo {
+    display: flex;
+    align-items: center;
 }
 
 .closeButton {
@@ -243,13 +249,11 @@
     transition: all 0.2s ease;
     text-decoration: none;
     border-bottom: none;
-    /* Remove old border */
 }
 
 .mobileNavLink:hover,
 .mobileNavLink:active {
     background: rgba(255, 215, 0, 0.15);
-    /* Yellow Tint */
     color: #000;
     transform: translateX(8px);
 }
@@ -263,10 +267,55 @@
     color: #000;
 }
 
-.mobileCta {
+.mobileMenuFooter {
     margin-top: auto;
-    padding-bottom: 40px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.mobileCta {
+    width: 100%;
+}
+
+.mobileSocials {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.socialTitle {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.socialIcons {
+    display: flex;
+    gap: 24px;
+}
+
+.socialIcon {
+    color: #333;
+    padding: 8px;
+    border-radius: 50%;
+    background: #F5F5F5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.socialIcon:hover {
+    color: #1a1a1a;
+    background: var(--accent-yellow);
+    transform: translateY(-2px);
 }
 
 @keyframes slideInRight {
