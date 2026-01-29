@@ -168,6 +168,64 @@
     gap: 20px;
 }
 
+/* Participant Cards */
+.participantsContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+.participantCard {
+    background: #FFFFFF;
+    border: 2px solid #E0E0E0;
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.participantCard:hover {
+    border-color: var(--accent-yellow);
+    box-shadow: 0 4px 12px rgba(212, 160, 0, 0.1);
+}
+
+.participantTitle {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 16px 0 20px 0;
+}
+
+.ageCategorySelector {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.ageCategoryBtn {
+    flex: 1;
+    padding: 8px 16px;
+    border: 2px solid #E0E0E0;
+    background: #FFFFFF;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.ageCategoryBtn:hover {
+    border-color: #CCC;
+    background: #F9F9F9;
+}
+
+.ageCategoryBtn.active {
+    border-color: var(--accent-yellow);
+    background: var(--accent-yellow);
+    color: #1a1a1a;
+}
+
 
 .formGroup {
     display: flex;

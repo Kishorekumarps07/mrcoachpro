@@ -35,7 +35,7 @@ export default function RegistrationPage() {
         // Step 2: Ticket Selection
         selectedTier: !isNaN(initialTier) ? initialTier : 0,
         quantity: 1,
-        tshirtSizes: [''] as string[], // Changed to array
+        participants: [{ name: '', ageCategory: 'adult', tshirtSize: '' }] as Array<{ name: string; ageCategory: 'adult' | 'kid'; tshirtSize: string }>,
         addOns: [] as string[],
 
         // Step 3: Review
@@ -58,41 +58,41 @@ export default function RegistrationPage() {
         setFormData(prev => {
             const updates = { ...prev, [field]: value };
 
-            // If quantity changes, resize tshirtSizes array if needed
+            // If quantity changes, resize participants array
             if (field === 'quantity') {
                 const newQuantity = value as number;
-                const currentSizes = [...prev.tshirtSizes];
+                const currentParticipants = [...prev.participants];
 
-                // If increasing, pad with empty strings
-                if (newQuantity > currentSizes.length) {
-                    for (let i = currentSizes.length; i < newQuantity; i++) {
-                        currentSizes.push('');
+                // If increasing, add new participants
+                if (newQuantity > currentParticipants.length) {
+                    for (let i = currentParticipants.length; i < newQuantity; i++) {
+                        currentParticipants.push({ name: '', ageCategory: 'adult', tshirtSize: '' });
                     }
                 }
-                // If decreasing, trim (optional, but keeps data clean)
-                else if (newQuantity < currentSizes.length) {
-                    currentSizes.splice(newQuantity);
+                // If decreasing, trim
+                else if (newQuantity < currentParticipants.length) {
+                    currentParticipants.splice(newQuantity);
                 }
 
-                updates.tshirtSizes = currentSizes;
+                updates.participants = currentParticipants;
             }
 
             return updates;
         });
     };
 
-    const handleTshirtChange = (index: number, value: string) => {
+    const handleParticipantChange = (index: number, field: 'name' | 'ageCategory' | 'tshirtSize', value: string) => {
         setFormData(prev => {
-            const newSizes = [...prev.tshirtSizes];
-            newSizes[index] = value;
-            return { ...prev, tshirtSizes: newSizes };
+            const newParticipants = [...prev.participants];
+            newParticipants[index] = { ...newParticipants[index], [field]: value };
+            return { ...prev, participants: newParticipants };
         });
     };
 
-    // Ensure initial T-shirt array has at least one item
+    // Ensure initial participants array has at least one item
     useEffect(() => {
-        if (formData.tshirtSizes.length === 0) {
-            setFormData(prev => ({ ...prev, tshirtSizes: [''] }));
+        if (formData.participants.length === 0) {
+            setFormData(prev => ({ ...prev, participants: [{ name: '', ageCategory: 'adult', tshirtSize: '' }] }));
         }
     }, []);
 
@@ -108,10 +108,10 @@ export default function RegistrationPage() {
 
         // Validation for Step 2
         if (currentStep === 2) {
-            // Check if all T-shirt sizes are selected
-            const unfilledTshirts = formData.tshirtSizes.slice(0, formData.quantity).some(size => !size);
-            if (unfilledTshirts) {
-                alert(`Please select T-Shirt sizes for all ${formData.quantity} tickets.`);
+            // Check if all participant details are filled
+            const unfilledParticipants = formData.participants.slice(0, formData.quantity).some(p => !p.name || !p.tshirtSize);
+            if (unfilledParticipants) {
+                alert(`Please provide name and T-shirt size for all ${formData.quantity} participants.`);
                 return;
             }
         }
@@ -327,26 +327,62 @@ export default function RegistrationPage() {
                                     </div>
                                 </div>
 
-                                {/* Dynamic T-Shirt Selection */}
+                                {/* Participant Details */}
                                 <div style={{ marginTop: '32px' }}>
-                                    <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '16px', color: '#1a1a1a' }}>Participant T-Shirt Sizes</h3>
-                                    <div className={styles.formGrid}>
+                                    <h3 style={{ fontSize: '1.3rem', fontWeight: 700, marginBottom: '24px', color: '#1a1a1a' }}>Participant Details</h3>
+                                    <div className={styles.participantsContainer}>
                                         {Array.from({ length: formData.quantity }).map((_, index) => (
-                                            <div key={index} className={styles.formGroup}>
-                                                <label className={styles.label}>Size for Ticket #{index + 1} *</label>
-                                                <div className={styles.inputIconWrapper}>
-                                                    <Shirt size={16} className={styles.inputIcon} />
-                                                    <select
-                                                        value={formData.tshirtSizes[index] || ''}
-                                                        onChange={(e) => handleTshirtChange(index, e.target.value)}
-                                                        className={styles.selectInput}
-                                                        required
+                                            <div key={index} className={styles.participantCard}>
+                                                {/* Age Category Selector */}
+                                                <div className={styles.ageCategorySelector}>
+                                                    <button
+                                                        type="button"
+                                                        className={`${styles.ageCategoryBtn} ${formData.participants[index]?.ageCategory === 'adult' ? styles.active : ''}`}
+                                                        onClick={() => handleParticipantChange(index, 'ageCategory', 'adult')}
                                                     >
-                                                        <option value="">Select Size</option>
-                                                        {['XS - 36', 'S - 38', 'M - 40', 'L - 42', 'XL - 44', 'XXL - 46'].map(size => (
-                                                            <option key={size} value={size}>{size}</option>
-                                                        ))}
-                                                    </select>
+                                                        Adult
+                                                    </button>
+                                                    <button
+                                                        type="button"
+                                                        className={`${styles.ageCategoryBtn} ${formData.participants[index]?.ageCategory === 'kid' ? styles.active : ''}`}
+                                                        onClick={() => handleParticipantChange(index, 'ageCategory', 'kid')}
+                                                    >
+                                                        Kid
+                                                    </button>
+                                                </div>
+
+                                                <h4 className={styles.participantTitle}>Participant #{index + 1}</h4>
+
+                                                {/* Participant Name */}
+                                                <div className={styles.formGroup}>
+                                                    <label className={styles.label}>Full Name *</label>
+                                                    <input
+                                                        type="text"
+                                                        value={formData.participants[index]?.name || ''}
+                                                        onChange={(e) => handleParticipantChange(index, 'name', e.target.value)}
+                                                        className={styles.input}
+                                                        placeholder="Enter participant's name"
+                                                        required
+                                                    />
+                                                </div>
+
+                                                {/* T-Shirt Size */}
+                                                <div className={styles.formGroup}>
+                                                    <label className={styles.label}>T-Shirt Size *</label>
+                                                    <div className={styles.inputIconWrapper}>
+                                                        <Shirt size={16} className={styles.inputIcon} />
+                                                        <select
+                                                            value={formData.participants[index]?.tshirtSize || ''}
+                                                            onChange={(e) => handleParticipantChange(index, 'tshirtSize', e.target.value)}
+                                                            className={styles.selectInput}
+                                                            required
+                                                        >
+                                                            <option value="">Select Size</option>
+                                                            {['XS - 36', 'S - 38', 'M - 40', 'L - 42', 'XL - 44', 'XXL - 46'].map((size: string) => (
+                                                                <option key={size} value={size}>{size}</option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         ))}
@@ -379,18 +415,33 @@ export default function RegistrationPage() {
                                                 <span className={styles.ticketReviewPrice}>{selectedTier?.price} x {formData.quantity}</span>
                                             </div>
                                             <div style={{ marginTop: '12px', padding: '12px 0', borderTop: '1px solid #EEE' }}>
-                                                <p style={{ fontWeight: 600, marginBottom: '8px', fontSize: '0.9rem' }}>Selected T-Shirt Sizes:</p>
-                                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                                                    {formData.tshirtSizes.slice(0, formData.quantity).map((size, idx) => (
-                                                        <span key={idx} style={{
-                                                            background: '#EEE',
-                                                            padding: '4px 8px',
-                                                            borderRadius: '4px',
-                                                            fontSize: '0.85rem',
-                                                            fontWeight: 500
+                                                <p style={{ fontWeight: 600, marginBottom: '12px', fontSize: '0.9rem' }}>Participants:</p>
+                                                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                                                    {formData.participants.slice(0, formData.quantity).map((participant, idx) => (
+                                                        <div key={idx} style={{
+                                                            background: '#F9F9F9',
+                                                            padding: '12px',
+                                                            borderRadius: '8px',
+                                                            border: '1px solid #EEE'
                                                         }}>
-                                                            #{idx + 1}: {size}
-                                                        </span>
+                                                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+                                                                <span style={{
+                                                                    background: participant.ageCategory === 'adult' ? '#D4A000' : '#4CAF50',
+                                                                    color: '#fff',
+                                                                    padding: '2px 8px',
+                                                                    borderRadius: '4px',
+                                                                    fontSize: '0.75rem',
+                                                                    fontWeight: 600,
+                                                                    textTransform: 'uppercase'
+                                                                }}>
+                                                                    {participant.ageCategory}
+                                                                </span>
+                                                                <span style={{ fontWeight: 600, fontSize: '0.95rem' }}>#{idx + 1}: {participant.name}</span>
+                                                            </div>
+                                                            <p style={{ fontSize: '0.85rem', color: '#666', marginLeft: '8px' }}>
+                                                                T-Shirt: {participant.tshirtSize}
+                                                            </p>
+                                                        </div>
                                                     ))}
                                                 </div>
                                             </div>
