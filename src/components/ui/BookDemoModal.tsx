@@ -510,14 +510,17 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
                     // Success View
                     <div className={styles.successState}>
                         <div className={styles.successIcon}>
-                            <Check size={32} />
+                            <Check size={40} strokeWidth={3} />
                         </div>
-                        <h3 style={{ fontSize: '1.5rem', fontWeight: 700, margin: '10px 0' }}>Request Sent!</h3>
-                        <p style={{ color: '#666', textAlign: 'center', marginBottom: '20px' }}>
-                            We have received your details. Our team will contact you shortly.
+                        <h3 className={styles.successTitle}>Demo Booked Successfully</h3>
+                        <p className={styles.successText}>
+                            Our team will contact you shortly to schedule your session.
                         </p>
-                        <button className={styles.submitButton} onClick={onClose} style={{ width: '100%' }}>
-                            Done
+                        <p className={styles.microCopy}>
+                            Thank you for choosing MR.COACH.
+                        </p>
+                        <button className={styles.closeSuccessButton} onClick={onClose}>
+                            Close
                         </button>
                     </div>
                 )}

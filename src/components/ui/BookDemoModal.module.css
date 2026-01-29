@@ -337,27 +337,89 @@
 }
 
 /* Success State */
+/* Success State */
 .successState {
-    padding: 64px 40px;
-    text-align: center;
+    padding: 60px 40px;
+    height: 100%;
+    min-height: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    justify-content: center;
+    text-align: center;
+    gap: 16px;
+    animation: fadeIn 0.4s ease-out;
 }
 
 .successIcon {
-    width: 72px;
-    height: 72px;
-    background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
-    color: #047857;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #F9D949 0%, #E8C838 100%);
+    color: #1a1a1a;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 8px;
-    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.15);
+    margin-bottom: 24px;
+    box-shadow: 0 10px 25px rgba(249, 217, 73, 0.25);
+    animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+}
+
+.successTitle {
+    font-family: var(--font-josefin), sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0;
+    letter-spacing: -0.01em;
+    animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.successText {
+    font-family: var(--font-josefin), sans-serif;
+    font-size: 1.1rem;
+    color: #525252;
+    margin: 0;
+    line-height: 1.5;
+    max-width: 320px;
+    font-weight: 400;
+    animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.microCopy {
+    font-size: 0.85rem;
+    color: #a3a3a3;
+    margin-top: 8px;
+    font-weight: 400;
+    animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.closeSuccessButton {
+    margin-top: 32px;
+    background: transparent;
+    border: 1.5px solid rgba(0, 0, 0, 0.1);
+    color: #525252;
+    padding: 10px 32px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    animation: fadeIn 0.5s ease-out 0.4s forwards;
+    opacity: 0;
+}
+
+.closeSuccessButton:hover {
+    border-color: #000;
+    color: #000;
+    background: rgba(0, 0, 0, 0.02);
 }
 
 /* Animations */
@@ -367,6 +429,30 @@
     }
 
     to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes slideUpFade {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
         opacity: 1;
     }
 }
