@@ -214,16 +214,7 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
             case 1: // Personal
                 return (
                     <div className={styles.stepContainer}>
-                        <div className={styles.formGroup}>
-                            <label className={styles.label}>Name <span className={styles.required}>*</span></label>
-                            <input
-                                type="text"
-                                className={styles.input}
-                                placeholder="Full Name"
-                                value={formData.name}
-                                onChange={(e) => handleChange('name', e.target.value)}
-                            />
-                        </div>
+
                         <div className={styles.formGroup}>
                             <label className={styles.label}>Name <span className={styles.required}>*</span></label>
                             <input
