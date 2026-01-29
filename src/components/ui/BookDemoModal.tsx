@@ -225,6 +225,20 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
                             />
                         </div>
                         <div className={styles.formGroup}>
+                            <label className={styles.label}>Name <span className={styles.required}>*</span></label>
+                            <input
+                                type="text"
+                                className={styles.input}
+                                placeholder="Full Name"
+                                value={formData.name}
+                                onChange={(e) => handleChange('name', e.target.value)}
+                                required
+                            />
+                            <span className={styles.validationMessage}>
+                                Please enter your full name
+                            </span>
+                        </div>
+                        <div className={styles.formGroup}>
                             <label className={styles.label}>Email <span className={styles.required}>*</span></label>
                             <input
                                 type="email"
@@ -232,7 +246,11 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
                                 placeholder="name@example.com"
                                 value={formData.email}
                                 onChange={(e) => handleChange('email', e.target.value)}
+                                required
                             />
+                            <span className={styles.validationMessage}>
+                                Please enter a valid email address
+                            </span>
                         </div>
                         <div className={styles.formGroup}>
                             <label className={styles.label}>Phone <span className={styles.required}>*</span></label>
