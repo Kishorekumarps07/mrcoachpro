@@ -670,79 +670,245 @@
 
 @media (max-width: 768px) {
     .container {
-        padding: 24px 20px;
+        padding: 24px 16px;
     }
 
     .title {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
+    }
+
+    .subtitle {
+        font-size: 0.95rem;
     }
 
     .progressBar {
-        gap: 16px;
-        /* Significantly reduced gap */
-        margin-bottom: 40px;
+        gap: 12px;
+        margin-bottom: 32px;
         width: 100%;
         justify-content: space-between;
-        /* Distribute evenly */
     }
 
     .progressBar::before {
-        left: 40px;
-        right: 40px;
+        left: 35px;
+        right: 35px;
+    }
+
+    .progressCircle {
+        width: 36px;
+        height: 36px;
+        font-size: 0.85rem;
     }
 
     .progressLabel {
-        font-size: 0.75rem;
-        /* Smaller labels */
+        font-size: 0.7rem;
         text-align: center;
+        max-width: 60px;
     }
 
     .formGrid {
         grid-template-columns: 1fr;
+        gap: 16px;
     }
 
     .formSection {
-        padding: 20px;
-        /* Reduced padding */
+        padding: 16px;
+    }
+
+    .stepTitle {
+        font-size: 1.4rem;
+    }
+
+    .stepVibe {
+        font-size: 0.9rem;
     }
 
     .input,
-    .select {
+    .select,
+    .selectInput {
         font-size: 16px;
         /* Prevent iOS zoom */
         height: 48px;
         /* Taller touch targets */
+        padding: 12px 14px;
+    }
+
+    .inputWithIcon {
+        font-size: 16px;
+        height: 48px;
+        padding-left: 40px;
+    }
+
+    /* Participant Cards Mobile */
+    .participantsContainer {
+        gap: 20px;
+    }
+
+    .participantCard {
+        padding: 20px;
+    }
+
+    .participantTitle {
+        font-size: 1rem;
+        margin: 12px 0 16px 0;
+    }
+
+    .ageCategorySelector {
+        flex-direction: row;
+        gap: 8px;
+    }
+
+    .ageCategoryBtn {
+        flex: 1;
+        padding: 10px 12px;
+        font-size: 0.8rem;
+        min-height: 44px;
+        /* Touch-friendly */
+    }
+
+    /* Emergency Section Mobile */
+    .emergencySection {
+        padding: 20px;
+        margin-top: 24px;
+    }
+
+    .emergencySectionTitle {
+        font-size: 1rem;
+    }
+
+    .emergencySectionSubtitle {
+        font-size: 0.85rem;
+        margin-bottom: 16px;
+    }
+
+    .emergencyFields {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    /* Ticket Options Mobile */
+    .ticketOption {
+        padding: 16px;
     }
 
     .ticketHeader {
         flex-direction: column;
         align-items: flex-start;
-        gap: 4px;
+        gap: 8px;
+    }
+
+    .ticketName {
+        font-size: 1.1rem;
     }
 
     .ticketPrice {
+        font-size: 1.1rem;
+    }
+
+    .ticketDescription {
+        font-size: 0.85rem;
+    }
+
+    .ticketFeatures {
+        font-size: 0.85rem;
+    }
+
+    /* Quantity Control Mobile */
+    .quantitySection {
+        margin-top: 20px;
+    }
+
+    .quantityControl {
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .qtyBtn {
+        width: 44px;
+        height: 44px;
         font-size: 1.2rem;
     }
 
+    .qtyValue {
+        font-size: 1.3rem;
+        min-width: 40px;
+    }
+
+    /* Navigation Mobile */
     .navigation {
-        flex-direction: column-reverse;
+        flex-direction: column;
         gap: 12px;
+        position: sticky;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #FFFFFF;
+        padding: 16px;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        z-index: 10;
+        margin: 0 -16px;
     }
 
     .nextButton {
         width: 100%;
         justify-content: center;
         margin-left: 0;
+        min-height: 50px;
+        font-size: 1rem;
     }
 
+    /* Order Summary Mobile */
     .sidebar {
         order: -1;
-        margin-bottom: 24px;
+        margin-bottom: 20px;
+        position: static;
     }
 
     .summaryCard {
-        padding: 16px;
-        background: #F9F9F9;
-        /* Distinct background on mobile */
+        padding: 20px;
+        box-shadow: 0 4px 16px rgba(212, 160, 0, 0.12);
+    }
+
+    .summaryCard::before {
+        height: 3px;
+    }
+
+    .summaryTitle {
+        font-size: 1.2rem;
+        margin-bottom: 16px;
+    }
+
+    .summaryItem {
+        padding: 10px 0;
+        font-size: 0.9rem;
+    }
+
+    .summaryTotal {
+        font-size: 1.2rem;
+        padding: 12px;
+    }
+
+    .summaryTotal span:last-child {
+        font-size: 1.4rem;
+    }
+
+    /* Review Section Mobile */
+    .reviewSection {
+        padding: 0;
+    }
+
+    .reviewGroup {
+        margin-bottom: 20px;
+    }
+
+    .reviewTitle {
+        font-size: 1.1rem;
+    }
+
+    .reviewGrid {
+        gap: 12px;
+    }
+
+    .checkboxLabel {
+        font-size: 0.9rem;
     }
 }
