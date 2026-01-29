@@ -131,6 +131,14 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
             return;
         }
 
+        // Validate required fields before submission
+        if (!formData.name || !formData.email) {
+            console.error('Missing required fields:', { name: formData.name, email: formData.email });
+            alert('Please fill in your name and email in Step 1');
+            setStep(1);
+            return;
+        }
+
         setIsSubmitting(true);
 
         try {
@@ -156,9 +164,9 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
                 start_plan: formData.startPreference === 'Immediately' ? 'immediately'
                     : formData.startPreference === 'Within a Month' ? 'within_a_month'
                         : 'not_sure', // simplistic mapping
-                available_days: formData.availability === 'Any Day' ? 'any_day'
-                    : formData.availability === 'Weekdays' ? 'weekdays'
-                        : 'weekends',
+                available_days: formData.availability === 'Any Day' ? 'any'
+                    : formData.availability === 'Weekdays' ? 'weekday'
+                        : 'weekend',
                 source_website: 'mrcoachpro_web', // hardcoded identifier
                 state_id: selectedState ? selectedState.id : 0,
                 district_id: selectedDistrict ? selectedDistrict.id : 0,
@@ -166,6 +174,8 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
                 category_id: selectedCategory ? selectedCategory.id : 0,
                 subcategory_ids: subcategoryIds
             };
+
+            console.log('Submitting payload:', payload);
 
             const res = await fetch('/api/demo', {
                 method: 'POST',
