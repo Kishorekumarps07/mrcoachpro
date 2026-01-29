@@ -164,8 +164,8 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
                 start_plan: formData.startPreference === 'Immediately' ? 'immediately'
                     : formData.startPreference === 'Within a Month' ? 'within_a_month'
                         : 'not_sure', // simplistic mapping
-                available_days: formData.availability === 'Weekdays' ? 'wkday'
-                    : formData.availability === 'Weekends' ? 'wkend'
+                available_days: formData.availability === 'Weekdays' ? 'wd'
+                    : formData.availability === 'Weekends' ? 'we'
                         : 'any', // Default to 'any' (3 chars) which is safe
                 source_website: 'mrcoachpro_web', // hardcoded identifier
                 state_id: selectedState ? selectedState.id : 0,
