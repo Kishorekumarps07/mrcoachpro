@@ -460,7 +460,21 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
 
                             {/* Footer Navigation */}
                             <div className={styles.footer}>
-                                <div className={styles.stepIndicator}>Step {step} of 4</div>
+                                {/* Modern Progress Dots */}
+                                <div className={styles.stepIndicator}>
+                                    {[1, 2, 3, 4].map((dotStep) => (
+                                        <div
+                                            key={dotStep}
+                                            style={{
+                                                width: '8px',
+                                                height: '8px',
+                                                borderRadius: '50%',
+                                                background: dotStep <= step ? '#F9D949' : '#E5E5E5',
+                                                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                                            }}
+                                        />
+                                    ))}
+                                </div>
                                 <div className={styles.buttonGroup}>
                                     {step > 1 && (
                                         <button type="button" className={styles.backButton} onClick={handleBack}>
