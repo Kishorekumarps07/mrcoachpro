@@ -136,6 +136,39 @@
     gap: 20px;
 }
 
+/* Emergency Contact Section */
+.emergencySection {
+    grid-column: 1 / -1;
+    margin-top: 32px;
+    padding: 24px;
+    background: linear-gradient(135deg, #FFF9E6 0%, #FFF4D9 100%);
+    border: 2px dashed rgba(255, 193, 7, 0.3);
+    border-radius: 12px;
+}
+
+.emergencySectionTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.emergencySectionSubtitle {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.emergencyFields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+
 .formGroup {
     display: flex;
     flex-direction: column;

@@ -97,10 +97,9 @@ export default function RegistrationPage() {
     }, []);
 
     const handleNext = () => {
-        // Validation for Step 1
+        // Validation for Step 1 (Emergency contact is now optional)
         if (currentStep === 1) {
             if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone ||
-                !formData.emergencyContact || !formData.emergencyPhone ||
                 !formData.bloodGroup || !formData.location) {
                 alert('Please fill in all required fields');
                 return;
@@ -249,25 +248,32 @@ export default function RegistrationPage() {
                                         </div>
                                     </div>
 
-                                    <div className={styles.formGroup}>
-                                        <label className={styles.label}>Emergency Contact Name *</label>
-                                        <input
-                                            type="text"
-                                            value={formData.emergencyContact}
-                                            onChange={(e) => handleInputChange('emergencyContact', e.target.value)}
-                                            className={styles.input}
-                                            required
-                                        />
-                                    </div>
-                                    <div className={styles.formGroup}>
-                                        <label className={styles.label}>Emergency Contact Phone *</label>
-                                        <input
-                                            type="tel"
-                                            value={formData.emergencyPhone}
-                                            onChange={(e) => handleInputChange('emergencyPhone', e.target.value)}
-                                            className={styles.input}
-                                            required
-                                        />
+                                    {/* Emergency Contact Section */}
+                                    <div className={styles.emergencySection}>
+                                        <h3 className={styles.emergencySectionTitle}>Emergency Contact (Optional)</h3>
+                                        <p className={styles.emergencySectionSubtitle}>Provide contact details for emergencies</p>
+                                        <div className={styles.emergencyFields}>
+                                            <div className={styles.formGroup}>
+                                                <label className={styles.label}>Contact Name</label>
+                                                <input
+                                                    type="text"
+                                                    value={formData.emergencyContact}
+                                                    onChange={(e) => handleInputChange('emergencyContact', e.target.value)}
+                                                    className={styles.input}
+                                                    placeholder="Name of emergency contact"
+                                                />
+                                            </div>
+                                            <div className={styles.formGroup}>
+                                                <label className={styles.label}>Contact Phone</label>
+                                                <input
+                                                    type="tel"
+                                                    value={formData.emergencyPhone}
+                                                    onChange={(e) => handleInputChange('emergencyPhone', e.target.value)}
+                                                    className={styles.input}
+                                                    placeholder="Emergency contact number"
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
