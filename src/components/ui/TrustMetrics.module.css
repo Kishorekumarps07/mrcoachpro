@@ -14,81 +14,106 @@
     padding: 0 20px;
 }
 
-.headlineContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
+.mainTitle {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+    padding: 0 8px;
+    z-index: 1;
 }
 
 .introLine {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    /* Increased from 1.1rem */
-    font-weight: 500;
-    /* Increased weight slightly for better ratio */
-    color: rgba(26, 26, 26, 0.6);
+    font-family: var(--font-josefin), sans-serif;
+    font-size: 1.15rem;
+    color: #888;
+    margin-bottom: 8px;
+    font-weight: 400;
     letter-spacing: 0.05em;
-    margin: 0;
+    opacity: 0.9;
 }
 
-/* ... existing code ... */
-
-
+.titleWrapper {
+    position: relative;
+    display: inline-block;
+}
 
 .mainTitle {
-    font-family: var(--font-heading);
+    font-family: var(--font-josefin), sans-serif;
     font-size: 2.5rem;
     font-weight: 700;
-    background: linear-gradient(90deg, #FF6B35 0%, #8B3A8B 40%, #1B7F79 100%);
+    letter-spacing: -0.02em;
+    /* Unified gradient starting from NO.1 through FITNESS COMPANY */
+    background: linear-gradient(90deg, #FF7A5C 0%, #C084FC 35%, #60A5FA 65%, #34D399 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    letter-spacing: -0.01em;
-    margin: 0;
-    line-height: 1.2;
-    display: flex;
-    align-items: baseline;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.3em;
+    position: relative;
+    display: inline-block;
+    padding: 0;
+    z-index: 1;
+    line-height: 1.1;
+    text-transform: uppercase;
+    overflow: hidden;
 }
 
-.titleEmphasis {
-    font-size: 1.3em;
-    font-weight: 700;
+/* Shimmer effect overlay */
+.mainTitle::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.6) 50%, transparent 100%);
+    animation: shine 3s infinite;
+    z-index: 2;
 }
 
+@keyframes shine {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+/* Remove gradient skew background */
+.mainTitle::before {
+    display: none;
+}
+
+.titleEmphasis,
 .titleText {
-    font-size: 1em;
-    font-weight: 600;
+    /* Inherit gradient from parent */
+    font-weight: 800;
+    text-transform: uppercase;
 }
 
 .trademark {
-    font-size: 0.6em;
-    /* Increased from 0.4em for visibility */
+    position: absolute;
+    top: 0;
+    right: -20px;
+    font-size: 1.1rem;
+    color: #1a1a1a;
     font-weight: 600;
-    color: rgba(26, 26, 26, 0.7);
-    margin-left: 2px;
-    -webkit-text-fill-color: rgba(26, 26, 26, 0.7);
-
-    /* Better position alignment */
-    position: relative;
-    top: -0.5em;
-    /* Lift it clearly above text */
-    vertical-align: baseline;
-    /* Reset vertical-align to rely on relative positioning */
+    font-family: var(--font-josefin), sans-serif;
 }
 
 .supportingLine {
-    font-family: var(--font-heading);
-    font-size: 1.25rem;
-    /* Increased from 0.95rem */
-    font-weight: 500;
-    color: rgba(26, 26, 26, 0.7);
-    letter-spacing: 0.08em;
-    margin: 12px 0 0 0;
-    /* Increased margin */
+    font-family: var(--font-josefin), sans-serif;
+    margin-top: 20px;
+    font-size: 1.15rem;
+    color: #555;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    opacity: 0.8;
 }
 
 .container {
@@ -122,24 +147,25 @@
 }
 
 .number {
-    font-family: var(--font-heading);
+    font-family: var(--font-josefin), sans-serif;
     font-size: 4rem;
     font-weight: 800;
-    background: linear-gradient(180deg, #E5A50A 0%, #FFFFFF 100%);
+    /* Yellow to white gradient from reference - top to bottom */
+    background: linear-gradient(180deg, #F4D03F 0%, #FFF4CC 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     line-height: 1;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.02em;
 }
 
 .label {
-    font-family: var(--font-body);
+    font-family: var(--font-josefin), sans-serif;
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: 500;
     color: #666;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.1em;
 }
 
 /* Mobile Layout */
@@ -152,28 +178,10 @@
         margin-bottom: 40px;
     }
 
-    .headlineContainer {
-        gap: 8px;
-    }
-
-    .introLine {
-        font-size: 1.2rem;
-        /* Increased from 0.9rem */
-    }
-
     .mainTitle {
-        font-size: 1.8rem;
-        gap: 0.25em;
-    }
-
-    .titleEmphasis {
-        font-size: 1.25em;
-    }
-
-    .supportingLine {
-        font-size: 1rem;
-        /* Increased from 0.8rem */
-        letter-spacing: 0.06em;
+        font-size: 1.75rem;
+        /* Scaled down */
+        line-height: 1.2;
     }
 
     .container {

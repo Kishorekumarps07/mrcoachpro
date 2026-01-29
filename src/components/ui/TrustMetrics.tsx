@@ -49,13 +49,15 @@ export const TrustMetrics = () => {
                     {/* Intro line */}
                     <p className={styles.introLine}>India's</p>
 
-                    {/* Main title */}
-                    <h2 className={styles.mainTitle}>
-                        <span className={styles.titleEmphasis}>No.1</span>
-                        {' '}
-                        <span className={styles.titleText}>Fitness Company</span>
+                    {/* Main title with TM positioned separately */}
+                    <div className={styles.titleWrapper}>
+                        <h2 className={styles.mainTitle}>
+                            <span className={styles.titleEmphasis}>NO.1</span>
+                            {' '}
+                            <span className={styles.titleText}>FITNESS COMPANY</span>
+                        </h2>
                         <sup className={styles.trademark}>™</sup>
-                    </h2>
+                    </div>
 
                     {/* Supporting line */}
                     <p className={styles.supportingLine}>Across India | All Cities Covered</p>

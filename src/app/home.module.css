@@ -458,12 +458,8 @@
     }
 }
 
+/* Home Page Specific Mobile Styles */
 @media (max-width: 768px) {
-    .container {
-        padding: 0 20px;
-        /* Standardized mobile padding */
-    }
-
     .hero {
         height: auto;
         min-height: 100vh;
@@ -479,9 +475,6 @@
         padding-top: 50px;
         /* Reduced from 80px to pull content up */
         padding-bottom: 40px;
-        padding-left: 20px;
-        padding-right: 20px;
-        /* Verified side padding */
         height: auto;
     }
 
@@ -492,39 +485,37 @@
 
     .cardHeader {
         margin-top: 0;
-        margin-bottom: 24px;
-        /* Improved spacing */
+        margin-bottom: 16px;
+        /* Reduced from 40px */
         padding-left: 0;
     }
 
     .cardTitle {
-        font-size: 1.5rem;
-        /* Improved readability */
+        font-size: 1.3rem;
         line-height: 1.2;
         margin-bottom: 8px;
         /* Tighter spacing */
-        white-space: normal;
-        /* Allow wrapping on mobile if long */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .cardSubtitle {
-        font-size: 0.8rem;
-        opacity: 0.9;
+        font-size: 0.75rem;
+        opacity: 0.8;
         /* Increased visibility */
         letter-spacing: 0.1em;
         max-width: 100%;
-        line-height: 1.4;
     }
 
     .serviceGrid {
         grid-template-columns: repeat(2, 1fr);
-        /* 2 col x 3 rows = 6 items (User's 3x3 request interpreted as 3 rows) */
         gap: 12px;
     }
 
     .gridItemPrimary {
         height: 110px;
-        /* Standard height for grid */
+        /* Slightly reduced to ensure 2 rows fit easily */
         min-height: 110px;
     }
 
@@ -532,7 +523,6 @@
         height: 300px;
         /* Constrain carousel height */
         padding-left: 0;
-        margin-top: 20px;
     }
 
     /* Tabs */
@@ -540,9 +530,7 @@
         justify-content: flex-start;
         overflow-x: auto;
         padding-bottom: 12px;
-        padding-left: 20px;
-        /* Align start with container */
-        gap: 24px;
+        gap: 32px;
         mask-image: linear-gradient(to right, black 85%, transparent 100%);
         -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
         /* Hide Scrollbar */
@@ -557,7 +545,6 @@
     .tabButton {
         white-space: nowrap;
         flex-shrink: 0;
-        font-size: 0.85rem;
     }
 
     /* Content Sections */
@@ -567,12 +554,7 @@
     }
 
     .serviceTitle {
-        font-size: 2rem;
-        padding: 0 20px;
-    }
-
-    .serviceDesc {
-        padding: 0 20px;
+        font-size: 2.5rem;
     }
 
     .featureList {
@@ -580,18 +562,16 @@
         gap: 20px;
         align-items: flex-start;
         padding-left: 20px;
-        padding-right: 20px;
     }
 
     /* Age Grid */
     .ageGrid {
         grid-template-columns: 1fr;
         gap: 24px;
-        padding: 0 20px;
     }
 
     .ageCard {
-        padding: 24px;
+        padding: 32px 24px;
     }
 }
 
@@ -607,50 +587,20 @@
     }
 }
 
-/* Small Mobile Devices (iPhone SE, Small Androids) */
 @media (max-width: 480px) {
-    .container {
-        padding: 0 16px;
+    .serviceGrid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px;
     }
 
-    .heroContent {
-        padding-left: 16px;
-        padding-right: 16px;
-        gap: 20px;
+    .gridItemPrimary,
+    .gridItemSecondary {
+        height: 100px;
+        /* Slightly compact for 2-col view */
     }
 
     .cardTitle {
-        font-size: 1.25rem;
-        /* Scale down from 1.5rem */
-    }
-
-    .cardSubtitle {
-        font-size: 0.75rem;
-    }
-
-    .serviceGrid {
-        grid-template-columns: 1fr;
-        /* Stack on small screens */
-        gap: 16px;
-    }
-
-    .gridItemPrimary {
-        height: 100px;
-        min-height: 100px;
-    }
-
-    .serviceTitle {
-        font-size: 1.75rem;
-        padding: 0 16px;
-    }
-
-    .serviceDesc {
-        padding: 0 16px;
-        font-size: 1rem;
-    }
-
-    .featureList {
-        padding-left: 16px;
-        padding-right: 16px;
+        font-size: 1.1rem;
+        /* Adjust text so it fits */
     }
 }
