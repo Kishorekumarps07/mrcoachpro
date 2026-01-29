@@ -53,10 +53,38 @@
 }
 
 .column {
-    background: #FAFAFA;
     padding: 40px;
     border-radius: 16px;
-    border: 1px solid rgba(0, 0, 0, 0.03);
+    position: relative;
+    backdrop-filter: blur(10px);
+    border: 2px solid;
+    transition: all 0.3s ease;
+}
+
+/* Yellow Glassmorphic - For Users */
+.column:first-child {
+    background: linear-gradient(135deg, rgba(255, 251, 235, 0.9) 0%, rgba(255, 244, 204, 0.85) 100%);
+    border-color: rgba(212, 160, 0, 0.3);
+    box-shadow: 0 8px 32px rgba(212, 160, 0, 0.1);
+}
+
+.column:first-child:hover {
+    border-color: rgba(212, 160, 0, 0.5);
+    box-shadow: 0 12px 40px rgba(212, 160, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Orange Glassmorphic - For Coaches */
+.column:last-child {
+    background: linear-gradient(135deg, rgba(255, 243, 230, 0.9) 0%, rgba(255, 234, 209, 0.85) 100%);
+    border-color: rgba(255, 152, 0, 0.3);
+    box-shadow: 0 8px 32px rgba(255, 152, 0, 0.1);
+}
+
+.column:last-child:hover {
+    border-color: rgba(255, 152, 0, 0.5);
+    box-shadow: 0 12px 40px rgba(255, 152, 0, 0.15);
+    transform: translateY(-2px);
 }
 
 .columnHeader {
@@ -86,16 +114,19 @@
     /* text-transform: uppercase; Removed to respect capitalization */
     letter-spacing: 0.02em;
     /* Reduced spacing for mixed case */
+    backdrop-filter: blur(8px);
 }
 
 .badge {
-    background-color: #E0E0E0;
-    color: #333;
+    background: rgba(212, 160, 0, 0.15);
+    color: #8B6500;
+    border: 1px solid rgba(212, 160, 0, 0.3);
 }
 
 .badgePro {
-    background-color: #E0E0E0;
-    color: #333;
+    background: rgba(255, 152, 0, 0.15);
+    color: #CC6600;
+    border: 1px solid rgba(255, 152, 0, 0.3);
 }
 
 @media (max-width: 1024px) {
