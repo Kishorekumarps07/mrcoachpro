@@ -164,9 +164,13 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
                 start_plan: formData.startPreference === 'Immediately' ? 'immediately'
                     : formData.startPreference === 'Within a Month' ? 'within_a_month'
                         : 'not_sure', // simplistic mapping
-                available_days: formData.availability === 'Weekdays' ? 'wd'
-                    : formData.availability === 'Weekends' ? 'we'
-                        : 'any', // Default to 'any' (3 chars) which is safe
+
+                // Truncation Fix: Database likely allows only 1 char. Using numeric codes.
+                // 1 = Any Day, 2 = Weekdays, 3 = Weekends
+                available_days: formData.availability === 'Weekdays' ? '2'
+                    : formData.availability === 'Weekends' ? '3'
+                        : '1',
+
                 source_website: 'mrcoachpro_web', // hardcoded identifier
                 state_id: selectedState ? selectedState.id : 0,
                 district_id: selectedDistrict ? selectedDistrict.id : 0,
