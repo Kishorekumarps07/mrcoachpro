@@ -43,17 +43,19 @@
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 6px;
-    color: #C4A000;
+    color: #F9D949;
     text-transform: uppercase;
     letter-spacing: 0.02em;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
 }
 
 .subtitle {
     opacity: 1;
     font-size: 0.9rem;
     line-height: 1.5;
-    color: #C4A000;
-    font-weight: 400;
+    color: #F9D949;
+    font-weight: 500;
+    text-shadow: 0px 0.5px 0.5px rgba(0, 0, 0, 0.1);
 }
 
 /* Close Button */
