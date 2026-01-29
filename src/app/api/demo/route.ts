@@ -16,13 +16,17 @@ export async function POST(request: Request) {
             headers['Authorization'] = `Bearer ${process.env.DEMO_API_KEY}`;
         }
 
+        // Add User-Agent to prevent blocking by some firewalls/APIs
+        headers['User-Agent'] = 'MrCoachPro-Web/1.0';
+
         console.log('--- PROXYING REQUEST ---');
         console.log('Target:', externalApiUrl);
 
         const response = await fetch(externalApiUrl, {
             method: 'POST',
             headers: headers,
-            body: JSON.stringify(body)
+            body: JSON.stringify(body),
+            cache: 'no-store'
         });
 
         // Read raw text first to avoid JSON parse errors crashing the route
@@ -53,8 +57,14 @@ export async function POST(request: Request) {
         return NextResponse.json({ success: true, data });
     } catch (error: any) {
         console.error('CRITICAL PROXY ERROR:', error);
+        if (error.cause) console.error('Error Cause:', error.cause);
+
         return NextResponse.json(
-            { success: false, message: `Internal Proxy Error: ${error.message}` },
+            {
+                success: false,
+                message: `Internal Proxy Error: ${error.message}`,
+                debug: error.cause ? String(error.cause) : undefined
+            },
             { status: 500 }
         );
     }
