@@ -73,6 +73,15 @@
     text-shadow: 0px 0.5px 0.5px rgba(0, 0, 0, 0.05);
 }
 
+.microCopyText {
+    font-size: 0.8rem;
+    color: #A3A3A3;
+    margin-top: 4px;
+    font-weight: 400;
+    display: block;
+    margin-bottom: 8px;
+}
+
 /* Close Button */
 .closeButton {
     position: absolute;

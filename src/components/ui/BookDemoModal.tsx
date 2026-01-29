@@ -448,6 +448,28 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
                                 {step === 3 && "Tell us about your preferences."}
                                 {step === 4 && "Select your expertise."}
                             </p>
+
+                            {/* Step-specific Static Micro-copy */}
+                            {step === 1 && (
+                                <p className={styles.microCopyText}>
+                                    We'll never spam or share your contact info.
+                                </p>
+                            )}
+                            {step === 2 && (
+                                <p className={styles.microCopyText}>
+                                    Helps us match you with nearby field coaches.
+                                </p>
+                            )}
+                            {step === 3 && (
+                                <p className={styles.microCopyText}>
+                                    Coaches will tailor the plan to your schedule.
+                                </p>
+                            )}
+                            {step === 4 && (
+                                <p className={styles.microCopyText}>
+                                    Select your primary area of focus.
+                                </p>
+                            )}
                         </div>
 
                         <form
