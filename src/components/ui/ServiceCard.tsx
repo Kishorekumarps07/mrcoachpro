@@ -20,12 +20,13 @@ import Image from 'next/image';
 
 export const ServiceCard: React.FC<ServiceCardProps> = ({ title, icon: Icon, backgroundImage, onClick, className }) => {
 
+    // Animation variants
     const cardVariants = {
         hidden: { opacity: 0, y: 30 },
         visible: {
             opacity: 1,
             y: 0,
-            transition: { duration: 0.6, ease: "easeOut" }
+            transition: { duration: 0.6 }
         },
         hover: { scale: 1.05 }
     };
@@ -40,7 +41,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ title, icon: Icon, bac
         hover: {
             scale: 1.2,
             rotate: 5,
-            transition: { type: "spring", stiffness: 300 }
+            transition: { type: "spring" as const, stiffness: 300 }
         }
     };
 
@@ -53,7 +54,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ title, icon: Icon, bac
         rest: { left: '-100%' },
         hover: {
             left: '200%',
-            transition: { duration: 1.2, ease: "easeInOut" }
+            transition: { duration: 1.2 }
         }
     };
 
