@@ -157,6 +157,7 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose, t
                 <div className={styles.results}>
                     {results.length === 0 && query && (
                         <div className={styles.noResults}>
+                            <Search size={40} style={{ opacity: 0.2, marginBottom: 12 }} />
                             No results found for "{query}"
                         </div>
                     )}
@@ -179,7 +180,7 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose, t
                 </div>
 
                 <div className={styles.helperText}>
-                    Pro tip: Press <span style={{ color: '#fff', border: '1px solid #ffffff33', borderRadius: '4px', padding: '1px 4px', fontSize: '10px', margin: '0 4px' }}>ESC</span> to close
+                    Pro tip: Press <span className={styles.keyHint}>ESC</span> to close
                 </div>
             </div>
         </div>
