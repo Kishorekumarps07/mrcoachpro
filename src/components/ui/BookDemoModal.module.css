@@ -424,6 +424,14 @@
     transform: translateY(10px);
 }
 
+/* Keep title on single line on mobile */
+@media (max-width: 480px) {
+    .successTitle {
+        font-size: 1.2rem;
+        white-space: nowrap;
+    }
+}
+
 .successText {
     font-family: var(--font-josefin), sans-serif;
     font-size: 1.1rem;
@@ -438,10 +446,21 @@
 }
 
 .microCopy {
-    font-size: 0.85rem;
-    color: #a3a3a3;
-    margin-top: 8px;
-    font-weight: 400;
+    font-family: var(--font-josefin), sans-serif;
+    font-size: 1.1rem;
+    color: #1a1a1a;
+    /* Dark Text for Contrast */
+    background: #F9D949;
+    /* Navbar Yellow Highlight */
+    padding: 8px 20px;
+    border-radius: 30px;
+    /* Pill Shape */
+    margin-top: 16px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    display: inline-block;
+    box-shadow: 0 4px 15px rgba(249, 217, 73, 0.3);
+    /* Subtle Glow */
     animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
     opacity: 0;
     transform: translateY(10px);

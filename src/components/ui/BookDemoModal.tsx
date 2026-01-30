@@ -549,10 +549,10 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
                         </div>
                         <h3 className={styles.successTitle}>Demo Booked Successfully</h3>
                         <p className={styles.successText}>
-                            Our team will contact you shortly to schedule your session.
+                            Our team will contact you shortly to schedule your demo session.
                         </p>
                         <p className={styles.microCopy}>
-                            Thank you for choosing MR.COACH.
+                            Thanks for choosing<br />Mr.Coach Fitness Company.
                         </p>
                         <button className={styles.closeSuccessButton} onClick={onClose}>
                             Close

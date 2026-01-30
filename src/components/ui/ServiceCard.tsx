@@ -19,12 +19,53 @@ import Image from 'next/image';
 // ...
 
 export const ServiceCard: React.FC<ServiceCardProps> = ({ title, icon: Icon, backgroundImage, onClick, className }) => {
+
+    const cardVariants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.6, ease: "easeOut" }
+        },
+        hover: { scale: 1.05 }
+    };
+
+    const overlayVariants = {
+        rest: { opacity: 0.6 },
+        hover: { opacity: 0.3 }
+    };
+
+    const iconVariants = {
+        rest: { scale: 1, rotate: 0 },
+        hover: {
+            scale: 1.2,
+            rotate: 5,
+            transition: { type: "spring", stiffness: 300 }
+        }
+    };
+
+    const titleVariants = {
+        rest: { y: 0 },
+        hover: { y: -4, transition: { duration: 0.2 } }
+    };
+
+    const shineVariants = {
+        rest: { left: '-100%' },
+        hover: {
+            left: '200%',
+            transition: { duration: 1.2, ease: "easeInOut" }
+        }
+    };
+
     return (
         <motion.div
             className={clsx(styles.card, className)}
-            whileHover={{ scale: 1.05 }}
+            initial="hidden"
+            whileInView="visible"
+            whileHover="hover"
             whileTap={{ scale: 0.98 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+            viewport={{ once: true, margin: "-50px" }}
+            variants={cardVariants}
             onClick={onClick}
         >
             {backgroundImage && (
@@ -32,15 +73,31 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ title, icon: Icon, bac
                     src={backgroundImage}
                     alt={title}
                     fill
-                    sizes="250px"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                     className={styles.backgroundImage}
                 />
             )}
-            <div className={styles.overlay} />
-            <div className={styles.iconWrapper}>
-                <Icon size={24} strokeWidth={1.5} className={styles.icon} />
-            </div>
-            <span className={styles.title}>{title}</span>
+
+            <motion.div
+                className={styles.overlay}
+                variants={overlayVariants}
+                initial="rest"
+            />
+
+            {/* Shine Effect */}
+            <motion.div
+                className={styles.shineOverlay}
+                variants={shineVariants}
+                initial="rest"
+            />
+
+            <motion.div className={styles.iconWrapper} variants={iconVariants}>
+                <Icon size={28} strokeWidth={1.5} className={styles.icon} />
+            </motion.div>
+
+            <motion.span className={styles.title} variants={titleVariants}>
+                {title}
+            </motion.span>
 
             {/* Pulse effect overlay */}
             <div className={styles.borderPulse} />

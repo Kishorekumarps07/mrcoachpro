@@ -5,19 +5,12 @@ export async function POST(request: Request) {
         const body = await request.json();
         const externalApiUrl = 'https://api.mrcoachpro.in/api/users/receive';
 
-        // Use environment variable for API Key if provided
-        // Adjust the header key (e.g., 'Authorization', 'x-api-key') based on your specific API requirements
+        // Public API - no authentication required
         const headers: HeadersInit = {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
+            'User-Agent': 'MrCoachPro-Web/1.0'
         };
-
-        if (process.env.DEMO_API_KEY) {
-            headers['Authorization'] = `Bearer ${process.env.DEMO_API_KEY}`;
-        }
-
-        // Add User-Agent to prevent blocking by some firewalls/APIs
-        headers['User-Agent'] = 'MrCoachPro-Web/1.0';
 
         console.log('--- PROXYING REQUEST ---');
         console.log('Target:', externalApiUrl);
