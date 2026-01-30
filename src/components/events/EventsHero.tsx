@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { EVENTS } from '@/data/events';
 import styles from './EventsHero.module.css';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export const EventsHero = () => {
     const [currentIndex, setCurrentIndex] = React.useState(0);
@@ -59,69 +60,96 @@ export const EventsHero = () => {
 
     return (
         <section className={styles.heroSection}>
-            <div key={featuredEvent.id} className={styles.blurBackground}>
-                <Image
-                    src={featuredEvent.image}
-                    alt="Background"
-                    fill
-                    className={styles.bgImage}
-                    priority
-                />
-                <div className={styles.bgOverlay} />
-            </div>
+            <AnimatePresence mode="wait">
+                <motion.div
+                    key={featuredEvent.id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.7, ease: "easeInOut" }}
+                    className={styles.blurBackground}
+                >
+                    <Image
+                        src={featuredEvent.image}
+                        alt="Background"
+                        fill
+                        className={styles.bgImage}
+                        priority
+                    />
+                    <div className={styles.bgOverlay} />
+                </motion.div>
+            </AnimatePresence>
 
             <div className={styles.container}>
                 <div className={styles.contentGrid}>
                     {/* Left: Info */}
                     <div className={styles.infoColumn}>
-                        <div className={styles.dateBadge}>
-                            {featuredEvent.date}, {featuredEvent.time}
-                        </div>
-                        <h1 className={styles.title}>{featuredEvent.title}</h1>
-                        <p className={styles.location}>{featuredEvent.location}</p>
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={featuredEvent.id}
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.5, ease: "easeOut" }}
+                            >
+                                <div className={styles.dateBadge}>
+                                    {featuredEvent.date}, {featuredEvent.time}
+                                </div>
+                                <h1 className={styles.title}>{featuredEvent.title}</h1>
+                                <p className={styles.location}>{featuredEvent.location}</p>
 
-                        {/* Countdown Timer */}
-                        <div className={styles.countdownWrapper}>
-                            <div className={styles.timerBlock}>
-                                <span className={styles.timerValue}>{fmt(timeLeft.days)}</span>
-                                <span className={styles.timerLabel}>Days</span>
-                            </div>
-                            <div className={styles.timerBlock}>
-                                <span className={styles.timerValue}>{fmt(timeLeft.hours)}</span>
-                                <span className={styles.timerLabel}>Hrs</span>
-                            </div>
-                            <div className={styles.timerBlock}>
-                                <span className={styles.timerValue}>{fmt(timeLeft.mins)}</span>
-                                <span className={styles.timerLabel}>Mins</span>
-                            </div>
-                            <div className={styles.timerBlock}>
-                                <span className={styles.timerValue}>{fmt(timeLeft.secs)}</span>
-                                <span className={styles.timerLabel}>Secs</span>
-                            </div>
-                        </div>
+                                {/* Countdown Timer */}
+                                <div className={styles.countdownWrapper}>
+                                    <div className={styles.timerBlock}>
+                                        <span className={styles.timerValue}>{fmt(timeLeft.days)}</span>
+                                        <span className={styles.timerLabel}>Days</span>
+                                    </div>
+                                    <div className={styles.timerBlock}>
+                                        <span className={styles.timerValue}>{fmt(timeLeft.hours)}</span>
+                                        <span className={styles.timerLabel}>Hrs</span>
+                                    </div>
+                                    <div className={styles.timerBlock}>
+                                        <span className={styles.timerValue}>{fmt(timeLeft.mins)}</span>
+                                        <span className={styles.timerLabel}>Mins</span>
+                                    </div>
+                                    <div className={styles.timerBlock}>
+                                        <span className={styles.timerValue}>{fmt(timeLeft.secs)}</span>
+                                        <span className={styles.timerLabel}>Secs</span>
+                                    </div>
+                                </div>
 
-                        <p className={styles.price}>{featuredEvent.price}</p>
+                                <p className={styles.price}>{featuredEvent.price}</p>
 
-                        <div className={styles.actions}>
-                            <Link href={`/events/${featuredEvent.id}/register`}>
-                                <Button size="lg" className={styles.bookBtn}>Book tickets</Button>
-                            </Link>
-                        </div>
+                                <div className={styles.actions}>
+                                    <Link href={`/events/${featuredEvent.id}/register`}>
+                                        <Button size="lg" className={styles.bookBtn}>Book tickets</Button>
+                                    </Link>
+                                </div>
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
 
                     {/* Right: Poster */}
                     <div className={styles.posterColumn}>
-                        <div key={featuredEvent.id} className={styles.posterWrapper}>
-                            <Image
-                                src={featuredEvent.image}
-                                alt={featuredEvent.title}
-                                width={500}
-                                height={600}
-                                className={styles.posterImage}
-                                priority
-                            />
-                        </div>
-
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={featuredEvent.id}
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.95 }}
+                                transition={{ duration: 0.6, ease: "easeOut" }}
+                                className={styles.posterWrapper}
+                            >
+                                <Image
+                                    src={featuredEvent.image}
+                                    alt={featuredEvent.title}
+                                    width={500}
+                                    height={600}
+                                    className={styles.posterImage}
+                                    priority
+                                />
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
                 </div>
             </div>

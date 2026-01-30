@@ -530,7 +530,7 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
                                         >
                                             {isSubmitting ? (
                                                 <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                                    <Loader2 size={18} className="animate-spin" /> ...
+                                                    <Loader2 size={18} className="animate-spin" /> Submitting...
                                                 </span>
                                             ) : (
                                                 'Submit'

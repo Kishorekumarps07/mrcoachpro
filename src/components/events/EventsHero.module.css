@@ -97,33 +97,35 @@
 
     .infoColumn {
         min-height: auto;
-        gap: 16px;
-        /* Explicit gap for flex column */
+        gap: 12px;
+        /* Reduced from 16px */
     }
 
     .heroSection {
-        padding-top: 100px;
-        /* Reduced top padding */
-        padding-bottom: 40px;
+        padding-top: 60px;
+        /* Reduced from 100px */
+        padding-bottom: 24px;
+        /* Reduced from 40px */
         min-height: auto;
         display: block;
-        /* Stack content naturally */
     }
 
     .contentGrid {
-        gap: 32px;
-        /* Reduced gap between info and poster */
+        gap: 20px;
+        /* Reduced from 32px */
     }
 
     .title {
         font-size: 1.75rem;
         line-height: 1.2;
-        margin-bottom: 24px;
+        margin-bottom: 16px;
+        /* Reduced from 24px */
         max-width: 100%;
     }
 
     .dateBadge {
-        margin-bottom: 16px;
+        margin-bottom: 12px;
+        /* Reduced from 16px */
         font-size: 0.75rem;
         padding: 4px 12px;
     }
@@ -181,6 +183,8 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
+    align-self: flex-start;
+    /* Prevent full-width stretching */
 
     /* Yellow Glassmorphic Highlight */
     background: rgba(255, 215, 0, 0.15);
@@ -200,6 +204,8 @@
     /* Darker for contrast */
     opacity: 1;
     /* Remove opacity */
+    align-self: flex-start;
+    /* Prevent full-width stretching */
 
     /* Yellow Glassmorphic Highlight */
     background: rgba(255, 215, 0, 0.25);
@@ -211,8 +217,10 @@
 }
 
 .bookBtn {
-    background-color: #000;
-    color: #fff;
+    background-color: #F9D949;
+    /* Navbar yellow */
+    color: #000;
+    /* Black text */
     border: none;
     padding: 16px 40px;
     /* Reduced padding */
@@ -229,8 +237,10 @@
 
 .bookBtn:hover {
     transform: translateY(-4px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-    background-color: #333;
+    box-shadow: 0 15px 40px rgba(249, 217, 73, 0.4);
+    /* Yellow glow */
+    background-color: #f5d02e;
+    /* Slightly darker yellow */
 }
 
 .posterColumn {
@@ -343,11 +353,41 @@
 
 @media (max-width: 768px) {
     .countdownWrapper {
-        gap: 20px;
+        gap: 16px;
+        /* Reduced from 20px */
+        margin-bottom: 28px;
+        /* Reduced spacing */
+        padding-top: 16px;
+        /* Reduced padding */
     }
 
     .timerValue {
         font-size: 1.5rem;
-        /* Reduced from 1.8rem */
+    }
+
+    .location {
+        margin-bottom: 16px;
+        /* Reduced from 24px */
+    }
+
+    .price {
+        margin-bottom: 28px;
+        /* Reduced from 48px */
+    }
+
+    /* Center book button on mobile */
+    .bookBtn {
+        align-self: center;
+        /* Center the button */
+        width: 100%;
+        /* Full width for mobile */
+        max-width: 280px;
+        /* But not too wide */
+    }
+
+    .actions {
+        display: flex;
+        justify-content: center;
+        /* Center wrapper */
     }
 }

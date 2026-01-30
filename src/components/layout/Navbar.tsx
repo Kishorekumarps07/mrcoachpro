@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import clsx from 'clsx';
 import { Menu, X, Search, MapPin, ChevronDown, Sparkles, Calendar, Info } from 'lucide-react';
@@ -18,6 +19,9 @@ const NAV_LINKS = [
 ];
 
 export const Navbar = () => {
+    const pathname = usePathname();
+    const isEventsPage = pathname === '/events';
+    console.log('Current pathname:', pathname, '| Is Events Page:', isEventsPage); // Debug log
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -72,13 +76,13 @@ export const Navbar = () => {
                     <nav className={styles.desktopNav}>
                         {/* New Location & Search Section */}
                         <div className={styles.navTools}>
-                            {/* Dynamic Search Bar */}
+                            {/* Dynamic Search Bar - Conditional based on route */}
                             <div className={styles.searchBar} onClick={() => setIsSearchOpen(true)}>
                                 <Search size={18} className={styles.searchIcon} />
                                 <input
                                     type="text"
                                     readOnly
-                                    placeholder={`Search for '${placeholders[placeholderIndex]}'`}
+                                    placeholder={isEventsPage ? "Search for events, locations, dates..." : `Search for '${placeholders[placeholderIndex]}'`}
                                     className={styles.searchInput}
                                 />
                             </div>
@@ -109,7 +113,7 @@ export const Navbar = () => {
                     <div className={styles.mobileSearchBar} onClick={() => setIsSearchOpen(true)}>
                         <Search size={18} className={styles.mobileSearchIcon} />
                         <span className={styles.mobileSearchPlaceholder}>
-                            Search for '{placeholders[placeholderIndex]}'
+                            {isEventsPage ? "Search for events, locations, dates..." : `Search for '${placeholders[placeholderIndex]}'`}
                         </span>
                     </div>
 

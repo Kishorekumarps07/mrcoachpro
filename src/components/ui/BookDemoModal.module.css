@@ -374,12 +374,25 @@
 }
 
 .submitButton:disabled {
-    opacity: 0.5;
+    opacity: 0.8;
     cursor: not-allowed;
     transform: none;
-    background: #E5E5E5;
-    color: #A3A3A3;
-    box-shadow: none;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Pulse animation for submitting state */
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 0.8;
+        box-shadow: 0 2px 8px rgba(249, 217, 73, 0.2);
+    }
+
+    50% {
+        opacity: 1;
+        box-shadow: 0 4px 20px rgba(249, 217, 73, 0.4);
+    }
 }
 
 /* Success State */

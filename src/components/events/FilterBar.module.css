@@ -39,22 +39,24 @@
     }
 
     .scrollWrapper {
-        display: flex;
-        gap: 12px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 columns */
+        gap: 10px;
         padding: 0 20px;
-        overflow-x: auto;
-        justify-content: flex-start;
-        align-items: center;
-        mask-image: linear-gradient(to right, black 85%, transparent 100%);
-        -webkit-overflow-scrolling: touch;
-        /* Smooth scrolling on iOS */
+        overflow-x: visible;
+        /* No horizontal scroll */
+        mask-image: none;
+        /* Remove scroll fade effect */
     }
 
     .filterPill {
-        padding: 8px 16px;
+        padding: 10px 12px;
         font-size: 0.85rem;
-        flex-shrink: 0;
-        /* Prevent shrinking */
+        width: 100%;
+        /* Full width of grid cell */
+        justify-content: center;
+        /* Center content */
     }
 }
 
@@ -122,4 +124,11 @@
     width: 80px;
     background: linear-gradient(to right, rgba(255, 255, 255, 0), #ffffff);
     pointer-events: none;
+}
+
+/* Hide fade on mobile (grid layout doesn't scroll) */
+@media (max-width: 768px) {
+    .fadeRight {
+        display: none;
+    }
 }
