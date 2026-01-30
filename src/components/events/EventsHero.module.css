@@ -328,6 +328,24 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    position: relative;
+    /* For positioning separator */
+}
+
+/* Colon separator between timer blocks */
+.timerBlock:not(:last-child)::after {
+    content: ':';
+    position: absolute;
+    right: -18px;
+    /* Position between blocks */
+    top: 0;
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+    color: #000;
+    opacity: 0.3;
+    /* Subtle separator */
 }
 
 .timerValue {
@@ -389,5 +407,12 @@
         display: flex;
         justify-content: center;
         /* Center wrapper */
+    }
+
+    /* Mobile separator adjustments */
+    .timerBlock:not(:last-child)::after {
+        font-size: 1.5rem;
+        right: -10px; /* Adjusted for 16px gap */
+        top: 2px;
     }
 }

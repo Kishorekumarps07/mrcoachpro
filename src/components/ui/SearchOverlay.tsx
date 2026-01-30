@@ -4,10 +4,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Search, X, ChevronRight } from 'lucide-react';
 import styles from './SearchOverlay.module.css';
+import { EVENTS } from '@/data/events';
+import { ALL_SERVICES } from '@/data/services';
 
 interface SearchOverlayProps {
     isOpen: boolean;
     onClose: () => void;
+    type?: 'default' | 'events';
 }
 
 type Category = 'Service' | 'Program' | 'Event' | 'Page';
@@ -19,30 +22,49 @@ interface SearchItem {
     href: string;
 }
 
-import { ALL_SERVICES } from '@/data/services';
-
-// Generate dynamic search data
+// Generate dynamic search data for Services
 const SERVICE_ITEMS: SearchItem[] = ALL_SERVICES.map((service, index) => ({
     id: `svc-${index}`,
     title: service,
     category: 'Service',
-    href: `/services` // Redirect generally for now, or specific slug if we had it
+    href: `/services`
 }));
 
-const STATIC_ITEMS: SearchItem[] = [
+const STATIC_SERVICE_ITEMS: SearchItem[] = [
     { id: 'static-1', title: 'Start Personal Training', category: 'Action', href: '/contact' },
     { id: 'static-2', title: 'View Class Schedule', category: 'Page', href: '/events' },
     { id: 'static-3', title: 'Location & Contact', category: 'Page', href: '/contact' },
     { id: 'static-4', title: 'About the Coach', category: 'Page', href: '/about' },
 ];
 
-const SEARCH_DATA = [...STATIC_ITEMS, ...SERVICE_ITEMS];
+// Generate dynamic search data for Events
+const EVENT_ITEMS: SearchItem[] = EVENTS.map((event) => ({
+    id: `evt-${event.id}`,
+    title: event.title,
+    category: event.category,
+    href: `/events/${event.id}`
+}));
 
-export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose }) => {
+const STATIC_EVENT_ITEMS: SearchItem[] = [
+    { id: 'evt-static-1', title: 'All Marathons', category: 'Events', href: '/events' },
+    { id: 'evt-static-2', title: 'Wellness Workshops', category: 'Events', href: '/events' },
+    { id: 'evt-static-3', title: 'Upcoming Competitions', category: 'Events', href: '/events' },
+    { id: 'evt-static-4', title: 'Running Events', category: 'Category', href: '/events' },
+];
+
+const SERVICE_SEARCH_DATA = [...STATIC_SERVICE_ITEMS, ...SERVICE_ITEMS];
+const EVENT_SEARCH_DATA = [...STATIC_EVENT_ITEMS, ...EVENT_ITEMS];
+
+export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose, type = 'default' }) => {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<SearchItem[]>([]);
     const [selectedIndex, setSelectedIndex] = useState(0);
     const inputRef = useRef<HTMLInputElement>(null);
+
+    // Select data based on type
+    const searchData = type === 'events' ? EVENT_SEARCH_DATA : SERVICE_SEARCH_DATA;
+    const staticItems = type === 'events' ? STATIC_EVENT_ITEMS : STATIC_SERVICE_ITEMS;
+    const placeholder = type === 'events' ? 'Search events, locations, categories...' : 'Search programs, services, sports...';
 
     useEffect(() => {
         if (isOpen) {
@@ -58,18 +80,18 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose })
 
     useEffect(() => {
         if (!query.trim()) {
-            setResults(STATIC_ITEMS.slice(0, 5)); // Show recent/static items by default
+            setResults(staticItems.slice(0, 5)); // Show recent/static items by default
             return;
         }
 
         const lowerQuery = query.toLowerCase();
-        const filtered = SEARCH_DATA.filter(item =>
+        const filtered = searchData.filter(item =>
             item.title.toLowerCase().includes(lowerQuery) ||
             item.category.toLowerCase().includes(lowerQuery)
         ).slice(0, 10); // Limit results
         setResults(filtered);
         setSelectedIndex(0);
-    }, [query]);
+    }, [query, searchData, staticItems]);
 
     // Keyboard Navigation
     useEffect(() => {
@@ -125,7 +147,7 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose })
                         ref={inputRef}
                         type="text"
                         className={styles.input}
-                        placeholder="Search programs, services, sports..."
+                        placeholder={placeholder}
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                         aria-label="Search"

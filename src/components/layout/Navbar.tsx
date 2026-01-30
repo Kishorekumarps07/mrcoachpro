@@ -201,7 +201,11 @@ export const Navbar = () => {
                 </>
             )}
 
-            <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+            <SearchOverlay
+                isOpen={isSearchOpen}
+                onClose={() => setIsSearchOpen(false)}
+                type={isEventsPage ? 'events' : 'default'}
+            />
         </>
     );
 };
