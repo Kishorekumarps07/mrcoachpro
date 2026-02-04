@@ -1,4 +1,5 @@
 export interface PricingTier {
+    id?: number;
     name: string;
     price: string;
     description: string;
@@ -27,6 +28,8 @@ export interface Testimonial {
     image?: string;
 }
 
+export type EventCategory = 'Workshop' | 'Competition' | 'Seminar' | 'Wellness' | 'Running' | 'Sports';
+
 export interface Event {
     id: string;
     slug: string;
@@ -36,7 +39,7 @@ export interface Event {
     location: string;
     price: string;
     image: string;
-    category: 'Workshop' | 'Competition' | 'Seminar' | 'Wellness' | 'Running' | 'Sports';
+    category: EventCategory;
     featured?: boolean;
     description: string;
 

@@ -1,39 +1,66 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import styles from './FilterBar.module.css';
-import { Calendar, MapPin, Music, Briefcase, Trophy, Activity, Dumbbell, Sun } from 'lucide-react';
+import { Briefcase, Trophy, Activity, Dumbbell, Sun, Layers } from 'lucide-react';
 import clsx from 'clsx';
+import { eventService } from '@/services/eventService';
 
-const FILTERS = [
-    { label: 'All Events', icon: null },
-    { label: 'Workshops', icon: Briefcase },
-    { label: 'Competitions', icon: Trophy },
-    { label: 'Running', icon: Activity },
-    { label: 'Wellness', icon: Sun },
-    { label: 'Sports', icon: Dumbbell },
-    { label: 'Today', icon: Calendar },
-    { label: 'Tomorrow', icon: Calendar },
+// Default filters
+const STATIC_FILTERS = [
+    { id: 0, label: 'All Events', icon: Layers },
 ];
 
 interface FilterBarProps {
-    activeFilter: string;
-    onFilterChange: (filter: string) => void;
+    activeFilterId: number;
+    onFilterChange: (id: number) => void;
 }
 
-export const FilterBar = ({ activeFilter, onFilterChange }: FilterBarProps) => {
+export const FilterBar = ({ activeFilterId, onFilterChange }: FilterBarProps) => {
     const scrollRef = useRef<HTMLDivElement>(null);
+    const [filters, setFilters] = useState<{ id: number; label: string; icon: any }[]>(STATIC_FILTERS);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const categories = await eventService.getCategories();
+                // Map backend categories to UI structure
+                const dynamicFilters = categories.map(cat => ({
+                    id: cat.id,
+                    label: cat.name,
+                    icon: getIconForCategory(cat.name)
+                }));
+
+                setFilters([...STATIC_FILTERS, ...dynamicFilters]);
+            } catch (err) {
+                console.error('Failed to load categories', err);
+            }
+        };
+
+        fetchCategories();
+    }, []);
+
+    // Helper to assign icons based on name
+    const getIconForCategory = (name: string) => {
+        const lowerName = name.toLowerCase();
+        if (lowerName.includes('workshop')) return Briefcase;
+        if (lowerName.includes('competition')) return Trophy;
+        if (lowerName.includes('run')) return Activity;
+        if (lowerName.includes('wellness')) return Sun;
+        if (lowerName.includes('sport')) return Dumbbell;
+        return Activity;
+    };
 
     return (
         <div className={styles.filterBarContainer}>
             <div className={styles.scrollWrapper} ref={scrollRef}>
-                {FILTERS.map((filter, index) => (
+                {filters.map((filter) => (
                     <button
-                        key={index}
+                        key={filter.id}
                         className={clsx(styles.filterPill, {
-                            [styles.active]: activeFilter === filter.label
+                            [styles.active]: activeFilterId === filter.id
                         })}
-                        onClick={() => onFilterChange(filter.label)}
+                        onClick={() => onFilterChange(filter.id)}
                     >
                         {filter.icon && <filter.icon size={16} className={styles.icon} />}
                         {filter.label}
@@ -44,3 +71,4 @@ export const FilterBar = ({ activeFilter, onFilterChange }: FilterBarProps) => {
         </div>
     );
 };
+

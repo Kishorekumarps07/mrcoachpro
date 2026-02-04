@@ -4,22 +4,34 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
-import { EVENTS } from '@/data/events';
+import { Event } from '@/data/events'; // Type only
 import styles from './EventsHero.module.css';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
-export const EventsHero = () => {
+interface EventsHeroProps {
+    events: Event[];
+}
+
+export const EventsHero = ({ events }: EventsHeroProps) => {
     const [currentIndex, setCurrentIndex] = React.useState(0);
-    const featuredEvent = EVENTS[currentIndex];
+
+    // Reset index if out of bounds (e.g. detailed filter change)
+    // Needs to be before any potential early return if used in useEffect dependencies? 
+    // Actually, useEffect must be called unconditionally.
+    React.useEffect(() => {
+        if (events && currentIndex >= events.length) setCurrentIndex(0);
+    }, [events, currentIndex]);
 
     const handleNext = React.useCallback(() => {
-        setCurrentIndex((prev) => (prev === EVENTS.length - 1 ? 0 : prev + 1));
-    }, []);
+        if (!events || events.length === 0) return;
+        setCurrentIndex((prev) => (prev === events.length - 1 ? 0 : prev + 1));
+    }, [events?.length]);
 
     const handlePrevious = React.useCallback(() => {
-        setCurrentIndex((prev) => (prev === 0 ? EVENTS.length - 1 : prev - 1));
-    }, []);
+        if (!events || events.length === 0) return;
+        setCurrentIndex((prev) => (prev === 0 ? events.length - 1 : prev - 1));
+    }, [events?.length]);
 
     React.useEffect(() => {
         const timer = setInterval(() => {
@@ -57,6 +69,15 @@ export const EventsHero = () => {
 
     // Helper to format with leading zero
     const fmt = (n: number) => n.toString().padStart(2, '0');
+
+    // Guard clause: if no events, return nothing or placeholder
+    // Placed AFTER all hooks have been called
+    if (!events || events.length === 0) return null;
+
+    const featuredEvent = events[currentIndex];
+
+    // Safety check for current index
+    if (!featuredEvent) return null;
 
     return (
         <section className={styles.heroSection}>

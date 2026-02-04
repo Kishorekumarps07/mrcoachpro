@@ -1,15 +1,11 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { EVENTS } from '@/data/events';
 import { EventDetailView } from '@/components/events/EventDetailView';
+import { eventService } from '@/services/eventService';
 
-// Generate static params for all known events (optional for SSG, good for performance)
-export async function generateStaticParams() {
-    return EVENTS.map((event) => ({
-        id: event.id,
-    }));
-}
+// Remove generateStaticParams for now to allow dynamic fetching of new events
+// export async function generateStaticParams() { ... }
 
 interface EventPageProps {
     params: Promise<{ id: string }>;
@@ -17,7 +13,7 @@ interface EventPageProps {
 
 export async function generateMetadata({ params }: EventPageProps): Promise<Metadata> {
     const { id } = await params;
-    const event = EVENTS.find((e) => e.id === id);
+    const event = await eventService.getEventById(id);
 
     if (!event) {
         return {
@@ -38,7 +34,7 @@ export async function generateMetadata({ params }: EventPageProps): Promise<Meta
 
 export default async function EventPage({ params }: EventPageProps) {
     const { id } = await params;
-    const event = EVENTS.find((e) => e.id === id);
+    const event = await eventService.getEventById(id);
 
     if (!event) {
         notFound();

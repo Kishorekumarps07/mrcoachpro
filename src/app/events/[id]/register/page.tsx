@@ -3,16 +3,32 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Navbar } from '@/components/layout/Navbar';
-import { EVENTS } from '@/data/events';
+import { eventService } from '@/services/eventService';
+import { Event } from '@/data/events';
 import { Button } from '@/components/ui/Button';
-import { ChevronLeft, ChevronRight, Check, MapPin, Shirt, Droplet } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Check, MapPin, Shirt, Droplet, Lock } from 'lucide-react';
 import styles from './registration.module.css';
 
 export default function RegistrationPage() {
     const params = useParams();
     const router = useRouter();
     const searchParams = useSearchParams();
-    const event = EVENTS.find(e => e.id === params.id);
+
+    const [event, setEvent] = useState<Event | null>(null);
+    const [isLoadingEvent, setIsLoadingEvent] = useState(true);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    // Fetch Event Data
+    useEffect(() => {
+        const fetchEvent = async () => {
+            if (params.id) {
+                const data = await eventService.getEventById(params.id as string);
+                setEvent(data);
+                setIsLoadingEvent(false);
+            }
+        };
+        fetchEvent();
+    }, [params.id]);
 
     const [currentStep, setCurrentStep] = useState(1);
 
@@ -41,6 +57,19 @@ export default function RegistrationPage() {
         // Step 3: Review
         agreeToTerms: false,
     });
+
+    // Handle early loading/error states
+    if (isLoadingEvent) {
+        return (
+            <main className={styles.main}>
+                <Navbar />
+                <div className={styles.container} style={{ display: 'flex', justifyContent: 'center', padding: '100px 0' }}>
+                    <div className="spinner"></div> {/* Add a spinner CSS or use text */}
+                    <p>Loading event details...</p>
+                </div>
+            </main>
+        );
+    }
 
     if (!event) {
         return (
@@ -89,15 +118,8 @@ export default function RegistrationPage() {
         });
     };
 
-    // Ensure initial participants array has at least one item
-    useEffect(() => {
-        if (formData.participants.length === 0) {
-            setFormData(prev => ({ ...prev, participants: [{ name: '', ageCategory: 'adult', tshirtSize: '' }] }));
-        }
-    }, []);
-
     const handleNext = () => {
-        // Validation for Step 1 (Emergency contact is now optional)
+        // Validation for Step 1
         if (currentStep === 1) {
             if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone ||
                 !formData.bloodGroup || !formData.location) {
@@ -123,18 +145,53 @@ export default function RegistrationPage() {
         if (currentStep > 1) setCurrentStep(currentStep - 1);
     };
 
-    const handleSubmit = () => {
+    const selectedTier = event.pricingTiers[formData.selectedTier] || event.pricingTiers[0];
+    const priceValue = selectedTier ? (parseInt(selectedTier.price.replace(/[^0-9.]/g, '')) || 0) : 0;
+    const totalPrice = priceValue * formData.quantity;
+
+    const handleSubmit = async () => {
         if (!formData.agreeToTerms) {
             alert('Please agree to the terms and conditions');
             return;
         }
-        // Navigate to payment page
-        router.push(`/events/${event.id}/payment`);
-    };
 
-    const selectedTier = event.pricingTiers[formData.selectedTier];
-    const totalPrice = selectedTier ?
-        (parseInt(selectedTier.price.replace(/[^0-9]/g, '')) || 0) * formData.quantity : 0;
+        setIsSubmitting(true);
+
+        try {
+            // Construct API Payload
+            const payload = {
+                event_id: parseInt(event.id) || 0,
+                user_id: 0, // Guest Checkout
+                user_name: `${formData.firstName} ${formData.lastName}`.trim(),
+                user_email: formData.email,
+                user_phone: formData.phone,
+                user_address: formData.location,
+                total_amount: totalPrice,
+                payment_provider: "Razorpay", // Simulation
+                attendees: formData.participants.map(p => ({
+                    ticket_id: selectedTier?.id || 0, // Use the ID from the selected tier
+                    name: p.name,
+                    age_group: p.ageCategory,
+                    tshirt_size: p.tshirtSize
+                }))
+            };
+
+            const response = await eventService.createOrder(payload);
+
+            if (response.success) {
+                // Redirect to success page
+                router.push(`/events/${event.id}/payment/success`);
+            } else {
+                alert(`Registration failed: ${response.message}`);
+                setIsSubmitting(false);
+            }
+
+        } catch (error) {
+            console.error('Registration Error:', error);
+            alert('An unexpected error occurred. Please try again.');
+            setIsSubmitting(false);
+        }
+    };
 
     return (
         <main className={styles.main}>
@@ -158,7 +215,7 @@ export default function RegistrationPage() {
                                 {currentStep > step ? <Check size={16} /> : step}
                             </div>
                             <span className={styles.progressLabel}>
-                                {step === 1 ? 'Your Info' : step === 2 ? 'Select Tickets' : 'Review'}
+                                {step === 1 ? 'Your Info' : step === 2 ? 'Select Tickets' : 'Review & Pay'}
                             </span>
                         </div>
                     ))}
@@ -304,7 +361,7 @@ export default function RegistrationPage() {
                                             <p className={styles.ticketDescription}>{tier.description}</p>
                                             <div className={styles.divider} />
                                             <ul className={styles.ticketFeatures}>
-                                                {tier.features.map((feature, idx) => (
+                                                {tier.features?.map((feature, idx) => (
                                                     <li key={idx}><Check size={14} className={styles.check} /> {feature}</li>
                                                 ))}
                                             </ul>
@@ -394,7 +451,7 @@ export default function RegistrationPage() {
                         {/* Step 3: Review & Confirm */}
                         {currentStep === 3 && (
                             <div className={styles.step}>
-                                <h2 className={styles.stepTitle}>Review Your Registration</h2>
+                                <h2 className={styles.stepTitle}>Review & Pay</h2>
                                 <div className={styles.reviewSection}>
                                     <div className={styles.reviewGroup}>
                                         <h3 className={styles.reviewTitle}>Attendee Information</h3>
@@ -459,6 +516,13 @@ export default function RegistrationPage() {
                                             <span>I agree to the terms and conditions and cancellation policy</span>
                                         </label>
                                     </div>
+
+                                    <div style={{ marginTop: '24px', padding: '16px', borderRadius: '8px', background: '#e0f7fa', border: '1px solid #b2ebf2' }}>
+                                        <p style={{ fontSize: '0.9rem', color: '#006064', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                            <Lock size={16} />
+                                            Payment will be handled via Razorpay (Simulation Mode).
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         )}
@@ -466,7 +530,7 @@ export default function RegistrationPage() {
                         {/* Navigation Buttons */}
                         <div className={styles.navigation}>
                             {currentStep > 1 && (
-                                <Button variant="secondary" onClick={handleBack}>
+                                <Button variant="secondary" onClick={handleBack} disabled={isSubmitting}>
                                     <ChevronLeft size={18} />
                                     Back
                                 </Button>
@@ -477,8 +541,8 @@ export default function RegistrationPage() {
                                     <ChevronRight size={18} />
                                 </Button>
                             ) : (
-                                <Button onClick={handleSubmit} className={styles.nextButton}>
-                                    Proceed to Payment
+                                <Button onClick={handleSubmit} className={styles.nextButton} disabled={isSubmitting}>
+                                    {isSubmitting ? 'Processing...' : `Pay ₹${totalPrice.toLocaleString()}`}
                                 </Button>
                             )}
                         </div>
@@ -490,7 +554,7 @@ export default function RegistrationPage() {
                             <h3 className={styles.summaryTitle}>Order Summary</h3>
                             <div className={styles.summaryItem}>
                                 <span>Ticket Type:</span>
-                                <span>{selectedTier?.name || 'Not selected'}</span>
+                                <span>{selectedTier?.name || 'Standard Entry'}</span>
                             </div>
                             <div className={styles.summaryItem}>
                                 <span>Quantity:</span>

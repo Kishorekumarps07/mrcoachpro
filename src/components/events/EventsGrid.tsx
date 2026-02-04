@@ -1,35 +1,32 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import { EventCard } from './EventCard';
-import { EVENTS } from '@/data/events';
+import { Event } from '@/data/events';
 import styles from './EventsGrid.module.css';
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface EventsGridProps {
-    activeFilter: string;
+    events: Event[];
+    activeFilter?: string;
+    isLoading?: boolean;
 }
 
-export const EventsGrid = ({ activeFilter }: EventsGridProps) => {
-    const filteredEvents = useMemo(() => {
-        let filtered = EVENTS;
+export const EventsGrid = ({ events, activeFilter, isLoading }: EventsGridProps) => {
 
-        // Apply category filter
-        if (activeFilter !== 'All Events') {
-            if (activeFilter === 'Today' || activeFilter === 'Tomorrow') {
-                filtered = [];
-            } else {
-                const categoryMap: Record<string, string> = {
-                    'Workshops': 'Workshop',
-                    'Competitions': 'Competition'
-                };
-                const targetCategory = categoryMap[activeFilter] || activeFilter;
-                filtered = filtered.filter(event => event.category === targetCategory);
-            }
-        }
-
-        return filtered;
-    }, [activeFilter]);
+    // If loading, show skeleton wrapper (or simple loading text for now)
+    if (isLoading) {
+        return (
+            <section className={styles.gridSection}>
+                <div className={styles.container}>
+                    <div className={styles.loadingState}>
+                        <div className={styles.spinner}></div>
+                        <p>Loading events...</p>
+                    </div>
+                </div>
+            </section>
+        );
+    }
 
     return (
         <section className={styles.gridSection}>
@@ -43,10 +40,10 @@ export const EventsGrid = ({ activeFilter }: EventsGridProps) => {
                     </p>
                 </div>
 
-                {filteredEvents.length > 0 ? (
+                {events.length > 0 ? (
                     <div className={styles.grid}>
                         <AnimatePresence mode='popLayout'>
-                            {filteredEvents.map((event) => (
+                            {events.map((event) => (
                                 <motion.div
                                     key={event.id}
                                     layout

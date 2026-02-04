@@ -4,8 +4,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Search, X, ChevronRight } from 'lucide-react';
 import styles from './SearchOverlay.module.css';
-import { EVENTS } from '@/data/events';
 import { ALL_SERVICES } from '@/data/services';
+import { eventService } from '@/services/eventService';  // Import service
 
 interface SearchOverlayProps {
     isOpen: boolean;
@@ -37,33 +37,50 @@ const STATIC_SERVICE_ITEMS: SearchItem[] = [
     { id: 'static-4', title: 'About the Coach', category: 'Page', href: '/about' },
 ];
 
-// Generate dynamic search data for Events
-const EVENT_ITEMS: SearchItem[] = EVENTS.map((event) => ({
-    id: `evt-${event.id}`,
-    title: event.title,
-    category: event.category,
-    href: `/events/${event.id}`
-}));
-
 const STATIC_EVENT_ITEMS: SearchItem[] = [
     { id: 'evt-static-1', title: 'All Marathons', category: 'Events', href: '/events' },
     { id: 'evt-static-2', title: 'Wellness Workshops', category: 'Events', href: '/events' },
-    { id: 'evt-static-3', title: 'Upcoming Competitions', category: 'Events', href: '/events' },
     { id: 'evt-static-4', title: 'Running Events', category: 'Category', href: '/events' },
 ];
-
-const SERVICE_SEARCH_DATA = [...STATIC_SERVICE_ITEMS, ...SERVICE_ITEMS];
-const EVENT_SEARCH_DATA = [...STATIC_EVENT_ITEMS, ...EVENT_ITEMS];
 
 export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose, type = 'default' }) => {
     const [query, setQuery] = useState('');
     const [results, setResults] = useState<SearchItem[]>([]);
     const [selectedIndex, setSelectedIndex] = useState(0);
+    const [dynamicEventItems, setDynamicEventItems] = useState<SearchItem[]>([]);
     const inputRef = useRef<HTMLInputElement>(null);
 
+    // Fetch matching events on mount
+    useEffect(() => {
+        const fetchEvents = async () => {
+            if (type !== 'events') return;
+            try {
+                const events = await eventService.getEvents(0); // Fetch all
+                const items: SearchItem[] = events.map(evt => ({
+                    id: `evt-${evt.id}`,
+                    title: evt.title,
+                    category: evt.category,
+                    href: `/events/${evt.id}`
+                }));
+                setDynamicEventItems(items);
+            } catch (err) {
+                console.error('Failed to load search events', err);
+            }
+        };
+        fetchEvents();
+    }, [type]);
+
     // Select data based on type
-    const searchData = type === 'events' ? EVENT_SEARCH_DATA : SERVICE_SEARCH_DATA;
-    const staticItems = type === 'events' ? STATIC_EVENT_ITEMS : STATIC_SERVICE_ITEMS;
+    const searchData = React.useMemo(() =>
+        type === 'events' ? [...STATIC_EVENT_ITEMS, ...dynamicEventItems] : [...STATIC_SERVICE_ITEMS, ...SERVICE_ITEMS],
+        [type, dynamicEventItems]
+    );
+
+    const staticItems = React.useMemo(() =>
+        type === 'events' ? STATIC_EVENT_ITEMS : STATIC_SERVICE_ITEMS,
+        [type]
+    );
+
     const placeholder = type === 'events' ? 'Search events, locations, categories...' : 'Search programs, services, sports...';
 
     useEffect(() => {
