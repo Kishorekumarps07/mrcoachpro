@@ -179,8 +179,29 @@ export default function RegistrationPage() {
             const response = await eventService.createOrder(payload);
 
             if (response.success) {
-                // Redirect to success page
-                router.push(`/events/${event.id}/payment/success`);
+                // Order Created - Now Confirm Payment
+                const orderId = response.data?.data?.order_id;
+
+                if (orderId) {
+                    const paymentPayload = {
+                        payment_status: "success",
+                        payment_provider: "Razorpay",
+                        payment_id: `pay_sim_${Date.now()}`,
+                        payment_signature: `sig_${Date.now()}`
+                    };
+
+                    try {
+                        await eventService.confirmPayment(orderId, paymentPayload);
+                        // Even if confirmation warns, we proceed to success as user paid (simulated)
+                    } catch (err) {
+                        console.warn('Payment confirmation warning:', err);
+                    }
+
+                    router.push(`/events/${event.id}/payment/success?orderId=${orderId}`);
+                } else {
+                    // Fallback if no order ID returned
+                    router.push(`/events/${event.id}/payment/success`);
+                }
             } else {
                 alert(`Registration failed: ${response.message}`);
                 setIsSubmitting(false);

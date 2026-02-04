@@ -252,5 +252,32 @@ export const eventService = {
             console.error('Error creating order:', error);
             return { success: false, message: 'Network error occurred' };
         }
+    },
+
+    /**
+     * Confirm payment for an order
+     */
+    async confirmPayment(orderId: string | number, paymentData: any): Promise<{ success: boolean; message?: string; data?: any }> {
+        try {
+            const res = await fetch(`${API_BASE_URL}/events/orders/${orderId}/payment`, {
+                method: 'PUT', // Changed to PUT based on API probe
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(paymentData)
+            });
+
+            const json = await res.json();
+
+            if (!res.ok) {
+                return { success: false, message: json.message || 'Failed to confirm payment' };
+            }
+
+            return { success: true, data: json };
+        } catch (error) {
+            console.error('Error confirming payment:', error);
+            return { success: false, message: 'Network error during payment confirmation' };
+        }
     }
 };
