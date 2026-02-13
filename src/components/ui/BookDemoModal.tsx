@@ -165,11 +165,11 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
                     : formData.startPreference === 'Within a Month' ? 'within_a_month'
                         : 'not_sure', // simplistic mapping
 
-                // Truncation Fix: Database likely allows only 1 char. Using numeric codes.
-                // 1 = Any Day, 2 = Weekdays, 3 = Weekends
-                available_days: formData.availability === 'Weekdays' ? '2'
-                    : formData.availability === 'Weekends' ? '3'
-                        : '1',
+                // Fix: Use string format instead of numeric codes
+                // "any_day", "weekdays", "weekends" to match backend API
+                available_days: formData.availability === 'Weekdays' ? 'weekdays'
+                    : formData.availability === 'Weekends' ? 'weekends'
+                        : 'any_day',
 
                 source_website: 'mrcoachpro_web', // hardcoded identifier
                 state_id: selectedState ? selectedState.id : 0,
@@ -181,22 +181,43 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
 
             console.log('Submitting payload:', payload);
 
+            // Use Next.js API proxy route (server-side handles headers properly)
             const res = await fetch('/api/demo', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
 
-            const data = await res.json();
+            let data;
+            try {
+                // Check response status first
+                if (!res.ok) {
+                    console.error(`Submission failed with HTTP status: ${res.status}`);
+                    const text = await res.text();
+                    console.error('Submission failed response text:', text);
+                    try {
+                        data = JSON.parse(text);
+                    } catch (e) {
+                        // If not JSON, alert the raw text
+                        alert(`Submission failed (Status ${res.status}): ${text.substring(0, 100)}`);
+                        return;
+                    }
+                } else {
+                    data = await res.json();
+                }
 
-            if (data.success) {
-                setIsSuccess(true);
-            } else {
-                console.error('Submission failed response:', data);
-                // Show specific validation errors if available
-                const errorMsg = data.message || 'Unknown error';
-                const details = data.details ? JSON.stringify(data.details) : '';
-                alert(`Submission failed: ${errorMsg}\n${details}`);
+                if (data.success) {
+                    setIsSuccess(true);
+                } else {
+                    console.error('Submission failed response JSON:', data);
+                    // Show specific validation errors if available
+                    const errorMsg = data.message || 'Unknown error';
+                    const details = data.details ? JSON.stringify(data.details) : '';
+                    alert(`Submission failed: ${errorMsg}\n${details}`);
+                }
+            } catch (error) {
+                console.error('Error processing submission response:', error);
+                alert('An error occurred while processing the server response. Please check console for details.');
             }
 
         } catch (error) {

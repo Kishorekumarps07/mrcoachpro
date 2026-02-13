@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        const externalApiUrl = 'https://api.mrcoachpro.in/api/users/receive';
+        const externalApiUrl = 'https://api-dev.mrcoachpro.in/api/users/receive';
 
         // Public API - no authentication required
         const headers: HeadersInit = {
@@ -32,8 +32,12 @@ export async function POST(request: Request) {
             data = JSON.parse(responseText);
         } catch (e) {
             console.warn('Failed to parse external API JSON:', e);
-            data = { raw_response: responseText };
+            console.warn('Raw external API response:', responseText);
+            data = { raw_response: responseText, parse_error: String(e) };
         }
+
+        // If data is somehow null/undefined (e.g. empty response body), default to empty object
+        if (!data) data = {};
 
         if (!response.ok) {
             console.error('External API Request Failed', data);
