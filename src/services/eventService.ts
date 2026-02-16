@@ -9,21 +9,18 @@ interface BackendEvent {
     title: string;
     description: string | null;
     about_event: string;
-    start_date: string; // "2026-02-27"
-    start_time: string; // "5:00 AM"
+    event_date: string; // "2026-02-28" (Changed from start_date)
     end_date: string;
-    end_time: string;
+    registration_close_date?: string;
     location: string;
-    image_url: string;
-    price: string; // "300.00"
-    registration_link: string | null;
-    category: {
-        id: number;
-        name: string;
-        slug: string;
-        image_url: string;
-    };
-    capacity: number;
+    state?: string;
+    district?: string;
+    image: string; // Changed from image_url
+    external_url?: string;
+    social_media_url?: string;
+    total_slots: number; // Changed from capacity
+    booked_slots?: number;
+
     // Optional/Derived fields
     tickets?: {
         id: number;
@@ -32,8 +29,19 @@ interface BackendEvent {
         price: string;
         features: string[];
     }[];
-    features?: string[];
-    features_json?: string;
+    event_highlights?: string; // JSON string or array
+    event_schedule?: string; // JSON string
+    organizers?: string; // JSON string
+    status: string;
+    created_at: string;
+    updated_at: string;
+    category?: {
+        id: number;
+        name: string;
+        slug: string;
+        image_url: string;
+    };
+    category_id?: number;
 }
 
 interface BackendCategory {
@@ -53,74 +61,107 @@ interface ApiResponse<T> {
  * Maps backend event to frontend Event interface
  */
 const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
-    // Parse features from JSON string if array is null
-    let features: string[] = backendEvent.features || [];
-    if (!features.length && backendEvent.features_json) {
+    // Parse highlights/features
+    let highlights: string[] = [];
+    if (backendEvent.event_highlights) {
         try {
-            features = JSON.parse(backendEvent.features_json);
+            // Check if already an array or needs parsing
+            if (Array.isArray(backendEvent.event_highlights)) {
+                highlights = backendEvent.event_highlights;
+            } else {
+                highlights = JSON.parse(backendEvent.event_highlights);
+            }
         } catch (e) {
-            console.error('Failed to parse features_json', e);
+            // If parse fails, maybe it's a comma separated string or plain text
+            if (typeof backendEvent.event_highlights === 'string') {
+                highlights = [backendEvent.event_highlights];
+            }
         }
     }
 
     // Format Date: "2026-02-27" -> "Feb 27"
-    const dateObj = new Date(backendEvent.start_date);
-    const formattedDate = dateObj.toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric'
-    });
-
-    // Determine category based on name
-    let category: EventCategory = 'Running'; // Default
-    const backendCatName = backendEvent.category?.name?.toLowerCase() || '';
-
-    if (backendCatName.includes('workshop') || backendCatName.includes('wellness')) {
-        category = 'Wellness';
-    } else if (backendCatName.includes('competition')) {
-        category = 'Competition';
-    } else if (backendCatName.includes('marathon') || backendCatName.includes('run')) {
-        category = 'Running';
-    } else if (backendCatName.includes('sport')) {
-        category = 'Sports';
+    // Handle invalid dates gracefully
+    let formattedDate = 'Date TBA';
+    try {
+        if (backendEvent.event_date) {
+            const dateObj = new Date(backendEvent.event_date);
+            if (!isNaN(dateObj.getTime())) {
+                formattedDate = dateObj.toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric'
+                });
+            }
+        }
+    } catch (e) {
+        console.error('Date parsing error', e);
     }
 
-    const priceFormatted = `₹${parseFloat(backendEvent.price).toLocaleString()}`;
+    // Determine category
+    // If category object is missing, try to infer or default
+    let category: EventCategory = 'Sports';
+    const catName = backendEvent.category?.name?.toLowerCase() || '';
 
-    // Map Tickets to Pricing Tiers
-    let pricingTiers = [
-        {
-            name: 'Standard Entry',
-            price: priceFormatted,
-            description: 'General admission access',
-            features: features
-        }
-    ];
+    if (catName.includes('workshop') || catName.includes('wellness') || catName.includes('yoga')) {
+        category = 'Wellness';
+    } else if (catName.includes('competition') || catName.includes('tournament')) {
+        category = 'Competition';
+    } else if (catName.includes('marathon') || catName.includes('run')) {
+        category = 'Running';
+    }
+
+    // Pricing Logic
+    // If tickets exist, get lowest price. If not, check if 'price' field exists (legacy?). 
+    // If all fail, "Free" or "Register"
+    let priceFormatted = 'Free';
+    let pricingTiers: any[] = [];
 
     if (backendEvent.tickets && backendEvent.tickets.length > 0) {
+        // Find lowest price
+        const prices = backendEvent.tickets.map(t => parseFloat(t.price)).filter(p => !isNaN(p));
+        if (prices.length > 0) {
+            const minPrice = Math.min(...prices);
+            priceFormatted = minPrice === 0 ? 'Free' : `₹${minPrice.toLocaleString()}`;
+        }
+
         pricingTiers = backendEvent.tickets.map(ticket => ({
             id: ticket.id,
             name: ticket.title,
             price: `₹${parseFloat(ticket.price).toLocaleString()}`,
             description: ticket.description || '',
-            features: ticket.features || [] // Explicitly use features from ticket
+            features: ticket.features || []
         }));
+    } else {
+        // Create a default tier if needed, or leave empty
+        pricingTiers = [{
+            name: 'Standard Entry',
+            price: priceFormatted,
+            description: 'General admission',
+            features: highlights
+        }];
     }
+
+    // Location construction
+    const locationStr = backendEvent.location || backendEvent.district || backendEvent.state || 'Location TBA';
+
+    // Slots
+    const totalSlots = backendEvent.total_slots || 0;
+    const bookedSlots = backendEvent.booked_slots || 0;
+    const spotsLeft = Math.max(0, totalSlots - bookedSlots);
 
     return {
         id: String(backendEvent.id),
         slug: backendEvent.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, ''),
         title: backendEvent.title,
         date: formattedDate,
-        time: backendEvent.start_time,
-        location: backendEvent.location,
-        image: backendEvent.image_url,
+        time: '5:00 AM', // Default or fetch if available (API didn't show time field in logs)
+        location: locationStr,
+        image: backendEvent.image || '/images/event-placeholder.jpg', // Fallback image
         price: priceFormatted,
         category: category,
         description: backendEvent.about_event || backendEvent.description || '',
-        highlights: features, // Map features to highlights
+        highlights: highlights.length > 0 ? highlights : ['Join us for this event!'],
 
-        // Default values for fields not in API
-        detailedDescription: [backendEvent.description || ''],
+        detailedDescription: [backendEvent.description || backendEvent.about_event || ''],
 
         organizer: {
             name: 'Mr. Coach Team',
@@ -128,27 +169,12 @@ const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
             bio: 'Official event organizer',
             image: '/images/default-organizer.jpg'
         },
-        capacity: backendEvent.capacity,
-        spotsLeft: backendEvent.capacity, // Default to capacity if not tracked
-        registrationDeadline: backendEvent.end_date,
+        capacity: totalSlots,
+        spotsLeft: spotsLeft,
+        registrationDeadline: backendEvent.registration_close_date || backendEvent.end_date,
 
-        // Map start/end times to Agenda
-        agenda: [
-            {
-                time: backendEvent.start_time,
-                title: 'Event Starts',
-                description: 'Registration and entry begins'
-            },
-            {
-                time: backendEvent.end_time,
-                title: 'Event Concludes',
-                description: 'Closing remarks and departure'
-            }
-        ],
-
-        // Use mapped pricing tiers
+        agenda: [], // API doesn't seem to have agenda structure yet
         pricingTiers: pricingTiers,
-
         tags: [category],
         testimonials: [],
         featured: false
