@@ -23,6 +23,8 @@ export const EventsHero = ({ events }: EventsHeroProps) => {
         if (events && currentIndex >= events.length) setCurrentIndex(0);
     }, [events, currentIndex]);
 
+    const featuredEvent = (events && events.length > 0) ? events[currentIndex] : null;
+
     const handleNext = React.useCallback(() => {
         if (!events || events.length === 0) return;
         setCurrentIndex((prev) => (prev === events.length - 1 ? 0 : prev + 1));
@@ -42,30 +44,59 @@ export const EventsHero = ({ events }: EventsHeroProps) => {
     }, [handleNext]);
 
     // Countdown Logic
-    const [timeLeft, setTimeLeft] = React.useState({ days: 2, hours: 14, mins: 45, secs: 10 });
+    const [timeLeft, setTimeLeft] = React.useState({ days: 0, hours: 0, mins: 0, secs: 0 });
 
     React.useEffect(() => {
-        const timer = setInterval(() => {
-            setTimeLeft(prev => {
-                let { days, hours, mins, secs } = prev;
-                if (secs > 0) secs--;
-                else {
-                    secs = 59;
-                    if (mins > 0) mins--;
-                    else {
-                        mins = 59;
-                        if (hours > 0) hours--;
-                        else {
-                            hours = 23;
-                            if (days > 0) days--;
-                        }
+        if (!featuredEvent) return;
+
+        const calculateTimeLeft = () => {
+            // Construct target date from isoDate and time
+            // isoDate: "YYYY-MM-DD", time: "5:00 AM"
+            let targetDate = new Date();
+            if (featuredEvent.isoDate) {
+                targetDate = new Date(featuredEvent.isoDate);
+                // Reset time to 00:00 if time parsing is complex, or try to parsing time
+                // For simplicity/robustness, let's assume isoDate is the primary day. 
+                // If we want to be precise with time:
+                if (featuredEvent.time) {
+                    const timeParts = featuredEvent.time.match(/(\d+):(\d+)\s*(AM|PM)/i);
+                    if (timeParts) {
+                        let hours = parseInt(timeParts[1]);
+                        const minutes = parseInt(timeParts[2]);
+                        const ampm = timeParts[3].toUpperCase();
+                        if (ampm === 'PM' && hours < 12) hours += 12;
+                        if (ampm === 'AM' && hours === 12) hours = 0;
+                        targetDate.setHours(hours, minutes, 0, 0);
                     }
                 }
-                return { days, hours, mins, secs };
-            });
+            } else {
+                // Fallback if no isoDate (shouldn't happen with new logic, but safety)
+                return { days: 0, hours: 0, mins: 0, secs: 0 };
+            }
+
+            const now = new Date();
+            const difference = targetDate.getTime() - now.getTime();
+
+            if (difference > 0) {
+                return {
+                    days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                    hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                    mins: Math.floor((difference / 1000 / 60) % 60),
+                    secs: Math.floor((difference / 1000) % 60)
+                };
+            }
+            return { days: 0, hours: 0, mins: 0, secs: 0 };
+        };
+
+        // Initial calculation
+        setTimeLeft(calculateTimeLeft());
+
+        const timer = setInterval(() => {
+            setTimeLeft(calculateTimeLeft());
         }, 1000);
+
         return () => clearInterval(timer);
-    }, []);
+    }, [featuredEvent]);
 
     // Helper to format with leading zero
     const fmt = (n: number) => n.toString().padStart(2, '0');
@@ -73,8 +104,6 @@ export const EventsHero = ({ events }: EventsHeroProps) => {
     // Guard clause: if no events, return nothing or placeholder
     // Placed AFTER all hooks have been called
     if (!events || events.length === 0) return null;
-
-    const featuredEvent = events[currentIndex];
 
     // Safety check for current index
     if (!featuredEvent) return null;

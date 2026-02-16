@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Event } from '@/data/events';
-import { Calendar, Clock, MapPin, Users, Share2, CheckCircle, Building2 } from 'lucide-react';
+import { Calendar, Clock, MapPin, Users, Share2, CheckCircle, Building2, Globe, Link as LinkIcon } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import styles from './EventDetailView.module.css';
 
@@ -64,10 +64,24 @@ export const EventDetailView = ({ event }: EventDetailViewProps) => {
                                 <span>{event.spotsLeft} / {event.capacity} spots left</span>
                             </div>
                         </div>
-                        <button onClick={handleShare} className={styles.shareButton}>
-                            <Share2 size={18} />
-                            Share Event
-                        </button>
+                        <div className={styles.actionButtons}>
+                            {event.externalUrl && (
+                                <a href={event.externalUrl} target="_blank" rel="noopener noreferrer" className={styles.actionButton}>
+                                    <Globe size={18} />
+                                    Website
+                                </a>
+                            )}
+                            {event.socialMediaUrl && (
+                                <a href={event.socialMediaUrl} target="_blank" rel="noopener noreferrer" className={styles.actionButton}>
+                                    <LinkIcon size={18} />
+                                    Social
+                                </a>
+                            )}
+                            <button onClick={handleShare} className={styles.shareButton}>
+                                <Share2 size={18} />
+                                Share
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>

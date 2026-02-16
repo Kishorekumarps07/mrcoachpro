@@ -64,7 +64,7 @@ export default function RegistrationPage() {
             <main className={styles.main}>
                 <Navbar />
                 <div className={styles.container} style={{ display: 'flex', justifyContent: 'center', padding: '100px 0' }}>
-                    <div className="spinner"></div> {/* Add a spinner CSS or use text */}
+                    <div className="spinner"></div>
                     <p>Loading event details...</p>
                 </div>
             </main>
@@ -78,6 +78,39 @@ export default function RegistrationPage() {
                 <div className={styles.container}>
                     <h1>Event Not Found</h1>
                     <Button onClick={() => router.push('/events')}>Back to Events</Button>
+                </div>
+            </main>
+        );
+    }
+
+    const isSoldOut = event.spotsLeft <= 0;
+    const isRegistrationClosed = new Date(event.registrationDeadline) < new Date();
+
+    if (isSoldOut || isRegistrationClosed) {
+        return (
+            <main className={styles.main}>
+                <Navbar />
+                <div className={styles.container}>
+                    <div className={styles.header}>
+                        <button onClick={() => router.back()} className={styles.backButton}>
+                            <ChevronLeft size={20} />
+                            Back to Event
+                        </button>
+                        <h1 className={styles.title}>{event.title}</h1>
+                        <p className={styles.subtitle}>{event.date} • {event.location}</p>
+                    </div>
+                    <div style={{ textAlign: 'center', padding: '60px 0' }}>
+                        <h2 style={{ fontSize: '2rem', marginBottom: '16px', color: '#d32f2f' }}>
+                            {isSoldOut ? 'Event Sold Out' : 'Registration Closed'}
+                        </h2>
+                        <p style={{ color: '#666', marginBottom: '24px' }}>
+                            {isSoldOut
+                                ? 'We are fully booked! Please check back later for potential openings or future events.'
+                                : `Registration for this event closed on ${event.registrationDeadline}.`
+                            }
+                        </p>
+                        <Button onClick={() => router.push('/events')}>Explore Other Events</Button>
+                    </div>
                 </div>
             </main>
         );
@@ -131,9 +164,18 @@ export default function RegistrationPage() {
         // Validation for Step 2
         if (currentStep === 2) {
             // Check if all participant details are filled
-            const unfilledParticipants = formData.participants.slice(0, formData.quantity).some(p => !p.name || !p.tshirtSize);
+            // For T-shirt logic: check if T-shirt is required for the selected tier
+            const tier = event.pricingTiers[formData.selectedTier];
+            const needsTshirt = tier?.isTshirtRequired;
+
+            const unfilledParticipants = formData.participants.slice(0, formData.quantity).some(p => {
+                const nameMissing = !p.name;
+                const tshirtMissing = needsTshirt && !p.tshirtSize;
+                return nameMissing || tshirtMissing;
+            });
+
             if (unfilledParticipants) {
-                alert(`Please provide name and T-shirt size for all ${formData.quantity} participants.`);
+                alert(`Please provide name${tier?.isTshirtRequired ? ' and T-shirt size' : ''} for all ${formData.quantity} participants.`);
                 return;
             }
         }
@@ -146,8 +188,12 @@ export default function RegistrationPage() {
     };
 
     const selectedTier = event.pricingTiers[formData.selectedTier] || event.pricingTiers[0];
-    const priceValue = selectedTier ? (parseInt(selectedTier.price.replace(/[^0-9.]/g, '')) || 0) : 0;
-    const totalPrice = priceValue * formData.quantity;
+
+    // Calculate total price based on individual participant age category
+    const totalPrice = formData.participants.slice(0, formData.quantity).reduce((sum, p) => {
+        const price = p.ageCategory === 'adult' ? (selectedTier.adultPrice || 0) : (selectedTier.childPrice || 0);
+        return sum + price;
+    }, 0);
 
     const handleSubmit = async () => {
         if (!formData.agreeToTerms) {
@@ -168,11 +214,11 @@ export default function RegistrationPage() {
                 user_address: formData.location,
                 total_amount: totalPrice,
                 payment_provider: "Razorpay", // Simulation
-                attendees: formData.participants.map(p => ({
-                    ticket_id: selectedTier?.id || 0, // Use the ID from the selected tier
+                attendees: formData.participants.slice(0, formData.quantity).map(p => ({
+                    ticket_id: selectedTier?.id || 0,
                     name: p.name,
                     age_group: p.ageCategory,
-                    tshirt_size: p.tshirtSize
+                    tshirt_size: p.tshirtSize || 'NA'
                 }))
             };
 
@@ -192,14 +238,12 @@ export default function RegistrationPage() {
 
                     try {
                         await eventService.confirmPayment(orderId, paymentPayload);
-                        // Even if confirmation warns, we proceed to success as user paid (simulated)
                     } catch (err) {
                         console.warn('Payment confirmation warning:', err);
                     }
 
                     router.push(`/events/${event.id}/payment/success?orderId=${orderId}`);
                 } else {
-                    // Fallback if no order ID returned
                     router.push(`/events/${event.id}/payment/success`);
                 }
             } else {
@@ -292,7 +336,6 @@ export default function RegistrationPage() {
                                         />
                                     </div>
 
-                                    {/* New Required Fields */}
                                     <div className={styles.formGroup}>
                                         <label className={styles.label}>Blood Group *</label>
                                         <div className={styles.inputIconWrapper}>
@@ -326,7 +369,6 @@ export default function RegistrationPage() {
                                         </div>
                                     </div>
 
-                                    {/* Emergency Contact Section */}
                                     <div className={styles.emergencySection}>
                                         <h3 className={styles.emergencySectionTitle}>Emergency Contact (Optional)</h3>
                                         <p className={styles.emergencySectionSubtitle}>Provide contact details for emergencies</p>
@@ -338,7 +380,6 @@ export default function RegistrationPage() {
                                                     value={formData.emergencyContact}
                                                     onChange={(e) => handleInputChange('emergencyContact', e.target.value)}
                                                     className={styles.input}
-                                                    placeholder="Name of emergency contact"
                                                 />
                                             </div>
                                             <div className={styles.formGroup}>
@@ -348,7 +389,6 @@ export default function RegistrationPage() {
                                                     value={formData.emergencyPhone}
                                                     onChange={(e) => handleInputChange('emergencyPhone', e.target.value)}
                                                     className={styles.input}
-                                                    placeholder="Emergency contact number"
                                                 />
                                             </div>
                                         </div>
@@ -405,13 +445,11 @@ export default function RegistrationPage() {
                                     </div>
                                 </div>
 
-                                {/* Participant Details */}
                                 <div style={{ marginTop: '32px' }}>
                                     <h3 style={{ fontSize: '1.3rem', fontWeight: 700, marginBottom: '24px', color: '#1a1a1a' }}>Participant Details</h3>
                                     <div className={styles.participantsContainer}>
                                         {Array.from({ length: formData.quantity }).map((_, index) => (
                                             <div key={index} className={styles.participantCard}>
-                                                {/* Age Category Selector */}
                                                 <div className={styles.ageCategorySelector}>
                                                     <button
                                                         type="button"
@@ -431,7 +469,6 @@ export default function RegistrationPage() {
 
                                                 <h4 className={styles.participantTitle}>Participant #{index + 1}</h4>
 
-                                                {/* Participant Name */}
                                                 <div className={styles.formGroup}>
                                                     <label className={styles.label}>Full Name *</label>
                                                     <input
@@ -444,24 +481,31 @@ export default function RegistrationPage() {
                                                     />
                                                 </div>
 
-                                                {/* T-Shirt Size */}
-                                                <div className={styles.formGroup}>
-                                                    <label className={styles.label}>T-Shirt Size *</label>
-                                                    <div className={styles.inputIconWrapper}>
-                                                        <Shirt size={16} className={styles.inputIcon} />
-                                                        <select
-                                                            value={formData.participants[index]?.tshirtSize || ''}
-                                                            onChange={(e) => handleParticipantChange(index, 'tshirtSize', e.target.value)}
-                                                            className={styles.selectInput}
-                                                            required
-                                                        >
-                                                            <option value="">Select Size</option>
-                                                            {['XS - 36', 'S - 38', 'M - 40', 'L - 42', 'XL - 44', 'XXL - 46'].map((size: string) => (
-                                                                <option key={size} value={size}>{size}</option>
-                                                            ))}
-                                                        </select>
+                                                {/* Dynamic Pricing Display */}
+                                                <p className={styles.ticketPrice} style={{ fontSize: '0.9rem', color: '#666', marginBottom: '12px' }}>
+                                                    Price: ₹{(formData.participants[index]?.ageCategory === 'adult' ? selectedTier.adultPrice : selectedTier.childPrice)?.toLocaleString()}
+                                                </p>
+
+                                                {/* Conditional T-Shirt Selection */}
+                                                {selectedTier.isTshirtRequired && (
+                                                    <div className={styles.formGroup}>
+                                                        <label className={styles.label}>T-Shirt Size *</label>
+                                                        <div className={styles.inputIconWrapper}>
+                                                            <Shirt size={16} className={styles.inputIcon} />
+                                                            <select
+                                                                value={formData.participants[index]?.tshirtSize || ''}
+                                                                onChange={(e) => handleParticipantChange(index, 'tshirtSize', e.target.value)}
+                                                                className={styles.selectInput}
+                                                                required
+                                                            >
+                                                                <option value="">Select Size</option>
+                                                                {selectedTier.tshirtSizes?.map((size: string) => (
+                                                                    <option key={size} value={size}>{size}</option>
+                                                                ))}
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                )}
                                             </div>
                                         ))}
                                     </div>
@@ -490,7 +534,6 @@ export default function RegistrationPage() {
                                         <div className={styles.ticketReviewCard}>
                                             <div className={styles.ticketReviewHeader}>
                                                 <span className={styles.ticketReviewName}>{selectedTier?.name}</span>
-                                                <span className={styles.ticketReviewPrice}>{selectedTier?.price} x {formData.quantity}</span>
                                             </div>
                                             <div style={{ marginTop: '12px', padding: '12px 0', borderTop: '1px solid #EEE' }}>
                                                 <p style={{ fontWeight: 600, marginBottom: '12px', fontSize: '0.9rem' }}>Participants:</p>
@@ -516,9 +559,10 @@ export default function RegistrationPage() {
                                                                 </span>
                                                                 <span style={{ fontWeight: 600, fontSize: '0.95rem' }}>#{idx + 1}: {participant.name}</span>
                                                             </div>
-                                                            <p style={{ fontSize: '0.85rem', color: '#666', marginLeft: '8px' }}>
-                                                                T-Shirt: {participant.tshirtSize}
-                                                            </p>
+                                                            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: '#666', marginLeft: '8px' }}>
+                                                                <span>T-Shirt: {participant.tshirtSize || 'NA'}</span>
+                                                                <span>₹{(participant.ageCategory === 'adult' ? selectedTier.adultPrice : selectedTier.childPrice)?.toLocaleString()}</span>
+                                                            </div>
                                                         </div>
                                                     ))}
                                                 </div>
@@ -580,10 +624,6 @@ export default function RegistrationPage() {
                             <div className={styles.summaryItem}>
                                 <span>Quantity:</span>
                                 <span>{formData.quantity}</span>
-                            </div>
-                            <div className={styles.summaryItem}>
-                                <span>Price per ticket:</span>
-                                <span>{selectedTier?.price || '₹0'}</span>
                             </div>
                             <div className={styles.summaryDivider} />
                             <div className={styles.summaryTotal}>

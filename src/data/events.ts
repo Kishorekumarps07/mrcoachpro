@@ -4,6 +4,11 @@ export interface PricingTier {
     price: string;
     description: string;
     features: string[];
+    // New fields for dynamic flow
+    adultPrice: number;
+    childPrice: number;
+    isTshirtRequired: boolean;
+    tshirtSizes: string[];
 }
 
 export interface AgendaItem {
@@ -42,6 +47,9 @@ export interface Event {
     category: EventCategory;
     featured?: boolean;
     description: string;
+    externalUrl?: string;
+    socialMediaUrl?: string;
+    isoDate?: string;
 
     // Enhanced fields
     detailedDescription: string[];
@@ -104,19 +112,31 @@ export const EVENTS: Event[] = [
                 name: 'Early Bird - Full Marathon',
                 price: '₹1,500',
                 description: 'Limited time offer',
-                features: ['Race bib & timing chip', 'Finisher medal', 'Official t-shirt', 'Post-race meal']
+                features: ['Race bib & timing chip', 'Finisher medal', 'Official t-shirt', 'Post-race meal'],
+                adultPrice: 1500,
+                childPrice: 1500,
+                isTshirtRequired: true,
+                tshirtSizes: ['S', 'M', 'L', 'XL']
             },
             {
                 name: 'Regular - Full Marathon',
                 price: '₹2,000',
                 description: 'Standard registration',
-                features: ['Race bib & timing chip', 'Finisher medal', 'Official t-shirt', 'Post-race meal', 'Digital certificate']
+                features: ['Race bib & timing chip', 'Finisher medal', 'Official t-shirt', 'Post-race meal', 'Digital certificate'],
+                adultPrice: 2000,
+                childPrice: 2000,
+                isTshirtRequired: true,
+                tshirtSizes: ['S', 'M', 'L', 'XL', 'XXL']
             },
             {
                 name: 'Half Marathon',
                 price: '₹1,200',
                 description: '21 km race',
-                features: ['Race bib & timing chip', 'Finisher medal', 'Official t-shirt', 'Refreshments']
+                features: ['Race bib & timing chip', 'Finisher medal', 'Official t-shirt', 'Refreshments'],
+                adultPrice: 1200,
+                childPrice: 1200,
+                isTshirtRequired: true,
+                tshirtSizes: ['S', 'M', 'L', 'XL']
             }
         ],
         tags: ['Marathon', 'Running', 'Fitness', 'Competitive', 'Outdoor'],
@@ -175,13 +195,21 @@ export const EVENTS: Event[] = [
                 name: 'Competitor Entry',
                 price: '₹500',
                 description: 'Athlete registration',
-                features: ['Competition entry', 'Official weigh-in', 'Competitor kit', 'Certificate of participation']
+                features: ['Competition entry', 'Official weigh-in', 'Competitor kit', 'Certificate of participation'],
+                adultPrice: 500,
+                childPrice: 300, // Example of split pricing
+                isTshirtRequired: true,
+                tshirtSizes: ['S', 'M', 'L', 'XL', 'XXL']
             },
             {
                 name: 'Spectator Pass',
                 price: '₹200',
                 description: 'Watch the competition',
-                features: ['Full day access', 'Event program', 'Refreshments']
+                features: ['Full day access', 'Event program', 'Refreshments'],
+                adultPrice: 200,
+                childPrice: 100,
+                isTshirtRequired: false, // No tshirt for spectators
+                tshirtSizes: []
             }
         ],
         tags: ['Powerlifting', 'Strength', 'Competition', 'Indoor'],
@@ -239,13 +267,21 @@ export const EVENTS: Event[] = [
                 name: 'Standard Package',
                 price: '₹14,999',
                 description: 'Complete trek package',
-                features: ['Professional guides', 'All meals', 'Camping equipment', 'Transportation', 'First aid support']
+                features: ['Professional guides', 'All meals', 'Camping equipment', 'Transportation', 'First aid support'],
+                adultPrice: 14999,
+                childPrice: 12000,
+                isTshirtRequired: false,
+                tshirtSizes: []
             },
             {
                 name: 'Premium Package',
                 price: '₹19,999',
                 description: 'Enhanced experience',
-                features: ['All Standard features', 'Private tent', 'Personal porter', 'Professional photography', 'Pre-trek fitness consultation']
+                features: ['All Standard features', 'Private tent', 'Personal porter', 'Professional photography', 'Pre-trek fitness consultation'],
+                adultPrice: 19999,
+                childPrice: 17000,
+                isTshirtRequired: false,
+                tshirtSizes: []
             }
         ],
         tags: ['Trekking', 'Adventure', 'Wellness', 'Outdoor', 'Himalaya'],

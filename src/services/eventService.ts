@@ -30,6 +30,10 @@ interface BackendEvent {
         description: string;
         price: string;
         features: string[];
+        adult_price?: string | number;
+        kids_price?: string | number;
+        tshirt_required?: string | boolean; // "yes"/"no" or true/false
+        tshirt_sizes?: string; // "S, M, L"
     }[];
     event_highlights?: string; // JSON string or array
     event_schedule?: string; // JSON string
@@ -136,20 +140,51 @@ const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
             priceFormatted = minPrice === 0 ? 'Free' : `₹${minPrice.toLocaleString()}`;
         }
 
-        pricingTiers = backendEvent.tickets.map(ticket => ({
-            id: ticket.id,
-            name: ticket.title,
-            price: `₹${parseFloat(ticket.price).toLocaleString()}`,
-            description: ticket.description || '',
-            features: ticket.features || []
-        }));
+        pricingTiers = backendEvent.tickets.map(ticket => {
+            // Parse prices
+            const basePrice = parseFloat(ticket.price) || 0;
+            // Parse adult price (fallback to base price if missing/zero)
+            const adultPrice = ticket.adult_price ? (typeof ticket.adult_price === 'string' ? parseFloat(ticket.adult_price) : ticket.adult_price) : basePrice;
+            // Parse kids price (fallback to base price if missing/zero)
+            const childPrice = ticket.kids_price ? (typeof ticket.kids_price === 'string' ? parseFloat(ticket.kids_price) : ticket.kids_price) : basePrice;
+
+            // Parse T-shirt requirement
+            let isTshirtRequired = false;
+            if (typeof ticket.tshirt_required === 'string') {
+                isTshirtRequired = ticket.tshirt_required.toLowerCase() === 'yes';
+            } else if (typeof ticket.tshirt_required === 'boolean') {
+                isTshirtRequired = ticket.tshirt_required;
+            }
+
+            // Parse T-shirt sizes
+            let tshirtSizes: string[] = ['S', 'M', 'L', 'XL', 'XXL']; // Default
+            if (ticket.tshirt_sizes && typeof ticket.tshirt_sizes === 'string') {
+                tshirtSizes = ticket.tshirt_sizes.split(',').map(s => s.trim()).filter(s => s.length > 0);
+            }
+
+            return {
+                id: ticket.id,
+                name: ticket.title,
+                price: `₹${basePrice.toLocaleString()}`,
+                description: ticket.description || '',
+                features: ticket.features || [],
+                adultPrice: adultPrice || basePrice,
+                childPrice: childPrice || basePrice,
+                isTshirtRequired,
+                tshirtSizes
+            };
+        });
     } else {
         // Create a default tier if needed, or leave empty
         pricingTiers = [{
             name: 'Standard Entry',
             price: priceFormatted,
             description: 'General admission',
-            features: highlights
+            features: highlights,
+            adultPrice: 0,
+            childPrice: 0,
+            isTshirtRequired: false,
+            tshirtSizes: []
         }];
     }
 
@@ -173,6 +208,7 @@ const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
         slug: backendEvent.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, ''),
         title: backendEvent.title,
         date: formattedDate,
+        isoDate: backendEvent.event_date, // "YYYY-MM-DD"
         time: '5:00 AM', // Default or fetch if available (API didn't show time field in logs)
         location: locationStr,
         image: imageUrl,
@@ -202,7 +238,37 @@ const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
         spotsLeft: spotsLeft,
         registrationDeadline: backendEvent.registration_close_date || backendEvent.end_date,
 
-        agenda: [], // API doesn't seem to have agenda structure yet
+        externalUrl: backendEvent.external_url,
+        socialMediaUrl: backendEvent.social_media_url,
+
+        agenda: (() => {
+            if (!backendEvent.event_schedule) return [];
+            try {
+                // If it's already an object/array
+                if (typeof backendEvent.event_schedule === 'object') {
+                    // @ts-ignore
+                    return Array.isArray(backendEvent.event_schedule) ? backendEvent.event_schedule : [backendEvent.event_schedule];
+                }
+                // If it's a string, try to parse details
+                let items: any[] = [];
+                if (typeof backendEvent.event_schedule === 'string') {
+                    const parsed = JSON.parse(backendEvent.event_schedule);
+                    items = Array.isArray(parsed) ? parsed : [];
+                } else if (Array.isArray(backendEvent.event_schedule)) {
+                    items = backendEvent.event_schedule;
+                }
+
+                return items.map((item: any) => ({
+                    time: item.time || item.Time || '',
+                    title: item.title || item.Title || '',
+                    description: item.description || item.Description || item.short_description || item['Short Description'] || '',
+                    speaker: item.speaker || item.Speaker || ''
+                }));
+            } catch (e) {
+                console.error('Agenda parsing error for event', backendEvent.id, e);
+                return [];
+            }
+        })(),
         pricingTiers: pricingTiers,
         tags: [category],
         testimonials: [],
