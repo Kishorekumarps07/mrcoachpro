@@ -7,11 +7,12 @@ import styles from './Footer.module.css';
 
 const FOOTER_LINKS = [
     { label: 'About', href: '/about' },
-    { label: 'Privacy Policy', href: '/privacy' },
-    { label: 'Terms and Conditions', href: '/terms' },
-    { label: 'Promo Code Info', href: '/promo-info' },
-    { label: 'Events Info', href: '/events-info' },
-    { label: 'Refer & Rewards', href: '/refer-rewards-info' },
+    { label: 'Privacy Policy', href: '/privacy-policy' },
+    { label: 'Terms and Conditions', href: '/terms-conditions' },
+    { label: 'Promo Code Info', href: '/promocode-information' },
+    { label: 'Events Info', href: '/events-information' },
+    { label: 'Refer & Rewards', href: '/refer-rewards-information' },
+    { label: 'Application Info', href: '/application-information' },
 ];
 
 export const Footer = () => {
