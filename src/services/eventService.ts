@@ -15,7 +15,9 @@ interface BackendEvent {
     location: string;
     state?: string;
     district?: string;
-    image: string; // Changed from image_url
+    image: string; // List View uses this
+    image_url?: string; // Detail View uses this
+    event_image?: string; // Potential other variation
     external_url?: string;
     social_media_url?: string;
     total_slots: number; // Changed from capacity
@@ -148,6 +150,13 @@ const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
     const bookedSlots = backendEvent.booked_slots || 0;
     const spotsLeft = Math.max(0, totalSlots - bookedSlots);
 
+    // List View (`/api/events`) returns `image`
+    // Detail View (`/api/events/:id`) returns `image_url`
+    const imageUrl = backendEvent.image ||
+        backendEvent.image_url ||
+        backendEvent.event_image ||
+        '/images/event-placeholder.jpg';
+
     return {
         id: String(backendEvent.id),
         slug: backendEvent.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, ''),
@@ -155,7 +164,7 @@ const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
         date: formattedDate,
         time: '5:00 AM', // Default or fetch if available (API didn't show time field in logs)
         location: locationStr,
-        image: backendEvent.image || '/images/event-placeholder.jpg', // Fallback image
+        image: imageUrl,
         price: priceFormatted,
         category: category,
         description: backendEvent.about_event || backendEvent.description || '',
