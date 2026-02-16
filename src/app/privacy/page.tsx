@@ -14,95 +14,247 @@ export default function PrivacyPage() {
             <div className={styles.container}>
                 <div className={styles.header}>
                     <h1 className={styles.title}>Privacy Policy</h1>
-                    <p className={styles.date}>Last updated on {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                    <p className={styles.date}>Last updated: April 29, 2024</p>
                 </div>
 
                 <div className={styles.content}>
                     <p className={styles.paragraph}>
-                        At <strong>MR.COACH</strong>, we respect your privacy and are committed to protecting your personal data. This privacy policy explains how we collect, use, and safeguard your information when you use our fitness application and website.
+                        This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.
+                    </p>
+                    <p className={styles.paragraph}>
+                        We use Your Personal data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. This Privacy Policy has been created with the help of the Free Privacy Policy Generator.
                     </p>
 
-                    <h2 className={styles.sectionTitle}>1. Information We Collect</h2>
+                    <h2 className={styles.sectionTitle}>Interpretation and Definitions</h2>
+
+                    <h3 className={styles.subSectionTitle}>Interpretation</h3>
                     <p className={styles.paragraph}>
-                        We collect information that you provide directly to us, including:
+                        The words of which the initial letter is capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.
                     </p>
+
+                    <h3 className={styles.subSectionTitle}>Definitions</h3>
+                    <p className={styles.paragraph}>For the purposes of this Privacy Policy:</p>
                     <ul className={styles.list}>
-                        <li className={styles.listItem}><strong>Personal Information:</strong> Name, email address, phone number, and profile details</li>
-                        <li className={styles.listItem}><strong>Fitness Data:</strong> Workout history, fitness goals, health metrics, and progress tracking</li>
-                        <li className={styles.listItem}><strong>Payment Information:</strong> Billing details for subscription and event registration (processed securely through Razorpay)</li>
-                        <li className={styles.listItem}><strong>Usage Data:</strong> App interaction, features used, and session duration</li>
-                        <li className={styles.listItem}><strong>Device Information:</strong> Device type, operating system, and unique identifiers</li>
+                        <li className={styles.listItem}><strong>Account</strong> means a unique account created for You to access our Service or parts of our Service.</li>
+                        <li className={styles.listItem}><strong>Affiliate</strong> means an entity that controls, is controlled by or is under common control with a party, where “control” means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.</li>
+                        <li className={styles.listItem}><strong>Company</strong> (referred to as either “the Company”, “We”, “Us” or “Our” in this Agreement) refers to Mr Coach, 38A/98 KalathuMettu Street, Chengalpattu-603002.</li>
+                        <li className={styles.listItem}><strong>Cookies</strong> are small files that are placed on Your computer, mobile device or any other device by a website, containing the details of Your browsing history on that website among its many uses.</li>
+                        <li className={styles.listItem}><strong>Country</strong> refers to: Tamil Nadu, India</li>
+                        <li className={styles.listItem}><strong>Device</strong> means any device that can access the Service such as a computer, a cellphone or a digital tablet.</li>
+                        <li className={styles.listItem}><strong>Personal Data</strong> is any information that relates to an identified or identifiable individual.</li>
+                        <li className={styles.listItem}><strong>Service</strong> refers to the Website.</li>
+                        <li className={styles.listItem}><strong>Service Provider</strong> means any natural or legal person who processes the data on behalf of the Company. It refers to third-party companies or individuals employed by the Company to facilitate the Service, to provide the Service on behalf of the Company, to perform services related to the Service or to assist the Company in analyzing how the Service is used.</li>
+                        <li className={styles.listItem}><strong>Third-party Social Media Service</strong> refers to any website or any social network website through which a User can log in or create an account to use the Service.</li>
+                        <li className={styles.listItem}><strong>Usage Data</strong> refers to data collected automatically, either generated by the use of the Service or from the Service infrastructure itself (for example, the duration of a page visit).</li>
+                        <li className={styles.listItem}><strong>Website</strong> refers to Mr Coach, accessible from <a href="https://mrcoach.com">https://mrcoach.com</a></li>
+                        <li className={styles.listItem}><strong>You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</li>
                     </ul>
 
-                    <h2 className={styles.sectionTitle}>2. How We Use Your Information</h2>
+                    <h2 className={styles.sectionTitle}>Collecting and Using Your Personal Data</h2>
+
+                    <h3 className={styles.subSectionTitle}>Types of Data Collected</h3>
+
+                    <h4 className={styles.subSectionTitle}>Personal Data</h4>
                     <p className={styles.paragraph}>
-                        We use the collected information to:
+                        While using Our Service, We may ask You to provide Us with certain personally identifiable information that can be used to contact or identify You. Personally identifiable information may include, but is not limited to:
                     </p>
                     <ul className={styles.list}>
-                        <li className={styles.listItem}>Provide and personalize our fitness coaching services</li>
-                        <li className={styles.listItem}>Process event registrations and payments</li>
-                        <li className={styles.listItem}>Send you important updates, notifications, and promotional offers</li>
-                        <li className={styles.listItem}>Improve our app features and user experience</li>
-                        <li className={styles.listItem}>Analyze usage patterns to enhance service quality</li>
-                        <li className={styles.listItem}>Ensure platform security and prevent fraud</li>
-                        <li className={styles.listItem}>Comply with legal obligations</li>
+                        <li className={styles.listItem}>Email address</li>
+                        <li className={styles.listItem}>First name and last name</li>
+                        <li className={styles.listItem}>Phone number</li>
+                        <li className={styles.listItem}>Address, State, Province, ZIP/Postal code, City</li>
+                        <li className={styles.listItem}>Usage Data</li>
                     </ul>
 
-                    <h2 className={styles.sectionTitle}>3. Data Sharing and Disclosure</h2>
+                    <h4 className={styles.subSectionTitle}>Usage Data</h4>
                     <p className={styles.paragraph}>
-                        We do not sell your personal information. We may share your data with:
+                        Usage Data is collected automatically when using the Service.
+                    </p>
+                    <p className={styles.paragraph}>
+                        Usage Data may include information such as Your Device’s Internet Protocol address (e.g. IP address), browser type, browser version, the pages of our Service that You visit, the time and date of Your visit, the time spent on those pages, unique device identifiers and other diagnostic data.
+                    </p>
+                    <p className={styles.paragraph}>
+                        When You access the Service by or through a mobile device, We may collect certain information automatically, including, but not limited to, the type of mobile device You use, Your mobile device unique ID, the IP address of Your mobile device, Your mobile operating system, the type of mobile Internet browser You use, unique device identifiers and other diagnostic data.
+                    </p>
+                    <p className={styles.paragraph}>
+                        We may also collect information that Your browser sends whenever You visit our Service or when You access the Service by or through a mobile device.
+                    </p>
+
+                    <h4 className={styles.subSectionTitle}>Information from Third-Party Social Media Services</h4>
+                    <p className={styles.paragraph}>
+                        The Company allows You to create an account and log in to use the Service through the following Third-party Social Media Services:
                     </p>
                     <ul className={styles.list}>
-                        <li className={styles.listItem}><strong>Service Providers:</strong> Third-party vendors who assist in app operations (e.g., payment processing, hosting)</li>
-                        <li className={styles.listItem}><strong>Event Organizers:</strong> When you register for events, necessary details are shared with organizers</li>
-                        <li className={styles.listItem}><strong>Legal Requirements:</strong> When required by law or to protect our rights and safety</li>
+                        <li className={styles.listItem}>Google</li>
+                        <li className={styles.listItem}>Facebook</li>
+                        <li className={styles.listItem}>Instagram</li>
+                        <li className={styles.listItem}>Twitter</li>
+                        <li className={styles.listItem}>LinkedIn</li>
                     </ul>
-
-                    <h2 className={styles.sectionTitle}>4. Data Security</h2>
                     <p className={styles.paragraph}>
-                        We implement industry-standard security measures to protect your data, including encryption, secure servers, and regular security audits. However, no internet transmission is 100% secure, and we cannot guarantee absolute security.
+                        If You decide to register through or otherwise grant us access to a Third-Party Social Media Service, We may collect Personal data that is already associated with Your Third-Party Social Media Service’s account, such as Your name, Your email address, Your activities or Your contact list associated with that account.
+                    </p>
+                    <p className={styles.paragraph}>
+                        You may also have the option of sharing additional information with the Company through Your Third-Party Social Media Service’s account. If You choose to provide such information and Personal Data, during registration or otherwise, You are giving the Company permission to use, share, and store it in a manner consistent with this Privacy Policy.
                     </p>
 
-                    <h2 className={styles.sectionTitle}>5. Your Rights</h2>
+                    <h4 className={styles.subSectionTitle}>Tracking Technologies and Cookies</h4>
                     <p className={styles.paragraph}>
-                        You have the right to:
+                        We use Cookies and similar tracking technologies to track the activity on Our Service and store certain information. Tracking technologies used are beacons, tags, and scripts to collect and track information and to improve and analyze Our Service. The technologies We use may include:
                     </p>
                     <ul className={styles.list}>
-                        <li className={styles.listItem}>Access and download your personal data</li>
-                        <li className={styles.listItem}>Correct inaccurate or incomplete information</li>
-                        <li className={styles.listItem}>Request deletion of your account and data</li>
-                        <li className={styles.listItem}>Opt-out of marketing communications</li>
-                        <li className={styles.listItem}>Withdraw consent for data processing (where applicable)</li>
+                        <li className={styles.listItem}><strong>Cookies or Browser Cookies.</strong> A cookie is a small file placed on Your Device. You can instruct Your browser to refuse all Cookies or to indicate when a Cookie is being sent. However, if You do not accept Cookies, You may not be able to use some parts of our Service. Unless you have adjusted Your browser setting so that it will refuse Cookies, our Service may use Cookies.</li>
+                        <li className={styles.listItem}><strong>Web Beacons.</strong> Certain sections of our Service and our emails may contain small electronic files known as web beacons (also referred to as clear gifs, pixel tags, and single-pixel gifs) that permit the Company, for example, to count users who have visited those pages or opened an email and for other related website statistics (for example, recording the popularity of a certain section and verifying system and server integrity).</li>
+                    </ul>
+                    <p className={styles.paragraph}>
+                        Cookies can be “Persistent” or “Session” Cookies. Persistent Cookies remain on Your personal computer or mobile device when You go offline, while Session Cookies are deleted as soon as You close Your web browser. Learn more about cookies on the Free Privacy Policy website article.
+                    </p>
+                    <p className={styles.paragraph}>We use both Session and Persistent Cookies for the purposes set out below:</p>
+                    <ul className={styles.list}>
+                        <li className={styles.listItem}>
+                            <strong>Necessary / Essential Cookies</strong><br />
+                            Type: Session Cookies<br />
+                            Administered by: Us<br />
+                            Purpose: These Cookies are essential to provide You with services available through the Website and to enable You to use some of its features. They help to authenticate users and prevent fraudulent use of user accounts. Without these Cookies, the services that You have asked for cannot be provided, and We only use these Cookies to provide You with those services.
+                        </li>
+                        <li className={styles.listItem}>
+                            <strong>Cookies Policy / Notice Acceptance Cookies</strong><br />
+                            Type: Persistent Cookies<br />
+                            Administered by: Us<br />
+                            Purpose: These Cookies identify if users have accepted the use of cookies on the Website.
+                        </li>
+                        <li className={styles.listItem}>
+                            <strong>Functionality Cookies</strong><br />
+                            Type: Persistent Cookies<br />
+                            Administered by: Us<br />
+                            Purpose: These Cookies allow us to remember choices You make when You use the Website, such as remembering your login details or language preference. The purpose of these Cookies is to provide You with a more personal experience and to avoid You having to re-enter your preferences every time You use the Website.
+                        </li>
+                    </ul>
+                    <p className={styles.paragraph}>
+                        For more information about the cookies we use and your choices regarding cookies, please visit our Cookies Policy or the Cookies section of our Privacy Policy.
+                    </p>
+
+                    <h2 className={styles.sectionTitle}>Use of Your Personal Data</h2>
+                    <p className={styles.paragraph}>The Company may use Personal Data for the following purposes:</p>
+                    <ul className={styles.list}>
+                        <li className={styles.listItem}><strong>To provide and maintain our Service</strong>, including to monitor the usage of our Service.</li>
+                        <li className={styles.listItem}><strong>To manage Your Account:</strong> to manage Your registration as a user of the Service. The Personal Data You provide can give You access to different functionalities of the Service that are available to You as a registered user.</li>
+                        <li className={styles.listItem}><strong>For the performance of a contract:</strong> the development, compliance and undertaking of the purchase contract for the products, items or services You have purchased or of any other contract with Us through the Service.</li>
+                        <li className={styles.listItem}><strong>To contact You:</strong> To contact You by email, telephone calls, SMS, or other equivalent forms of electronic communication, such as a mobile application’s push notifications regarding updates or informative communications related to the functionalities, products or contracted services, including the security updates, when necessary or reasonable for their implementation.</li>
+                        <li className={styles.listItem}><strong>To provide You</strong> with news, special offers and general information about other goods, services and events which we offer that are similar to those that you have already purchased or enquired about unless You have opted not to receive such information.</li>
+                        <li className={styles.listItem}><strong>To manage Your requests:</strong> To attend and manage Your requests to Us.</li>
+                        <li className={styles.listItem}><strong>For business transfers:</strong> We may use Your information to evaluate or conduct a merger, divestiture, restructuring, reorganization, dissolution, or other sale or transfer of some or all of Our assets, whether as a going concern or as part of bankruptcy, liquidation, or similar proceeding, in which Personal Data held by Us about our Service users is among the assets transferred.</li>
+                        <li className={styles.listItem}><strong>For other purposes:</strong> We may use Your information for other purposes, such as data analysis, identifying usage trends, determining the effectiveness of our promotional campaigns and to evaluate and improve our Service, products, services, marketing and your experience.</li>
+                    </ul>
+                    <p className={styles.paragraph}>We may share Your personal information in the following situations:</p>
+                    <ul className={styles.list}>
+                        <li className={styles.listItem}><strong>With Service Providers:</strong> We may share Your personal information with Service Providers to monitor and analyze the use of our Service, to contact You.</li>
+                        <li className={styles.listItem}><strong>For business transfers:</strong> We may share or transfer Your personal information in connection with, or during negotiations of, any merger, sale of Company assets, financing, or acquisition of all or a portion of Our business to another company.</li>
+                        <li className={styles.listItem}><strong>With Affiliates:</strong> We may share Your information with Our affiliates, in which case we will require those affiliates to honor this Privacy Policy. Affiliates include Our parent company and any other subsidiaries, joint venture partners or other companies that We control or that are under common control with Us.</li>
+                        <li className={styles.listItem}><strong>With business partners:</strong> We may share Your information with Our business partners to offer You certain products, services or promotions.</li>
+                        <li className={styles.listItem}><strong>With other users:</strong> when You share personal information or otherwise interact in the public areas with other users, such information may be viewed by all users and may be publicly distributed outside. If You interact with other users or register through a Third-Party Social Media Service, Your contacts on the Third-Party Social Media Service may see Your name, profile, pictures and description of Your activity. Similarly, other users will be able to view descriptions of Your activity, communicate with You and view Your profile.</li>
+                        <li className={styles.listItem}><strong>With Your consent:</strong> We may disclose Your personal information for any other purpose with Your consent.</li>
                     </ul>
 
-                    <h2 className={styles.sectionTitle}>6. Cookies and Tracking</h2>
+                    <h2 className={styles.sectionTitle}>Retention of Your Personal Data</h2>
                     <p className={styles.paragraph}>
-                        We use cookies and similar technologies to enhance your experience, analyze usage, and deliver personalized content. You can manage cookie preferences through your browser settings.
+                        The Company will retain Your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use Your Personal Data to the extent necessary to comply with our legal obligations (for example, if we are required to retain your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.
+                    </p>
+                    <p className={styles.paragraph}>
+                        The Company will also retain Usage Data for internal analysis purposes. Usage Data is generally retained for a shorter period of time, except when this data is used to strengthen the security or to improve the functionality of Our Service, or We are legally obligated to retain this data for longer time periods.
                     </p>
 
-                    <h2 className={styles.sectionTitle}>7. Children's Privacy</h2>
+                    <h2 className={styles.sectionTitle}>Transfer of Your Personal Data</h2>
                     <p className={styles.paragraph}>
-                        Our services are not intended for children under 13. We do not knowingly collect personal information from children. If you believe we have collected such data, please contact us immediately.
+                        Your information, including Personal Data, is processed at the Company’s operating offices and in any other places where the parties involved in the processing are located. It means that this information may be transferred to — and maintained on — computers located outside of Your state, province, country or other governmental jurisdiction where the data protection laws may differ than those from Your jurisdiction.
+                    </p>
+                    <p className={styles.paragraph}>
+                        Your consent to this Privacy Policy followed by Your submission of such information represents Your agreement to that transfer.
+                    </p>
+                    <p className={styles.paragraph}>
+                        The Company will take all steps reasonably necessary to ensure that Your data is treated securely and in accordance with this Privacy Policy and no transfer of Your Personal Data will take place to an organization or a country unless there are adequate controls in place including the security of Your data and other personal information.
                     </p>
 
-                    <h2 className={styles.sectionTitle}>8. Changes to This Policy</h2>
+                    <h2 className={styles.sectionTitle}>Delete Your Personal Data</h2>
                     <p className={styles.paragraph}>
-                        We may update this privacy policy from time to time. We will notify you of significant changes via email or app notification. Continued use of our services after changes constitutes acceptance.
+                        You have the right to delete or request that We assist in deleting the Personal Data that We have collected about You.
+                    </p>
+                    <p className={styles.paragraph}>
+                        Our Service may give You the ability to delete certain information about You from within the Service.
+                    </p>
+                    <p className={styles.paragraph}>
+                        You may update, amend, or delete Your information at any time by signing in to Your Account, if you have one, and visiting the account settings section that allows you to manage Your personal information. You may also contact Us to request access to, correct, or delete any personal information that You have provided to Us.
+                    </p>
+                    <p className={styles.paragraph}>
+                        Please note, however, that We may need to retain certain information when we have a legal obligation or lawful basis to do so.
                     </p>
 
-                    <h2 className={styles.sectionTitle}>9. Contact Us</h2>
+                    <h2 className={styles.sectionTitle}>Disclosure of Your Personal Data</h2>
+
+                    <h3 className={styles.subSectionTitle}>Business Transactions</h3>
                     <p className={styles.paragraph}>
-                        If you have any questions or concerns about this privacy policy, please contact us:
+                        If the Company is involved in a merger, acquisition or asset sale, Your Personal Data may be transferred. We will provide notice before Your Personal Data is transferred and becomes subject to a different Privacy Policy.
+                    </p>
+
+                    <h3 className={styles.subSectionTitle}>Law enforcement</h3>
+                    <p className={styles.paragraph}>
+                        Under certain circumstances, the Company may be required to disclose Your Personal Data if required to do so by law or in response to valid requests by public authorities (e.g. a court or a government agency).
+                    </p>
+
+                    <h3 className={styles.subSectionTitle}>Other legal requirements</h3>
+                    <p className={styles.paragraph}>
+                        The Company may disclose Your Personal Data in the good faith belief that such action is necessary to:
                     </p>
                     <ul className={styles.list}>
-                        <li className={styles.listItem}><strong>Email:</strong> mrcoachofficial@gmail.com</li>
-                        <li className={styles.listItem}><strong>Phone:</strong> +91 74484 21134</li>
-                        <li className={styles.listItem}><strong>Address:</strong> 38A/98, KalathuMettu Street, Chengalpattu, Tamil Nadu 603002, India</li>
+                        <li className={styles.listItem}>Comply with a legal obligation</li>
+                        <li className={styles.listItem}>Protect and defend the rights or property of the Company</li>
+                        <li className={styles.listItem}>Prevent or investigate possible wrongdoing in connection with the Service</li>
+                        <li className={styles.listItem}>Protect the personal safety of Users of the Service or the public</li>
+                        <li className={styles.listItem}>Protect against legal liability</li>
                     </ul>
 
-                    <p className={styles.disclaimer}>
-                        By using MR.COACH's services, you acknowledge that you have read and understood this Privacy Policy and agree to its terms.
+                    <h2 className={styles.sectionTitle}>Security of Your Personal Data</h2>
+                    <p className={styles.paragraph}>
+                        The security of Your Personal Data is important to Us, but remember that no method of transmission over the Internet, or method of electronic storage is 100% secure. While We strive to use commercially acceptable means to protect Your Personal Data, We cannot guarantee its absolute security.
                     </p>
+
+                    <h2 className={styles.sectionTitle}>Children’s Privacy</h2>
+                    <p className={styles.paragraph}>
+                        Our Service does not address anyone under the age of 13. We do not knowingly collect personally identifiable information from anyone under the age of 13. If You are a parent or guardian and You are aware that Your child has provided Us with Personal Data, please contact Us. If We become aware that We have collected Personal Data from anyone under the age of 13 without verification of parental consent, We take steps to remove that information from Our servers.
+                    </p>
+                    <p className={styles.paragraph}>
+                        If We need to rely on consent as a legal basis for processing Your information and Your country requires consent from a parent, We may require Your parent’s consent before We collect and use that information.
+                    </p>
+
+                    <h2 className={styles.sectionTitle}>Links to Other Websites</h2>
+                    <p className={styles.paragraph}>
+                        Our Service may contain links to other websites that are not operated by Us. If You click on a third party link, You will be directed to that third party’s site. We strongly advise You to review the Privacy Policy of every site You visit.
+                    </p>
+                    <p className={styles.paragraph}>
+                        We have no control over and assume no responsibility for the content, privacy policies or practices of any third party sites or services.
+                    </p>
+
+                    <h2 className={styles.sectionTitle}>Changes to this Privacy Policy</h2>
+                    <p className={styles.paragraph}>
+                        We may update Our Privacy Policy from time to time. We will notify You of any changes by posting the new Privacy Policy on this page.
+                    </p>
+                    <p className={styles.paragraph}>
+                        We will let You know via email and/or a prominent notice on Our Service, prior to the change becoming effective and update the “Last updated” date at the top of this Privacy Policy.
+                    </p>
+                    <p className={styles.paragraph}>
+                        You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.
+                    </p>
+
+                    <h2 className={styles.sectionTitle}>Contact Us</h2>
+                    <p className={styles.paragraph}>
+                        If you have any questions about this Privacy Policy, You can contact us:
+                    </p>
+                    <ul className={styles.list}>
+                        <li className={styles.listItem}><strong>By email:</strong> mrcoachofficial@gmail.com</li>
+                        <li className={styles.listItem}><strong>By visiting this page on our website:</strong> <a href="https://mrcoach.in/contact-us/">https://mrcoach.in/contact-us/</a></li>
+                        <li className={styles.listItem}><strong>By phone number:</strong> 8124142113</li>
+                        <li className={styles.listItem}><strong>By mail:</strong> 38A/98 KalathuMettu Street, Chengalpattu, Tamil Nadu, 603002</li>
+                    </ul>
                 </div>
             </div>
         </main>

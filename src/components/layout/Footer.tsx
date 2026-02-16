@@ -9,6 +9,9 @@ const FOOTER_LINKS = [
     { label: 'About', href: '/about' },
     { label: 'Privacy Policy', href: '/privacy' },
     { label: 'Terms and Conditions', href: '/terms' },
+    { label: 'Promo Code Info', href: '/promo-info' },
+    { label: 'Events Info', href: '/events-info' },
+    { label: 'Refer & Rewards', href: '/refer-rewards-info' },
 ];
 
 export const Footer = () => {
