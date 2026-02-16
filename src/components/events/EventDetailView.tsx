@@ -123,12 +123,17 @@ export const EventDetailView = ({ event }: EventDetailViewProps) => {
                         <section className={styles.section}>
                             <h2 className={styles.sectionTitle}>Meet the Organizer</h2>
                             <div className={styles.organizerCard}>
-                                <Image
+                                {/* Use standard img tag to bypass Next/Image optimization issues */}
+                                <img
                                     src={event.organizer.image}
                                     alt={event.organizer.name}
                                     width={80}
                                     height={80}
                                     className={styles.organizerImage}
+                                    onError={(e) => {
+                                        (e.target as HTMLImageElement).src = '/images/default-organizer.svg';
+                                    }}
+                                    referrerPolicy="no-referrer"
                                 />
                                 <div className={styles.organizerInfo}>
                                     <h3 className={styles.organizerName}>{event.organizer.name}</h3>

@@ -33,7 +33,6 @@ interface BackendEvent {
     }[];
     event_highlights?: string; // JSON string or array
     event_schedule?: string; // JSON string
-    organizers?: string; // JSON string
     status: string;
     created_at: string;
     updated_at: string;
@@ -44,6 +43,18 @@ interface BackendEvent {
         image_url: string;
     };
     category_id?: number;
+    organizers?: BackendOrganizer[]; // Changed from string
+}
+
+interface BackendOrganizer {
+    id: number;
+    event_id: number;
+    name: string;
+    designation: string;
+    short_description: string;
+    image: string;
+    created_at: string;
+    tags: any[];
 }
 
 interface BackendCategory {
@@ -172,11 +183,20 @@ const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
 
         detailedDescription: [backendEvent.description || backendEvent.about_event || ''],
 
-        organizer: {
+        organizer: backendEvent.organizers && backendEvent.organizers.length > 0 ? {
+            name: backendEvent.organizers[0].name,
+            role: backendEvent.organizers[0].designation,
+            bio: backendEvent.organizers[0].short_description,
+            image: backendEvent.organizers[0].image ?
+                (backendEvent.organizers[0].image.startsWith('http') ?
+                    backendEvent.organizers[0].image :
+                    `https://api-dev.mrcoachpro.in/uploads/${backendEvent.organizers[0].image}`) :
+                '/images/default-organizer.svg'
+        } : {
             name: 'Mr. Coach Team',
             role: 'Organizer',
             bio: 'Official event organizer',
-            image: '/images/default-organizer.jpg'
+            image: '/images/default-organizer.svg'
         },
         capacity: totalSlots,
         spotsLeft: spotsLeft,

@@ -3,7 +3,7 @@ import { Roboto, Josefin_Sans } from 'next/font/google';
 import './globals.css';
 import { Footer } from '@/components/layout/Footer';
 import { MobileBottomNav } from '@/components/layout/MobileBottomNav';
-import { ModalProvider } from '@/context/ModalContext';
+import { Providers } from '@/components/providers/Providers';
 
 const roboto = Roboto({
   subsets: ['latin'],
@@ -32,11 +32,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${roboto.variable} ${josefin.variable}`}>
       <body suppressHydrationWarning>
-        <ModalProvider>
+        <Providers>
           {children}
           <MobileBottomNav />
           <Footer />
-        </ModalProvider>
+        </Providers>
       </body>
     </html>
   );
