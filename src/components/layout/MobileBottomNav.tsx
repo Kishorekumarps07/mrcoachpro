@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Calendar, Zap, Info } from 'lucide-react';
+import { Home, Calendar, Zap, Info, ShoppingBag } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useModal } from '@/context/ModalContext'; // Import context
 import styles from './MobileBottomNav.module.css';
@@ -37,7 +37,7 @@ export const MobileBottomNav = () => {
         { href: '/events', label: 'EVENTS', icon: Calendar },
         { href: '#', label: 'BOOK NOW', icon: Zap, isPrimary: true, onClick: openModal }, // Use global openModal
         { href: '/services', label: 'SERVICES', icon: DoctorIcon },
-        { href: '/about', label: 'ABOUT', icon: Info },
+        { href: '/shop', label: 'SHOP', icon: ShoppingBag },
     ];
 
     return (

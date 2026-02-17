@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import clsx from 'clsx';
-import { Menu, X, Search, MapPin, ChevronDown, Sparkles, Calendar, Info } from 'lucide-react';
+import { Menu, X, Search, MapPin, ChevronDown, Sparkles, Calendar, Info, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { SearchOverlay } from '@/components/ui/SearchOverlay';
 import { useModal } from '@/context/ModalContext'; // Import Context
@@ -16,6 +16,7 @@ const NAV_LINKS = [
     { href: '/services', label: 'Services', icon: Sparkles },
     { href: '/events', label: 'Events', icon: Calendar },
     { href: '/about', label: 'About', icon: Info },
+    { href: '/shop', label: 'Shop', icon: ShoppingBag },
 ];
 
 export const Navbar = () => {
