@@ -1,0 +1,308 @@
+/**
+ * MR.COACH SHOP - ELITE PERFORMANCE PREMIUM CSS
+ * VERSION: 02.17.FORCE_RELOAD_V2
+ * This file is named shop-premium.css to bypass browser caching.
+ */
+
+:root {
+    --ms-yellow: #FFD000;
+    --ms-black: #0E0E0E;
+    --ms-white: #FFFFFF;
+    --ms-ghost: #FAFAFA;
+    --ms-border: rgba(0, 0, 0, 0.08);
+    --ms-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
+    --ms-font-headline: 'Josefin Sans', sans-serif !important;
+    --ms-font-body: 'Inter', sans-serif !important;
+}
+
+/* Global Reset for Shop */
+.shop-wrapper {
+    background-color: var(--ms-white) !important;
+    color: var(--ms-black) !important;
+    min-height: 100vh;
+    font-family: var(--ms-font-body);
+    width: 100%;
+    overflow-x: hidden;
+    /* Prevent horizontal scroll */
+}
+
+/* --- HERO SECTION (ELITE MOODY) --- */
+.ms-hero {
+    height: 100vh;
+    min-height: 600px;
+    width: 100% !important;
+    position: relative !important;
+    background-color: var(--ms-black) !important;
+    overflow: hidden;
+}
+
+.ms-hero img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    opacity: 0.7;
+}
+
+.ms-hero-overlay-v {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.8) 100%) !important;
+    z-index: 10;
+}
+
+.ms-hero-content {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    /* Force full height */
+    z-index: 30;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 8%;
+    margin: 0 !important;
+    pointer-events: none;
+    text-align: center;
+}
+
+.ms-hero-text-wrap {
+    max-width: 800px;
+    pointer-events: auto;
+    width: 100%;
+    /* Reset margins that might push it */
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.ms-hero-tag {
+    color: var(--ms-yellow) !important;
+    font-weight: 950 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5em !important;
+    font-size: 13px !important;
+    margin-bottom: 24px !important;
+    display: block !important;
+}
+
+.ms-hero-title {
+    font-family: var(--ms-font-headline);
+    font-size: clamp(3.2rem, 9vw, 8rem) !important;
+    font-weight: 950 !important;
+    line-height: 1 !important;
+    text-transform: uppercase !important;
+    color: var(--ms-white) !important;
+    letter-spacing: -0.02em !important;
+    margin-bottom: 40px !important;
+    /* Ensure no negative margins pulled from tailwind */
+    margin-top: 0 !important;
+}
+
+.ms-hero-cta-group {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+}
+
+/* --- BUTTONS --- */
+.ms-btn-primary {
+    background-color: var(--ms-yellow) !important;
+    color: var(--ms-black) !important;
+    padding: 18px 36px !important;
+    border-radius: 4px !important;
+    font-weight: 950 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    font-size: 13px !important;
+    border: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.ms-btn-secondary {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: var(--ms-white) !important;
+    padding: 18px 36px !important;
+    border-radius: 4px !important;
+    font-weight: 950 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    font-size: 13px !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(10px) !important;
+    cursor: pointer;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+/* --- FILTER NAVIGATION (THE "BUNCHING" FIX) --- */
+.ms-filter-strip {
+    background: #FFFFFF !important;
+    border-bottom: 1px solid #F0F0F0 !important;
+    padding: 16px 0 !important;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+}
+
+.ms-filter-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ms-filter-tabs {
+    display: flex !important;
+    gap: 12px !important;
+    width: 100%;
+}
+
+.ms-filter-btn {
+    padding: 10px 24px !important;
+    border-radius: 100px !important;
+    font-size: 11px !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.15em !important;
+    border: 1.5px solid #EEEEEE !important;
+    background: #FFFFFF !important;
+    color: #888888 !important;
+    white-space: nowrap !important;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.ms-filter-btn.active {
+    background: var(--ms-black) !important;
+    color: var(--ms-white) !important;
+    border-color: var(--ms-black) !important;
+}
+
+/* --- ELITE PRODUCT GRID --- */
+.ms-grid-section {
+    padding: 80px 24px !important;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.ms-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+    /* Slightly tighter gap for mobile fitting */
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .ms-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 32px !important;
+    }
+}
+
+@media (min-width: 1100px) {
+    .ms-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
+
+/* --- INFORMATIONAL SECTIONS --- */
+.ms-value-section {
+    background: #FAFAFA !important;
+    padding: 80px 24px !important;
+}
+
+.ms-value-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 48px !important;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .ms-value-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+/* --- MOBILE SPECIFIC OVERRIDES --- */
+@media (max-width: 768px) {
+    .ms-hero {
+        height: 80vh !important;
+        min-height: 500px !important;
+        /* Reduce min-height for smaller phones */
+    }
+
+    .ms-hero-content {
+        justify-content: center !important;
+        padding-top: 0 !important;
+        /* Ensure no top padding pushes content down */
+    }
+
+    .ms-hero-title {
+        font-size: clamp(2.4rem, 10vw, 3.5rem) !important;
+        /* Slightly smaller for safer fit */
+        color: var(--ms-yellow) !important;
+        margin-bottom: 30px !important;
+    }
+
+    .ms-hero-cta-group {
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 12px !important;
+        padding: 0 !important;
+    }
+
+    .ms-btn-primary,
+    .ms-btn-secondary {
+        width: 100% !important;
+        justify-content: center !important;
+        padding: 16px !important;
+    }
+
+    .ms-filter-strip {
+        padding: 12px 0 !important;
+    }
+
+    .ms-filter-container {
+        padding: 0 16px !important;
+        /* Tighten container padding */
+    }
+
+    .ms-filter-tabs {
+        overflow-x: auto !important;
+        padding-bottom: 4px !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        width: 100% !important;
+        flex-wrap: nowrap !important;
+        /* Force single line */
+    }
+
+    .ms-filter-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .ms-grid-section {
+        padding: 40px 16px !important;
+    }
+
+    .ms-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+        /* Tighter gap for small screens */
+    }
+}

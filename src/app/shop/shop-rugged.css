@@ -1,0 +1,339 @@
+/**
+ * MR.COACH SHOP - RETAIL MART ENGINE (BUYCEPS STYLE)
+ * AESTHETIC: Bright, High-Conversion, Yellow/Black/White.
+ */
+
+:root {
+    --retail-yellow: #FFD700;
+    --retail-black: #000000;
+    --retail-white: #FFFFFF;
+    --retail-grey-bg: #F5F7FA;
+    --retail-grey-text: #666666;
+    --retail-red: #D32F2F;
+
+    --font-main: 'Inter', sans-serif;
+}
+
+/* --- RESET & LAYOUT --- */
+.shop-wrapper {
+    background-color: var(--retail-grey-bg);
+    color: var(--retail-black);
+    font-family: var(--font-main);
+    min-height: 100vh;
+    padding-bottom: 80px;
+    /* Space for global bottom bar */
+}
+
+/* --- RETAIL HEADER (YELLOW) --- */
+.retail-header {
+    background-color: var(--retail-yellow);
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.retail-search-container {
+    flex: 1;
+    position: relative;
+}
+
+.retail-search-input {
+    width: 100%;
+    padding: 10px 16px 10px 40px;
+    border-radius: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    outline: none;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(4px);
+    color: var(--retail-black);
+}
+
+.retail-search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+}
+
+.retail-header-icons {
+    display: flex;
+    gap: 16px;
+    color: var(--retail-black);
+}
+
+/* --- CATEGORY RAIL (ICONS) --- */
+.category-rail {
+    background: var(--retail-white);
+    padding: 16px;
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    scrollbar-width: none;
+    /* Hide scrollbar */
+    -ms-overflow-style: none;
+    border-bottom: 1px solid #EEE;
+}
+
+@media (min-width: 768px) {
+    .category-rail {
+        justify-content: center;
+    }
+}
+
+.category-rail::-webkit-scrollbar {
+    display: none;
+}
+
+.category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    min-width: 64px;
+    cursor: pointer;
+}
+
+.category-icon-box {
+    width: 50px;
+    height: 50px;
+    background: #F0F0F0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: transform 0.2s;
+}
+
+.category-item:hover .category-icon-box {
+    background: #E8F5E9;
+    transform: scale(1.05);
+}
+
+.category-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    line-height: 1.2;
+}
+
+/* --- HERO BANNER (CONTAINED) --- */
+.retail-hero-section {
+    padding: 16px;
+}
+
+.retail-hero-banner {
+    background: linear-gradient(135deg, #FFD700 0%, #FFC107 100%);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    padding: 24px;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.retail-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 60%;
+}
+
+.retail-hero-title {
+    font-size: 24px;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 8px;
+    color: #000;
+}
+
+.retail-hero-subtitle {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 16px;
+    color: #333;
+}
+
+.retail-hero-bg {
+    position: absolute;
+    right: -20px;
+    bottom: -20px;
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    transform: rotate(-10deg);
+}
+
+/* --- SECTIONS (BRANDS, DEALS) --- */
+.retail-section {
+    padding: 0 16px 24px 16px;
+}
+
+.retail-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.retail-section-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: #000;
+}
+
+.retail-view-all {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--retail-red);
+    text-transform: uppercase;
+}
+
+/* --- BRAND GRID --- */
+.brand-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+@media (min-width: 768px) {
+    .brand-grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+.brand-card {
+    background: var(--retail-white);
+    border-radius: 8px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 16/10;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    font-weight: 700;
+    font-size: 11px;
+    text-align: center;
+    color: #333;
+}
+
+/* --- PRODUCT CARD (WHITE RETAIL STYLE) --- */
+.ms-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+@media (min-width: 768px) {
+    .ms-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.ms-card {
+    background: var(--retail-white);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 12px;
+}
+
+.ms-card-image-wrapper {
+    width: 100%;
+    aspect-ratio: 1/1;
+    background: #FFF;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.ms-card-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.ms-card-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: var(--retail-yellow);
+    color: #000;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    z-index: 10;
+}
+
+.ms-card-info {
+    padding: 0 12px;
+    flex-grow: 1;
+}
+
+.ms-card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.ms-card-meta {
+    font-size: 10px;
+    color: #888;
+    margin-bottom: 6px;
+}
+
+.ms-card-price {
+    font-size: 16px;
+    font-weight: 800;
+    color: #000;
+}
+
+.ms-buybox {
+    padding: 0 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.ms-card-action {
+    background: var(--retail-black);
+    color: #FFF;
+    border: none;
+    border-radius: 4px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* HIDE OLD ELEMENTS */
+.ms-sidebar,
+.ms-hero-subtitle,
+.ms-spec-sheet {
+    display: none !important;
+}
