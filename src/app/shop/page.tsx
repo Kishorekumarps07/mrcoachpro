@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import './shop-rugged.css';
+import ShopHeroCarousel from './ShopHeroCarousel';
 import { productService } from '@/services/shop/productService';
 import { Product } from '@/types/shop';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -9,11 +10,11 @@ import { Search, ShoppingCart, User, Menu, Dumbbell, Zap, Heart, Flame, Star, Ch
 
 // RETAIL CATEGORIES (Horizontal Rail)
 const RETAIL_CATS = [
-    { id: 'protein', label: 'Protein', icon: <Dumbbell size={24} /> },
-    { id: 'pre', label: 'Pre-Wkt', icon: <Zap size={24} /> },
-    { id: 'vitamins', label: 'Vitamins', icon: <Heart size={24} /> },
-    { id: 'gainers', label: 'Gainers', icon: <Flame size={24} /> },
-    { id: 'equip', label: 'Gear', icon: <Dumbbell size={24} /> },
+    { id: 'protein', label: 'Protein', img: '/images/categories/protein-3d.png' },
+    { id: 'pre', label: 'Pre-Wkt', img: '/images/categories/preworkout-3d.png' },
+    { id: 'vitamins', label: 'Vitamins', img: '/images/categories/vitamins-3d.png' },
+    { id: 'gainers', label: 'Gainers', img: '/images/categories/gainer-3d.png' },
+    { id: 'equip', label: 'Gear', img: '/images/categories/gear-3d.png' },
 ];
 
 export default function ShopPage() {
@@ -36,46 +37,21 @@ export default function ShopPage() {
 
     return (
         <div className="shop-wrapper">
-            {/* 1. RETAIL HEADER (YELLOW) */}
-            <header className="retail-header">
-                <Menu size={24} className="md:hidden" />
-                <div className="retail-search-container">
-                    <Search className="retail-search-icon" size={18} />
-                    <input
-                        type="text"
-                        placeholder="Search for products, brands..."
-                        className="retail-search-input"
-                    />
-                </div>
-                <div className="retail-header-icons">
-                    <User size={24} />
-                    <ShoppingCart size={24} />
-                </div>
-            </header>
-
             {/* 2. CATEGORY RAIL */}
             <div className="category-rail">
                 {RETAIL_CATS.map((cat) => (
                     <div key={cat.id} className="category-item">
                         <div className="category-icon-box">
-                            {cat.id === 'protein' ? <Dumbbell size={24} /> : cat.icon}
+                            <img src={cat.img} alt={cat.label} className="category-3d-img" />
                         </div>
                         <span className="category-label">{cat.label}</span>
                     </div>
                 ))}
             </div>
 
-            {/* 3. HERO BANNER (CONTAINED) */}
+            {/* 3. HERO CAROUSEL */}
             <section className="retail-hero-section">
-                <div className="retail-hero-banner">
-                    <div className="retail-hero-content">
-                        <h1 className="retail-hero-title">BIG SAVINGS<br />ON WHEY.</h1>
-                        <p className="retail-hero-subtitle">Up to 40% OFF this week.</p>
-                        <button className="bg-black text-white px-4 py-2 rounded-full text-xs font-bold uppercase">
-                            Shop Now
-                        </button>
-                    </div>
-                </div>
+                <ShopHeroCarousel />
             </section>
 
             {/* 4. POPULAR BRANDS */}
@@ -85,9 +61,17 @@ export default function ShopPage() {
                     <span className="retail-view-all">View All</span>
                 </div>
                 <div className="brand-grid">
-                    {['On', 'MuscleTech', 'Dymatize', 'BPI', 'GNC', 'MyProtein'].map((brand, i) => (
+                    {[
+                        { name: 'On', img: '/images/brands/on.png' },
+                        { name: 'MuscleTech', img: '/images/brands/muscletech.png' },
+                        { name: 'Dymatize', img: '/images/brands/dynamite.png' },
+                        { name: 'BPI', img: '/images/brands/bpisports.png' },
+                        { name: 'GNC', img: '/images/brands/gnc.png' },
+                        { name: 'MyProtein', img: '/images/brands/myprotein.png' }
+                    ].map((brand, i) => (
                         <div key={i} className="brand-card">
-                            {brand}
+                            <img src={brand.img} alt={brand.name} className="brand-logo" />
+                            <span className="brand-name">{brand.name}</span>
                         </div>
                     ))}
                 </div>
@@ -106,36 +90,46 @@ export default function ShopPage() {
                         ))}
                     </div>
                 ) : (
-                    <div className="ms-grid">
-                        {products.map((product) => (
-                            <div key={product.id} className="ms-card">
-                                <span className="ms-card-badge">
-                                    {product.category === 'Equipment' ? 'HEAVY' : 'BESTSELLER'}
-                                </span>
+                    <div className="retail-grid">
+                        {products.map((product, index) => (
+                            <motion.div
+                                key={product.id}
+                                className="premium-product-card"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.4, delay: index * 0.1 }}
+                                viewport={{ once: true }}
+                            >
+                                {/* Badge Logic */}
+                                <div className={`card-badge badge-${index % 3 === 0 ? 'popular' :
+                                    index % 3 === 1 ? 'lowest' : 'hot'
+                                    }`}>
+                                    {index % 3 === 0 ? 'Popular' :
+                                        index % 3 === 1 ? 'Lowest Price' : 'Hot Selling'}
+                                </div>
 
-                                <div className="ms-card-image-wrapper">
+                                <div className="card-image-container">
+                                    <div className="image-backdrop"></div>
                                     <img
                                         src={product.images[0]}
                                         alt={product.title}
-                                        className="ms-card-image"
+                                        className="card-image"
                                     />
                                 </div>
 
-                                <div className="ms-card-info">
-                                    <h3 className="ms-card-title">{product.title}</h3>
-                                    <div className="ms-card-meta">
-                                        50 Servings • 2kg
-                                    </div>
-                                    <div className="ms-buybox">
-                                        <div className="ms-card-price">
-                                            ₹{product.price}
-                                        </div>
-                                        <button className="ms-card-action">
-                                            <Plus size={16} strokeWidth={3} />
-                                        </button>
+                                <div className="card-details">
+                                    <div className="card-category-tag">{product.category}</div>
+                                    <h3 className="card-title">{product.title}</h3>
+
+                                    <div className="card-pricing-row">
+                                        <span className="current-price">₹{product.price}</span>
+                                        <span className="original-price">₹17999</span>
+                                        <span className="discount-badge">
+                                            {Math.round(((17999 - product.price) / 17999) * 100)}% off
+                                        </span>
                                     </div>
                                 </div>
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
                 )}

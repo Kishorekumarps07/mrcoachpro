@@ -24,50 +24,6 @@
     /* Space for global bottom bar */
 }
 
-/* --- RETAIL HEADER (YELLOW) --- */
-.retail-header {
-    background-color: var(--retail-yellow);
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.retail-search-container {
-    flex: 1;
-    position: relative;
-}
-
-.retail-search-input {
-    width: 100%;
-    padding: 10px 16px 10px 40px;
-    border-radius: 30px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    outline: none;
-    font-size: 14px;
-    background: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(4px);
-    color: var(--retail-black);
-}
-
-.retail-search-icon {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #999;
-}
-
-.retail-header-icons {
-    display: flex;
-    gap: 16px;
-    color: var(--retail-black);
-}
-
 /* --- CATEGORY RAIL (ICONS) --- */
 .category-rail {
     background: var(--retail-white);
@@ -101,20 +57,38 @@
 }
 
 .category-icon-box {
-    width: 50px;
-    height: 50px;
-    background: #F0F0F0;
-    border-radius: 12px;
+    width: 68px;
+    height: 68px;
+    background: #FFF;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
-    transition: transform 0.2s;
+    margin-bottom: 8px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 10px;
+}
+
+.category-3d-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.category-item:hover .category-3d-img {
+    transform: scale(1.15) rotate(5deg);
 }
 
 .category-item:hover .category-icon-box {
-    background: #E8F5E9;
-    transform: scale(1.05);
+    background: var(--retail-yellow);
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+    border-color: #000;
 }
 
 .category-label {
@@ -130,59 +104,294 @@
     padding: 16px;
 }
 
-.retail-hero-banner {
-    background: linear-gradient(135deg, #FFD700 0%, #FFC107 100%);
-    border-radius: 12px;
-    overflow: hidden;
+/* --- 3. HERO CAROUSEL --- */
+.shop-hero-carousel-wrapper {
     position: relative;
-    height: 200px;
+    width: 100%;
+    margin: 24px 0;
+    border-radius: 24px;
+    overflow: hidden;
+    height: 300px;
+    /* Fixed height for consistency */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.shop-carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
-    padding: 24px;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    padding: 0 48px;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
-.retail-hero-content {
-    position: relative;
+/* 1. Background Layer */
+.carousel-bg-full {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.carousel-frosted-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     z-index: 2;
-    max-width: 60%;
 }
 
-.retail-hero-title {
-    font-size: 24px;
+/* 2. Content Layer - Relative to keep flow and scrolling stable */
+.glass-card-container {
+    position: relative;
+    z-index: 5;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 32px;
+    padding: 32px 40px;
+    margin-left: -20px;
+    box-shadow:
+        0 8px 32px 0 rgba(0, 0, 0, 0.3),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    animation: glassFloat 3s ease-in-out infinite alternate;
+}
+
+@keyframes glassFloat {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-5px);
+    }
+}
+
+.carousel-content {
+    max-width: 100%;
+}
+
+.carousel-title {
+    font-size: 42px;
     font-weight: 900;
     line-height: 1.1;
     margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.carousel-subtitle {
+    font-size: 18px;
+    opacity: 0.9;
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+/* --- MOBILE RESPONSIVE ADAPTATION --- */
+@media (max-width: 768px) {
+    .retail-hero-section {
+        padding: 0;
+        /* Edge-to-edge on mobile */
+    }
+
+    .shop-hero-carousel-wrapper {
+        margin: 0;
+        border-radius: 0;
+        /* Full bleed looks more premium on mobile */
+        height: 260px;
+    }
+
+    .shop-carousel-slide {
+        padding: 0 24px;
+        touch-action: pan-y;
+        /* Crucial for scrolling flow */
+    }
+
+    .glass-card-container {
+        margin-left: 0;
+        padding: 20px;
+        border-radius: 20px;
+        width: auto;
+        min-width: 0;
+    }
+
+    .carousel-title {
+        font-size: 26px;
+        letter-spacing: -0.5px;
+    }
+
+    .carousel-subtitle {
+        font-size: 14px;
+    }
+
+    .carousel-dots {
+        bottom: 12px;
+        left: 24px;
+    }
+}
+
+/* Slide Specific Text Colors for Glass */
+.slide-yellow .glass-card-container {
+    background: rgba(255, 215, 0, 0.15);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.slide-yellow .carousel-title,
+.slide-yellow .carousel-subtitle {
     color: #000;
 }
 
-.retail-hero-subtitle {
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 16px;
-    color: #333;
+.slide-black .glass-card-container {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.15);
 }
 
-.retail-hero-bg {
+.slide-teal .glass-card-container {
+    background: rgba(0, 181, 181, 0.2);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Slide Themes */
+.slide-yellow {
+    background: #FFD700;
+}
+
+.slide-black {
+    background: #111;
+}
+
+.slide-teal {
+    background: #00B5B5;
+}
+
+/* Dots Navigation */
+.carousel-dots {
     position: absolute;
-    right: -20px;
-    bottom: -20px;
-    width: 180px;
-    height: 180px;
+    bottom: 24px;
+    left: 48px;
+    display: flex;
+    gap: 12px;
+    z-index: 5;
+}
+
+.carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(4px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.carousel-dot.active {
+    width: 32px;
+    border-radius: 99px;
+    background: #fff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.slide-yellow .carousel-dot {
+    background: rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.slide-yellow .carousel-dot.active {
+    background: #000;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.slide-yellow .carousel-cta {
+    background: black;
+    color: white;
+}
+
+/* Background Image */
+.carousel-bg-image {
+    position: absolute;
+    right: -10%;
+    bottom: -10%;
+    height: 120%;
+    width: auto;
     object-fit: contain;
-    transform: rotate(-10deg);
+    transform: rotate(-5deg);
+    z-index: 1;
+    mix-blend-mode: overlay;
+    /* Blend nicely */
+}
+
+/* Dots Navigation */
+.carousel-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 48px;
+    display: flex;
+    gap: 8px;
+    z-index: 3;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.slide-yellow .carousel-dot {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.carousel-dot.active {
+    background: white;
+    transform: scale(1.2);
+}
+
+.slide-yellow .carousel-dot.active {
+    background: black;
+}
+
+@media (max-width: 768px) {
+    .shop-hero-carousel-wrapper {
+        height: 240px;
+        margin: 16px 0;
+    }
+
+    .carousel-title {
+        font-size: 28px;
+    }
+
+    .carousel-dots {
+        left: 24px;
+    }
 }
 
 /* --- SECTIONS (BRANDS, DEALS) --- */
 .retail-section {
-    padding: 0 16px 24px 16px;
-}
-
-.retail-section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
+    padding: 16px;
+    margin-bottom: 40px;
+    /* Add vertical rhythm */
 }
 
 .retail-section-title {
@@ -192,39 +401,115 @@
 }
 
 .retail-view-all {
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 700;
     color: var(--retail-red);
     text-transform: uppercase;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.retail-view-all:hover {
+    background: rgba(211, 47, 47, 0.1);
+    transform: translateX(4px);
+}
+
+.retail-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
 }
 
 /* --- BRAND GRID --- */
 .brand-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
     gap: 12px;
+    padding-bottom: 8px;
+    /* Space for scrollbar if visible/touch */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.brand-grid::-webkit-scrollbar {
+    display: none;
 }
 
 @media (min-width: 768px) {
     .brand-grid {
-        grid-template-columns: repeat(6, 1fr);
+        display: flex;
+        gap: 20px;
+        padding-bottom: 12px;
+        overflow-x: auto;
     }
 }
 
 .brand-card {
-    background: var(--retail-white);
-    border-radius: 8px;
-    padding: 8px;
+    background: #FFFFFF;
+    border: 1px solid #EEEEEE;
+    /* Subtle border */
+    border-radius: 12px;
+
+    padding: 16px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     aspect-ratio: 16/10;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    font-weight: 700;
-    font-size: 11px;
-    text-align: center;
-    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    gap: 16px;
+
+    /* Mobile Sizing - LARGE */
+    min-width: 180px !important;
+    width: 180px !important;
+    scroll-snap-align: start;
+    flex-shrink: 0 !important;
 }
+
+@media (min-width: 768px) {
+    .brand-card {
+        min-width: 240px !important;
+        /* Large Desktop Tile */
+        width: 240px !important;
+        aspect-ratio: 16/9;
+    }
+}
+
+.brand-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+    color: #000;
+}
+
+.brand-logo {
+    max-width: 90% !important;
+    max-height: 75% !important;
+    object-fit: contain;
+    transition: transform 0.2s ease;
+}
+
+.brand-name {
+    font-size: 13px !important;
+    font-weight: 700;
+    color: #111;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+.brand-card:hover .brand-logo {
+    transform: scale(1.1);
+}
+
+
 
 /* --- PRODUCT CARD (WHITE RETAIL STYLE) --- */
 .ms-grid {
@@ -248,6 +533,255 @@
     display: flex;
     flex-direction: column;
     padding-bottom: 12px;
+}
+
+/* 5. PREMUIM RETAIL GRID */
+.retail-grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding: 16px;
+    -webkit-overflow-scrolling: touch;
+    /* Smooth scroll iOS */
+    scrollbar-width: none;
+    /* Hide scrollbar Firefox */
+}
+
+.retail-grid::-webkit-scrollbar {
+    display: none;
+    /* Hide scrollbar Chrome/Safari */
+}
+
+@media (min-width: 768px) {
+    .retail-grid {
+        display: flex;
+        gap: 24px;
+        padding-bottom: 16px;
+        overflow-x: auto;
+    }
+}
+
+@media (min-width: 1024px) {
+    .retail-grid {
+        gap: 32px;
+    }
+}
+
+/* 6. PREMIUM PRODUCT CARD */
+.premium-product-card {
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 24px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    /* Mobile Sizing */
+    min-width: 280px;
+    max-width: 320px;
+    scroll-snap-align: center;
+}
+
+@media (min-width: 768px) {
+    .premium-product-card {
+        min-width: auto;
+        max-width: none;
+    }
+}
+
+.premium-product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Badge System */
+.card-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+    color: white;
+    z-index: 10;
+    text-transform: uppercase;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.badge-popular {
+    background: #228BE6;
+}
+
+/* Blue */
+.badge-lowest {
+    background: #862E9C;
+}
+
+/* Purple */
+.badge-hot {
+    background: #FA5252;
+}
+
+/* Red */
+
+/* Image Area */
+.card-image-container {
+    height: 260px;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    background: #F8F9FA;
+    /* Subtle block check */
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.card-image {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    z-index: 2;
+}
+
+.premium-product-card:hover .card-image {
+    transform: scale(1.05);
+}
+
+/* Details */
+.card-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.card-category-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background: #F1F3F5;
+    font-size: 12px;
+    color: #555;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.card-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1A1A1A;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    /* Clamp 2 lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    /* Standard property for compatibility */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    height: 50px;
+    /* Fixed height for alignment */
+}
+
+/* Price Row */
+.card-pricing-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.current-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #111;
+}
+
+.original-price {
+    font-size: 14px;
+    color: #888;
+    text-decoration: line-through;
+    margin-left: 8px;
+}
+
+.discount-badge {
+    margin-left: auto;
+    /* Push to right or keep near? Spec says "Margin-left: 8px" implied proximity */
+    margin-left: 8px;
+    padding: 4px 8px;
+    background: #FFE5E5;
+    color: #E03131;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 8px;
+}
+
+/* 5. NEW RETAIL PRODUCT CARD */
+.retail-product-card {
+    background: #FFF;
+    border-radius: 20px;
+    padding: 16px;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    cursor: pointer;
+    overflow: hidden;
+    /* Ensure content doesn't spill out */
+}
+
+.retail-product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    /* Slightly lifted shadow */
+}
+
+/* Badge: Blue, Top-Left */
+.card-badge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #0091FF;
+    /* Bright Blue */
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 12px;
+    z-index: 2;
+}
+
+/* Image Container */
+.card-image-container {
+    height: 180px;
+    width: 100%;
+    /* Force width */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    padding: 12px;
+    position: relative;
+    /* Context */
+}
+
+.card-image {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
 }
 
 .ms-card-image-wrapper {

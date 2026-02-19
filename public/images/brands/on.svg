@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" width="200" height="100">
+  <rect width="200" height="100" fill="#ffffff"/>
+  <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="60" fill="#000000">ON</text>
+  <text x="50%" y="80%" dominant-baseline="middle" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="12" fill="#000000" letter-spacing="2">OPTIMUM NUTRITION</text>
+</svg>

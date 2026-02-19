@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" width="200" height="100">
+  <rect width="200" height="100" fill="#ffffff"/>
+  <path d="M40,50 L60,20 L80,50 L60,80 Z" fill="#000"/>
+  <text x="120" y="55" dominant-baseline="middle" text-anchor="middle" font-family="Arial, sans-serif" font-weight="bold" font-size="28" fill="#000000">Dymatize</text>
+</svg>

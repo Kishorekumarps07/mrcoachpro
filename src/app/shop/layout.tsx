@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { ShopProvider } from './context/ShopContext';
-import { Navbar } from '@/components/layout/Navbar';
+import { ShopNavbar } from '@/components/layout/ShopNavbar';
 import { ShopCartDrawer } from '@/components/shop/ShopCartDrawer';
 import './shop-rugged.css'; // Import the RUGGED-TECH CSS Engine
 
@@ -15,7 +15,7 @@ export default function ShopLayout({
         <ShopProvider>
             {/* Wrap in shop-wrapper to enforce light theme */}
             <div className="shop-wrapper min-h-screen bg-gray-50">
-                <Navbar />
+                <ShopNavbar />
                 <main>
                     {children}
                 </main>

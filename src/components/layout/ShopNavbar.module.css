@@ -1,0 +1,233 @@
+.shopNavbar {
+    background-color: #FFD700;
+    /* Distinct Shop Yellow */
+    height: 70px;
+    display: flex;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-bottom: 2px solid #000;
+}
+
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Left Section */
+.leftSection {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+/* Search Section */
+.searchSection {
+    flex: 1;
+    max-width: 600px;
+    display: flex;
+    justify-content: center;
+}
+
+.searchBar {
+    width: 100%;
+    height: 44px;
+    background: #FFFFFF;
+    border: 2px solid #000;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 12px;
+    transition: all 0.2s ease;
+    box-shadow: 4px 4px 0px #000;
+}
+
+.searchBar:focus-within {
+    transform: translate(-1px, -1px);
+    box-shadow: 6px 6px 0px #000;
+}
+
+.searchIcon {
+    color: #666;
+}
+
+.searchInput {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    font-weight: 500;
+    background: transparent;
+}
+
+/* Right Section */
+.rightSection {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.actionBtn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #000;
+    color: #FFF;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.actionBtn:hover {
+    background: #333;
+    transform: translateY(-2px);
+}
+
+.divider {
+    width: 1px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.1);
+    margin: 0 8px;
+}
+
+.iconBtn {
+    background: none;
+    border: none;
+    color: #000;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s ease;
+}
+
+.iconBtn:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* Overlay & Drawer */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+    display: flex;
+}
+
+.drawer {
+    width: 300px;
+    background: #FFF;
+    height: 100%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+.drawerHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.drawerTitle {
+    font-size: 24px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+.closeBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.drawerNav {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.drawerLink {
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+    text-decoration: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.drawerLink:hover {
+    background: #FFD700;
+    border-color: #000;
+    padding-left: 24px;
+}
+
+.drawerDivider {
+    height: 1px;
+    background: #EEE;
+    margin: 20px 0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .searchSection {
+        display: none;
+        /* Hide center search on small tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .btnLabel {
+        display: none;
+    }
+
+    .actionBtn {
+        padding: 8px;
+    }
+
+    .divider {
+        display: none;
+    }
+}
