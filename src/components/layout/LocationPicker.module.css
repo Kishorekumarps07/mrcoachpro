@@ -1,0 +1,227 @@
+/* LocationPicker.module.css */
+
+/* --- Trigger Button --- */
+.locationBtn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(16px) saturate(1.8);
+    -webkit-backdrop-filter: blur(16px) saturate(1.8);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 30px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    color: #1a1a1a;
+    font-size: 0.82rem;
+    font-weight: 600;
+    white-space: nowrap;
+    position: relative;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.locationBtn:hover {
+    background: rgba(255, 255, 255, 0.45);
+    border-color: rgba(255, 255, 255, 0.9);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 1), 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+.locationBtn.open {
+    background: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 255, 255, 0.95);
+}
+
+.mapIcon {
+    color: #333;
+    flex-shrink: 0;
+}
+
+.locationText {
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chevIcon {
+    color: #555;
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+}
+
+.chevOpen {
+    transform: rotate(180deg);
+}
+
+/* --- Popover Wrapper --- */
+.wrapper {
+    position: relative;
+}
+
+/* --- Glassmorphic Popover --- */
+.popover {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    width: 280px;
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(24px) saturate(2);
+    -webkit-backdrop-filter: blur(24px) saturate(2);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 18px;
+    padding: 16px;
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.12),
+        0 2px 8px rgba(0, 0, 0, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 1);
+    z-index: 9999;
+    animation: popoverIn 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transform-origin: top left;
+}
+
+@keyframes popoverIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* --- Geolocation Button --- */
+.geoBtn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #111;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.geoBtn:hover {
+    background: rgba(255, 208, 0, 0.15);
+    border-color: rgba(255, 208, 0, 0.4);
+}
+
+.geoBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.geoIcon {
+    color: #F59E0B;
+    flex-shrink: 0;
+}
+
+/* --- Divider --- */
+.divider {
+    height: 1px;
+    background: rgba(0, 0, 0, 0.07);
+    margin: 12px 0;
+}
+
+/* --- Search Input --- */
+.searchWrap {
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+.searchInput {
+    width: 100%;
+    padding: 9px 12px 9px 36px;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    font-size: 0.85rem;
+    color: #111;
+    outline: none;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.searchInput::placeholder {
+    color: #999;
+}
+
+.searchInput:focus {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(0, 0, 0, 0.15);
+}
+
+/* --- City Suggestions --- */
+.cityList {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    max-height: 180px;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.cityList::-webkit-scrollbar {
+    display: none;
+}
+
+.cityItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #222;
+    transition: all 0.15s ease;
+    border: none;
+    background: transparent;
+    text-align: left;
+    width: 100%;
+}
+
+.cityItem:hover {
+    background: rgba(255, 208, 0, 0.15);
+    color: #000;
+}
+
+.cityDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #D1D5DB;
+    flex-shrink: 0;
+}
+
+.noResults {
+    text-align: center;
+    padding: 16px;
+    font-size: 0.82rem;
+    color: #999;
+}
+
+/* --- Backdrop to close on outside click --- */
+.backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+}

@@ -5,10 +5,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import clsx from 'clsx';
-import { Menu, X, Search, MapPin, ChevronDown, Sparkles, Calendar, Info, ShoppingBag } from 'lucide-react';
+import { Menu, X, Search, ChevronDown, Sparkles, Calendar, Info, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { SearchOverlay } from '@/components/ui/SearchOverlay';
-import { useModal } from '@/context/ModalContext'; // Import Context
+import { useModal } from '@/context/ModalContext';
+import { LocationPicker } from './LocationPicker';
 import styles from './Navbar.module.css';
 import { CORE_SERVICES } from '@/data/services';
 
@@ -88,11 +89,7 @@ export const Navbar = () => {
                                 />
                             </div>
 
-                            <button className={styles.locationBtn}>
-                                <MapPin size={18} className={styles.toolIcon} />
-                                <span className={styles.locationText}>Nungambakkam, Chennai</span>
-                                <ChevronDown size={16} className={styles.chevIcon} />
-                            </button>
+                            <LocationPicker />
                         </div>
 
                         {NAV_LINKS.map((link) => (
