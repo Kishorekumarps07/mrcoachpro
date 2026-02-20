@@ -6,7 +6,8 @@ import ShopHeroCarousel from './ShopHeroCarousel';
 import { productService } from '@/services/shop/productService';
 import { Product } from '@/types/shop';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, ShoppingCart, User, Menu, Dumbbell, Zap, Heart, Flame, Star, ChevronRight, Plus } from 'lucide-react';
+import { Search, ShoppingCart, User, Menu, Dumbbell, Zap, Heart, Flame, Star, ChevronRight, Plus, ShoppingBag } from 'lucide-react';
+import { useShop } from '@/app/products/context/ShopContext';
 
 // RETAIL CATEGORIES (Horizontal Rail)
 const RETAIL_CATS = [
@@ -20,6 +21,7 @@ const RETAIL_CATS = [
 export default function ShopPage() {
     const [products, setProducts] = useState<Product[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const { addToCart } = useShop();
 
     useEffect(() => {
         const loadProducts = async () => {
@@ -128,6 +130,17 @@ export default function ShopPage() {
                                             {Math.round(((17999 - product.price) / 17999) * 100)}% off
                                         </span>
                                     </div>
+
+                                    <button
+                                        className="add-to-cart-btn"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            addToCart(product);
+                                        }}
+                                    >
+                                        <ShoppingBag size={16} />
+                                        Add to Cart
+                                    </button>
                                 </div>
                             </motion.div>
                         ))}

@@ -420,7 +420,13 @@
 .retail-section {
     padding: 16px;
     margin-bottom: 40px;
-    /* Add vertical rhythm */
+}
+
+@media (min-width: 1024px) {
+    .retail-section {
+        padding: 24px 40px;
+        margin-bottom: 56px;
+    }
 }
 
 .retail-section-title {
@@ -560,6 +566,7 @@
 }
 
 /* 5. PREMUIM RETAIL GRID */
+/* Mobile: horizontal scroll carousel */
 .retail-grid {
     display: flex;
     overflow-x: auto;
@@ -567,32 +574,33 @@
     gap: 16px;
     padding: 16px;
     -webkit-overflow-scrolling: touch;
-    /* Smooth scroll iOS */
     scrollbar-width: none;
-    /* Hide scrollbar Firefox */
 }
 
 .retail-grid::-webkit-scrollbar {
     display: none;
-    /* Hide scrollbar Chrome/Safari */
 }
 
+/* Tablet: 3-column grid */
 @media (min-width: 768px) {
     .retail-grid {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
         gap: 24px;
-        padding-bottom: 16px;
-        overflow-x: auto;
+        padding: 8px 0;
+        overflow-x: visible;
+        scroll-snap-type: none;
     }
 }
 
-@media (min-width: 1024px) {
+/* Desktop: 4-column grid */
+@media (min-width: 1200px) {
     .retail-grid {
+        grid-template-columns: repeat(4, 1fr);
         gap: 32px;
     }
 }
 
-/* 6. PREMIUM PRODUCT CARD */
 .premium-product-card {
     background: #FFFFFF;
     border-radius: 24px;
@@ -605,16 +613,19 @@
     flex-direction: column;
     height: 100%;
 
-    /* Mobile Sizing */
+    /* Mobile: fixed width for horizontal scroll */
     min-width: 280px;
     max-width: 320px;
     scroll-snap-align: center;
 }
 
+/* On tablet/desktop grid — cards fill column naturally */
 @media (min-width: 768px) {
     .premium-product-card {
-        min-width: auto;
-        max-width: none;
+        min-width: unset;
+        max-width: unset;
+        scroll-snap-align: unset;
+        width: 100%;
     }
 }
 
@@ -894,4 +905,37 @@
 .ms-hero-subtitle,
 .ms-spec-sheet {
     display: none !important;
+}
+
+/* ADD TO CART BUTTON */
+.add-to-cart-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 16px;
+    padding: 12px 20px;
+    background: var(--retail-yellow);
+    color: #000;
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    box-shadow: 0 4px 12px rgba(255, 215, 0, 0.35);
+}
+
+.add-to-cart-btn:hover {
+    background: #f5c800;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.45);
+}
+
+.add-to-cart-btn:active {
+    transform: translateY(0px) scale(0.98);
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.25);
 }
