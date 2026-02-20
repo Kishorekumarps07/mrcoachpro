@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { X, Check, Loader2, ChevronRight, ChevronLeft } from 'lucide-react';
+import { X, Check, Loader2, ChevronRight, ChevronLeft, Navigation } from 'lucide-react';
 import styles from './BookDemoModal.module.css';
 import { createPortal } from 'react-dom';
 import { SPECIALIZATION_SERVICES } from '@/data/services';
@@ -42,6 +42,8 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
     const [districtsList, setDistrictsList] = useState<{ id: number; name: string }[]>([]);
     const [categoriesList, setCategoriesList] = useState<{ id: number; name: string; subcategories: { id: number; name: string }[] }[]>([]);
     const [loadingDistricts, setLoadingDistricts] = useState(false);
+    const [isLocating, setIsLocating] = useState(false);
+    const [locationError, setLocationError] = useState<string | null>(null);
 
     // Initial Fetch
     useEffect(() => {
@@ -94,6 +96,93 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
 
         fetchDistricts();
     }, [formData.state, statesList]);
+
+    // Auto-location handler
+    const handleAutoLocation = () => {
+        setLocationError(null);
+        if (!navigator.geolocation) {
+            setLocationError('Geolocation is not supported by your browser.');
+            return;
+        }
+        setIsLocating(true);
+        navigator.geolocation.getCurrentPosition(
+            async (pos) => {
+                try {
+                    const { latitude, longitude } = pos.coords;
+
+                    // Fire both APIs in parallel for speed & reliability
+                    const [bdcRes, nominatimRes] = await Promise.allSettled([
+                        fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`),
+                        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`, {
+                            headers: { 'Accept-Language': 'en', 'User-Agent': 'MrCoachPro/1.0' }
+                        }),
+                    ]);
+
+                    // Parse BigDataCloud
+                    const bdc = bdcRes.status === 'fulfilled' ? await bdcRes.value.json() : {};
+                    // Parse Nominatim
+                    const nom = nominatimRes.status === 'fulfilled' ? await nominatimRes.value.json() : {};
+
+                    // Extract fields — prefer BigDataCloud for state/area, Nominatim for pincode
+                    const detectedState = bdc.principalSubdivision || nom.address?.state || '';
+                    const detectedDistrict = bdc.city || nom.address?.city || nom.address?.county || bdc.locality || '';
+                    const detectedArea = bdc.locality || nom.address?.suburb || nom.address?.neighbourhood || bdc.city || '';
+                    // Nominatim reliably returns Indian pincodes; BigDataCloud often leaves it blank
+                    const detectedPincode = nom.address?.postcode || bdc.postcode || '';
+
+                    // Fuzzy-match state against API list
+                    const matchedState = statesList.find(
+                        (s) => s.name.toLowerCase() === detectedState.toLowerCase() ||
+                            detectedState.toLowerCase().includes(s.name.toLowerCase()) ||
+                            s.name.toLowerCase().includes(detectedState.toLowerCase())
+                    );
+
+                    if (matchedState) {
+                        // Setting state triggers the existing useEffect to fetch districts
+                        setFormData(prev => ({
+                            ...prev,
+                            state: matchedState.name,
+                            district: '',
+                            area: detectedArea,
+                            pincode: detectedPincode,
+                        }));
+
+                        // Wait briefly for districts to load, then fuzzy-match district
+                        setTimeout(() => {
+                            setDistrictsList(prev => {
+                                const matchedDistrict = prev.find(
+                                    (d) => d.name.toLowerCase() === detectedDistrict.toLowerCase() ||
+                                        detectedDistrict.toLowerCase().includes(d.name.toLowerCase()) ||
+                                        d.name.toLowerCase().includes(detectedDistrict.toLowerCase())
+                                );
+                                if (matchedDistrict) {
+                                    setFormData(f => ({ ...f, district: matchedDistrict.name }));
+                                }
+                                return prev;
+                            });
+                        }, 1500);
+                    } else {
+                        // State not matched — still fill area & pincode
+                        setFormData(prev => ({
+                            ...prev,
+                            area: detectedArea,
+                            pincode: detectedPincode,
+                        }));
+                        setLocationError('State not found in list. Please select manually.');
+                    }
+                } catch {
+                    setLocationError('Could not detect location. Please fill manually.');
+                } finally {
+                    setIsLocating(false);
+                }
+            },
+            () => {
+                setIsLocating(false);
+                setLocationError('Location access denied. Please allow permissions.');
+            },
+            { timeout: 10000 }
+        );
+    };
 
     useEffect(() => {
         setMounted(true);
@@ -292,6 +381,21 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
             case 2: // Location
                 return (
                     <div className={styles.stepContainer}>
+                        {/* Auto-detect location button */}
+                        <button
+                            type="button"
+                            className={styles.detectBtn}
+                            onClick={handleAutoLocation}
+                            disabled={isLocating}
+                        >
+                            {isLocating
+                                ? <><Loader2 size={14} className={styles.spinIcon} /> Detecting...</>
+                                : <><Navigation size={14} /> Detect My Location</>
+                            }
+                        </button>
+                        {locationError && (
+                            <p className={styles.locationErrorMsg}>{locationError}</p>
+                        )}
                         <div className={styles.row}>
                             <div className={styles.formGroup}>
                                 <label className={styles.label}>State</label>

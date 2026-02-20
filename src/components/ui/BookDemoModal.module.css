@@ -641,3 +641,58 @@
         padding: 48px 24px;
     }
 }
+
+/* ── Auto-location Detect Button ── */
+.detectBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 18px;
+    background: rgba(249, 217, 73, 0.12);
+    border: 1.5px solid rgba(249, 217, 73, 0.5);
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #9A7205;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    align-self: flex-start;
+    letter-spacing: 0.02em;
+}
+
+.detectBtn:hover {
+    background: rgba(249, 217, 73, 0.22);
+    border-color: rgba(249, 217, 73, 0.8);
+    color: #7A5A00;
+}
+
+.detectBtn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* Error message */
+.locationErrorMsg {
+    font-size: 0.78rem;
+    color: #b91c1c;
+    background: rgba(185, 28, 28, 0.06);
+    border: 1px solid rgba(185, 28, 28, 0.15);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin: -8px 0 0;
+}
+
+/* Spinning loader icon */
+.spinIcon {
+    animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
