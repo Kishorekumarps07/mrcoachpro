@@ -12,6 +12,11 @@ interface ShopContextType {
     updateQuantity: (productId: string, quantity: number) => void;
     toggleCart: () => void;
     cartTotal: number;
+    // ── Search ──
+    searchQuery: string;
+    setSearchQuery: (q: string) => void;
+    allProducts: Product[];
+    setAllProducts: (products: Product[]) => void;
 }
 
 const ShopContext = createContext<ShopContextType | undefined>(undefined);
@@ -20,6 +25,8 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     const [cart, setCart] = useState<CartItem[]>([]);
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [allProducts, setAllProducts] = useState<Product[]>([]);
 
     // Load cart from local storage on mount
     useEffect(() => {
@@ -66,7 +73,11 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
             removeFromCart,
             updateQuantity,
             toggleCart,
-            cartTotal
+            cartTotal,
+            searchQuery,
+            setSearchQuery,
+            allProducts,
+            setAllProducts,
         }}>
             {children}
         </ShopContext.Provider>

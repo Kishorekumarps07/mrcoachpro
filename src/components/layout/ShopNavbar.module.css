@@ -53,8 +53,8 @@
     border-radius: 30px;
     display: flex;
     align-items: center;
-    padding: 0 18px;
-    gap: 12px;
+    padding: 0 14px 0 4px;
+    gap: 4px;
     transition: all 0.25s ease;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
@@ -69,6 +69,45 @@
 .searchIcon {
     color: rgba(20, 20, 20, 0.70);
     flex-shrink: 0;
+}
+
+/* Clickable search icon button */
+.searchIconBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 10px;
+    border-radius: 30px 0 0 30px;
+    color: rgba(20, 20, 20, 0.70);
+    transition: color 0.2s;
+    flex-shrink: 0;
+}
+
+.searchIconBtn:hover {
+    color: #000;
+}
+
+/* Clear (X) button inside search bar */
+.searchClearBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    color: rgba(20, 20, 20, 0.50);
+    flex-shrink: 0;
+    border-radius: 50%;
+    transition: color 0.2s, background 0.2s;
+}
+
+.searchClearBtn:hover {
+    color: #000;
+    background: rgba(0, 0, 0, 0.06);
 }
 
 .searchInput {
@@ -237,8 +276,8 @@
 /* Responsive */
 @media (max-width: 1024px) {
     .searchSection {
-        display: none;
-        /* Hide center search on small tablets */
+        display: flex;
+        /* Keep search visible on tablet/mobile */
     }
 }
 
@@ -254,4 +293,107 @@
     .divider {
         display: none;
     }
+}
+
+/* =========================================
+   SUGGESTIONS DROPDOWN
+   ========================================= */
+
+/* Search section needs relative positioning for dropdown */
+.searchSection {
+    position: relative;
+}
+
+/* Open state: square bottom corners when dropdown is visible */
+.searchBarOpen {
+    border-radius: 20px 20px 0 0;
+}
+
+.suggestionsDropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1.5px solid rgba(0, 0, 0, 0.1);
+    border-top: none;
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+    z-index: 2000;
+    overflow: hidden;
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.suggestionItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 10px 16px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #F5F5F5;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s ease;
+}
+
+.suggestionItem:last-child {
+    border-bottom: none;
+}
+
+.suggestionItem:hover {
+    background: #FFFBEA;
+}
+
+.suggestionThumb {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: #F5F5F5;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.suggestionThumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.suggestionText {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.suggestionTitle {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0A0A0A;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.suggestionCategory {
+    font-size: 11px;
+    color: #999;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.suggestionPrice {
+    font-size: 13px;
+    font-weight: 900;
+    color: #0A0A0A;
+    white-space: nowrap;
+    flex-shrink: 0;
 }

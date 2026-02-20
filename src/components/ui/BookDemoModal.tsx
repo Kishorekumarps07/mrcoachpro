@@ -37,13 +37,120 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
         servicesProvided: ''
     });
 
+    const [loadingDistricts, setLoadingDistricts] = useState(false);
+    const [isLocating, setIsLocating] = useState(false);
+    const [locationError, setLocationError] = useState<string | null>(null);
+
     // --- Dynamic Data State ---
     const [statesList, setStatesList] = useState<{ id: number; name: string }[]>([]);
     const [districtsList, setDistrictsList] = useState<{ id: number; name: string }[]>([]);
     const [categoriesList, setCategoriesList] = useState<{ id: number; name: string; subcategories: { id: number; name: string }[] }[]>([]);
-    const [loadingDistricts, setLoadingDistricts] = useState(false);
-    const [isLocating, setIsLocating] = useState(false);
-    const [locationError, setLocationError] = useState<string | null>(null);
+
+    // --- Manual Search State ---
+    const [manualSearchQuery, setManualSearchQuery] = useState('');
+    const [locationSuggestions, setLocationSuggestions] = useState<any[]>([]);
+    const [isSearching, setIsSearching] = useState(false);
+    const [searchError, setSearchError] = useState<string | null>(null);
+
+    // Manual Search logic (Nominatim)
+    useEffect(() => {
+        if (!manualSearchQuery || manualSearchQuery.length < 3) {
+            setLocationSuggestions([]);
+            setSearchError(null);
+            return;
+        }
+
+        const controller = new AbortController();
+
+        const delayDebounceFn = setTimeout(async () => {
+            setIsSearching(true);
+            setSearchError(null);
+            try {
+                const res = await fetch(
+                    `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(manualSearchQuery)}&addressdetails=1&countrycodes=in&limit=5`,
+                    {
+                        headers: { 'Accept-Language': 'en', 'User-Agent': 'MrCoachPro/1.0' },
+                        signal: controller.signal
+                    }
+                );
+
+                if (!res.ok) {
+                    throw new Error(`Search failed with status: ${res.status}`);
+                }
+
+                const data = await res.json();
+                setLocationSuggestions(data);
+            } catch (err: any) {
+                if (err.name !== 'AbortError') {
+                    console.error("Search failed:", err);
+                    setSearchError("Location search service is currently unavailable. Please try again or enter details manually.");
+                }
+            } finally {
+                setIsSearching(false);
+            }
+        }, 600);
+
+        return () => {
+            clearTimeout(delayDebounceFn);
+            controller.abort();
+        };
+    }, [manualSearchQuery]);
+
+    const handleSuggestionSelect = (suggestion: any) => {
+        const addr = suggestion.address;
+
+        // Extract fields
+        const detectedState = addr.state || '';
+        const detectedDistrict = addr.city || addr.town || addr.district || addr.county || '';
+        const detectedArea = [
+            addr.house_number || addr.house_name,
+            addr.road,
+            addr.suburb || addr.neighbourhood || addr.village
+        ].filter(Boolean).join(', ');
+        const detectedPincode = addr.postcode || '';
+
+        // Match state against our list
+        const matchedState = statesList.find(
+            (s) => s.name.toLowerCase() === detectedState.toLowerCase() ||
+                detectedState.toLowerCase().includes(s.name.toLowerCase()) ||
+                s.name.toLowerCase().includes(detectedState.toLowerCase())
+        );
+
+        if (matchedState) {
+            setFormData(prev => ({
+                ...prev,
+                state: matchedState.name,
+                district: '',
+                area: detectedArea,
+                pincode: detectedPincode,
+            }));
+
+            // Auto-match district after state load
+            setTimeout(() => {
+                setDistrictsList(prev => {
+                    const matchedDistrict = prev.find(
+                        (d) => d.name.toLowerCase() === detectedDistrict.toLowerCase() ||
+                            detectedDistrict.toLowerCase().includes(d.name.toLowerCase()) ||
+                            d.name.toLowerCase().includes(detectedDistrict.toLowerCase())
+                    );
+                    if (matchedDistrict) {
+                        setFormData(f => ({ ...f, district: matchedDistrict.name }));
+                    }
+                    return prev;
+                });
+            }, 1000);
+        } else {
+            setFormData(prev => ({
+                ...prev,
+                area: detectedArea,
+                pincode: detectedPincode,
+            }));
+            setLocationError("State not found in our delivery list. Please select manually.");
+        }
+
+        setLocationSuggestions([]);
+        setManualSearchQuery(suggestion.display_name);
+    };
 
     // Initial Fetch
     useEffect(() => {
@@ -379,7 +486,51 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
             case 2: // Location
                 return (
                     <div className={styles.stepContainer}>
-                        {/* Auto-detect location button */}
+                        {/* Manual Location Search */}
+                        <div className={styles.locationSearchWrapper}>
+                            <label className={styles.locationSearchLabel}>Search Location Manually</label>
+                            <div className={styles.searchFieldContainer}>
+                                <div className={styles.searchIcon}>
+                                    {isSearching ? <Loader2 size={16} className={styles.spinIcon} /> : <Navigation size={16} />}
+                                </div>
+                                <input
+                                    type="text"
+                                    className={styles.locationSearchInput}
+                                    placeholder="Search street, area, or door no..."
+                                    value={manualSearchQuery}
+                                    onChange={(e) => setManualSearchQuery(e.target.value)}
+                                />
+
+                                {searchError && (
+                                    <p className={styles.locationErrorMsg} style={{ marginTop: '8px', marginBottom: 0 }}>
+                                        {searchError}
+                                    </p>
+                                )}
+
+                                {locationSuggestions.length > 0 && (
+                                    <div className={styles.suggestionsDropdown}>
+                                        {locationSuggestions.map((suggestion, idx) => (
+                                            <div
+                                                key={idx}
+                                                className={styles.suggestionItem}
+                                                onClick={() => handleSuggestionSelect(suggestion)}
+                                            >
+                                                <span className={styles.suggestionMain}>
+                                                    {suggestion.address.house_number || suggestion.address.house_name
+                                                        ? `${suggestion.address.house_number || suggestion.address.house_name}, ` : ''}
+                                                    {suggestion.address.road || suggestion.display_name.split(',')[0]}
+                                                </span>
+                                                <span className={styles.suggestionSub}>
+                                                    {suggestion.display_name}
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* OR separator / Auto-detect */}
                         <button
                             type="button"
                             className={styles.detectBtn}
@@ -391,6 +542,7 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
                                 : <><Navigation size={14} /> Detect My Location</>
                             }
                         </button>
+
                         {locationError && (
                             <p className={styles.locationErrorMsg}>{locationError}</p>
                         )}

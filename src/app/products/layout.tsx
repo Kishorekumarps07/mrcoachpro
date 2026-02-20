@@ -14,7 +14,7 @@ export default function ShopLayout({
     return (
         <ShopProvider>
             {/* Wrap in shop-wrapper to enforce light theme */}
-            <div className="shop-wrapper min-h-screen bg-gray-50">
+            <div className="shop-wrapper min-h-screen bg-gray-50" style={{ overflowX: 'hidden' }}>
                 <ShopNavbar />
                 <main>
                     {children}

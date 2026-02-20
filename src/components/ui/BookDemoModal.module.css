@@ -657,29 +657,135 @@
     cursor: pointer;
     transition: all 0.2s ease;
     align-self: flex-start;
-    letter-spacing: 0.02em;
 }
 
+
 .detectBtn:hover {
-    background: rgba(249, 217, 73, 0.22);
-    border-color: rgba(249, 217, 73, 0.8);
-    color: #7A5A00;
+    background: rgba(249, 217, 73, 0.1);
+    border-color: #F9D949;
 }
 
 .detectBtn:disabled {
-    opacity: 0.65;
+    opacity: 0.7;
     cursor: not-allowed;
 }
 
-/* Error message */
+/* --- LOCATION SEARCH --- */
+.locationSearchWrapper {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.locationSearchLabel {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+}
+
+.searchFieldContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.searchIcon {
+    position: absolute;
+    left: 12px;
+    color: #AAA;
+    pointer-events: none;
+}
+
+.locationSearchInput {
+    width: 100%;
+    padding: 12px 16px 12px 38px;
+    border: 1px solid #E0E0E0;
+    border-radius: 12px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    background: #FAFAFA;
+}
+
+.locationSearchInput:focus {
+    outline: none;
+    border-color: #F9D949;
+    background: #FFF;
+    box-shadow: 0 4px 12px rgba(249, 217, 73, 0.15);
+}
+
+.suggestionsDropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: #FFF;
+    border: 1px solid #EEE;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-height: 240px;
+    overflow-y: auto;
+    animation: slideUp 0.2s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(8px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.suggestionItem {
+    padding: 12px 16px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border-bottom: 1px solid #F5F5F5;
+    transition: background 0.2s ease;
+}
+
+.suggestionItem:last-child {
+    border-bottom: none;
+}
+
+.suggestionItem:hover {
+    background: #FFF9E6;
+}
+
+.suggestionMain {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.suggestionSub {
+    font-size: 12px;
+    color: #777;
+}
+
+.noSuggestions {
+    padding: 16px;
+    text-align: center;
+    color: #999;
+    font-size: 13px;
+}
+
 .locationErrorMsg {
-    font-size: 0.78rem;
-    color: #b91c1c;
-    background: rgba(185, 28, 28, 0.06);
-    border: 1px solid rgba(185, 28, 28, 0.15);
+    color: #D32F2F;
+    font-size: 12px;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: rgba(211, 47, 47, 0.05);
     border-radius: 8px;
-    padding: 8px 12px;
-    margin: -8px 0 0;
 }
 
 /* Spinning loader icon */
