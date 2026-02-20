@@ -99,5 +99,30 @@ export const PRODUCTS: Product[] = [
         stock: 500,
         isActive: true,
         createdAt: new Date().toISOString()
+    },
+    // --- APPAREL ---
+    {
+        id: '9',
+        title: 'Performance Tee (Black)',
+        slug: 'performance-tee-black',
+        description: 'Sweat-wicking, athletic fit. minimal branding.',
+        price: 1299,
+        images: ['https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=2080&auto=format&fit=crop'],
+        category: 'Apparel',
+        stock: 100,
+        isActive: true,
+        createdAt: new Date().toISOString()
+    },
+    {
+        id: '10',
+        title: 'Pro Lifting Belt',
+        slug: 'pro-lifting-belt',
+        description: '10mm thickness, lever buckle. IPF approved specs.',
+        price: 4499,
+        images: ['https://images.unsplash.com/photo-1605296867304-46d5465a13f1?q=80&w=2070&auto=format&fit=crop'],
+        category: 'Accessories',
+        stock: 50,
+        isActive: true,
+        createdAt: new Date().toISOString()
     }
 ];

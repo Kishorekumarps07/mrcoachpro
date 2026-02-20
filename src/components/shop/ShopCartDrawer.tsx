@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useShop } from '@/app/shop/context/ShopContext';
+import { useShop } from '@/app/products/context/ShopContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Minus, Plus, Trash2, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
@@ -126,7 +126,7 @@ export function ShopCartDrawer() {
                                     </div>
                                 </div>
                                 <Link
-                                    href="/shop/checkout"
+                                    href="/products/checkout"
                                     onClick={toggleCart}
                                     className="w-full flex items-center justify-center gap-2 bg-amber-500 text-white font-bold py-4 rounded-xl hover:bg-amber-600 transition-colors shadow-lg shadow-amber-500/20"
                                 >

@@ -56,9 +56,9 @@ export const ShopNavbar = () => {
                         <button className={styles.iconBtn} aria-label="User Profile">
                             <User size={24} />
                         </button>
-                        <button className={styles.iconBtn} aria-label="Cart">
+                        <Link href="/products/cart" className={styles.iconBtn} aria-label="Cart">
                             <ShoppingCart size={24} />
-                        </button>
+                        </Link>
                     </div>
                 </div>
             </header>
@@ -74,10 +74,10 @@ export const ShopNavbar = () => {
                             </button>
                         </div>
                         <nav className={styles.drawerNav}>
-                            <Link href="/shop" className={styles.drawerLink} onClick={() => setIsMenuOpen(false)}>All Products</Link>
-                            <Link href="/shop?cat=protein" className={styles.drawerLink} onClick={() => setIsMenuOpen(false)}>Proteins</Link>
-                            <Link href="/shop?cat=vitamins" className={styles.drawerLink} onClick={() => setIsMenuOpen(false)}>Vitamins</Link>
-                            <Link href="/shop?cat=gear" className={styles.drawerLink} onClick={() => setIsMenuOpen(false)}>Gym Gear</Link>
+                            <Link href="/products" className={styles.drawerLink} onClick={() => setIsMenuOpen(false)}>All Products</Link>
+                            <Link href="/products?cat=protein" className={styles.drawerLink} onClick={() => setIsMenuOpen(false)}>Proteins</Link>
+                            <Link href="/products?cat=vitamins" className={styles.drawerLink} onClick={() => setIsMenuOpen(false)}>Vitamins</Link>
+                            <Link href="/products?cat=gear" className={styles.drawerLink} onClick={() => setIsMenuOpen(false)}>Gym Gear</Link>
                             <div className={styles.drawerDivider}></div>
                             <Link href="/" className={styles.drawerLink} onClick={() => setIsMenuOpen(false)}>Back to Coaching</Link>
                         </nav>

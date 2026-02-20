@@ -37,7 +37,7 @@ export const MobileBottomNav = () => {
         { href: '/events', label: 'EVENTS', icon: Calendar },
         { href: '#', label: 'BOOK NOW', icon: Zap, isPrimary: true, onClick: openModal }, // Use global openModal
         { href: '/services', label: 'SERVICES', icon: DoctorIcon },
-        { href: '/shop', label: 'SHOP', icon: ShoppingBag },
+        { href: '/products', label: 'SHOP', icon: ShoppingBag },
     ];
 
     return (

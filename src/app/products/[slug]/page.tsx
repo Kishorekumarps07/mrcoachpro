@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { productService } from '@/services/shop/productService';
 import { Product } from '@/types/shop';
-import { useShop } from '@/app/shop/context/ShopContext';
+import { useShop } from '@/app/products/context/ShopContext';
 import { Button } from '@/components/ui/Button';
 import { ShoppingCart, Truck, RefreshCw, ShieldCheck, ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
@@ -40,7 +40,7 @@ export default function ProductDetailPage() {
         return (
             <div className="container mx-auto px-4 py-20 text-center">
                 <h1 className="text-2xl font-bold mb-4">Product Not Found</h1>
-                <Link href="/shop" className="text-amber-600 hover:underline">Return to Shop</Link>
+                <Link href="/products" className="text-amber-600 hover:underline">Return to Shop</Link>
             </div>
         );
     }
@@ -48,7 +48,7 @@ export default function ProductDetailPage() {
     return (
         <div className="shop-wrapper min-h-screen bg-white">
             <div className="ms-detail-container">
-                <Link href="/shop" className="ms-detail-back inline-flex items-center text-gray-400 hover:text-black mb-12 transition-colors font-black text-[10px] uppercase tracking-widest">
+                <Link href="/products" className="ms-detail-back inline-flex items-center text-gray-400 hover:text-black mb-12 transition-colors font-black text-[10px] uppercase tracking-widest">
                     <ChevronLeft size={16} className="mr-1" /> Back to Shop
                 </Link>
 

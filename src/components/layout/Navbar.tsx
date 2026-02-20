@@ -16,7 +16,7 @@ const NAV_LINKS = [
     { href: '/services', label: 'Services', icon: Sparkles },
     { href: '/events', label: 'Events', icon: Calendar },
     { href: '/about', label: 'About', icon: Info },
-    { href: '/shop', label: 'Shop', icon: ShoppingBag },
+    { href: '/products', label: 'Shop', icon: ShoppingBag },
 ];
 
 export const Navbar = () => {

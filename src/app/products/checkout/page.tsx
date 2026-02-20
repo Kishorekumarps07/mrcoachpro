@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useShop } from '@/app/shop/context/ShopContext';
+import { useShop } from '@/app/products/context/ShopContext';
 import { Button } from '@/components/ui/Button';
 import Link from 'next/link';
 
@@ -29,7 +29,7 @@ export default function CheckoutPage() {
         return (
             <div className="container mx-auto px-4 py-20 text-center">
                 <h1 className="text-2xl font-bold mb-4">Your Cart is Empty</h1>
-                <Link href="/shop">
+                <Link href="/products">
                     <Button>Return to Shop</Button>
                 </Link>
             </div>

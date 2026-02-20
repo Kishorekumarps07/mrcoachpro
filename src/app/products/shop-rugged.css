@@ -27,19 +27,23 @@
 /* --- CATEGORY RAIL (ICONS) --- */
 .category-rail {
     background: var(--retail-white);
-    padding: 16px;
+    padding: 20px 16px;
     display: flex;
     overflow-x: auto;
-    gap: 20px;
+    gap: 16px;
     scrollbar-width: none;
     /* Hide scrollbar */
     -ms-overflow-style: none;
     border-bottom: 1px solid #EEE;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 16px;
+    -webkit-overflow-scrolling: touch;
 }
 
 @media (min-width: 768px) {
     .category-rail {
         justify-content: center;
+        gap: 32px;
     }
 }
 
@@ -51,26 +55,40 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    min-width: 64px;
+    gap: 10px;
+    min-width: 90px;
     cursor: pointer;
+    scroll-snap-align: start;
+    flex-shrink: 0;
 }
 
 .category-icon-box {
-    width: 68px;
-    height: 68px;
+    width: 90px;
+    height: 90px;
     background: #FFF;
-    border-radius: 20px;
+    border-radius: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     border: 1px solid rgba(0, 0, 0, 0.05);
     position: relative;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    padding: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    padding: 12px;
+}
+
+@media (min-width: 768px) {
+    .category-icon-box {
+        width: 72px;
+        height: 72px;
+        border-radius: 20px;
+    }
+
+    .category-item {
+        min-width: 72px;
+    }
 }
 
 .category-3d-img {
@@ -82,21 +100,29 @@
 }
 
 .category-item:hover .category-3d-img {
-    transform: scale(1.15) rotate(5deg);
+    transform: scale(1.1) rotate(2deg);
 }
 
 .category-item:hover .category-icon-box {
     background: var(--retail-yellow);
-    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+    box-shadow: 0 10px 25px rgba(255, 215, 0, 0.25);
     border-color: #000;
 }
 
 .category-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: #333;
+    font-size: 13px;
+    font-weight: 800;
+    color: #111;
     text-align: center;
     line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+@media (min-width: 768px) {
+    .category-label {
+        font-size: 11px;
+    }
 }
 
 /* --- HERO BANNER (CONTAINED) --- */
@@ -251,6 +277,7 @@
 .slide-yellow .glass-card-container {
     background: rgba(255, 215, 0, 0.15);
     border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(255, 215, 0, 0.1), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
 .slide-yellow .carousel-title,
@@ -259,13 +286,15 @@
 }
 
 .slide-black .glass-card-container {
-    background: rgba(0, 0, 0, 0.3);
-    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .slide-teal .glass-card-container {
-    background: rgba(0, 181, 181, 0.2);
+    background: rgba(0, 181, 181, 0.25);
     border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(0, 181, 181, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
 }
 
 /* Slide Themes */
@@ -428,11 +457,11 @@
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    gap: 12px;
-    padding-bottom: 8px;
-    /* Space for scrollbar if visible/touch */
+    gap: 16px;
+    padding: 2px 8px 12px;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+    scroll-padding-left: 16px;
 }
 
 .brand-grid::-webkit-scrollbar {
@@ -441,67 +470,62 @@
 
 @media (min-width: 768px) {
     .brand-grid {
-        display: flex;
-        gap: 20px;
-        padding-bottom: 12px;
-        overflow-x: auto;
+        justify-content: center;
+        gap: 24px;
+        padding-bottom: 10x;
     }
 }
 
 .brand-card {
-    background: #FFFFFF;
+    background: #fffffd;
     border: 1px solid #EEEEEE;
-    /* Subtle border */
-    border-radius: 12px;
-
-    padding: 16px;
+    border-radius: 20px;
+    padding: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    aspect-ratio: 16/10;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
-
-    font-family: 'Inter', sans-serif;
-    transition: all 0.2s ease;
+    aspect-ratio: 16/11;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     cursor: pointer;
-    gap: 16px;
+    gap: 12px;
 
-    /* Mobile Sizing - LARGE */
-    min-width: 180px !important;
-    width: 180px !important;
+    /* Mobile Sizing - ENHANCED */
+    min-width: 210px !important;
+    width: 210px !important;
     scroll-snap-align: start;
     flex-shrink: 0 !important;
 }
 
 @media (min-width: 768px) {
     .brand-card {
-        min-width: 240px !important;
-        /* Large Desktop Tile */
-        width: 240px !important;
+        min-width: 260px !important;
+        width: 260px !important;
         aspect-ratio: 16/9;
+        padding: 32px;
     }
 }
 
 .brand-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
-    color: #000;
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    border-color: var(--retail-yellow);
 }
 
 .brand-logo {
-    max-width: 90% !important;
-    max-height: 75% !important;
+    max-width: 85% !important;
+    max-height: 70% !important;
     object-fit: contain;
-    transition: transform 0.2s ease;
+    transition: transform 0.4s ease;
 }
 
 .brand-name {
-    font-size: 13px !important;
-    font-weight: 700;
-    color: #111;
+    font-size: 14px !important;
+    font-weight: 800;
+    color: #000;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.1em;
     text-align: center;
 }
 
