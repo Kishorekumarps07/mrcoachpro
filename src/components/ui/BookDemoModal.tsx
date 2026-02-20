@@ -254,10 +254,10 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
                     : formData.startPreference === 'Within a Month' ? 'within_a_month'
                         : 'not_sure', // simplistic mapping
 
-                // Available days — backend ENUM accepts: 'weekdays', 'weekends', 'everyday'
-                available_days: formData.availability === 'Weekdays' ? 'weekdays'
-                    : formData.availability === 'Weekends' ? 'weekends'
-                        : 'everyday',
+                // Available days — backend ENUM (from Swagger): 'any_day' | 'weekday' | 'weekend'  (singular, no 's')
+                available_days: formData.availability === 'Weekdays' ? 'weekday'
+                    : formData.availability === 'Weekends' ? 'weekend'
+                        : 'any_day',
 
                 source_website: 'mrcoachpro_web', // hardcoded identifier
                 state_id: selectedState ? selectedState.id : 0,
