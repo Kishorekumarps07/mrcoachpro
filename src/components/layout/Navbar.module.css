@@ -20,13 +20,12 @@
 /* ... container, logo ... */
 
 .container {
-    max-width: var(--container-width);
-    margin: 0 auto;
-    padding: 0 24px;
+    width: 100%;
+    padding: 0 40px;
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 24px;
 }
 
 .logo {
@@ -48,7 +47,8 @@
 .desktopNav {
     display: none;
     align-items: center;
-    gap: 24px;
+    gap: 20px;
+    flex: 1;
 }
 
 @media (min-width: 1024px) {
@@ -61,7 +61,8 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-right: 12px;
+    flex: 1;
+    max-width: 720px;
 }
 
 /* Glass Search Bar - Dark Text Version */
@@ -70,13 +71,12 @@
     align-items: center;
     gap: 8px;
     background: rgba(255, 255, 255, 0.5);
-    /* White Glass */
     backdrop-filter: blur(4px);
     border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: 30px;
     padding: 8px 20px;
-    width: 320px;
-    /* Slightly narrower */
+    flex: 1;
+    min-width: 180px;
     transition: all 0.2s ease;
 }
 
@@ -467,6 +467,7 @@
 }
 
 .ctaButton {
+    margin-left: auto !important;
     background: rgba(255, 255, 255, 0.25) !important;
     color: #0E0E0E !important;
     border: 1px solid rgba(255, 255, 255, 0.7) !important;
