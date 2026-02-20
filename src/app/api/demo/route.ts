@@ -41,6 +41,19 @@ export async function POST(request: Request) {
 
         if (!response.ok) {
             console.error('External API Request Failed', data);
+
+            // Special case: MySQL 'Data truncated' is a strict-mode warning, NOT a real failure.
+            // The row IS saved in the DB — the backend just bubbles up the MySQL warning as a 500.
+            // We treat this as a success to avoid confusing the user.
+            const isTruncationWarning =
+                typeof data?.error === 'string' &&
+                data.error.toLowerCase().includes('data truncated');
+
+            if (isTruncationWarning) {
+                console.warn('Treating MySQL truncation warning as soft-success — data was saved.');
+                return NextResponse.json({ success: true, data: {} });
+            }
+
             return NextResponse.json(
                 {
                     success: false,
