@@ -2,17 +2,22 @@
 
 import React, { useState } from 'react';
 import { useShop } from '@/app/products/context/ShopContext';
-import { Button } from '@/components/ui/Button';
+import { ArrowRight, ShoppingBag, Lock, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import './checkout.css';
 
 export default function CheckoutPage() {
     const { cart, cartTotal } = useShop();
+    const [paymentMethod, setPaymentMethod] = useState<'razorpay' | 'upi' | 'cod'>('razorpay');
     const [formData, setFormData] = useState({
         name: '',
         email: '',
+        phone: '',
         address: '',
         city: '',
-        zip: ''
+        state: '',
+        zip: '',
     });
 
     const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,109 +27,308 @@ export default function CheckoutPage() {
     const handleCheckout = (e: React.FormEvent) => {
         e.preventDefault();
         alert('Payment integration pending (Razorpay)');
-        // Phase 6 will implement actual payment logic
     };
+
+    const taxAmount = cartTotal * 0.18;
+    const finalTotal = cartTotal + taxAmount;
 
     if (cart.length === 0) {
         return (
-            <div className="container mx-auto px-4 py-20 text-center">
-                <h1 className="text-2xl font-bold mb-4">Your Cart is Empty</h1>
-                <Link href="/products">
-                    <Button>Return to Shop</Button>
-                </Link>
+            <div className="co-wrapper">
+                <div className="co-container">
+                    <div className="co-empty">
+                        <ShoppingBag size={44} color="#CCC" strokeWidth={1.5} />
+                        <h1>Nothing to Checkout</h1>
+                        <p>Your cart is empty. Add items before proceeding.</p>
+                        <Link href="/products">
+                            <button className="co-submit-btn" style={{ maxWidth: '260px', margin: '0 auto' }}>
+                                Shop Now <ArrowRight size={16} />
+                            </button>
+                        </Link>
+                    </div>
+                </div>
             </div>
         );
     }
 
     return (
-        <div className="container mx-auto px-4 py-12">
-            <h1 className="text-3xl font-bold mb-8 font-heading">Secure Checkout</h1>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                {/* Form */}
-                <div>
-                    <h2 className="text-xl font-bold mb-6">Shipping Details</h2>
-                    <form onSubmit={handleCheckout} className="space-y-4">
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                            <input
-                                name="name"
-                                type="text"
-                                required
-                                className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all"
-                                onChange={handleInput}
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                            <input
-                                name="email"
-                                type="email"
-                                required
-                                className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all"
-                                onChange={handleInput}
-                            />
-                        </div>
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">Street Address</label>
-                            <input
-                                name="address"
-                                type="text"
-                                required
-                                className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all"
-                                onChange={handleInput}
-                            />
-                        </div>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
-                                <input
-                                    name="city"
-                                    type="text"
-                                    required
-                                    className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all"
-                                    onChange={handleInput}
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">ZIP Code</label>
-                                <input
-                                    name="zip"
-                                    type="text"
-                                    required
-                                    className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent outline-none transition-all"
-                                    onChange={handleInput}
-                                />
-                            </div>
-                        </div>
-
-                        <div className="pt-6">
-                            <Button type="submit" className="w-full py-4 text-lg">
-                                Proceed to Payment
-                            </Button>
-                        </div>
-                    </form>
+        <div className="co-wrapper">
+            <div className="co-container">
+                {/* Breadcrumb */}
+                <div className="co-breadcrumb">
+                    <Link href="/products">Retail</Link>
+                    <span className="co-breadcrumb-sep">/</span>
+                    <Link href="/products/cart">Cart</Link>
+                    <span className="co-breadcrumb-sep">/</span>
+                    <span className="co-breadcrumb-current">Checkout</span>
                 </div>
 
-                {/* Summary */}
-                <div className="bg-gray-50 p-6 rounded-2xl h-fit">
-                    <h2 className="text-xl font-bold mb-6">Order Summary</h2>
-                    <div className="space-y-4 mb-6">
-                        {cart.map(item => (
-                            <div key={item.id} className="flex justify-between items-center text-sm">
-                                <div>
-                                    <span className="font-medium">{item.title}</span>
-                                    <span className="text-gray-500 ml-2">x{item.quantity}</span>
+                <motion.h1
+                    initial={{ opacity: 0, x: -16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="co-headline"
+                >
+                    Secure Checkout
+                </motion.h1>
+
+                <form onSubmit={handleCheckout}>
+                    <div className="co-layout">
+                        {/* ── LEFT: Form ── */}
+                        <div className="co-form-panel">
+
+                            {/* Section 1: Contact */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.05 }}
+                                className="co-section-card"
+                            >
+                                <div className="co-section-header">
+                                    <span className="co-section-num">1</span>
+                                    <span className="co-section-title">Contact Information</span>
                                 </div>
-                                <span className="font-medium">₹{(item.price * item.quantity).toLocaleString()}</span>
+                                <div className="co-field-grid">
+                                    <div className="co-field-row">
+                                        <div className="co-field">
+                                            <label className="co-label">Full Name</label>
+                                            <input
+                                                name="name"
+                                                type="text"
+                                                required
+                                                placeholder="John Doe"
+                                                className="co-input"
+                                                onChange={handleInput}
+                                            />
+                                        </div>
+                                        <div className="co-field">
+                                            <label className="co-label">Phone Number</label>
+                                            <input
+                                                name="phone"
+                                                type="tel"
+                                                required
+                                                placeholder="+91 98765 43210"
+                                                className="co-input"
+                                                onChange={handleInput}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="co-field">
+                                        <label className="co-label">Email Address</label>
+                                        <input
+                                            name="email"
+                                            type="email"
+                                            required
+                                            placeholder="you@example.com"
+                                            className="co-input"
+                                            onChange={handleInput}
+                                        />
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            {/* Section 2: Shipping */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.1 }}
+                                className="co-section-card"
+                            >
+                                <div className="co-section-header">
+                                    <span className="co-section-num">2</span>
+                                    <span className="co-section-title">Shipping Address</span>
+                                </div>
+                                <div className="co-field-grid">
+                                    <div className="co-field">
+                                        <label className="co-label">Street Address</label>
+                                        <input
+                                            name="address"
+                                            type="text"
+                                            required
+                                            placeholder="123 Main Street, Apt 4B"
+                                            className="co-input"
+                                            onChange={handleInput}
+                                        />
+                                    </div>
+                                    <div className="co-field-row">
+                                        <div className="co-field">
+                                            <label className="co-label">City</label>
+                                            <input
+                                                name="city"
+                                                type="text"
+                                                required
+                                                placeholder="Mumbai"
+                                                className="co-input"
+                                                onChange={handleInput}
+                                            />
+                                        </div>
+                                        <div className="co-field">
+                                            <label className="co-label">State</label>
+                                            <input
+                                                name="state"
+                                                type="text"
+                                                required
+                                                placeholder="Maharashtra"
+                                                className="co-input"
+                                                onChange={handleInput}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="co-field">
+                                        <label className="co-label">PIN Code</label>
+                                        <input
+                                            name="zip"
+                                            type="text"
+                                            required
+                                            placeholder="400001"
+                                            className="co-input"
+                                            maxLength={6}
+                                            onChange={handleInput}
+                                        />
+                                    </div>
+                                </div>
+                            </motion.div>
+
+                            {/* Section 3: Payment */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.15 }}
+                                className="co-section-card"
+                            >
+                                <div className="co-section-header">
+                                    <span className="co-section-num">3</span>
+                                    <span className="co-section-title">Payment Method</span>
+                                </div>
+                                <div className="co-payment-methods">
+                                    {[
+                                        { key: 'razorpay', label: 'Card / Net Banking' },
+                                        { key: 'upi', label: 'UPI / GPay' },
+                                        { key: 'cod', label: 'Cash on Delivery' },
+                                    ].map(({ key, label }) => (
+                                        <button
+                                            key={key}
+                                            type="button"
+                                            className={`co-payment-option${paymentMethod === key ? ' active' : ''}`}
+                                            onClick={() => setPaymentMethod(key as typeof paymentMethod)}
+                                        >
+                                            {label}
+                                        </button>
+                                    ))}
+                                </div>
+                                <div className="co-payment-note">
+                                    {paymentMethod === 'razorpay' && '🔒 Secure payment via Razorpay — Card, Net-Banking, Wallets'}
+                                    {paymentMethod === 'upi' && '📱 Pay using UPI ID, Google Pay, PhonePe, or Paytm'}
+                                    {paymentMethod === 'cod' && '📦 Pay with cash when your order arrives'}
+                                </div>
+                            </motion.div>
+
+                            {/* Submit — desktop only; mobile uses sticky bar */}
+                            <div className="co-submit-btn-wrapper">
+                                <motion.div
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.2 }}
+                                >
+                                    <motion.button
+                                        type="submit"
+                                        whileHover={{ scale: 1.02, y: -2 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        className="co-submit-btn"
+                                    >
+                                        <Lock size={15} strokeWidth={2.5} />
+                                        Place Order · ₹{Math.round(finalTotal).toLocaleString()}
+                                        <ArrowRight size={15} strokeWidth={2.5} />
+                                    </motion.button>
+                                    <p className="co-secure-note">
+                                        <Lock size={10} />
+                                        SSL encrypted · Your data is safe
+                                    </p>
+                                </motion.div>
                             </div>
-                        ))}
+                        </div>
+
+                        {/* ── RIGHT: Order Summary ── */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 24 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.08 }}
+                            className="co-summary-panel"
+                        >
+                            <h2 className="co-summary-title">Order Summary ({cart.length})</h2>
+
+                            {/* Items */}
+                            <div className="co-summary-items">
+                                {cart.map(item => (
+                                    <div key={item.id} className="co-summary-item">
+                                        <div className="co-item-thumb">
+                                            {item.images && item.images[0] ? (
+                                                <img src={item.images[0]} alt={item.title} />
+                                            ) : (
+                                                <ShoppingBag size={18} color="#DDD" />
+                                            )}
+                                        </div>
+                                        <div className="co-item-info">
+                                            <div className="co-item-name">{item.title}</div>
+                                            <div className="co-item-qty">Qty: {item.quantity}</div>
+                                        </div>
+                                        <div className="co-item-price">
+                                            ₹{(item.price * item.quantity).toLocaleString()}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+
+                            {/* Totals */}
+                            <div className="co-summary-rows">
+                                <div className="co-summary-row">
+                                    <span>Subtotal</span>
+                                    <span>₹{cartTotal.toLocaleString()}</span>
+                                </div>
+                                <div className="co-summary-row">
+                                    <span>Shipping</span>
+                                    <span className="co-summary-free">Free · 3–5 Days</span>
+                                </div>
+                                <div className="co-summary-row">
+                                    <span>GST (18%)</span>
+                                    <span>₹{Math.round(taxAmount).toLocaleString()}</span>
+                                </div>
+                            </div>
+
+                            <div className="co-summary-total">
+                                <span className="co-total-label">Total</span>
+                                <span className="co-total-amount">₹{Math.round(finalTotal).toLocaleString()}</span>
+                            </div>
+
+                            {/* Trust */}
+                            <div className="co-summary-trust">
+                                <p className="co-trust-label">Accepted Payments</p>
+                                <div className="co-trust-icons">
+                                    <span className="co-trust-badge">Visa</span>
+                                    <span className="co-trust-badge">MC</span>
+                                    <span className="co-trust-badge">UPI</span>
+                                    <span className="co-trust-badge">GPay</span>
+                                    <span className="co-trust-badge">COD</span>
+                                </div>
+                            </div>
+                        </motion.div>
                     </div>
-                    <div className="border-t border-gray-200 pt-4 flex justify-between font-bold text-lg">
-                        <span>Total</span>
-                        <span>₹{cartTotal.toLocaleString()}</span>
-                    </div>
+                </form>
+            </div>
+
+            {/* Mobile sticky pay bar — hidden by default, shown via CSS on ≤767px */}
+            <div className="co-mobile-pay-bar">
+                <div className="co-mobile-total-info">
+                    <div className="co-mobile-pay-label">Total</div>
+                    <div className="co-mobile-pay-amount">₹{Math.round(finalTotal).toLocaleString()}</div>
                 </div>
+                <button
+                    type="button"
+                    className="co-mobile-pay-btn"
+                    onClick={handleCheckout}
+                >
+                    <Lock size={14} />
+                    Place Order
+                </button>
             </div>
         </div>
     );

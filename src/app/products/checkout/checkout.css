@@ -1,0 +1,686 @@
+/**
+ * MR.COACH — CHECKOUT PAGE
+ * Professional redesign: stepped form, branded inputs, sticky order summary
+ */
+
+:root {
+    --co-bg: #F5F7FA;
+    --co-white: #FFFFFF;
+    --co-black: #0A0A0A;
+    --co-yellow: #FFD000;
+    --co-border: rgba(0, 0, 0, 0.08);
+    --co-border-focus: rgba(0, 0, 0, 0.5);
+    --co-radius: 14px;
+    --co-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    --co-shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.08);
+    --co-green: #2E7D32;
+    --co-red: #E53935;
+}
+
+/* =========================================
+   WRAPPER & LAYOUT
+   ========================================= */
+.co-wrapper {
+    background: var(--co-bg);
+    min-height: 100vh;
+    padding: 32px 0 80px;
+}
+
+.co-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Breadcrumb */
+.co-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 28px;
+}
+
+.co-breadcrumb a {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #AAA;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.co-breadcrumb a:hover {
+    color: var(--co-black);
+}
+
+.co-breadcrumb-sep {
+    font-size: 11px;
+    color: #DDD;
+}
+
+.co-breadcrumb-current {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--co-black);
+}
+
+/* Headline */
+.co-headline {
+    font-size: 36px;
+    font-weight: 950;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: var(--co-black);
+    margin-bottom: 36px;
+    line-height: 1;
+}
+
+/* Two-column grid */
+.co-layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 28px;
+    align-items: start;
+}
+
+/* =========================================
+   FORM PANEL
+   ========================================= */
+.co-form-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.co-section-card {
+    background: var(--co-white);
+    border: 1px solid var(--co-border);
+    border-radius: var(--co-radius);
+    padding: 28px;
+    box-shadow: var(--co-shadow);
+}
+
+.co-section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.co-section-num {
+    width: 28px;
+    height: 28px;
+    background: var(--co-black);
+    color: #fff;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.co-section-title {
+    font-size: 16px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--co-black);
+}
+
+/* =========================================
+   FORM FIELDS
+   ========================================= */
+.co-field-grid {
+    display: grid;
+    gap: 14px;
+}
+
+.co-field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.co-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.co-label {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #888;
+}
+
+.co-input {
+    padding: 13px 16px;
+    border: 1.5px solid var(--co-border);
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--co-black);
+    background: #FAFAFA;
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.co-input::placeholder {
+    color: #CCCCCC;
+}
+
+.co-input:focus {
+    border-color: var(--co-black);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.04);
+}
+
+/* =========================================
+   PAYMENT METHOD TOGGLE
+   ========================================= */
+.co-payment-methods {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.co-payment-option {
+    border: 1.5px solid var(--co-border);
+    border-radius: 10px;
+    padding: 12px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #FAFAFA;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #888;
+}
+
+.co-payment-option:hover {
+    border-color: var(--co-black);
+    color: var(--co-black);
+}
+
+.co-payment-option.active {
+    border-color: var(--co-black);
+    background: var(--co-black);
+    color: #fff;
+}
+
+.co-payment-note {
+    font-size: 12px;
+    color: #AAA;
+    font-weight: 600;
+    text-align: center;
+    padding: 14px;
+    background: #FAFAFA;
+    border-radius: 10px;
+    border: 1.5px dashed var(--co-border);
+}
+
+/* =========================================
+   SUBMIT BUTTON
+   ========================================= */
+.co-submit-btn {
+    width: 100%;
+    background: var(--co-black);
+    color: white;
+    padding: 18px 24px;
+    border-radius: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.co-submit-btn:hover {
+    background: var(--co-yellow);
+    color: var(--co-black);
+    box-shadow: 0 12px 30px rgba(255, 208, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.co-secure-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #BBBBBB;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 12px;
+}
+
+/* =========================================
+   ORDER SUMMARY PANEL
+   ========================================= */
+.co-summary-panel {
+    background: var(--co-white);
+    border: 1px solid var(--co-border);
+    border-radius: var(--co-radius);
+    padding: 28px;
+    position: sticky;
+    top: 100px;
+    box-shadow: var(--co-shadow-lg);
+}
+
+.co-summary-title {
+    font-size: 16px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--co-black);
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--co-border);
+}
+
+.co-summary-items {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.co-summary-item {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.co-item-thumb {
+    width: 52px;
+    height: 52px;
+    background: #F2F2F2;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.co-item-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+}
+
+.co-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.co-item-name {
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--co-black);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.co-item-qty {
+    font-size: 11px;
+    color: #AAA;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.co-item-price {
+    font-size: 14px;
+    font-weight: 900;
+    color: var(--co-black);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+}
+
+/* Summary rows */
+.co-summary-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 1px solid var(--co-border);
+}
+
+.co-summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #888;
+}
+
+.co-summary-free {
+    font-size: 11px;
+    font-weight: 900;
+    color: var(--co-green);
+    text-transform: uppercase;
+}
+
+.co-summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1.5px solid var(--co-border);
+}
+
+.co-total-label {
+    font-size: 14px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--co-black);
+}
+
+.co-total-amount {
+    font-size: 26px;
+    font-weight: 950;
+    letter-spacing: -0.03em;
+    color: var(--co-black);
+}
+
+/* Trust badges in summary */
+.co-summary-trust {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.co-trust-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #CCCCCC;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.co-trust-icons {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.co-trust-badge {
+    background: #F5F5F5;
+    border: 1px solid #EEE;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 10px;
+    font-weight: 900;
+    color: #999;
+    text-transform: uppercase;
+}
+
+/* Empty state */
+.co-empty {
+    text-align: center;
+    padding: 100px 24px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.co-empty h1 {
+    font-size: 28px;
+    font-weight: 950;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.co-empty p {
+    color: #999;
+    margin-bottom: 28px;
+}
+
+/* Hidden by default — CSS shows on mobile ≤767px */
+.co-mobile-pay-bar {
+    display: none;
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+@media (max-width: 1023px) {
+    .co-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .co-summary-panel {
+        position: static;
+    }
+}
+
+/* =========================================
+   RESPONSIVE — MOBILE (≤767px) — Flipkart/Amazon style
+   ========================================= */
+@media (max-width: 767px) {
+
+    /* Flat grey app shell */
+    .co-wrapper {
+        background: #F1F3F6;
+        padding: 0 0 90px;
+    }
+
+    .co-container {
+        padding: 0;
+    }
+
+    /* Hide breadcrumb; headline acts as page title bar */
+    .co-breadcrumb {
+        display: none;
+    }
+
+    .co-headline {
+        font-size: 15px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        margin: 0;
+        padding: 14px 16px 12px;
+        background: #fff;
+        border-bottom: 1px solid #E8E8E8;
+    }
+
+    /* Form panel: stacked white blocks with 8px grey gap between */
+    .co-form-panel {
+        gap: 8px;
+        padding-top: 8px;
+    }
+
+    /* Each section: flush left/right, no rounded corners */
+    .co-section-card {
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        border-top: none;
+        border-bottom: 1px solid #E8E8E8;
+        padding: 16px;
+        box-shadow: none;
+    }
+
+    /* Section header compact */
+    .co-section-header {
+        margin-bottom: 16px;
+    }
+
+    .co-section-num {
+        width: 24px;
+        height: 24px;
+        font-size: 11px;
+    }
+
+    .co-section-title {
+        font-size: 14px;
+    }
+
+    /* Fields: full-width, stack city/state/zip */
+    .co-field-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    /* Inputs: borderless bottom-only style like many apps */
+    .co-input {
+        border-radius: 6px;
+        font-size: 15px;
+        padding: 12px 14px;
+    }
+
+    .co-label {
+        font-size: 11px;
+    }
+
+    /* Payment options: 1 per row on very small screens, 2 on normal */
+    .co-payment-methods {
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+    }
+
+    .co-payment-option {
+        font-size: 10px;
+        padding: 10px 6px;
+        border-radius: 8px;
+    }
+
+    .co-payment-note {
+        font-size: 12px;
+        padding: 12px;
+    }
+
+    /* Submit button — hide in form, replaced by sticky bar */
+    .co-submit-btn-wrapper {
+        display: none;
+    }
+
+    /* Summary panel: flush white block below form */
+    .co-summary-panel {
+        position: static;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        border-top: 8px solid #F1F3F6;
+        padding: 16px;
+        box-shadow: none;
+        margin-top: 8px;
+    }
+
+    .co-summary-title {
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        padding-bottom: 12px;
+        margin-bottom: 14px;
+    }
+
+    .co-item-thumb {
+        width: 44px;
+        height: 44px;
+        border-radius: 6px;
+    }
+
+    .co-item-name {
+        font-size: 13px;
+    }
+
+    .co-item-price {
+        font-size: 13px;
+    }
+
+    .co-summary-row {
+        font-size: 13px;
+    }
+
+    .co-total-amount {
+        font-size: 20px;
+    }
+
+    /* Trust badges hidden on mobile */
+    .co-summary-trust {
+        display: none;
+    }
+
+    /* Sticky bottom pay button — MobileBottomNav hidden on this page */
+    .co-mobile-pay-bar {
+        display: flex !important;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #fff;
+        border-top: 1px solid #E8E8E8;
+        padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+        gap: 16px;
+        align-items: center;
+        z-index: 999;
+        box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.07);
+    }
+
+    .co-mobile-total-info {
+        flex-shrink: 0;
+    }
+
+    .co-mobile-pay-label {
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: #AAA;
+    }
+
+    .co-mobile-pay-amount {
+        font-size: 18px;
+        font-weight: 950;
+        letter-spacing: -0.02em;
+        color: #0A0A0A;
+    }
+
+    .co-mobile-pay-btn {
+        flex: 1;
+        background: #FFD000;
+        color: #0A0A0A;
+        font-size: 14px;
+        font-weight: 900;
+        padding: 14px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .co-secure-note {
+        display: none;
+    }
+}

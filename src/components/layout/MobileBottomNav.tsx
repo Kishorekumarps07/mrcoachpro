@@ -32,6 +32,10 @@ export const MobileBottomNav = () => {
     const pathname = usePathname();
     const { openModal } = useModal(); // Use context
 
+    // Hide bottom nav on cart & checkout pages so sticky pay bar is unobstructed
+    const hideOnRoutes = ['/products/cart', '/products/checkout'];
+    if (hideOnRoutes.includes(pathname)) return null;
+
     const navItems = [
         { href: '/', label: 'HOME', icon: Home },
         { href: '/events', label: 'EVENTS', icon: Calendar },
