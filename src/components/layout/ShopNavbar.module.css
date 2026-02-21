@@ -383,9 +383,141 @@
     }
 }
 
-/* =========================================
-   SUGGESTIONS DROPDOWN
-   ========================================= */
+/* Filter Specific Drawer logic */
+.filterDrawer {
+    right: 0;
+    left: auto;
+    animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+.filterContent {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 20px;
+}
+
+.filterGroup {
+    margin-bottom: 32px;
+}
+
+.filterGroupTitle {
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+}
+
+.filterOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filterOption {
+    background: #F8F8F8;
+    border: 2px solid transparent;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #444;
+}
+
+.filterOption:hover {
+    background: #EEE;
+}
+
+.activeOption {
+    background: #FFD700;
+    border-color: #000;
+    color: #000;
+}
+
+.priceInputs {
+    display: flex;
+    gap: 12px;
+}
+
+.priceField {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.priceField span {
+    font-size: 12px;
+    font-weight: 700;
+    color: #555;
+}
+
+.priceInput {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #EEE;
+    border-radius: 10px;
+    font-weight: 600;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.priceInput:focus {
+    border-color: #FFD700;
+}
+
+.drawerFooter {
+    padding-top: 20px;
+    border-top: 1px solid #EEE;
+    display: flex;
+    gap: 12px;
+}
+
+.clearBtn {
+    flex: 1;
+    padding: 14px;
+    background: #F0F0F0;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.clearBtn:hover {
+    background: #E0E0E0;
+}
+
+.applyBtn {
+    flex: 2;
+    padding: 14px;
+    background: #000;
+    color: #FFF;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.applyBtn:hover {
+    background: #222;
+    transform: translateY(-2px);
+}
 
 /* Search section needs relative positioning for dropdown */
 .searchSection {

@@ -17,6 +17,9 @@ interface ShopContextType {
     setSearchQuery: (q: string) => void;
     allProducts: Product[];
     setAllProducts: (products: Product[]) => void;
+    // ── Category ──
+    activeCategory: string | null;
+    setActiveCategory: (cat: string | null) => void;
 }
 
 const ShopContext = createContext<ShopContextType | undefined>(undefined);
@@ -27,6 +30,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     const [isLoaded, setIsLoaded] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [allProducts, setAllProducts] = useState<Product[]>([]);
+    const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
     // Load cart from local storage on mount
     useEffect(() => {
@@ -78,6 +82,8 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
             setSearchQuery,
             allProducts,
             setAllProducts,
+            activeCategory,
+            setActiveCategory,
         }}>
             {children}
         </ShopContext.Provider>

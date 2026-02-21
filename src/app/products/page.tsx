@@ -11,6 +11,7 @@ import Link from 'next/link';
 
 // RETAIL CATEGORIES (Horizontal Rail)
 const RETAIL_CATS = [
+    { id: 'all', label: 'All', img: '/images/categories/all-products.png' }, // Placeholder/Generic image or use a specific one
     { id: 'protein', label: 'Protein', img: '/images/categories/protein-3d.png' },
     { id: 'pre', label: 'Pre-Wkt', img: '/images/categories/preworkout-3d.png' },
     { id: 'vitamins', label: 'Vitamins', img: '/images/categories/vitamins-3d.png' },
@@ -109,7 +110,7 @@ function ProductCard({ product, index, addToCart }: { product: Product; index: n
 export default function ShopPage() {
     const [products, setProducts] = useState<Product[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const { addToCart, searchQuery, setAllProducts } = useShop();
+    const { addToCart, searchQuery, setAllProducts, activeCategory, setActiveCategory } = useShop();
 
     useEffect(() => {
         const loadProducts = async () => {
@@ -127,23 +128,28 @@ export default function ShopPage() {
     }, []);
 
     const q = searchQuery.toLowerCase().trim();
+    const cat = activeCategory?.toLowerCase().trim();
 
-    // During search: show all matches. No search: 1 product per category.
+    // 1. Search Query exists -> Show matches across all categories
+    // 2. Active Category selected -> Show all products in that category
+    // 3. Default -> Show 1 trending product per category
     const filteredProducts = q
         ? products.filter(p =>
             p.title?.toLowerCase().includes(q) ||
             p.category?.toLowerCase().includes(q) ||
             (p as any).brand?.toLowerCase().includes(q)
         )
-        : (() => {
-            const seen = new Set<string>();
-            return products.filter(p => {
-                const cat = p.category?.toLowerCase() ?? 'other';
-                if (seen.has(cat)) return false;
-                seen.add(cat);
-                return true;
-            });
-        })();
+        : cat
+            ? products.filter(p => p.category?.toLowerCase() === cat)
+            : (() => {
+                const seen = new Set<string>();
+                return products.filter(p => {
+                    const c = p.category?.toLowerCase() ?? 'other';
+                    if (seen.has(c)) return false;
+                    seen.add(c);
+                    return true;
+                });
+            })();
 
     return (
         <div className="shop-wrapper">
@@ -151,7 +157,23 @@ export default function ShopPage() {
             {/* CATEGORY RAIL */}
             <div className="category-rail">
                 {RETAIL_CATS.map((cat) => (
-                    <div key={cat.id} className="category-item">
+                    <div
+                        key={cat.id}
+                        className={`category-item ${
+                            (cat.id === 'all' && !activeCategory) || 
+                            activeCategory?.toLowerCase() === cat.id.toLowerCase() 
+                            ? 'active' : ''
+                        }`}
+                        onClick={() => {
+                            if (cat.id === 'all') {
+                                setActiveCategory(null);
+                            } else if (activeCategory?.toLowerCase() === cat.id.toLowerCase()) {
+                                setActiveCategory(null);
+                            } else {
+                                setActiveCategory(cat.id);
+                            }
+                        }}
+                    >
                         <div className="category-icon-box">
                             <img src={cat.img} alt={cat.label} className="category-3d-img" />
                         </div>
@@ -195,6 +217,10 @@ export default function ShopPage() {
                         <h2 className="retail-section-title">
                             {filteredProducts.length} result{filteredProducts.length !== 1 ? 's' : ''} for &ldquo;{searchQuery}&rdquo;
                         </h2>
+                    ) : activeCategory ? (
+                        <h2 className="retail-section-title">
+                            Browsing: {activeCategory}
+                        </h2>
                     ) : (
                         <h2 className="retail-section-title">🔥 Trending Now</h2>
                     )}
@@ -220,8 +246,13 @@ export default function ShopPage() {
                 )}
             </section>
 
-            {/* CATEGORY SECTIONS — hidden during search */}
-            {!isLoading && !searchQuery && (
+            {/* SEPARATOR / DIVIDER FOR CATEGORY SECTIONS (only if not searching/filtering) */}
+            {!isLoading && !searchQuery && !activeCategory && (
+                <div className="section-divider" style={{ margin: '40px 20px', height: '1px', background: 'rgba(0,0,0,0.05)' }} />
+            )}
+
+            {/* CATEGORY SECTIONS — shown only in default view */}
+            {!isLoading && !searchQuery && !activeCategory && (
                 <>
                     <CategorySection title="Protein Supplements" emoji="🥤" categoryKey="protein" products={products} addToCart={addToCart} />
                     <CategorySection title="Pre-Workout" emoji="⚡" categoryKey="pre-workout" products={products} addToCart={addToCart} />

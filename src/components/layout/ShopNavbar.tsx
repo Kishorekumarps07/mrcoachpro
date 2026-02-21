@@ -9,9 +9,10 @@ import { useShop } from '@/app/products/context/ShopContext';
 
 export const ShopNavbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [showSuggestions, setShowSuggestions] = useState(false);
-    const { setSearchQuery, allProducts } = useShop();
+    const { setSearchQuery, allProducts, activeCategory, setActiveCategory } = useShop();
     const inputRef = useRef<HTMLInputElement>(null);
     const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -155,7 +156,11 @@ export const ShopNavbar = () => {
 
                         {/* Actions for Desktop / Filter for Mobile */}
                         <div className={styles.actionsSection}>
-                            <button className={styles.actionBtn} aria-label="Filter">
+                            <button
+                                className={styles.actionBtn}
+                                aria-label="Filter"
+                                onClick={() => setIsFilterOpen(true)}
+                            >
                                 <span className={styles.btnLabel}>Filter</span>
                                 <Filter size={20} />
                             </button>
@@ -191,6 +196,80 @@ export const ShopNavbar = () => {
                             <div className={styles.drawerDivider}></div>
                             <Link href="/" className={styles.drawerLink} onClick={() => setIsMenuOpen(false)}>Back to Coaching</Link>
                         </nav>
+                    </div>
+                </div>
+            )}
+
+            {/* Filter Sidebar Overlay */}
+            {isFilterOpen && (
+                <div className={styles.overlay} onClick={() => setIsFilterOpen(false)}>
+                    <div className={`${styles.drawer} ${styles.filterDrawer}`} onClick={(e) => e.stopPropagation()}>
+                        <div className={styles.drawerHeader}>
+                            <h2 className={styles.drawerTitle}>Filters</h2>
+                            <button onClick={() => setIsFilterOpen(false)} className={styles.closeBtn}>
+                                <X size={24} />
+                            </button>
+                        </div>
+
+                        <div className={styles.filterContent}>
+                            <div className={styles.filterGroup}>
+                                <h3 className={styles.filterGroupTitle}>Categories</h3>
+                                <div className={styles.filterOptions}>
+                                    <button
+                                        className={`${styles.filterOption} ${!activeCategory ? styles.activeOption : ''}`}
+                                        onClick={() => {
+                                            setActiveCategory(null);
+                                            setIsFilterOpen(false);
+                                        }}
+                                    >
+                                        All Products
+                                    </button>
+                                    {['Protein', 'Pre-Workout', 'Vitamins', 'Gainers', 'Gear'].map(cat => (
+                                        <button
+                                            key={cat}
+                                            className={`${styles.filterOption} ${activeCategory?.toLowerCase() === cat.toLowerCase() ? styles.activeOption : ''}`}
+                                            onClick={() => {
+                                                setActiveCategory(cat.toLowerCase());
+                                                setIsFilterOpen(false);
+                                            }}
+                                        >
+                                            {cat}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className={styles.filterGroup}>
+                                <h3 className={styles.filterGroupTitle}>Price Range</h3>
+                                <div className={styles.priceInputs}>
+                                    <div className={styles.priceField}>
+                                        <span>Min</span>
+                                        <input type="number" placeholder="0" className={styles.priceInput} />
+                                    </div>
+                                    <div className={styles.priceField}>
+                                        <span>Max</span>
+                                        <input type="number" placeholder="5000" className={styles.priceInput} />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className={styles.drawerFooter}>
+                            <button
+                                className={styles.clearBtn}
+                                onClick={() => {
+                                    setActiveCategory(null);
+                                    setSearchQuery('');
+                                    setInputValue('');
+                                    setIsFilterOpen(false);
+                                }}
+                            >
+                                Clear All
+                            </button>
+                            <button className={styles.applyBtn} onClick={() => setIsFilterOpen(false)}>
+                                Apply Filters
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
