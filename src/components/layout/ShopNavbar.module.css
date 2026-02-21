@@ -22,7 +22,15 @@
     gap: 20px;
 }
 
-/* Left Section */
+.topRow {
+    display: contents;
+    width: 100%;
+}
+
+.bottomRow {
+    display: contents;
+}
+
 .leftSection {
     display: flex;
     align-items: center;
@@ -30,9 +38,89 @@
     flex-shrink: 0;
 }
 
-.logo {
+.rightSectionMobile {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.actionsSection {
     display: flex;
     align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.desktopOnlyActions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Responsive Styles for Mobile */
+@media (max-width: 768px) {
+    .shopNavbar {
+        height: auto;
+        padding: 12px 0;
+        border-bottom-width: 1px;
+    }
+
+    .container {
+        flex-direction: column;
+        gap: 12px;
+        padding: 0 16px;
+    }
+
+    .topRow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .rightSectionMobile {
+        display: flex;
+    }
+
+    .bottomRow {
+        display: flex;
+        width: 100%;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .searchSection {
+        flex: 1;
+        max-width: none;
+    }
+
+    .searchBar {
+        height: 48px;
+    }
+
+    .desktopOnlyActions {
+        display: none;
+    }
+
+    .btnLabel {
+        display: none;
+    }
+
+    .actionBtn {
+        padding: 12px;
+        height: 48px;
+        width: 48px;
+        justify-content: center;
+    }
+
+    .leftSection {
+        gap: 12px;
+    }
+
+    .logo img {
+        height: 30px !important;
+        width: auto !important;
+    }
 }
 
 /* Search Section */

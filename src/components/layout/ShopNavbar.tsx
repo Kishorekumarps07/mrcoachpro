@@ -64,95 +64,111 @@ export const ShopNavbar = () => {
         <>
             <header className={styles.shopNavbar}>
                 <div className={styles.container}>
-                    {/* Left: Menu & Logo */}
-                    <div className={styles.leftSection}>
-                        <button
-                            className={styles.iconBtn}
-                            onClick={() => setIsMenuOpen(true)}
-                            aria-label="Toggle Menu"
-                        >
-                            <Menu size={24} />
-                        </button>
-                        <Link href="/" className={styles.logo}>
-                            <Image
-                                src="/mrcoach-logo-new.png"
-                                alt="MR.COACH"
-                                width={140}
-                                height={36}
-                                priority
-                                style={{ objectFit: 'contain' }}
-                            />
-                        </Link>
+                    {/* Top Row: Menu, Logo, and Icons (User, Cart) */}
+                    <div className={styles.topRow}>
+                        <div className={styles.leftSection}>
+                            <button
+                                className={styles.iconBtn}
+                                onClick={() => setIsMenuOpen(true)}
+                                aria-label="Toggle Menu"
+                            >
+                                <Menu size={24} />
+                            </button>
+                            <Link href="/" className={styles.logo}>
+                                <Image
+                                    src="/mrcoach-logo-new.png"
+                                    alt="MR.COACH"
+                                    width={140}
+                                    height={36}
+                                    priority
+                                    style={{ objectFit: 'contain' }}
+                                />
+                            </Link>
+                        </div>
+
+                        <div className={styles.rightSectionMobile}>
+                            <button className={styles.iconBtn} aria-label="User Profile">
+                                <User size={24} />
+                            </button>
+                            <Link href="/products/cart" className={styles.iconBtn} aria-label="Cart">
+                                <ShoppingCart size={24} />
+                            </Link>
+                        </div>
                     </div>
 
-                    {/* Center: Search Bar with Suggestions */}
-                    <div className={styles.searchSection} ref={wrapperRef}>
-                        <div className={`${styles.searchBar} ${showSuggestions && suggestions.length > 0 ? styles.searchBarOpen : ''}`}>
-                            <button
-                                className={styles.searchIconBtn}
-                                aria-label="Search"
-                                tabIndex={-1}
-                            >
-                                <Search size={18} className={styles.searchIcon} />
-                            </button>
-                            <input
-                                ref={inputRef}
-                                type="text"
-                                placeholder="Search products, brands..."
-                                className={styles.searchInput}
-                                value={inputValue}
-                                onChange={handleChange}
-                                onFocus={() => setShowSuggestions(true)}
-                                onKeyDown={handleKeyDown}
-                                autoComplete="off"
-                            />
-                            {inputValue && (
+                    {/* Bottom Row / Search Section for Mobile & Desktop */}
+                    <div className={styles.bottomRow}>
+                        {/* Search Bar with Suggestions */}
+                        <div className={styles.searchSection} ref={wrapperRef}>
+                            <div className={`${styles.searchBar} ${showSuggestions && suggestions.length > 0 ? styles.searchBarOpen : ''}`}>
                                 <button
-                                    onClick={handleClear}
-                                    className={styles.searchClearBtn}
-                                    aria-label="Clear search"
+                                    className={styles.searchIconBtn}
+                                    aria-label="Search"
+                                    tabIndex={-1}
                                 >
-                                    <X size={14} />
+                                    <Search size={18} className={styles.searchIcon} />
                                 </button>
+                                <input
+                                    ref={inputRef}
+                                    type="text"
+                                    placeholder="Search products, brands..."
+                                    className={styles.searchInput}
+                                    value={inputValue}
+                                    onChange={handleChange}
+                                    onFocus={() => setShowSuggestions(true)}
+                                    onKeyDown={handleKeyDown}
+                                    autoComplete="off"
+                                />
+                                {inputValue && (
+                                    <button
+                                        onClick={handleClear}
+                                        className={styles.searchClearBtn}
+                                        aria-label="Clear search"
+                                    >
+                                        <X size={14} />
+                                    </button>
+                                )}
+                            </div>
+
+                            {/* Suggestions Dropdown */}
+                            {showSuggestions && suggestions.length > 0 && (
+                                <div className={styles.suggestionsDropdown}>
+                                    {suggestions.map((p) => (
+                                        <button
+                                            key={p.id}
+                                            className={styles.suggestionItem}
+                                            onMouseDown={() => handleSuggestionClick(p.title)}
+                                        >
+                                            <div className={styles.suggestionThumb}>
+                                                <img src={p.images?.[0]} alt={p.title} />
+                                            </div>
+                                            <div className={styles.suggestionText}>
+                                                <span className={styles.suggestionTitle}>{p.title}</span>
+                                                <span className={styles.suggestionCategory}>{p.category}</span>
+                                            </div>
+                                            <span className={styles.suggestionPrice}>₹{p.price}</span>
+                                        </button>
+                                    ))}
+                                </div>
                             )}
                         </div>
 
-                        {/* Suggestions Dropdown */}
-                        {showSuggestions && suggestions.length > 0 && (
-                            <div className={styles.suggestionsDropdown}>
-                                {suggestions.map((p) => (
-                                    <button
-                                        key={p.id}
-                                        className={styles.suggestionItem}
-                                        onMouseDown={() => handleSuggestionClick(p.title)}
-                                    >
-                                        <div className={styles.suggestionThumb}>
-                                            <img src={p.images?.[0]} alt={p.title} />
-                                        </div>
-                                        <div className={styles.suggestionText}>
-                                            <span className={styles.suggestionTitle}>{p.title}</span>
-                                            <span className={styles.suggestionCategory}>{p.category}</span>
-                                        </div>
-                                        <span className={styles.suggestionPrice}>₹{p.price}</span>
-                                    </button>
-                                ))}
+                        {/* Actions for Desktop / Filter for Mobile */}
+                        <div className={styles.actionsSection}>
+                            <button className={styles.actionBtn} aria-label="Filter">
+                                <span className={styles.btnLabel}>Filter</span>
+                                <Filter size={20} />
+                            </button>
+                            <div className={styles.desktopOnlyActions}>
+                                <div className={styles.divider}></div>
+                                <button className={styles.iconBtn} aria-label="User Profile">
+                                    <User size={24} />
+                                </button>
+                                <Link href="/products/cart" className={styles.iconBtn} aria-label="Cart">
+                                    <ShoppingCart size={24} />
+                                </Link>
                             </div>
-                        )}
-                    </div>
-
-                    {/* Right: Actions */}
-                    <div className={styles.rightSection}>
-                        <button className={styles.actionBtn} aria-label="Filter">
-                            <span className={styles.btnLabel}>Filter</span>
-                            <Filter size={20} />
-                        </button>
-                        <div className={styles.divider}></div>
-                        <button className={styles.iconBtn} aria-label="User Profile">
-                            <User size={24} />
-                        </button>
-                        <Link href="/products/cart" className={styles.iconBtn} aria-label="Cart">
-                            <ShoppingCart size={24} />
-                        </Link>
+                        </div>
                     </div>
                 </div>
             </header>
