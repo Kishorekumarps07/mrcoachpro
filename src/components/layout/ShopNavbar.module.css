@@ -1,5 +1,5 @@
 .shopNavbar {
-    background-color: #FFD700;
+    background-color: #F9D949;
     /* Distinct Shop Yellow */
     height: 70px;
     display: flex;
@@ -51,7 +51,7 @@
 }
 
 .logoImage {
-    height: 60px;
+    height: 45px;
     /* Even larger to use more of the 70px navbar */
     width: auto;
     object-fit: contain;
