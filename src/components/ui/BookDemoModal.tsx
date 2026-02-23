@@ -46,11 +46,24 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
     const [districtsList, setDistrictsList] = useState<{ id: number; name: string }[]>([]);
     const [categoriesList, setCategoriesList] = useState<{ id: number; name: string; subcategories: { id: number; name: string }[] }[]>([]);
 
-    // --- Manual Search State ---
     const [manualSearchQuery, setManualSearchQuery] = useState('');
     const [locationSuggestions, setLocationSuggestions] = useState<any[]>([]);
     const [isSearching, setIsSearching] = useState(false);
     const [searchError, setSearchError] = useState<string | null>(null);
+
+    const [pendingDistrictMatch, setPendingDistrictMatch] = useState<string | null>(null);
+
+    // Fuzzy matching helper
+    const getBestMatch = (input: string, list: { name: string }[]) => {
+        if (!input) return null;
+        const normalizedInput = input.toLowerCase().replace(/ district| state/g, '').trim();
+        return list.find(item => {
+            const normalizedName = item.name.toLowerCase().trim();
+            return normalizedName === normalizedInput ||
+                normalizedName.includes(normalizedInput) ||
+                normalizedInput.includes(normalizedName);
+        });
+    };
 
     // Manual Search logic (Nominatim)
     useEffect(() => {
@@ -101,51 +114,55 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
 
         // Extract fields
         const detectedState = addr.state || '';
-        const detectedDistrict = addr.city || addr.town || addr.district || addr.county || '';
+
+        // Use a list of potential district fields
+        const districtCandidates = [
+            addr.city,
+            addr.town,
+            addr.district,
+            addr.county,
+            addr.state_district,
+            addr.municipality
+        ].filter(Boolean);
+
+        const subLocality = [
+            addr.suburb,
+            addr.neighbourhood,
+            addr.village,
+            addr.hamlet,
+            addr.industrial,
+            addr.commercial
+        ].filter(Boolean)[0] || '';
+
         const detectedArea = [
             addr.house_number || addr.house_name,
             addr.road,
-            addr.suburb || addr.neighbourhood || addr.village
+            subLocality !== addr.road ? subLocality : null,
+            addr.landmark
         ].filter(Boolean).join(', ');
+
         const detectedPincode = addr.postcode || '';
 
         // Match state against our list
-        const matchedState = statesList.find(
-            (s) => s.name.toLowerCase() === detectedState.toLowerCase() ||
-                detectedState.toLowerCase().includes(s.name.toLowerCase()) ||
-                s.name.toLowerCase().includes(detectedState.toLowerCase())
-        );
+        const matchedState = getBestMatch(detectedState, statesList);
 
         if (matchedState) {
+            // Pick the best district candidate that exists in our list
+            setPendingDistrictMatch(districtCandidates.join('|')); // Pass all candidates to useEffect
             setFormData(prev => ({
                 ...prev,
                 state: matchedState.name,
                 district: '',
-                area: detectedArea,
-                pincode: detectedPincode,
+                area: detectedArea || prev.area,
+                pincode: detectedPincode || prev.pincode,
             }));
-
-            // Auto-match district after state load
-            setTimeout(() => {
-                setDistrictsList(prev => {
-                    const matchedDistrict = prev.find(
-                        (d) => d.name.toLowerCase() === detectedDistrict.toLowerCase() ||
-                            detectedDistrict.toLowerCase().includes(d.name.toLowerCase()) ||
-                            d.name.toLowerCase().includes(detectedDistrict.toLowerCase())
-                    );
-                    if (matchedDistrict) {
-                        setFormData(f => ({ ...f, district: matchedDistrict.name }));
-                    }
-                    return prev;
-                });
-            }, 1000);
         } else {
             setFormData(prev => ({
                 ...prev,
-                area: detectedArea,
-                pincode: detectedPincode,
+                area: detectedArea || prev.area,
+                pincode: detectedPincode || prev.pincode,
             }));
-            setLocationError("State not found in our delivery list. Please select manually.");
+            setLocationError("State not found in our list. Please select manually.");
         }
 
         setLocationSuggestions([]);
@@ -174,6 +191,22 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
             fetchData();
         }
     }, [isOpen]);
+
+    useEffect(() => {
+        if (pendingDistrictMatch && districtsList.length > 0) {
+            const candidates = pendingDistrictMatch.split('|');
+
+            let matchedDistrict = null;
+            for (const candidate of candidates) {
+                matchedDistrict = getBestMatch(candidate, districtsList);
+                if (matchedDistrict) break;
+            }
+            if (matchedDistrict) {
+                setFormData(f => ({ ...f, district: matchedDistrict.name }));
+            }
+            setPendingDistrictMatch(null);
+        }
+    }, [districtsList, pendingDistrictMatch]);
 
     // Fetch Districts when State changes
     useEffect(() => {
@@ -230,50 +263,56 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
                     // Parse Nominatim
                     const nom = nominatimRes.status === 'fulfilled' ? await nominatimRes.value.json() : {};
 
-                    // Extract fields — prefer BigDataCloud for state/area, Nominatim for pincode
-                    const detectedState = bdc.principalSubdivision || nom.address?.state || '';
-                    const detectedDistrict = bdc.city || nom.address?.city || nom.address?.county || bdc.locality || '';
-                    const detectedArea = bdc.locality || nom.address?.suburb || nom.address?.neighbourhood || bdc.city || '';
-                    // Nominatim reliably returns Indian pincodes; BigDataCloud often leaves it blank
+                    // Extract fields — prefer Nominatim for granularity
+                    const detectedState = nom.address?.state || bdc.principalSubdivision || '';
+
+                    const districtCandidates = [
+                        nom.address?.city,
+                        nom.address?.town,
+                        nom.address?.district,
+                        nom.address?.county,
+                        nom.address?.state_district,
+                        bdc.city,
+                        bdc.locality
+                    ].filter(Boolean);
+
+                    const subLocality = [
+                        nom.address?.suburb,
+                        nom.address?.neighbourhood,
+                        nom.address?.village,
+                        nom.address?.hamlet,
+                        nom.address?.townland,
+                        nom.address?.industrial,
+                        nom.address?.commercial,
+                        bdc.locality
+                    ].filter(Boolean)[0] || '';
+
+                    const detectedArea = [
+                        nom.address?.house_number || nom.address?.house_name,
+                        nom.address?.road,
+                        subLocality !== nom.address?.road ? subLocality : null,
+                        nom.address?.landmark
+                    ].filter(Boolean).join(', ');
+
                     const detectedPincode = nom.address?.postcode || bdc.postcode || '';
 
                     // Fuzzy-match state against API list
-                    const matchedState = statesList.find(
-                        (s) => s.name.toLowerCase() === detectedState.toLowerCase() ||
-                            detectedState.toLowerCase().includes(s.name.toLowerCase()) ||
-                            s.name.toLowerCase().includes(detectedState.toLowerCase())
-                    );
+                    const matchedState = getBestMatch(detectedState, statesList);
 
                     if (matchedState) {
-                        // Setting state triggers the existing useEffect to fetch districts
+                        setPendingDistrictMatch(districtCandidates.join('|'));
                         setFormData(prev => ({
                             ...prev,
                             state: matchedState.name,
                             district: '',
-                            area: detectedArea,
-                            pincode: detectedPincode,
+                            area: detectedArea || prev.area,
+                            pincode: detectedPincode || prev.pincode,
                         }));
-
-                        // Wait briefly for districts to load, then fuzzy-match district
-                        setTimeout(() => {
-                            setDistrictsList(prev => {
-                                const matchedDistrict = prev.find(
-                                    (d) => d.name.toLowerCase() === detectedDistrict.toLowerCase() ||
-                                        detectedDistrict.toLowerCase().includes(d.name.toLowerCase()) ||
-                                        d.name.toLowerCase().includes(detectedDistrict.toLowerCase())
-                                );
-                                if (matchedDistrict) {
-                                    setFormData(f => ({ ...f, district: matchedDistrict.name }));
-                                }
-                                return prev;
-                            });
-                        }, 1500);
                     } else {
-                        // State not matched — still fill area & pincode
                         setFormData(prev => ({
                             ...prev,
-                            area: detectedArea,
-                            pincode: detectedPincode,
+                            area: detectedArea || prev.area,
+                            pincode: detectedPincode || prev.pincode,
                         }));
                         setLocationError('State not found in list. Please select manually.');
                     }

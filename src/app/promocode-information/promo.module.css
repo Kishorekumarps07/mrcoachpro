@@ -1,159 +1,133 @@
 .main {
     min-height: 100vh;
-    background-color: #ffffff;
-    color: #333333;
-    font-family: system-ui, -apple-system, sans-serif;
-    padding-top: 0px;
+    background-color: #f9f9fb;
 }
 
 .container {
     max-width: 900px;
     margin: 0 auto;
-    padding: 60px 24px 100px;
+    padding: 80px 24px;
 }
 
 .header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
     margin-bottom: 48px;
-    text-align: center;
+    padding-bottom: 24px;
+    border-bottom: 2px solid #eee;
+}
+
+.headerIcon {
+    width: 40px;
+    height: 40px;
+    color: #f9d949;
+    /* Matching shop yellow */
 }
 
 .title {
     font-size: 2.5rem;
     font-weight: 800;
-    margin-bottom: 12px;
-    color: #111;
-    letter-spacing: -0.02em;
+    color: #1a1a1a;
+    letter-spacing: -1px;
 }
 
 .content {
-    line-height: 1.8;
-    font-size: 1.05rem;
-    color: #444;
+    background: white;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
 }
 
 .sectionTitle {
-    font-size: 1.25rem;
-    font-weight: 800;
-    margin-top: 0;
-    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 40px;
+    margin-bottom: 20px;
     color: #000;
-    letter-spacing: -0.01em;
-    text-transform: uppercase;
+}
+
+.sectionIcon {
+    color: #f9d949;
+    width: 24px;
+    height: 24px;
 }
 
 .paragraph {
-    margin-bottom: 20px;
-    color: #666;
-}
-
-.imageSection {
-    display: flex;
-    gap: 40px;
-    align-items: flex-start;
-    margin-bottom: 60px;
-}
-
-.imageWrapper {
-    flex-shrink: 0;
-    background: #f8f8f8;
-    border-radius: 20px;
-    padding: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-}
-
-.promoImage {
-    border-radius: 12px;
-    object-fit: contain;
-}
-
-.introText {
-    flex: 1;
-}
-
-.gridSection {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-bottom: 40px;
-}
-
-.card {
-    background: #ffffff;
-    border: 1px solid #ebebeb;
-    padding: 30px;
-    border-radius: 16px;
-    transition: transform 0.2s ease;
-}
-
-.card:hover {
-    border-color: #F9D949;
-}
-
-.infoGrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-}
-
-.infoBox {
-    padding: 10px 0;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 24px;
 }
 
 .list {
-    margin: 0;
-    padding-left: 0;
-    list-style-type: none;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px 0;
 }
 
 .listItem {
-    margin-bottom: 14px;
-    padding-left: 24px;
-    position: relative;
-    color: #555;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333;
+    padding: 12px 16px;
+    border-radius: 12px;
+    transition: background 0.2s ease;
 }
 
-.listItem::before {
-    content: "•";
-    position: absolute;
-    left: 0;
-    color: #F9D949;
-    font-weight: bold;
-    font-size: 1.2em;
+.listItem:hover {
+    background: #fffbea;
 }
 
-.listItem strong {
-    color: #111;
-    font-weight: 700;
+.checkIcon {
+    margin-top: 4px;
+    color: #f9d949;
+    flex-shrink: 0;
 }
 
-.footerNotes {
-    margin-top: 60px;
-    padding-top: 40px;
-    border-top: 1px solid #eee;
+.supportBox {
+    background: #f8f9fa;
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px dashed #ced4da;
+    margin: 20px 0;
+}
+
+.finalMessage {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #000;
+    margin-top: 40px;
     text-align: center;
-}
-
-.finalNote {
-    font-weight: 700;
-    color: #111;
-    font-size: 1.2rem;
-    margin-top: 20px;
 }
 
 @media (max-width: 768px) {
     .container {
-        padding: 40px 20px 80px;
+        padding: 40px 16px;
+    }
+
+    .header {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
     }
 
     .title {
-        font-size: 2rem;
-    }
-
-    .sectionTitle {
-        font-size: 1.3rem;
+        font-size: 1.8rem;
     }
 
     .content {
+        padding: 24px;
+    }
+
+    .listItem {
+        padding: 8px 12px;
         font-size: 1rem;
     }
 }
