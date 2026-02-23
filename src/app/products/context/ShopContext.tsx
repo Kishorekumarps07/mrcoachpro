@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { CartItem, Product } from '@/types/shop';
 import { cartService } from '@/services/shop/cartService';
+import toast from 'react-hot-toast';
 
 interface ShopContextType {
     cart: CartItem[];
@@ -54,7 +55,19 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
 
     const addToCart = (product: Product) => {
         setCart(prev => cartService.addToCart(prev, product));
-        setIsCartOpen(true);
+        toast.success(`Added ${product.title} to cart`, {
+            style: {
+                borderRadius: '10px',
+                background: '#111827',
+                color: '#fff',
+                fontSize: '14px',
+                fontWeight: '600',
+            },
+            iconTheme: {
+                primary: '#FFD000',
+                secondary: '#111827',
+            },
+        });
     };
 
     const removeFromCart = (productId: string) => {

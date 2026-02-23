@@ -6,9 +6,11 @@ import { productService } from '@/services/shop/productService';
 import { Product } from '@/types/shop';
 import { useShop } from '@/app/products/context/ShopContext';
 import { Button } from '@/components/ui/Button';
-import { ShoppingCart, Truck, RefreshCw, ShieldCheck, ChevronLeft } from 'lucide-react';
+import { ShoppingCart, Truck, RefreshCw, ShieldCheck, ChevronLeft, Zap } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+
+import styles from './ProductDetail.module.css';
 
 export default function ProductDetailPage() {
     const params = useParams();
@@ -45,91 +47,159 @@ export default function ProductDetailPage() {
         );
     }
 
+    // Calculated simulated MRP and savings for the "Deal" effect
+    const mrp = Math.round(product.price * 1.35); // Add ~35%
+    const discountPercent = Math.round(((mrp - product.price) / mrp) * 100);
+
     return (
-        <div className="shop-wrapper min-h-screen bg-white">
-            <div className="ms-detail-container">
-                <Link href="/products" className="ms-detail-back inline-flex items-center text-gray-400 hover:text-black mb-12 transition-colors font-black text-[10px] uppercase tracking-widest">
-                    <ChevronLeft size={16} className="mr-1" /> Back to Shop
-                </Link>
+        <div className={styles.wrapper}>
+            {/* Contextual Header / Breadcrumb Area */}
+            <div className={styles.breadcrumbBar}>
+                <nav className={styles.breadcrumbNav}>
+                    <Link href="/" className={styles.breadcrumbLink}>Home</Link>
+                    <span style={{ margin: '0 8px' }}>›</span>
+                    <Link href="/products" className={styles.breadcrumbLink}>Shop</Link>
+                    <span style={{ margin: '0 8px' }}>›</span>
+                    <span style={{ textTransform: 'capitalize' }}>{product.category}</span>
+                    <span style={{ margin: '0 8px' }}>›</span>
+                    <span className={styles.breadcrumbTitle}>{product.title}</span>
+                </nav>
+            </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-                    {/* Image Gallery */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="bg-[#FAFAFA] rounded-xl overflow-hidden aspect-[4/5] relative border border-gray-100"
-                    >
-                        {product.images[0] ? (
-                            <img src={product.images[0]} alt={product.title} className="w-full h-full object-cover" />
-                        ) : (
-                            <div className="flex items-center justify-center h-full text-gray-300 font-black uppercase tracking-widest text-[10px]">No Image Available</div>
-                        )}
-                    </motion.div>
+            <div className={styles.mainContainer}>
+                <div className={styles.card}>
+                    <div className={styles.grid}>
 
-                    {/* Product Info */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="flex flex-col h-full"
-                    >
-                        <span className="ms-detail-badge">{product.category}</span>
-                        <h1 className="ms-detail-title mb-6">{product.title}</h1>
-                        <div className="ms-detail-price mb-8">₹{product.price.toLocaleString()}</div>
-
-                        <p className="ms-detail-desc text-gray-500 leading-relaxed mb-12 text-lg border-l-2 border-yellow-400 pl-6">{product.description}</p>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                            <div className="flex items-start gap-4 p-6 bg-[#FAFAFA] rounded-lg border border-gray-50">
-                                <div className="text-yellow-500">
-                                    <Truck size={20} strokeWidth={3} />
-                                </div>
-                                <div>
-                                    <h4 className="font-black text-[10px] uppercase tracking-widest text-black mb-1">Fast Delivery</h4>
-                                    <p className="text-xs text-gray-400 font-medium font-body">Ships within 24h</p>
-                                </div>
-                            </div>
-                            <div className="flex items-start gap-4 p-6 bg-[#FAFAFA] rounded-lg border border-gray-50">
-                                <div className="text-yellow-500">
-                                    <RefreshCw size={20} strokeWidth={3} />
-                                </div>
-                                <div>
-                                    <h4 className="font-black text-[10px] uppercase tracking-widest text-black mb-1">Easy Returns</h4>
-                                    <p className="text-xs text-gray-400 font-medium font-body">14-day policy</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Desktop Add to Cart */}
-                        <div className="hidden lg:block mt-auto">
-                            <motion.button
-                                whileHover={{ scale: 1.02, y: -4 }}
-                                whileTap={{ scale: 0.98 }}
-                                onClick={() => addToCart(product)}
-                                className="w-full py-6 bg-black text-white font-black text-xs uppercase tracking-[0.3em] rounded-lg shadow-2xl shadow-black/10 hover:bg-[#FFD000] hover:text-black transition-all duration-500 flex items-center justify-center gap-4"
+                        {/* LEFT: Image Gallery */}
+                        <div className={styles.leftCol}>
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className={styles.imageBox}
                             >
-                                <ShoppingCart size={20} strokeWidth={3} />
-                                Add to Cart
-                            </motion.button>
+                                <div className={styles.imageGradient}></div>
+
+                                {product.images[0] ? (
+                                    <img
+                                        src={product.images[0]}
+                                        alt={product.title}
+                                        className={styles.mainImage}
+                                    />
+                                ) : (
+                                    <div className={styles.noImage}>No Image</div>
+                                )}
+
+                                <div className={styles.topRatedBadge}>
+                                    Top Rated
+                                </div>
+                            </motion.div>
                         </div>
-                    </motion.div>
+
+                        {/* RIGHT: Product Details */}
+                        <div className={styles.rightCol}>
+                            <div>
+                                {/* Title & Meta */}
+                                <div className={styles.titleBox}>
+                                    <h1 className={styles.title}>{product.title}</h1>
+                                    <div className={styles.metaRow}>
+                                        <div className={styles.ratingBadge}>
+                                            4.8
+                                            <svg width="10" height="10" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                                        </div>
+                                        <span className={styles.reviewText}>1,248 Ratings & 184 Reviews</span>
+                                    </div>
+                                </div>
+
+                                {/* Price Box */}
+                                <div className={styles.priceBox}>
+                                    <p className={styles.specialPriceLabel}>
+                                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4M12 16h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"></path></svg>
+                                        Special Price
+                                    </p>
+                                    <div className={styles.priceRow}>
+                                        <span className={styles.priceMain}>₹{product.price.toLocaleString()}</span>
+                                        <span className={styles.priceStrike}>₹{mrp.toLocaleString()}</span>
+                                        <span className={styles.priceOff}>{discountPercent}% off</span>
+                                    </div>
+                                    <p className={styles.taxInfo}>Inclusive of all taxes</p>
+                                </div>
+
+                                {/* Mobile Inline Actions (under price) */}
+                                <div className={styles.mobileInlineActions}>
+                                    <motion.button
+                                        whileTap={{ scale: 0.96 }}
+                                        onClick={() => addToCart(product)}
+                                        className={`${styles.btnMobile} ${styles.btnMobileWhite}`}
+                                    >
+                                        <ShoppingCart size={18} />
+                                        Add to Cart
+                                    </motion.button>
+                                    <motion.button
+                                        whileTap={{ scale: 0.96 }}
+                                        onClick={() => { addToCart(product); window.location.href = '/products/cart'; }}
+                                        className={`${styles.btnMobile} ${styles.btnMobileBlack}`}
+                                    >
+                                        Buy Now
+                                    </motion.button>
+                                </div>
+
+                                {/* Description */}
+                                <div className={styles.descBox}>
+                                    <h3 className={styles.descTitle}>Product Description</h3>
+                                    <p className={styles.descText}>
+                                        {product.description}
+                                    </p>
+                                </div>
+
+                                {/* Trust/Delivery Badges */}
+                                <div className={styles.trustGrid}>
+                                    <div className={styles.trustBadge}>
+                                        <div className={styles.trustIconWrap}><ShieldCheck size={16} strokeWidth={2.5} /></div>
+                                        <span className={styles.trustText}>100% Original</span>
+                                    </div>
+                                    <div className={styles.trustBadge}>
+                                        <div className={styles.trustIconWrap}><RefreshCw size={16} strokeWidth={2.5} /></div>
+                                        <span className={styles.trustText}>14-Day Return</span>
+                                    </div>
+                                    <div className={styles.trustBadge}>
+                                        <div className={styles.trustIconWrap}><Truck size={16} strokeWidth={2.5} /></div>
+                                        <span className={styles.trustText}>Express Del.</span>
+                                    </div>
+                                    <div className={styles.trustBadge}>
+                                        <div className={styles.trustIconWrap}>
+                                            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                        </div>
+                                        <span className={styles.trustText}>Secure Pay</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Desktop Actions */}
+                            <div className={styles.desktopActions}>
+                                <motion.button
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                    onClick={() => addToCart(product)}
+                                    className={`${styles.btn} ${styles.btnYellow}`}
+                                >
+                                    <ShoppingCart size={18} strokeWidth={2.5} />
+                                    Add to Cart
+                                </motion.button>
+                                <motion.button
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                    onClick={() => { addToCart(product); window.location.href = '/products/cart'; }}
+                                    className={`${styles.btn} ${styles.btnBlack}`}
+                                >
+                                    <Zap size={18} strokeWidth={2.5} className="fill-current" />
+                                    Buy Now
+                                </motion.button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            {/* Mobile Sticky CTA */}
-            <div className="ms-sticky-cta lg:hidden">
-                <div className="flex-grow">
-                    <div className="text-[10px] font-black uppercase text-gray-400 tracking-widest mb-1">Total Price</div>
-                    <div className="text-lg font-black text-black">₹{product.price.toLocaleString()}</div>
-                </div>
-                <motion.button
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => addToCart(product)}
-                    className="flex-grow-[2] py-4 bg-black text-white font-black text-[10px] uppercase tracking-widest rounded-lg flex items-center justify-center gap-2"
-                >
-                    <ShoppingCart size={16} strokeWidth={3} />
-                    Add
-                </motion.button>
-            </div>
         </div>
     );
 }

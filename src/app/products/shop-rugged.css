@@ -143,6 +143,20 @@
     }
 }
 
+/* Custom Zoom for "All" Category Image */
+.all-cat-img {
+    object-fit: cover !important;
+    transform: scale(1.4);
+    mix-blend-mode: multiply;
+}
+
+.category-item:hover .all-cat-img {
+    transform: scale(1.5) rotate(2deg);
+}
+.category-item.active .category-icon-box .all-cat-img {
+    transform: scale(1.45);
+}
+
 /* --- HERO BANNER (CONTAINED) --- */
 .retail-hero-section {
     padding: 16px;

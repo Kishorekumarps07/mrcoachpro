@@ -126,8 +126,6 @@ button {
   body {
     line-height: 1.7;
     /* Increased from 1.6 for mobile readability */
-    padding-bottom: 80px;
-    /* Space for mobile bottom navigation */
   }
 
   h1,

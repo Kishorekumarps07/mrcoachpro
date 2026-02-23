@@ -11,12 +11,12 @@ import Link from 'next/link';
 
 // RETAIL CATEGORIES (Horizontal Rail)
 const RETAIL_CATS = [
-    { id: 'all', label: 'All', img: '/images/categories/all-products.png' }, // Placeholder/Generic image or use a specific one
+    { id: 'all', label: 'All', img: '/images/categories/all-3d.png' },
     { id: 'protein', label: 'Protein', img: '/images/categories/protein-3d.png' },
-    { id: 'pre', label: 'Pre-Wkt', img: '/images/categories/preworkout-3d.png' },
+    { id: 'pre-workout', label: 'Pre-Wkt', img: '/images/categories/preworkout-3d.png' },
     { id: 'vitamins', label: 'Vitamins', img: '/images/categories/vitamins-3d.png' },
     { id: 'gainers', label: 'Gainers', img: '/images/categories/gainer-3d.png' },
-    { id: 'equip', label: 'Gear', img: '/images/categories/gear-3d.png' },
+    { id: 'gear', label: 'Gear', img: '/images/categories/gear-3d.png' },
 ];
 
 // ── Reusable horizontal-scroll category section ──────────────────
@@ -159,11 +159,10 @@ export default function ShopPage() {
                 {RETAIL_CATS.map((cat) => (
                     <div
                         key={cat.id}
-                        className={`category-item ${
-                            (cat.id === 'all' && !activeCategory) || 
-                            activeCategory?.toLowerCase() === cat.id.toLowerCase() 
+                        className={`category-item ${(cat.id === 'all' && !activeCategory) ||
+                            activeCategory?.toLowerCase() === cat.id.toLowerCase()
                             ? 'active' : ''
-                        }`}
+                            }`}
                         onClick={() => {
                             if (cat.id === 'all') {
                                 setActiveCategory(null);
@@ -174,77 +173,108 @@ export default function ShopPage() {
                             }
                         }}
                     >
-                        <div className="category-icon-box">
-                            <img src={cat.img} alt={cat.label} className="category-3d-img" />
+                        <div className="category-icon-box" style={cat.id === 'all' ? { padding: 0 } : {}}>
+                            <img
+                                src={cat.img}
+                                alt={cat.label}
+                                className={`category-3d-img ${cat.id === 'all' ? 'all-cat-img' : ''}`}
+                            />
                         </div>
                         <span className="category-label">{cat.label}</span>
                     </div>
                 ))}
             </div>
 
+            {/* DYNAMIC RESULTS: Display right under category rail if activeCategory or searchQuery exist */}
+            {(activeCategory || searchQuery) && (
+                <section className="retail-section cat-section" style={{ marginTop: '24px' }}>
+                    <div className="retail-section-header">
+                        {searchQuery ? (
+                            <h2 className="retail-section-title">
+                                {filteredProducts.length} result{filteredProducts.length !== 1 ? 's' : ''} for &ldquo;{searchQuery}&rdquo;
+                            </h2>
+                        ) : (
+                            <h2 className="retail-section-title">
+                                Browsing: {activeCategory}
+                            </h2>
+                        )}
+                    </div>
+
+                    {isLoading ? (
+                        <div className="cat-scroll-row">
+                            {[1, 2, 3, 4, 5].map(i => (
+                                <div key={i} className="cat-product-card" style={{ height: 260, background: '#F4F4F4' }} />
+                            ))}
+                        </div>
+                    ) : filteredProducts.length === 0 ? (
+                        <div style={{ textAlign: 'center', padding: '60px 24px', color: '#999' }}>
+                            <p style={{ fontSize: 18, fontWeight: 700 }}>No products found for &ldquo;{searchQuery || activeCategory}&rdquo;</p>
+                            <p style={{ fontSize: 13, marginTop: 8 }}>Try a different keyword or browse categories above.</p>
+                        </div>
+                    ) : (
+                        <div className="cat-scroll-row">
+                            {filteredProducts.map((product, index) => (
+                                <ProductCard key={product.id} product={product} index={index} addToCart={addToCart} />
+                            ))}
+                        </div>
+                    )}
+                </section>
+            )}
+
             {/* HERO CAROUSEL */}
-            <section className="retail-hero-section">
-                <ShopHeroCarousel />
-            </section>
+            {!(activeCategory || searchQuery) && (
+                <section className="retail-hero-section">
+                    <ShopHeroCarousel />
+                </section>
+            )}
 
             {/* POPULAR BRANDS */}
-            <section className="retail-section">
-                <div className="retail-section-header">
-                    <h2 className="retail-section-title">Popular Brands</h2>
-                    <span className="retail-view-all">View All</span>
-                </div>
-                <div className="brand-grid">
-                    {[
-                        { name: 'On', img: '/images/brands/on.png' },
-                        { name: 'MuscleTech', img: '/images/brands/muscletech.png' },
-                        { name: 'Dymatize', img: '/images/brands/dynamite.png' },
-                        { name: 'BPI', img: '/images/brands/bpisports.png' },
-                        { name: 'GNC', img: '/images/brands/gnc.png' },
-                        { name: 'MyProtein', img: '/images/brands/myprotein.png' }
-                    ].map((brand, i) => (
-                        <div key={i} className="brand-card">
-                            <img src={brand.img} alt={brand.name} className="brand-logo" />
-                            <span className="brand-name">{brand.name}</span>
-                        </div>
-                    ))}
-                </div>
-            </section>
+            {!(activeCategory || searchQuery) && (
+                <section className="retail-section">
+                    <div className="retail-section-header">
+                        <h2 className="retail-section-title">Popular Brands</h2>
+                        <span className="retail-view-all">View All</span>
+                    </div>
+                    <div className="brand-grid">
+                        {[
+                            { name: 'On', img: '/images/brands/on.png' },
+                            { name: 'MuscleTech', img: '/images/brands/muscletech.png' },
+                            { name: 'Dymatize', img: '/images/brands/dynamite.png' },
+                            { name: 'BPI', img: '/images/brands/bpisports.png' },
+                            { name: 'GNC', img: '/images/brands/gnc.png' },
+                            { name: 'MyProtein', img: '/images/brands/myprotein.png' }
+                        ].map((brand, i) => (
+                            <div key={i} className="brand-card">
+                                <img src={brand.img} alt={brand.name} className="brand-logo" />
+                                <span className="brand-name">{brand.name}</span>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            )}
 
-            {/* TRENDING NOW — same card style as category sections */}
-            <section className="retail-section cat-section">
-                <div className="retail-section-header">
-                    {searchQuery ? (
-                        <h2 className="retail-section-title">
-                            {filteredProducts.length} result{filteredProducts.length !== 1 ? 's' : ''} for &ldquo;{searchQuery}&rdquo;
-                        </h2>
-                    ) : activeCategory ? (
-                        <h2 className="retail-section-title">
-                            Browsing: {activeCategory}
-                        </h2>
-                    ) : (
+            {/* TRENDING NOW — Show here if default view */}
+            {!(activeCategory || searchQuery) && (
+                <section className="retail-section cat-section">
+                    <div className="retail-section-header">
                         <h2 className="retail-section-title">🔥 Trending Now</h2>
-                    )}
-                </div>
+                    </div>
 
-                {isLoading ? (
-                    <div className="cat-scroll-row">
-                        {[1, 2, 3, 4, 5].map(i => (
-                            <div key={i} className="cat-product-card" style={{ height: 260, background: '#F4F4F4' }} />
-                        ))}
-                    </div>
-                ) : filteredProducts.length === 0 ? (
-                    <div style={{ textAlign: 'center', padding: '60px 24px', color: '#999' }}>
-                        <p style={{ fontSize: 18, fontWeight: 700 }}>No products found for &ldquo;{searchQuery}&rdquo;</p>
-                        <p style={{ fontSize: 13, marginTop: 8 }}>Try a different keyword or browse categories above.</p>
-                    </div>
-                ) : (
-                    <div className="cat-scroll-row">
-                        {filteredProducts.map((product, index) => (
-                            <ProductCard key={product.id} product={product} index={index} addToCart={addToCart} />
-                        ))}
-                    </div>
-                )}
-            </section>
+                    {isLoading ? (
+                        <div className="cat-scroll-row">
+                            {[1, 2, 3, 4, 5].map(i => (
+                                <div key={i} className="cat-product-card" style={{ height: 260, background: '#F4F4F4' }} />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="cat-scroll-row">
+                            {filteredProducts.map((product, index) => (
+                                <ProductCard key={product.id} product={product} index={index} addToCart={addToCart} />
+                            ))}
+                        </div>
+                    )}
+                </section>
+            )}
 
             {/* SEPARATOR / DIVIDER FOR CATEGORY SECTIONS (only if not searching/filtering) */}
             {!isLoading && !searchQuery && !activeCategory && (
