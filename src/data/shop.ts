@@ -12,7 +12,7 @@ export const PRODUCTS: Product[] = [
         price: 5499,
         images: ['/images/products/gold-standard-whey-nobg.png'],
         category: 'protein',
-        stock: 180,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -24,7 +24,7 @@ export const PRODUCTS: Product[] = [
         price: 2999,
         images: ['/images/products/muscleblaze-whey-nobg.png'],
         category: 'protein',
-        stock: 220,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -36,7 +36,7 @@ export const PRODUCTS: Product[] = [
         price: 6499,
         images: ['/images/products/dymatize-iso100-nobg.png'],
         category: 'protein',
-        stock: 120,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -48,7 +48,7 @@ export const PRODUCTS: Product[] = [
         price: 2199,
         images: ['/images/products/myprotein-impact-nobg.png'],
         category: 'protein',
-        stock: 300,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -60,7 +60,7 @@ export const PRODUCTS: Product[] = [
         price: 4299,
         images: ['/images/products/casein-vanilla-nobg.png'],
         category: 'protein',
-        stock: 90,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -76,7 +76,7 @@ export const PRODUCTS: Product[] = [
         price: 2799,
         images: ['/images/products/c4-preworkout-nobg.png'],
         category: 'pre-workout',
-        stock: 140,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -88,7 +88,7 @@ export const PRODUCTS: Product[] = [
         price: 3299,
         images: ['/images/products/on-gold-pre-nobg.png'],
         category: 'pre-workout',
-        stock: 100,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -100,7 +100,7 @@ export const PRODUCTS: Product[] = [
         price: 2499,
         images: ['/images/products/musclepharm-assault-nobg.png'],
         category: 'pre-workout',
-        stock: 85,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -112,7 +112,7 @@ export const PRODUCTS: Product[] = [
         price: 3499,
         images: ['/images/products/muscletech-vaporx5-nobg.png'],
         category: 'pre-workout',
-        stock: 70,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -128,7 +128,7 @@ export const PRODUCTS: Product[] = [
         price: 1999,
         images: ['/images/products/on-opti-men-nobg.png'],
         category: 'vitamins',
-        stock: 250,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -140,7 +140,7 @@ export const PRODUCTS: Product[] = [
         price: 899,
         images: ['/images/products/vitamin-d3-k2-nobg.png'],
         category: 'vitamins',
-        stock: 400,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -152,7 +152,7 @@ export const PRODUCTS: Product[] = [
         price: 1299,
         images: ['/images/products/zma-nobg.png'],
         category: 'vitamins',
-        stock: 180,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -164,7 +164,7 @@ export const PRODUCTS: Product[] = [
         price: 599,
         images: ['/images/products/vitamin-c-nobg.png'],
         category: 'vitamins',
-        stock: 500,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -176,7 +176,7 @@ export const PRODUCTS: Product[] = [
         price: 749,
         images: ['/images/products/b-complex-nobg.png'],
         category: 'vitamins',
-        stock: 350,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -192,7 +192,7 @@ export const PRODUCTS: Product[] = [
         price: 4999,
         images: ['/images/products/on-serious-mass-nobg.png'],
         category: 'gainers',
-        stock: 130,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -204,7 +204,7 @@ export const PRODUCTS: Product[] = [
         price: 5499,
         images: ['/images/products/bsn-true-mass-nobg.png'],
         category: 'gainers',
-        stock: 90,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -216,7 +216,7 @@ export const PRODUCTS: Product[] = [
         price: 2399,
         images: ['/images/products/macroblaze-mass-gainer-nobg.png'],
         category: 'gainers',
-        stock: 200,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -228,7 +228,7 @@ export const PRODUCTS: Product[] = [
         price: 6499,
         images: ['/images/products/muscletech-mass-tech-nobg.png'],
         category: 'gainers',
-        stock: 60,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -244,7 +244,7 @@ export const PRODUCTS: Product[] = [
         price: 799,
         images: ['/images/products/wrist-wraps-nobg.png'],
         category: 'gear',
-        stock: 200,
+        stock: 50,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -256,7 +256,7 @@ export const PRODUCTS: Product[] = [
         price: 499,
         images: ['/images/products/lifting-straps-nobg.png'],
         category: 'gear',
-        stock: 250,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -268,7 +268,7 @@ export const PRODUCTS: Product[] = [
         price: 2499,
         images: ['/images/products/knee-sleeves-nobg.png'],
         category: 'gear',
-        stock: 80,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -280,7 +280,7 @@ export const PRODUCTS: Product[] = [
         price: 699,
         images: ['/images/products/gym-gloves-nobg.png'],
         category: 'gear',
-        stock: 150,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },
@@ -292,7 +292,7 @@ export const PRODUCTS: Product[] = [
         price: 899,
         images: ['/images/products/gallon-shaker-nobg.png'],
         category: 'gear',
-        stock: 300,
+        stock: 0,
         isActive: true,
         createdAt: new Date().toISOString()
     },

@@ -52,21 +52,44 @@ function CategorySection({
                         <div className={`card-badge badge-${index % 3 === 0 ? 'popular' : index % 3 === 1 ? 'lowest' : 'hot'}`}>
                             {index % 3 === 0 ? 'Popular' : index % 3 === 1 ? 'Best Price' : 'Hot'}
                         </div>
-                        <Link href={`/products/${product.slug}`} className="cat-card-img-wrap">
-                            <img src={product.images[0]} alt={product.title} className="cat-card-img" />
+                        <Link href={`/products/${product.slug}`} className="cat-card-img-wrap" style={{ position: 'relative' }}>
+                            {product.stock === 0 && (
+                                <div style={{
+                                    position: 'absolute', inset: 0, backgroundColor: 'rgba(255,255,255,0.6)',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10
+                                }}>
+                                    <span style={{
+                                        backgroundColor: '#EF4444', color: 'white', padding: '4px 8px',
+                                        borderRadius: '4px', fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase'
+                                    }}>Out of Stock</span>
+                                </div>
+                            )}
+                            <img
+                                src={product.images[0]}
+                                alt={product.title}
+                                className="cat-card-img"
+                                style={{ filter: product.stock === 0 ? 'grayscale(100%) opacity(70%)' : 'none' }}
+                            />
                         </Link>
                         <div className="cat-card-body">
                             <span className="cat-card-tag">{product.category}</span>
-                            <h3 className="cat-card-title">{product.title}</h3>
+                            <h3 className="cat-card-title" style={{ color: product.stock === 0 ? '#9CA3AF' : 'inherit' }}>{product.title}</h3>
                             <div className="cat-card-price-row">
                                 <span className="cat-card-price">₹{product.price.toLocaleString('en-IN')}</span>
                                 <button
                                     className="cat-card-atc"
-                                    onClick={() => addToCart(product)}
+                                    onClick={() => product.stock > 0 && addToCart(product)}
                                     aria-label={`Add ${product.title} to cart`}
+                                    disabled={product.stock === 0}
+                                    style={{
+                                        opacity: product.stock === 0 ? 0.5 : 1,
+                                        cursor: product.stock === 0 ? 'not-allowed' : 'pointer',
+                                        backgroundColor: product.stock === 0 ? '#E5E7EB' : '',
+                                        color: product.stock === 0 ? '#6B7280' : ''
+                                    }}
                                 >
                                     <ShoppingBag size={14} />
-                                    Add
+                                    {product.stock === 0 ? 'Out of Stock' : 'Add'}
                                 </button>
                             </div>
                         </div>
@@ -84,21 +107,44 @@ function ProductCard({ product, index, addToCart }: { product: Product; index: n
             <div className={`card-badge badge-${index % 3 === 0 ? 'popular' : index % 3 === 1 ? 'lowest' : 'hot'}`}>
                 {index % 3 === 0 ? 'Popular' : index % 3 === 1 ? 'Best Price' : 'Hot'}
             </div>
-            <Link href={`/products/${product.slug}`} className="cat-card-img-wrap">
-                <img src={product.images[0]} alt={product.title} className="cat-card-img" />
+            <Link href={`/products/${product.slug}`} className="cat-card-img-wrap" style={{ position: 'relative' }}>
+                {product.stock === 0 && (
+                    <div style={{
+                        position: 'absolute', inset: 0, backgroundColor: 'rgba(255,255,255,0.6)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10
+                    }}>
+                        <span style={{
+                            backgroundColor: '#EF4444', color: 'white', padding: '4px 8px',
+                            borderRadius: '4px', fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase'
+                        }}>Out of Stock</span>
+                    </div>
+                )}
+                <img
+                    src={product.images[0]}
+                    alt={product.title}
+                    className="cat-card-img"
+                    style={{ filter: product.stock === 0 ? 'grayscale(100%) opacity(70%)' : 'none' }}
+                />
             </Link>
             <div className="cat-card-body">
                 <span className="cat-card-tag">{product.category}</span>
-                <h3 className="cat-card-title">{product.title}</h3>
+                <h3 className="cat-card-title" style={{ color: product.stock === 0 ? '#9CA3AF' : 'inherit' }}>{product.title}</h3>
                 <div className="cat-card-price-row">
                     <span className="cat-card-price">₹{product.price.toLocaleString('en-IN')}</span>
                     <button
                         className="cat-card-atc"
-                        onClick={() => addToCart(product)}
+                        onClick={() => product.stock > 0 && addToCart(product)}
                         aria-label={`Add ${product.title} to cart`}
+                        disabled={product.stock === 0}
+                        style={{
+                            opacity: product.stock === 0 ? 0.5 : 1,
+                            cursor: product.stock === 0 ? 'not-allowed' : 'pointer',
+                            backgroundColor: product.stock === 0 ? '#E5E7EB' : '',
+                            color: product.stock === 0 ? '#6B7280' : ''
+                        }}
                     >
                         <ShoppingBag size={14} />
-                        Add
+                        {product.stock === 0 ? 'Out of Stock' : 'Add'}
                     </button>
                 </div>
             </div>
@@ -110,7 +156,15 @@ function ProductCard({ product, index, addToCart }: { product: Product; index: n
 export default function ShopPage() {
     const [products, setProducts] = useState<Product[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const { addToCart, searchQuery, setAllProducts, activeCategory, setActiveCategory } = useShop();
+    const {
+        addToCart,
+        searchQuery,
+        setAllProducts,
+        activeCategory,
+        setActiveCategory,
+        minPrice,
+        maxPrice
+    } = useShop();
 
     useEffect(() => {
         const loadProducts = async () => {
@@ -130,26 +184,41 @@ export default function ShopPage() {
     const q = searchQuery.toLowerCase().trim();
     const cat = activeCategory?.toLowerCase().trim();
 
-    // 1. Search Query exists -> Show matches across all categories
-    // 2. Active Category selected -> Show all products in that category
-    // 3. Default -> Show 1 trending product per category
-    const filteredProducts = q
-        ? products.filter(p =>
+    // 1. Filter by Search Query (if any)
+    // 2. Filter by Active Category (if any)
+    // 3. Filter by Price Range (if any)
+    // 4. Default -> Show 1 trending product per category (if no category/search active)
+    let filteredProducts = products;
+
+    if (q) {
+        filteredProducts = filteredProducts.filter(p =>
             p.title?.toLowerCase().includes(q) ||
             p.category?.toLowerCase().includes(q) ||
             (p as any).brand?.toLowerCase().includes(q)
-        )
-        : cat
-            ? products.filter(p => p.category?.toLowerCase() === cat)
-            : (() => {
-                const seen = new Set<string>();
-                return products.filter(p => {
-                    const c = p.category?.toLowerCase() ?? 'other';
-                    if (seen.has(c)) return false;
-                    seen.add(c);
-                    return true;
-                });
-            })();
+        );
+    } else if (cat) {
+        filteredProducts = filteredProducts.filter(p => p.category?.toLowerCase() === cat);
+    } else {
+        // If neither search nor direct category filter is active, show the trending one-per-category view
+        const seen = new Set<string>();
+        filteredProducts = filteredProducts.filter(p => {
+            const c = p.category?.toLowerCase() ?? 'other';
+            if (seen.has(c)) return false;
+            seen.add(c);
+            return true;
+        });
+    }
+
+    // Apply Price Filters on top of whatever results we have
+    if (minPrice !== null) {
+        filteredProducts = filteredProducts.filter(p => p.price >= minPrice);
+    }
+    if (maxPrice !== null) {
+        filteredProducts = filteredProducts.filter(p => p.price <= maxPrice);
+    }
+
+    // Ensure the dynamic section shows up if any filter is active (search, cat, or price)
+    const isDynamicFilterActive = activeCategory || searchQuery || minPrice !== null || maxPrice !== null;
 
     return (
         <div className="shop-wrapper">
@@ -185,13 +254,17 @@ export default function ShopPage() {
                 ))}
             </div>
 
-            {/* DYNAMIC RESULTS: Display right under category rail if activeCategory or searchQuery exist */}
-            {(activeCategory || searchQuery) && (
+            {/* DYNAMIC RESULTS: Display right under category rail if activeCategory, searchQuery, or price limits exist */}
+            {isDynamicFilterActive && (
                 <section className="retail-section cat-section" style={{ marginTop: '24px' }}>
                     <div className="retail-section-header">
                         {searchQuery ? (
                             <h2 className="retail-section-title">
                                 {filteredProducts.length} result{filteredProducts.length !== 1 ? 's' : ''} for &ldquo;{searchQuery}&rdquo;
+                            </h2>
+                        ) : minPrice !== null || maxPrice !== null ? (
+                            <h2 className="retail-section-title">
+                                Filtered Products
                             </h2>
                         ) : (
                             <h2 className="retail-section-title">

@@ -79,12 +79,26 @@ export default function ProductDetailPage() {
                             >
                                 <div className={styles.imageGradient}></div>
 
-                                {product.images[0] ? (
-                                    <img
-                                        src={product.images[0]}
-                                        alt={product.title}
-                                        className={styles.mainImage}
-                                    />
+                                {product.images?.[0] ? (
+                                    <>
+                                        {product.stock === 0 && (
+                                            <div style={{
+                                                position: 'absolute', inset: 0, backgroundColor: 'rgba(255,255,255,0.7)',
+                                                display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 15
+                                            }}>
+                                                <span style={{
+                                                    backgroundColor: '#EF4444', color: 'white', padding: '8px 16px',
+                                                    borderRadius: '6px', fontSize: '18px', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '0.05em'
+                                                }}>Out of Stock</span>
+                                            </div>
+                                        )}
+                                        <img
+                                            src={product.images[0]}
+                                            alt={product.title}
+                                            className={styles.mainImage}
+                                            style={{ filter: product.stock === 0 ? 'grayscale(100%) opacity(50%)' : 'none' }}
+                                        />
+                                    </>
                                 ) : (
                                     <div className={styles.noImage}>No Image</div>
                                 )}
@@ -127,19 +141,31 @@ export default function ProductDetailPage() {
                                 {/* Mobile Inline Actions (under price) */}
                                 <div className={styles.mobileInlineActions}>
                                     <motion.button
-                                        whileTap={{ scale: 0.96 }}
-                                        onClick={() => addToCart(product)}
+                                        whileTap={{ scale: product.stock > 0 ? 0.96 : 1 }}
+                                        onClick={() => product.stock > 0 && addToCart(product)}
                                         className={`${styles.btnMobile} ${styles.btnMobileWhite}`}
+                                        disabled={product.stock === 0}
+                                        style={{
+                                            opacity: product.stock === 0 ? 0.5 : 1,
+                                            cursor: product.stock === 0 ? 'not-allowed' : 'pointer',
+                                            backgroundColor: product.stock === 0 ? '#F3F4F6' : '',
+                                            color: product.stock === 0 ? '#9CA3AF' : ''
+                                        }}
                                     >
                                         <ShoppingCart size={18} />
-                                        Add to Cart
+                                        {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
                                     </motion.button>
                                     <motion.button
-                                        whileTap={{ scale: 0.96 }}
-                                        onClick={() => { addToCart(product); window.location.href = '/products/cart'; }}
+                                        whileTap={{ scale: product.stock > 0 ? 0.96 : 1 }}
+                                        onClick={() => { if (product.stock > 0) { addToCart(product); window.location.href = '/products/cart'; } }}
                                         className={`${styles.btnMobile} ${styles.btnMobileBlack}`}
+                                        disabled={product.stock === 0}
+                                        style={{
+                                            opacity: product.stock === 0 ? 0.4 : 1,
+                                            cursor: product.stock === 0 ? 'not-allowed' : 'pointer'
+                                        }}
                                     >
-                                        Buy Now
+                                        {product.stock === 0 ? 'Unavailable' : 'Buy Now'}
                                     </motion.button>
                                 </div>
 
@@ -177,22 +203,35 @@ export default function ProductDetailPage() {
                             {/* Desktop Actions */}
                             <div className={styles.desktopActions}>
                                 <motion.button
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    onClick={() => addToCart(product)}
+                                    whileHover={{ scale: product.stock > 0 ? 1.02 : 1 }}
+                                    whileTap={{ scale: product.stock > 0 ? 0.98 : 1 }}
+                                    onClick={() => product.stock > 0 && addToCart(product)}
                                     className={`${styles.btn} ${styles.btnYellow}`}
+                                    disabled={product.stock === 0}
+                                    style={{
+                                        opacity: product.stock === 0 ? 0.5 : 1,
+                                        cursor: product.stock === 0 ? 'not-allowed' : 'pointer',
+                                        backgroundColor: product.stock === 0 ? '#E5E7EB' : '',
+                                        borderColor: product.stock === 0 ? '#E5E7EB' : '',
+                                        color: product.stock === 0 ? '#6B7280' : ''
+                                    }}
                                 >
                                     <ShoppingCart size={18} strokeWidth={2.5} />
-                                    Add to Cart
+                                    {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
                                 </motion.button>
                                 <motion.button
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    onClick={() => { addToCart(product); window.location.href = '/products/cart'; }}
+                                    whileHover={{ scale: product.stock > 0 ? 1.02 : 1 }}
+                                    whileTap={{ scale: product.stock > 0 ? 0.98 : 1 }}
+                                    onClick={() => { if (product.stock > 0) { addToCart(product); window.location.href = '/products/cart'; } }}
                                     className={`${styles.btn} ${styles.btnBlack}`}
+                                    disabled={product.stock === 0}
+                                    style={{
+                                        opacity: product.stock === 0 ? 0.5 : 1,
+                                        cursor: product.stock === 0 ? 'not-allowed' : 'pointer'
+                                    }}
                                 >
                                     <Zap size={18} strokeWidth={2.5} className="fill-current" />
-                                    Buy Now
+                                    {product.stock === 0 ? 'Unavailable' : 'Buy Now'}
                                 </motion.button>
                             </div>
                         </div>

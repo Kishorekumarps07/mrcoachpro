@@ -21,6 +21,11 @@ interface ShopContextType {
     // ── Category ──
     activeCategory: string | null;
     setActiveCategory: (cat: string | null) => void;
+    // ── Price Filter ──
+    minPrice: number | null;
+    setMinPrice: (price: number | null) => void;
+    maxPrice: number | null;
+    setMaxPrice: (price: number | null) => void;
 }
 
 const ShopContext = createContext<ShopContextType | undefined>(undefined);
@@ -32,6 +37,8 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [allProducts, setAllProducts] = useState<Product[]>([]);
     const [activeCategory, setActiveCategory] = useState<string | null>(null);
+    const [minPrice, setMinPrice] = useState<number | null>(null);
+    const [maxPrice, setMaxPrice] = useState<number | null>(null);
 
     // Load cart from local storage on mount
     useEffect(() => {
@@ -97,6 +104,10 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
             setAllProducts,
             activeCategory,
             setActiveCategory,
+            minPrice,
+            setMinPrice,
+            maxPrice,
+            setMaxPrice,
         }}>
             {children}
         </ShopContext.Provider>

@@ -12,7 +12,29 @@ export const ShopNavbar = () => {
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [showSuggestions, setShowSuggestions] = useState(false);
-    const { setSearchQuery, allProducts, activeCategory, setActiveCategory } = useShop();
+    const {
+        setSearchQuery,
+        allProducts,
+        activeCategory,
+        setActiveCategory,
+        minPrice,
+        setMinPrice,
+        maxPrice,
+        setMaxPrice
+    } = useShop();
+
+    // Local filter states
+    const [localMinPrice, setLocalMinPrice] = useState<string>(minPrice ? minPrice.toString() : '');
+    const [localMaxPrice, setLocalMaxPrice] = useState<string>(maxPrice ? maxPrice.toString() : '');
+
+    // Reset local state when drawer opens to reflect global
+    useEffect(() => {
+        if (isFilterOpen) {
+            setLocalMinPrice(minPrice ? minPrice.toString() : '');
+            setLocalMaxPrice(maxPrice ? maxPrice.toString() : '');
+        }
+    }, [isFilterOpen, minPrice, maxPrice]);
+
     const inputRef = useRef<HTMLInputElement>(null);
     const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -244,11 +266,23 @@ export const ShopNavbar = () => {
                                 <div className={styles.priceInputs}>
                                     <div className={styles.priceField}>
                                         <span>Min</span>
-                                        <input type="number" placeholder="0" className={styles.priceInput} />
+                                        <input
+                                            type="number"
+                                            placeholder="0"
+                                            className={styles.priceInput}
+                                            value={localMinPrice}
+                                            onChange={(e) => setLocalMinPrice(e.target.value)}
+                                        />
                                     </div>
                                     <div className={styles.priceField}>
                                         <span>Max</span>
-                                        <input type="number" placeholder="5000" className={styles.priceInput} />
+                                        <input
+                                            type="number"
+                                            placeholder="5000"
+                                            className={styles.priceInput}
+                                            value={localMaxPrice}
+                                            onChange={(e) => setLocalMaxPrice(e.target.value)}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -261,12 +295,24 @@ export const ShopNavbar = () => {
                                     setActiveCategory(null);
                                     setSearchQuery('');
                                     setInputValue('');
+                                    setMinPrice(null);
+                                    setMaxPrice(null);
+                                    setLocalMinPrice('');
+                                    setLocalMaxPrice('');
                                     setIsFilterOpen(false);
                                 }}
                             >
                                 Clear All
                             </button>
-                            <button className={styles.applyBtn} onClick={() => setIsFilterOpen(false)}>
+                            <button
+                                className={styles.applyBtn}
+                                onClick={() => {
+                                    // Apply local filter state to global context
+                                    setMinPrice(localMinPrice === '' ? null : Number(localMinPrice));
+                                    setMaxPrice(localMaxPrice === '' ? null : Number(localMaxPrice));
+                                    setIsFilterOpen(false);
+                                }}
+                            >
                                 Apply Filters
                             </button>
                         </div>
