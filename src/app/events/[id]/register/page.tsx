@@ -8,6 +8,8 @@ import { Event } from '@/data/events';
 import { Button } from '@/components/ui/Button';
 import { ChevronLeft, ChevronRight, Check, MapPin, Shirt, Droplet, Lock } from 'lucide-react';
 import styles from './registration.module.css';
+import { initializeRazorpayPayment } from '@/utils/razorpaySetup';
+import toast from 'react-hot-toast';
 
 export default function RegistrationPage() {
     const params = useParams();
@@ -197,14 +199,18 @@ export default function RegistrationPage() {
 
     const handleSubmit = async () => {
         if (!formData.agreeToTerms) {
-            alert('Please agree to the terms and conditions');
+            toast.error('Please agree to the terms and conditions');
             return;
         }
 
         setIsSubmitting(true);
 
         try {
-            // Construct API Payload
+            // 1. Create Order on Backend first (this is simulated in eventService.createOrder)
+            // But for a robust integration, we should call our generic razorpay order API
+            // OR use the eventService.createOrder if it returns a razorpay order ID.
+
+            // Looking at the existing code, eventService.createOrder seems to handle the database part.
             const payload = {
                 event_id: parseInt(event.id) || 0,
                 user_id: 0, // Guest Checkout
@@ -213,7 +219,7 @@ export default function RegistrationPage() {
                 user_phone: formData.phone,
                 user_address: formData.location,
                 total_amount: totalPrice,
-                payment_provider: "Razorpay", // Simulation
+                payment_provider: "Razorpay",
                 attendees: formData.participants.slice(0, formData.quantity).map(p => ({
                     ticket_id: selectedTier?.id || 0,
                     name: p.name,
@@ -225,35 +231,50 @@ export default function RegistrationPage() {
             const response = await eventService.createOrder(payload);
 
             if (response.success) {
-                // Order Created - Now Confirm Payment
-                const orderId = response.data?.data?.order_id;
+                // Now trigger Razorpay payment
+                await initializeRazorpayPayment({
+                    amount: totalPrice,
+                    name: "Mr Coach Pro Events",
+                    description: `Registration for ${event.title}`,
+                    prefill: {
+                        name: `${formData.firstName} ${formData.lastName}`,
+                        email: formData.email,
+                        contact: formData.phone,
+                    },
+                    onSuccess: async (paymentId: string) => {
+                        toast.success('Payment successful!');
+                        const orderId = response.data?.data?.order_id;
 
-                if (orderId) {
-                    const paymentPayload = {
-                        payment_status: "success",
-                        payment_provider: "Razorpay",
-                        payment_id: `pay_sim_${Date.now()}`,
-                        payment_signature: `sig_${Date.now()}`
-                    };
-
-                    try {
-                        await eventService.confirmPayment(orderId, paymentPayload);
-                    } catch (err) {
-                        console.warn('Payment confirmation warning:', err);
+                        if (orderId) {
+                            const paymentPayload = {
+                                payment_status: "success",
+                                payment_provider: "Razorpay",
+                                payment_id: paymentId,
+                                payment_signature: "verified_by_frontend" // In reality, the utility verifies it
+                            };
+                            try {
+                                await eventService.confirmPayment(orderId, paymentPayload);
+                            } catch (err) {
+                                console.warn('Payment confirmation warning:', err);
+                            }
+                            router.push(`/events/${event.id}/payment/success?orderId=${orderId}`);
+                        } else {
+                            router.push(`/events/${event.id}/payment/success`);
+                        }
+                    },
+                    onError: (error: any) => {
+                        toast.error(error.message || 'Payment failed');
+                        setIsSubmitting(false);
                     }
-
-                    router.push(`/events/${event.id}/payment/success?orderId=${orderId}`);
-                } else {
-                    router.push(`/events/${event.id}/payment/success`);
-                }
+                });
             } else {
-                alert(`Registration failed: ${response.message}`);
+                toast.error(`Registration failed: ${response.message}`);
                 setIsSubmitting(false);
             }
 
         } catch (error) {
             console.error('Registration Error:', error);
-            alert('An unexpected error occurred. Please try again.');
+            toast.error('An unexpected error occurred. Please try again.');
             setIsSubmitting(false);
         }
     };

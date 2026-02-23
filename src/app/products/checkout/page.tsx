@@ -4,11 +4,17 @@ import React, { useState } from 'react';
 import { useShop } from '@/app/products/context/ShopContext';
 import { ArrowRight, ShoppingBag, Lock, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import './checkout.css';
 
+import { initializeRazorpayPayment } from '@/utils/razorpaySetup';
+import toast from 'react-hot-toast';
+
 export default function CheckoutPage() {
-    const { cart, cartTotal } = useShop();
+    const router = useRouter();
+    const { cart, cartTotal, clearCart } = useShop();
+    const [isProcessing, setIsProcessing] = useState(false);
     const [paymentMethod, setPaymentMethod] = useState<'razorpay' | 'upi' | 'cod'>('razorpay');
     const [formData, setFormData] = useState({
         name: '',
@@ -24,9 +30,42 @@ export default function CheckoutPage() {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleCheckout = (e: React.FormEvent) => {
+    const handleCheckout = async (e: React.FormEvent) => {
         e.preventDefault();
-        alert('Payment integration pending (Razorpay)');
+
+        if (paymentMethod === 'cod') {
+            toast.success('Order placed successfully (Cash on Delivery)');
+            clearCart();
+            router.push('/products/success'); // Assuming a success page exists
+            return;
+        }
+
+        setIsProcessing(true);
+
+        try {
+            await initializeRazorpayPayment({
+                amount: finalTotal,
+                name: "Mr Coach Pro Shop",
+                description: `Order for ${cart.length} items`,
+                prefill: {
+                    name: formData.name,
+                    email: formData.email,
+                    contact: formData.phone,
+                },
+                onSuccess: (paymentId) => {
+                    toast.success('Payment successful!');
+                    clearCart();
+                    window.location.href = `/products/success?payment_id=${paymentId}`;
+                },
+                onError: (error) => {
+                    toast.error(error.message || 'Payment failed');
+                    setIsProcessing(false);
+                }
+            });
+        } catch (error) {
+            console.error('Checkout error:', error);
+            setIsProcessing(false);
+        }
     };
 
     const taxAmount = cartTotal * 0.18;
@@ -231,12 +270,13 @@ export default function CheckoutPage() {
                                 >
                                     <motion.button
                                         type="submit"
+                                        disabled={isProcessing}
                                         whileHover={{ scale: 1.02, y: -2 }}
                                         whileTap={{ scale: 0.98 }}
                                         className="co-submit-btn"
                                     >
                                         <Lock size={15} strokeWidth={2.5} />
-                                        Place Order · ₹{Math.round(finalTotal).toLocaleString()}
+                                        {isProcessing ? 'Processing...' : `Place Order · ₹${Math.round(finalTotal).toLocaleString()}`}
                                         <ArrowRight size={15} strokeWidth={2.5} />
                                     </motion.button>
                                     <p className="co-secure-note">

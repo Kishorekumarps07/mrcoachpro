@@ -26,6 +26,7 @@ interface ShopContextType {
     setMinPrice: (price: number | null) => void;
     maxPrice: number | null;
     setMaxPrice: (price: number | null) => void;
+    clearCart: () => void;
 }
 
 const ShopContext = createContext<ShopContextType | undefined>(undefined);
@@ -89,6 +90,11 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
 
     const cartTotal = cartService.calculateTotal(cart);
 
+    const clearCart = () => {
+        setCart([]);
+        localStorage.removeItem('mrcoach_shop_cart');
+    };
+
     return (
         <ShopContext.Provider value={{
             cart,
@@ -108,6 +114,7 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
             setMinPrice,
             maxPrice,
             setMaxPrice,
+            clearCart,
         }}>
             {children}
         </ShopContext.Provider>
