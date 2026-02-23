@@ -101,10 +101,10 @@ export const ShopNavbar = () => {
                                 <Image
                                     src="/mrcoach-logo-new.png"
                                     alt="MR.COACH"
-                                    width={140}
-                                    height={36}
+                                    width={220}
+                                    height={50}
                                     priority
-                                    style={{ objectFit: 'contain' }}
+                                    className={styles.logoImage}
                                 />
                             </Link>
                         </div>
