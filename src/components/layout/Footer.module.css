@@ -222,8 +222,8 @@
 
 @media (max-width: 768px) {
     .footer {
-        padding: 40px 0 80px;
-        /* Reduced top padding, kept bottom for nav clearance */
+        padding: 40px 0 140px;
+        /* Increased bottom padding for bottom nav clearance */
     }
 
     .container {
