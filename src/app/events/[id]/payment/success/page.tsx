@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Navbar } from '@/components/layout/Navbar';
-import { EVENTS } from '@/data/events';
+import { eventService } from '@/services/eventService';
+import type { Event } from '@/data/events';
 import { Button } from '@/components/ui/Button';
 import { CheckCircle, Download, Calendar, Mail } from 'lucide-react';
 import styles from './success.module.css';
@@ -11,13 +12,35 @@ import styles from './success.module.css';
 export default function PaymentSuccessPage() {
     const params = useParams();
     const router = useRouter();
-    const event = EVENTS.find(e => e.id === params.id);
+    const [event, setEvent] = useState<Event | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
     const [bookingId, setBookingId] = useState('');
 
     useEffect(() => {
+        const fetchEvent = async () => {
+            if (params.id) {
+                const data = await eventService.getEventById(params.id as string);
+                setEvent(data);
+                setIsLoading(false);
+            }
+        };
+        fetchEvent();
+
         // Generate booking ID only on client side to avoid hydration mismatch
         setBookingId(`BK${Date.now().toString().slice(-8)}`);
-    }, []);
+    }, [params.id]);
+
+    if (isLoading) {
+        return (
+            <main className={styles.main}>
+                <Navbar />
+                <div className={styles.container} style={{ display: 'flex', justifyContent: 'center', padding: '100px 0' }}>
+                    <div className="spinner"></div>
+                    <p>Loading registration details...</p>
+                </div>
+            </main>
+        );
+    }
 
     if (!event) {
         return (
@@ -41,7 +64,7 @@ export default function PaymentSuccessPage() {
                         <CheckCircle size={64} className={styles.successIcon} />
                     </div>
 
-                    <h1 className={styles.title}>Payment Successful!</h1>
+                    <h1 className={styles.title}>Registration Completed!</h1>
                     <p className={styles.subtitle}>
                         Your registration for {event.title} is confirmed
                     </p>
