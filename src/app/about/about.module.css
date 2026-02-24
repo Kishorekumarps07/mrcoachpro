@@ -12,8 +12,8 @@
 
 .hero {
     position: relative;
-    height: 50vh;
-    min-height: 400px;
+    height: 40vh;
+    min-height: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -75,50 +75,82 @@
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 1300px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding: 0 32px;
 }
 
 /* Story Section */
 .storySection {
-    padding: 60px 0;
+    padding: 60px 0 40px;
     border-bottom: 1px solid var(--border-subtle);
 }
 
 .storyContent {
-    max-width: 700px;
+    max-width: 1000px;
     margin: 0 auto;
     text-align: center;
 }
 
 .sectionHeading {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 30px;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 24px;
     color: #111;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
+    text-align: center;
 }
 
 /* Values Section */
 .valuesSection {
     padding: 60px 0;
-    background-color: var(--bg-secondary);
+    background-color: #fafafa;
 }
 
 .grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 32px;
+    gap: 24px;
     margin-top: 40px;
+}
+
+.card {
+    background: #ffffff;
+    padding: 32px 24px;
+    border-radius: 16px;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-yellow);
+}
+
+.icon {
+    color: var(--accent-yellow);
+    margin-bottom: 20px;
+}
+
+.cardTitle {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #111;
+}
+
+.cardDesc {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
 }
 
 /* App Showcase Section */
 .appSection {
-    padding: 60px 0;
+    padding: 40px 0 80px;
     background-color: #ffffff;
-    border-bottom: 1px solid var(--border-subtle);
 }
 
 .appGrid {
@@ -129,33 +161,36 @@
 }
 
 .appCard {
-    background: #F8F8F8;
-    border-radius: 12px;
-    padding: 40px;
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 32px;
     position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    transition: transform 0.3s ease;
-    border: 1px solid transparent;
+    align-items: center;
+    /* Center content in cards */
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
 }
 
 .appCard:hover {
-    transform: translateY(-5px);
-    border-color: rgba(0, 0, 0, 0.05);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+    border-color: var(--accent-yellow);
 }
 
 .appBadge {
     display: inline-block;
-    padding: 6px 12px;
+    padding: 4px 12px;
     border-radius: 20px;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 
 .badgeUser {
@@ -187,13 +222,26 @@
 
 .appImageWrapper {
     width: 100%;
-    margin-top: auto;
+    margin-top: 24px;
     position: relative;
-    height: 300px;
-    background: #e5e5e5;
-    /* Placeholder */
-    border-radius: 8px;
+    aspect-ratio: 2/3;
+    height: auto;
+    min-height: 480px;
+    background: #000;
+    border-radius: 20px;
     overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.mockupImageFull {
+    object-fit: contain;
+    background-color: #000;
+    transition: transform 0.6s ease;
+}
+
+.appCard:hover .mockupImageFull {
+    transform: scale(1.02);
 }
 
 @media (max-width: 900px) {
@@ -254,7 +302,8 @@
     }
 
     .appImageWrapper {
-        height: 200px;
-        /* Reduced height for mobile */
+        height: auto;
+        aspect-ratio: 2/3;
+        margin-top: 20px;
     }
 }

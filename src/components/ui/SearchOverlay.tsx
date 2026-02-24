@@ -4,8 +4,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Search, X, ChevronRight } from 'lucide-react';
 import styles from './SearchOverlay.module.css';
-import { ALL_SERVICES } from '@/data/services';
-import { eventService } from '@/services/eventService';  // Import service
+import { SEARCHABLE_SERVICES } from '@/data/services';
+import { eventService } from '@/services/eventService';
 
 interface SearchOverlayProps {
     isOpen: boolean;
@@ -13,7 +13,7 @@ interface SearchOverlayProps {
     type?: 'default' | 'events';
 }
 
-type Category = 'Service' | 'Program' | 'Event' | 'Page';
+type Category = 'Service' | 'Program' | 'Event' | 'Page' | 'Strength' | 'Health' | 'Wellness' | 'Sports' | 'Fitness' | 'Action' | 'Goal';
 
 interface SearchItem {
     id: string;
@@ -23,18 +23,18 @@ interface SearchItem {
 }
 
 // Generate dynamic search data for Services
-const SERVICE_ITEMS: SearchItem[] = ALL_SERVICES.map((service, index) => ({
+const SERVICE_ITEMS: SearchItem[] = SEARCHABLE_SERVICES.map((service, index) => ({
     id: `svc-${index}`,
-    title: service,
-    category: 'Service',
-    href: `/services`
+    title: service.name,
+    category: service.category,
+    href: `/services#${service.slug}`
 }));
 
 const STATIC_SERVICE_ITEMS: SearchItem[] = [
-    { id: 'static-1', title: 'Start Personal Training', category: 'Action', href: '/contact' },
-    { id: 'static-2', title: 'View Class Schedule', category: 'Page', href: '/events' },
-    { id: 'static-3', title: 'Location & Contact', category: 'Page', href: '/contact' },
-    { id: 'static-4', title: 'About the Coach', category: 'Page', href: '/about' },
+    { id: 'static-1', title: 'Start Personal Training', category: 'Action', href: '/contact-us' },
+    { id: 'static-2', title: 'Weight Loss Transformation', category: 'Goal', href: '/services' },
+    { id: 'static-3', title: 'Muscle Building Programs', category: 'Program', href: '/services' },
+    { id: 'static-4', title: 'Nutrition & Diet Plans', category: 'Goal', href: '/services' },
 ];
 
 const STATIC_EVENT_ITEMS: SearchItem[] = [
@@ -81,7 +81,7 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose, t
         [type]
     );
 
-    const placeholder = type === 'events' ? 'Search events, locations, categories...' : 'Search programs, services, sports...';
+    const placeholder = type === 'events' ? 'Search events, locations, categories...' : 'Search goals, programs, services...';
 
     useEffect(() => {
         if (isOpen) {

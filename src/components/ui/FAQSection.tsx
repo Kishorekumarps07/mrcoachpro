@@ -6,39 +6,67 @@ import styles from './FAQSection.module.css';
 
 const CONSUMER_FAQS = [
     {
-        question: "How do I book a personal trainer?",
-        answer: "Simply browse our 'Trainers' section, filter by your location and goal (e.g., Weight Loss, Strength), and click 'Book Now' on their profile. You can choose a slot that fits your schedule."
+        question: "1. What is Mr.Coach App?",
+        answer: "Mr.Coach is an on-demand home service wellness & fitness platform that connects you with certified professionals such as:\n\n• Fitness Trainers\n• Gym Coaches\n• Yoga Therapists\n• Physiotherapists\n• Sports Coaches\n• Massage Therapists\n• Acupuncturists\n• Acupressure Experts\n\nYou can book trusted experts directly to your home through the Mr.Coach App."
     },
     {
-        question: "Can I book sports venues for tournaments?",
-        answer: "Yes! Use our 'Venues' tab to find courts and grounds near you. You can book hourly slots or reserve entire venues for corporate or private tournaments."
+        question: "2. What services can I get through Mr.Coach?",
+        answer: "Through the Mr.Coach Customer App, you can:\n\n• Book Home Personal Training Sessions\n• Online Live Fitness Classes\n• Yoga Therapy Sessions\n• Physiotherapy at Home\n• Sports Coaching\n• Massage Therapy\n• Acupuncture & Acupressure Treatments"
     },
     {
-        question: "Is there a free trial for online coaching?",
-        answer: "Many of our elite coaches offer a complimentary 3-day trial or a free consultation call. Look for the 'Free Trial Available' tag on coach profiles."
+        question: "3. Can I access online classes in the app?",
+        answer: "Yes. Mr.Coach provides:\n\n• Live Streaming Sessions\n• Recorded Workout Videos\n• Wellness Programs\n• Rehabilitation Exercises\n• Sports Training Modules"
     },
     {
-        question: "How does the cancellation policy work?",
-        answer: "Cancellations made 24 hours before the scheduled session are fully refundable. Late cancellations may incur a small fee depending on the coach's policy."
+        question: "4. Does Mr.Coach provide customized plans?",
+        answer: "Absolutely. Based on your goals, our certified coaches will provide:\n\n• Personalized Workout Plans\n• Customized Diet Plans\n• Recovery & Rehab Plans\n• Sports Performance Programs"
+    },
+    {
+        question: "5. Can I track my fitness progress?",
+        answer: "Yes, you can:\n\n• Track Workouts\n• Monitor Body Progress\n• Follow Diet Plans\n• View Training Reports\n• Stay consistent with Coach Guidance"
+    },
+    {
+        question: "6. Is Mr.Coach available across India?",
+        answer: "Yes. Mr.Coach services are expanding across all major cities in India, bringing professional wellness support directly to your home."
     }
 ];
 
 const PRO_FAQS = [
     {
-        question: "How does Mr.Coach Pro App help venue owners?",
-        answer: "Mr.Coach Pro App provides a dashboard to manage bookings, track revenue, and handle memberships efficiently. It also lists your venue on our user app for maximum visibility."
+        question: "1. What is Mr.Coach Pro App?",
+        answer: "Mr.Coach Pro is a professional growth platform for coaches and therapists to:\n\n• Get verified leads\n• Connect with clients\n• Conduct online/offline sessions\n• Earn through service bookings\n• Build their own brand"
     },
     {
-        question: "What are the commission rates?",
-        answer: "We offer competitive rates starting at 0% for your own leads and a small commission for leads generated through our platform. Contact our sales team for a tailored plan."
+        question: "2. Who can join Mr.Coach Pro?",
+        answer: "Professionals from the following fields can join:\n\n• Gym Trainers\n• Fitness Coaches\n• Yoga Therapists\n• Physiotherapists\n• Sports Coaches\n• Massage Therapists\n• Acupuncturists\n• Acupressure Experts\n• Wellness Trainers"
     },
     {
-        question: "Can I manage multiple staff members?",
-        answer: "Absolutely. The Mr.Coach Pro App allows you to create staff accounts with different permissions, assign shifts, and track individual performance."
+        question: "3. How do coaches get clients?",
+        answer: "Mr.Coach Pro provides:\n\n• Verified Customer Leads\n• Booking Requests\n• Service Inquiries\n• Event Referral Opportunities\n\nCoaches can accept leads and start earning instantly."
     },
     {
-        question: "Is marketing support included?",
-        answer: "Yes, Mr.Coach Pro App partners get featured placement in search results, social media shoutouts, and access to our marketing assets to grow their business."
+        question: "4. Can coaches earn through referrals?",
+        answer: "Yes. Coaches can:\n\n• Refer Events\n• Refer Clients\n• Recommend Products\n\nand earn additional incentives through the Mr.Coach referral earning model."
+    },
+    {
+        question: "5. What is the Coach Growth Level System?",
+        answer: "Mr.Coach Pro offers a Challenge-Based Growth Model where coaches:\n\n• Complete Tasks\n• Maintain Service Quality\n• Achieve Performance Levels\n• Unlock New Opportunities"
+    },
+    {
+        question: "6. Can a coach become a Franchise Owner?",
+        answer: "Yes. Mr.Coach Pro provides a Zero to Franchise Owner Pathway.\n\nBased on:\n• Task Completion\n• Customer Ratings\n• Performance Score\n• Business Growth\n\nEligible coaches can upgrade to become Mr.Coach Fitness Studio Franchise Owners."
+    },
+    {
+        question: "7. Can coaches sell products through the app?",
+        answer: "Yes. Coaches can recommend and promote wellness & fitness products through the platform and earn commissions."
+    },
+    {
+        question: "8. Is there an opportunity for career growth?",
+        answer: "Mr.Coach Pro supports:\n\n• Personal Branding\n• Lead Generation\n• Training Opportunities\n• Certification Programs\n• Business Expansion\n• Franchise Ownership"
+    },
+    {
+        question: "9. Can coaches conduct online sessions?",
+        answer: "Yes. Coaches can:\n\n• Take Online Classes\n• Conduct Workshops\n• Run Paid Programs\n• Host Certifications\n\nthrough the Mr.Coach Pro App."
     }
 ];
 

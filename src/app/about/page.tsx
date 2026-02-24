@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Target, Timer, Zap, Heart } from 'lucide-react';
 import styles from './about.module.css';
@@ -73,12 +74,15 @@ export default function AboutPage() {
                             <span className={`${styles.appBadge} ${styles.badgeUser}`}>For Users</span>
                             <h3 className={styles.appTitle}>Mr.Coach App</h3>
                             <p className={styles.appDesc}>
-                                Your personal performance hub. Track workouts, access elite programming, and stay accountable to your goals with real-time analytics.
+                                Your personal performance hub. Track workouts, access elite programming, and stay accountable to your goals.
                             </p>
                             <div className={styles.appImageWrapper}>
-                                <div style={{ width: '100%', height: '100%', backgroundColor: '#111', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                                    User App UI
-                                </div>
+                                <Image
+                                    src="/images/user-app-poster.jpg"
+                                    alt="Mr.Coach User App Poster"
+                                    fill
+                                    className={styles.mockupImageFull}
+                                />
                             </div>
                         </div>
 
@@ -87,12 +91,15 @@ export default function AboutPage() {
                             <span className={`${styles.appBadge} ${styles.badgeCoach}`}>For Coaches</span>
                             <h3 className={styles.appTitle}>Mr.Coach Pro App</h3>
                             <p className={styles.appDesc}>
-                                The ultimate toolkit for certified coaches. Manage clients, build programs, and scale your business without the administrative headache.
+                                The ultimate toolkit for certified coaches. Manage clients, build programs, and scale your business effortlessly.
                             </p>
                             <div className={styles.appImageWrapper}>
-                                <div style={{ width: '100%', height: '100%', backgroundColor: '#D4A000', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#000', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                                    Pro App UI
-                                </div>
+                                <Image
+                                    src="/images/pro-app-poster.jpg"
+                                    alt="Mr.Coach Pro App Poster"
+                                    fill
+                                    className={styles.mockupImageFull}
+                                />
                             </div>
                         </div>
                     </div>

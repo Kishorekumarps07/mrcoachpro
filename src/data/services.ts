@@ -30,5 +30,15 @@ export const CORE_SERVICES = [
     "Nutrition"
 ];
 
-// Flatten all services into a single array for the search bar
-export const ALL_SERVICES = Object.values(SPECIALIZATION_SERVICES).flat();
+// Flatten all services into a single array for the search bar with category info
+export const SEARCHABLE_SERVICES = Object.entries(SPECIALIZATION_SERVICES).flatMap(([category, services]) =>
+    services.map(service => ({
+        name: service,
+        category: category.split(' & ')[0], // Simplify category name
+        slug: category.toLowerCase().includes('fitness') ? 'fitness' :
+            category.toLowerCase().includes('health') ? 'physio' :
+                category.toLowerCase().includes('sports') ? 'sports' : 'services'
+    }))
+);
+
+export const ALL_SERVICES = SEARCHABLE_SERVICES.map(s => s.name);

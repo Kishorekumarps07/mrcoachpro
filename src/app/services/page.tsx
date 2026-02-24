@@ -11,6 +11,7 @@ import styles from './services.module.css';
 
 const SERVICES = [
     {
+        id: 'fitness',
         title: 'Fitness',
         icon: Dumbbell,
         backgroundImage: '/images/fitness-bg-bright.png',
@@ -18,6 +19,7 @@ const SERVICES = [
         features: ['Personal Training', 'Group Classes', 'Strength & Conditioning', 'Cardio Zones']
     },
     {
+        id: 'physio',
         title: 'Physio',
         icon: Activity,
         backgroundImage: '/images/physio-bg.png',
@@ -25,6 +27,7 @@ const SERVICES = [
         features: ['Injury Rehabilitation', 'Sports Massage', 'Mobility Work', 'Pain Management']
     },
     {
+        id: 'sports',
         title: 'Sports',
         icon: Heart,
         backgroundImage: '/images/sports-bg.png',
@@ -32,6 +35,7 @@ const SERVICES = [
         features: ['Skill Development', 'Tactical Training', 'Team Coaching', 'Athletic Performance']
     },
     {
+        id: 'yoga',
         title: 'Yoga',
         icon: UserCheck,
         backgroundImage: '/images/yoga-bg.png',
@@ -39,6 +43,7 @@ const SERVICES = [
         features: ['Hatha & Vinyasa', 'Meditation', 'Flexibility Training', 'Stress Relief']
     },
     {
+        id: 'online',
         title: 'Online',
         icon: Laptop,
         backgroundImage: '/images/online-bg.png',
@@ -46,6 +51,7 @@ const SERVICES = [
         features: ['Virtual Sessions', 'App-Based Tracking', 'Video Analysis', '24/7 Support']
     },
     {
+        id: 'nutrition',
         title: 'Nutrition',
         icon: Utensils,
         backgroundImage: '/images/nutrition-bg.png',

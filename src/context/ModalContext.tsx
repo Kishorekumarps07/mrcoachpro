@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { BookDemoModal } from '@/components/ui/BookDemoModal';
 
 interface ModalContextType {
@@ -17,6 +17,20 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
+
+    // Auto-pop logic
+    useEffect(() => {
+        const hasSeenPopup = localStorage.getItem('mrcoach_demo_popup_seen');
+
+        if (!hasSeenPopup) {
+            const timer = setTimeout(() => {
+                openModal();
+                localStorage.setItem('mrcoach_demo_popup_seen', 'true');
+            }, 5000); // 5 second delay
+
+            return () => clearTimeout(timer);
+        }
+    }, []);
 
     return (
         <ModalContext.Provider value={{ isModalOpen, openModal, closeModal }}>
