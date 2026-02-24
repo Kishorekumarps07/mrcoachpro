@@ -34,20 +34,11 @@ export const EventDetailView = ({ event }: EventDetailViewProps) => {
         <main className={styles.main}>
             <Navbar />
 
-            {/* Hero Section */}
+            {/* Clean White Split Hero Section */}
             <section className={styles.hero}>
-                <div className={styles.heroImage}>
-                    <Image
-                        src={event.image}
-                        alt={event.title}
-                        fill
-                        className={styles.image}
-                        priority
-                    />
-                    <div className={styles.heroOverlay} />
-                </div>
-                <div className={styles.heroContent}>
-                    <div className={styles.container}>
+                <div className={styles.container}>
+                    {/* Left Side: Content */}
+                    <div className={styles.heroContent}>
                         <div className={styles.categoryBadge}>{event.category}</div>
                         <h1 className={styles.title}>{event.title}</h1>
                         <div className={styles.metaInfo}>
@@ -79,9 +70,20 @@ export const EventDetailView = ({ event }: EventDetailViewProps) => {
                             )}
                             <button onClick={handleShare} className={styles.shareButton}>
                                 <Share2 size={18} />
-                                Share
+                                Share Event
                             </button>
                         </div>
+                    </div>
+
+                    {/* Right Side: Image */}
+                    <div className={styles.heroImageWrapper}>
+                        <Image
+                            src={event.image}
+                            alt={event.title}
+                            fill
+                            className={styles.bgImage}
+                            priority
+                        />
                     </div>
                 </div>
             </section>

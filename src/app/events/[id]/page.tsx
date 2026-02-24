@@ -34,6 +34,7 @@ export async function generateMetadata({ params }: EventPageProps): Promise<Meta
 
 export default async function EventPage({ params }: EventPageProps) {
     const { id } = await params;
+    console.log("=> RENDERED EVENT PAGE ROUTE FOR ID:", id);
     const event = await eventService.getEventById(id);
 
     if (!event) {

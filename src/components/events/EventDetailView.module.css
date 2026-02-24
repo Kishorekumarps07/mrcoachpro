@@ -3,37 +3,54 @@
     background: #FFFFFF;
 }
 
-/* Hero Section */
+/* Premium Split Hero Section */
 .hero {
     position: relative;
     height: 500px;
+    /* Fixed height for consistency */
+    background: #0f172a;
+    /* Solid dark premium blue/black */
     overflow: hidden;
+    display: flex;
+    align-items: center;
 }
 
-.heroImage {
+.blurBackground {
     position: absolute;
     inset: 0;
+    width: 65%;
+    /* Image takes up slightly more of the right side */
+    left: auto;
+    right: 0;
     z-index: 0;
 }
 
-.image {
+.bgImage {
     object-fit: cover;
+    object-position: center;
+    /* keep focal point */
+    opacity: 0.8;
+    filter: blur(2px);
+    /* Very slight blur to soften, but keep recognizable */
 }
 
-.heroOverlay {
+/* Gradient that fades from solid dark on left to transparent over the image on right */
+.overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+    background: linear-gradient(to right,
+            #0f172a 35%,
+            rgba(15, 23, 42, 0.9) 55%,
+            rgba(15, 23, 42, 0.3) 100%);
     z-index: 1;
 }
 
 .heroContent {
     position: relative;
     z-index: 2;
-    height: 100%;
+    width: 100%;
     display: flex;
-    align-items: flex-end;
-    padding-bottom: 60px;
+    align-items: center;
 }
 
 .container {
@@ -41,6 +58,18 @@
     margin: 0 auto;
     padding: 0 24px;
     width: 100%;
+}
+
+/* Glassmorphic box wrapping the text details */
+.contentBox {
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 48px;
+    max-width: 750px;
+    /* Constrain box width */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 .categoryBadge {
@@ -59,32 +88,36 @@
 .title {
     font-size: 3rem;
     font-weight: 900;
-    color: #FFFFFF;
+    color: #1a1a1a;
+    /* Dark text for white background */
     margin-bottom: 24px;
-    line-height: 1.1;
+    line-height: 1.15;
     font-family: var(--font-heading);
+    letter-spacing: -0.02em;
 }
 
 .metaInfo {
     display: flex;
     gap: 32px;
     flex-wrap: wrap;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .metaItem {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #FFFFFF;
+    color: #444444;
+    /* Darker grey for legibility */
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .actionButtons {
     display: flex;
-    gap: 12px;
+    gap: 16px;
     flex-wrap: wrap;
+    margin-top: 32px;
 }
 
 .actionButton,
@@ -92,14 +125,14 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    color: #FFFFFF;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 10px 20px;
-    border-radius: 10px;
+    background: #f5f5f5;
+    /* Light grey button */
+    color: #1a1a1a;
+    border: 1px solid #e0e0e0;
+    padding: 12px 24px;
+    border-radius: 12px;
     font-size: 0.95rem;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     transition: all 0.2s ease;
     text-decoration: none;
@@ -114,7 +147,7 @@
 }
 
 .actionButton:hover {
-    background: rgba(255, 255, 255, 0.3);
+    background: #e0e0e0;
     transform: translateY(-2px);
 }
 
@@ -626,15 +659,26 @@
     }
 
     .hero {
-        height: 380px;
+        height: auto;
+        min-height: 480px;
+        padding: 60px 0;
     }
 
-    .heroContent {
-        padding-bottom: 40px;
+    .blurBackground {
+        width: 100%;
+        /* Image takes full width on mobile */
+    }
+
+    .overlay {
+        background: linear-gradient(to bottom,
+                rgba(15, 23, 42, 0.6) 0%,
+                #0f172a 70%,
+                #0f172a 100%);
+        /* Fade to solid bottom on mobile to ensure text is clean */
     }
 
     .title {
-        font-size: 2rem;
+        font-size: 2.2rem;
         word-break: break-word;
     }
 
