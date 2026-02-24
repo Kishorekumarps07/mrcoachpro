@@ -68,10 +68,12 @@
     gap: 24px;
     padding: 4px;
     /* Space for shadows */
+    align-items: stretch;
 }
 
 .cardWrapper {
     flex-shrink: 0;
+    display: flex;
 }
 
 /* Loading Skeleton Styles */
