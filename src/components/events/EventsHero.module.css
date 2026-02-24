@@ -8,7 +8,7 @@
     overflow: hidden;
     color: #000;
     /* Deep Black for contrast */
-    padding-top: 80px;
+    padding-top: 50px;
     padding-bottom: 80px;
     background: #ffffff;
     /* Pure White Base */
@@ -102,10 +102,8 @@
     }
 
     .heroSection {
-        padding-top: 60px;
-        /* Reduced from 100px */
+        padding-top: 30px;
         padding-bottom: 24px;
-        /* Reduced from 40px */
         min-height: auto;
         display: block;
     }
@@ -135,7 +133,8 @@
 .dateBadge {
     font-size: 0.85rem;
     font-weight: 700;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
+    /* Reduced from 32px */
     color: #1a1a1a;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -158,7 +157,8 @@
     /* Lighter weight for editorial feel */
     line-height: 1.25;
     /* Slightly increased */
-    margin-bottom: 40px;
+    margin-bottom: 24px;
+    /* Reduced from 40px for tighter layout */
     /* Increased spacing */
     letter-spacing: 0.12em;
     /* Wider tracking */
@@ -176,22 +176,24 @@
 }
 
 .location {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 24px;
-    color: #1a1a1a;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    /* Further reduced */
+    color: #000;
     display: inline-flex;
     align-items: center;
     gap: 8px;
     align-self: flex-start;
-    /* Prevent full-width stretching */
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+    /* Subtler without background */
+}
 
-    /* Yellow Glassmorphic Highlight */
-    background: rgba(255, 215, 0, 0.15);
-    backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 215, 0, 0.25);
-    padding: 8px 16px;
-    border-radius: 30px;
+.locationIcon {
+    color: #000;
+    opacity: 0.8;
 }
 
 .price {
@@ -199,7 +201,8 @@
     /* Slightly Increased */
     font-weight: 800;
     /* Bolder */
-    margin-bottom: 48px;
+    margin-bottom: 32px;
+    /* Reduced from 48px */
     color: #1a1a1a;
     /* Darker for contrast */
     opacity: 1;
@@ -319,9 +322,12 @@
 .countdownWrapper {
     display: flex;
     gap: 32px;
-    margin-bottom: 40px;
+    margin-bottom: 24px;
+    /* Reduced from 40px for tighter layout */
     border-top: 1px solid #eee;
     padding-top: 24px;
+    align-items: flex-start;
+    /* Align numbers to top */
 }
 
 .timerBlock {
@@ -332,26 +338,24 @@
     /* For positioning separator */
 }
 
-/* Colon separator between timer blocks */
-.timerBlock:not(:last-child)::after {
-    content: ':';
-    position: absolute;
-    right: -18px;
-    /* Position between blocks */
-    top: 0;
+.timerSeparator {
     font-family: var(--font-heading);
     font-size: 2rem;
     font-weight: 800;
     line-height: 1;
     color: #000;
     opacity: 0.3;
-    /* Subtle separator */
+    /* Manually centered against the 2rem digits */
+    padding-top: 3px;
+    display: flex;
+    align-items: center;
+    height: 32px;
+    /* Match digit height approximately */
 }
 
 .timerValue {
     font-family: var(--font-heading);
     font-size: 2rem;
-    /* Reduced from 2.5rem */
     font-weight: 800;
     line-height: 1;
     color: #000;
@@ -383,6 +387,12 @@
         font-size: 1.5rem;
     }
 
+    .timerSeparator {
+        font-size: 1.5rem;
+        padding-top: 2px;
+        height: 24px;
+    }
+
     .location {
         margin-bottom: 16px;
         /* Reduced from 24px */
@@ -409,10 +419,5 @@
         /* Center wrapper */
     }
 
-    /* Mobile separator adjustments */
-    .timerBlock:not(:last-child)::after {
-        font-size: 1.5rem;
-        right: -10px; /* Adjusted for 16px gap */
-        top: 2px;
-    }
+    /* Mobile separator adjustments removed in favor of explicit span */
 }

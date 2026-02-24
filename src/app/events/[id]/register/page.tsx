@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Navbar } from '@/components/layout/Navbar';
 import { eventService } from '@/services/eventService';
@@ -33,6 +33,7 @@ export default function RegistrationPage() {
     }, [params.id]);
 
     const [currentStep, setCurrentStep] = useState(1);
+    const formTopRef = useRef<HTMLDivElement>(null);
 
     // Initialize selected tier from URL or default to 0
     const initialTier = parseInt(searchParams.get('tier') || '0');
@@ -182,11 +183,21 @@ export default function RegistrationPage() {
             }
         }
 
-        if (currentStep < 3) setCurrentStep(currentStep + 1);
+        if (currentStep < 3) {
+            setCurrentStep(currentStep + 1);
+            setTimeout(() => {
+                formTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 50); // Small delay to allow DOM render
+        }
     };
 
     const handleBack = () => {
-        if (currentStep > 1) setCurrentStep(currentStep - 1);
+        if (currentStep > 1) {
+            setCurrentStep(currentStep - 1);
+            setTimeout(() => {
+                formTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 50);
+        }
     };
 
     const selectedTier = event.pricingTiers[formData.selectedTier] || event.pricingTiers[0];
@@ -283,7 +294,7 @@ export default function RegistrationPage() {
         <main className={styles.main}>
             <Navbar />
 
-            <div className={styles.container}>
+            <div className={styles.container} ref={formTopRef}>
                 <div className={styles.header}>
                     <button onClick={() => router.back()} className={styles.backButton}>
                         <ChevronLeft size={20} />

@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/Button';
 import { Event } from '@/data/events'; // Type only
 import styles from './EventsHero.module.css';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, MapPin } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 interface EventsHeroProps {
@@ -146,7 +146,10 @@ export const EventsHero = ({ events }: EventsHeroProps) => {
                                     {featuredEvent.date}, {featuredEvent.time}
                                 </div>
                                 <h1 className={styles.title}>{featuredEvent.title}</h1>
-                                <p className={styles.location}>{featuredEvent.location}</p>
+                                <p className={styles.location}>
+                                    <MapPin size={18} className={styles.locationIcon} />
+                                    {featuredEvent.location}
+                                </p>
 
                                 {/* Countdown Timer */}
                                 <div className={styles.countdownWrapper}>
@@ -154,21 +157,23 @@ export const EventsHero = ({ events }: EventsHeroProps) => {
                                         <span className={styles.timerValue}>{fmt(timeLeft.days)}</span>
                                         <span className={styles.timerLabel}>Days</span>
                                     </div>
+                                    <span className={styles.timerSeparator}>:</span>
                                     <div className={styles.timerBlock}>
                                         <span className={styles.timerValue}>{fmt(timeLeft.hours)}</span>
                                         <span className={styles.timerLabel}>Hrs</span>
                                     </div>
+                                    <span className={styles.timerSeparator}>:</span>
                                     <div className={styles.timerBlock}>
                                         <span className={styles.timerValue}>{fmt(timeLeft.mins)}</span>
                                         <span className={styles.timerLabel}>Mins</span>
                                     </div>
+                                    <span className={styles.timerSeparator}>:</span>
                                     <div className={styles.timerBlock}>
                                         <span className={styles.timerValue}>{fmt(timeLeft.secs)}</span>
                                         <span className={styles.timerLabel}>Secs</span>
                                     </div>
                                 </div>
 
-                                <p className={styles.price}>{featuredEvent.price}</p>
 
                                 <div className={styles.actions}>
                                     <Link href={`/events/${featuredEvent.id}/register`}>
