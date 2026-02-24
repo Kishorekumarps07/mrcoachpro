@@ -53,15 +53,29 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
 
     const [pendingDistrictMatch, setPendingDistrictMatch] = useState<string | null>(null);
 
+    // State and District name normalization for Indian context
+    const normalizeName = (name: string) => {
+        if (!name) return '';
+        return name.toLowerCase()
+            .replace(/ district| state| union territory of| territory of| ut of| of | the /g, ' ')
+            .replace(/\s+/g, ' ')
+            .trim();
+    };
+
     // Fuzzy matching helper
     const getBestMatch = (input: string, list: { name: string }[]) => {
         if (!input) return null;
-        const normalizedInput = input.toLowerCase().replace(/ district| state/g, '').trim();
+        const normalizedInput = normalizeName(input);
+        if (!normalizedInput) return null;
+
+        // 1. Exact match on normalized strings
+        const exactMatch = list.find(item => normalizeName(item.name) === normalizedInput);
+        if (exactMatch) return exactMatch;
+
+        // 2. Contains match
         return list.find(item => {
-            const normalizedName = item.name.toLowerCase().trim();
-            return normalizedName === normalizedInput ||
-                normalizedName.includes(normalizedInput) ||
-                normalizedInput.includes(normalizedName);
+            const normalizedName = normalizeName(item.name);
+            return normalizedName.includes(normalizedInput) || normalizedInput.includes(normalizedName);
         });
     };
 
@@ -112,10 +126,13 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
     const handleSuggestionSelect = (suggestion: any) => {
         const addr = suggestion.address;
 
-        // Extract fields
-        const detectedState = addr.state || '';
+        const detectedPincode = addr.postcode || '';
 
-        // Use a list of potential district fields
+        // Extract State - handle potential array or string
+        const tempState = addr.state || addr.province || addr.region || '';
+        const matchedState = getBestMatch(tempState, statesList);
+
+        // District candidates for manual search
         const districtCandidates = [
             addr.city,
             addr.town,
@@ -140,11 +157,6 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
             subLocality !== addr.road ? subLocality : null,
             addr.landmark
         ].filter(Boolean).join(', ');
-
-        const detectedPincode = addr.postcode || '';
-
-        // Match state against our list
-        const matchedState = getBestMatch(detectedState, statesList);
 
         if (matchedState) {
             // Pick the best district candidate that exists in our list
@@ -264,7 +276,7 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
                     const nom = nominatimRes.status === 'fulfilled' ? await nominatimRes.value.json() : {};
 
                     // Extract fields — prefer Nominatim for granularity
-                    const detectedState = nom.address?.state || bdc.principalSubdivision || '';
+                    const detectedState = nom.address?.state || nom.address?.province || nom.address?.region || bdc.principalSubdivision || '';
 
                     const districtCandidates = [
                         nom.address?.city,
@@ -272,6 +284,7 @@ export const BookDemoModal = ({ isOpen, onClose }: BookDemoModalProps) => {
                         nom.address?.district,
                         nom.address?.county,
                         nom.address?.state_district,
+                        nom.address?.city_district,
                         bdc.city,
                         bdc.locality
                     ].filter(Boolean);

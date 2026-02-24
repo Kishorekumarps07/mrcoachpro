@@ -30,10 +30,22 @@ export function ShopCartDrawer() {
                         transition={{ type: 'spring', damping: 20, stiffness: 300 }}
                         className="fixed right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl z-50 overflow-hidden flex flex-col"
                     >
-                        <div className="p-5 border-b border-gray-100 flex items-center justify-between bg-white/80 backdrop-blur-md">
-                            <h2 className="text-xl font-bold font-heading">Shopping Cart ({cart.length})</h2>
-                            <button onClick={toggleCart} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-                                <X size={24} />
+                        <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-white sticky top-0 z-10">
+                            <div className="flex flex-col">
+                                <h2 className="text-lg font-bold font-heading uppercase tracking-tight text-gray-900">Your Cart [{cart.length}]</h2>
+                                <button
+                                    onClick={toggleCart}
+                                    className="text-amber-500 text-xs font-semibold flex items-center gap-1 mt-0.5 hover:text-amber-600 transition-colors uppercase"
+                                >
+                                    <ArrowRight size={12} className="rotate-180" /> Back to shopping
+                                </button>
+                            </div>
+                            <button
+                                onClick={toggleCart}
+                                className="w-10 h-10 flex items-center justify-center bg-gray-50 hover:bg-gray-100 rounded-full transition-all border border-gray-100 shadow-sm"
+                                aria-label="Close Cart"
+                            >
+                                <X size={20} className="text-gray-600" />
                             </button>
                         </div>
 

@@ -615,9 +615,60 @@
 }
 
 /* =========================================
+   MOBILE NAVIGATION HEADER
+   ========================================= */
+.cart-mobile-nav {
+    display: none;
+    /* Hidden on desktop */
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: #fff;
+    border-bottom: 1px solid #E8E8E8;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.mobile-nav-back {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--cart-black);
+    text-decoration: none;
+}
+
+.mobile-nav-back span {
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.mobile-nav-close {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F8F8F8;
+    border-radius: 50%;
+    color: #666;
+    transition: all 0.2s ease;
+}
+
+.mobile-nav-close:hover {
+    background: #EEEEEE;
+    color: var(--cart-black);
+}
+
+/* =========================================
    RESPONSIVE — MOBILE (≤767px)  — Flipkart/Amazon style
    ========================================= */
 @media (max-width: 767px) {
+    .cart-mobile-nav {
+        display: flex;
+    }
 
     /* Page background is grey like Flipkart */
     .cart-premium-wrapper {
