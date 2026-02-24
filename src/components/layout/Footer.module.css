@@ -144,12 +144,46 @@
 
 .bottomSection {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
 }
 
 .copyright {
-    color: #4a4a4a;
+    color: rgba(0, 0, 0, 0.5);
     font-size: 0.8rem;
     font-weight: 500;
+}
+
+.poweredBy {
+    font-size: 0.75rem;
+    color: rgba(0, 0, 0, 0.4);
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: all 0.2s ease;
+}
+
+.poweredBy:hover {
+    color: #000;
+    transform: translateY(-1px);
+}
+
+.brandName {
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.poweredBy:hover .brandName {
+    color: #000;
+}
+
+@media (min-width: 768px) {
+    .bottomSection {
+        flex-direction: row;
+        justify-content: space-between;
+    }
 }
 
 @media (min-width: 1024px) {

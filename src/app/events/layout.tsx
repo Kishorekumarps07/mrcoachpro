@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'Upcoming Events | MR.COACH',
-    description: 'Explore upcoming fitness marathons, workshops, and sports tournaments near you.',
+    title: 'Upcoming Fitness Events & Workshops | MR.COACH',
+    description: 'Join elite fitness marathons, intensive performance workshops, and competitive sports tournaments. View our upcoming events calendar.',
 };
 
 export default function EventsLayout({

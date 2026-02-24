@@ -74,6 +74,14 @@ export const Footer = () => {
 
                 <div className={styles.bottomSection}>
                     <p className={styles.copyright}>&copy; {new Date().getFullYear()} MR.COACH. All rights reserved.</p>
+                    <a
+                        href="https://promptix.pro/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.poweredBy}
+                    >
+                        powered by <span className={styles.brandName}>Promptix.pro</span>
+                    </a>
                 </div>
             </div>
         </footer>

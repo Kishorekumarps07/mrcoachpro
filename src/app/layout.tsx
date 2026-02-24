@@ -20,8 +20,48 @@ const josefin = Josefin_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'MR.COACH | Performance. Discipline. Energy.',
-  description: 'A performance-first coaching platform for athletes of all ages.',
+  title: {
+    default: 'MR.COACH | Performance. Discipline. Energy.',
+    template: '%s | MR.COACH'
+  },
+  description: 'A performance-first coaching platform for athletes of all ages. Built on discipline, consistency, and measurable results.',
+  keywords: ['fitness coaching', 'performance training', 'athletic development', 'online coaching', 'MR.COACH', 'personal training India'],
+  authors: [{ name: 'MR.COACH Team' }],
+  creator: 'MR.COACH',
+  openGraph: {
+    type: 'website',
+    locale: 'en_IN',
+    url: 'https://mrcoach.in',
+    title: 'MR.COACH | Performance. Discipline. Energy.',
+    description: 'A performance-first coaching platform for athletes of all ages. Join the elite.',
+    siteName: 'MR.COACH',
+    images: [
+      {
+        url: 'https://mrcoach.in/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'MR.COACH Performance Coaching',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'MR.COACH | Performance. Discipline. Energy.',
+    description: 'A performance-first coaching platform for athletes of all ages.',
+    creator: '@mrcoach',
+    images: ['https://mrcoach.in/twitter-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function RootLayout({
