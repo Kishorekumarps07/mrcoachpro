@@ -4,53 +4,22 @@
 }
 
 /* Premium Split Hero Section */
+/* Clean Split Hero Section */
 .hero {
     position: relative;
-    height: 500px;
-    /* Fixed height for consistency */
-    background: #0f172a;
-    /* Solid dark premium blue/black */
-    overflow: hidden;
-    display: flex;
-    align-items: center;
+    min-height: 500px;
+    background: #FFFFFF;
+    /* Pure white background */
+    padding: 40px 0;
 }
 
-.blurBackground {
-    position: absolute;
-    inset: 0;
-    width: 65%;
-    /* Image takes up slightly more of the right side */
-    left: auto;
-    right: 0;
-    z-index: 0;
-}
-
-.bgImage {
-    object-fit: cover;
-    object-position: center;
-    /* keep focal point */
-    opacity: 0.8;
-    filter: blur(2px);
-    /* Very slight blur to soften, but keep recognizable */
-}
-
-/* Gradient that fades from solid dark on left to transparent over the image on right */
-.overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to right,
-            #0f172a 35%,
-            rgba(15, 23, 42, 0.9) 55%,
-            rgba(15, 23, 42, 0.3) 100%);
-    z-index: 1;
-}
+/* Removed blurBackground and overlay as they are no longer needed for the white layout */
 
 .heroContent {
+    flex: 1.2;
+    /* Takes slightly more space for text */
     position: relative;
     z-index: 2;
-    width: 100%;
-    display: flex;
-    align-items: center;
 }
 
 .container {
@@ -58,6 +27,29 @@
     margin: 0 auto;
     padding: 0 24px;
     width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    /* Space between text and image */
+}
+
+/* Right Side: Image Wrapper */
+.heroImageWrapper {
+    flex: 1;
+    position: relative;
+    height: 400px;
+    /* Fixed height for the event poster */
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    /* Subtle shadow for premium feel */
+}
+
+.heroImage {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
 }
 
 /* Glassmorphic box wrapping the text details */
@@ -89,11 +81,13 @@
     font-size: 3rem;
     font-weight: 900;
     color: #1a1a1a;
-    /* Dark text for white background */
+    /* Bold dark text */
     margin-bottom: 24px;
     line-height: 1.15;
     font-family: var(--font-heading);
     letter-spacing: -0.02em;
+    text-shadow: none;
+    /* Remove any shadows */
 }
 
 .metaInfo {
@@ -659,27 +653,35 @@
     }
 
     .hero {
-        height: auto;
-        min-height: 480px;
-        padding: 60px 0;
+        min-height: auto;
+        padding: 40px 0;
     }
 
-    .blurBackground {
+    .container {
+        flex-direction: column;
+        /* Stack image on top, text below on mobile */
+        gap: 32px;
+        padding: 0 20px;
+    }
+
+    .heroImageWrapper {
         width: 100%;
-        /* Image takes full width on mobile */
+        max-width: 500px;
+        margin: 0 auto;
+        height: auto;
+        aspect-ratio: 4/5;
+        /* Keep it looking like a poster */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
 
-    .overlay {
-        background: linear-gradient(to bottom,
-                rgba(15, 23, 42, 0.6) 0%,
-                #0f172a 70%,
-                #0f172a 100%);
-        /* Fade to solid bottom on mobile to ensure text is clean */
+    .heroContent {
+        text-align: left;
     }
 
     .title {
-        font-size: 2.2rem;
+        font-size: 2rem;
         word-break: break-word;
+        text-align: left;
     }
 
     .metaInfo {

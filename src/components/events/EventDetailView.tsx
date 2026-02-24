@@ -77,12 +77,11 @@ export const EventDetailView = ({ event }: EventDetailViewProps) => {
 
                     {/* Right Side: Image */}
                     <div className={styles.heroImageWrapper}>
-                        <Image
+                        <img
                             src={event.image}
                             alt={event.title}
-                            fill
-                            className={styles.bgImage}
-                            priority
+                            className={styles.heroImage}
+                            loading="eager"
                         />
                     </div>
                 </div>
