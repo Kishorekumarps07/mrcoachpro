@@ -21,9 +21,9 @@
     align-items: center;
     text-align: center;
     gap: 40px;
-    margin-bottom: 30px;
-    padding-bottom: 40px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .brandCol {
@@ -48,24 +48,89 @@
     white-space: nowrap;
 }
 
-.navCol {
-    display: grid;
-    grid-template-columns: repeat(2, auto);
-    gap: 12px 32px;
+.linksWrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px 80px;
     justify-content: center;
 }
 
+.navCol {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    /* Increased min-width for stability */
+}
+
+.navHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 8px 0;
+    cursor: pointer;
+    text-align: left;
+    color: inherit;
+}
+
+.navTitle {
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-transform: lowercase;
+    color: rgba(0, 0, 0, 0.4);
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.chevron {
+    transition: transform 0.3s ease;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.expanded .chevron {
+    transform: rotate(180deg);
+}
+
+.dropdownContent {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+    overflow: hidden;
+}
+
+.expanded .dropdownContent {
+    grid-template-rows: 1fr;
+    padding-top: 12px;
+}
+
+.linkList {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.policyGrid {
+    min-height: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px 40px;
+}
+
 .link {
-    color: #333;
-    font-size: 0.85rem;
-    font-weight: 500;
-    transition: color 0.2s ease;
+    color: #1a1a1a;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
     white-space: nowrap;
+    text-decoration: none;
 }
 
 .link:hover {
     color: #000;
-    text-decoration: underline;
+    opacity: 0.7;
 }
 
 .contactCol {
@@ -187,27 +252,31 @@
 }
 
 @media (min-width: 1024px) {
-    .navCol {
-        grid-template-columns: repeat(4, max-content);
-        gap: 20px 40px;
+    .linksWrapper {
+        display: flex;
+        gap: 60px;
         justify-content: start;
+        align-items: start;
+    }
+
+    .navCol {
+        align-items: flex-start;
     }
 
     .topSection {
         display: grid;
-        grid-template-columns: 250px 1fr auto auto;
-        gap: 60px;
+        grid-template-columns: 300px 1fr auto auto;
+        /* Fixed brand column width */
+        gap: 40px;
         text-align: left;
-        align-items: center;
+        align-items: start;
     }
 
-    .brandCol,
-    .contactCol {
-        align-items: flex-start;
-    }
-
-    .socialCol {
-        justify-content: flex-end;
+    .linkList,
+    .policyGrid {
+        display: grid;
+        grid-template-columns: repeat(2, max-content);
+        gap: 12px 32px;
     }
 }
 
@@ -223,7 +292,6 @@
 @media (max-width: 768px) {
     .footer {
         padding: 40px 0 140px;
-        /* Increased bottom padding for bottom nav clearance */
     }
 
     .container {
@@ -235,25 +303,27 @@
         margin-bottom: 40px;
     }
 
-    .navCol {
-        display: grid;
-        grid-template-columns: repeat(2, max-content);
-        gap: 16px 32px;
-        justify-content: center;
-    }
-
-    .contactCol {
+    .linksWrapper {
+        display: flex;
+        flex-direction: column;
         align-items: center;
         text-align: center;
+        gap: 40px;
     }
 
-    .tagline {
-        font-size: 0.8rem;
-        letter-spacing: 0.01em;
+    .navCol {
+        align-items: center;
+    }
+
+    .linkList,
+    .policyGrid {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
     }
 
     .link {
-        font-size: 0.85rem;
-        padding: 4px 0;
+        font-size: 0.95rem;
     }
 }

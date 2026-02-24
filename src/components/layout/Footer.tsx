@@ -1,13 +1,17 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { ChevronDown } from 'lucide-react';
 import styles from './Footer.module.css';
 
-const FOOTER_LINKS = [
+const QUICK_LINKS = [
     { label: 'About', href: '/about' },
     { label: 'Contact Us', href: '/contact-us' },
+];
+
+const POLICY_LINKS = [
     { label: 'Privacy Policy', href: '/privacy-policy' },
     { label: 'Terms and Conditions', href: '/terms-conditions' },
     { label: 'Promo Code Info', href: '/promocode-information' },
@@ -17,6 +21,18 @@ const FOOTER_LINKS = [
 ];
 
 export const Footer = () => {
+    const [expandedSections, setExpandedSections] = useState<{ [key: string]: boolean }>({
+        quicklinks: false,
+        policies: false
+    });
+
+    const toggleSection = (section: string) => {
+        setExpandedSections(prev => ({
+            ...prev,
+            [section]: !prev[section]
+        }));
+    };
+
     return (
         <footer className={styles.footer}>
             <div className={styles.container}>
@@ -35,13 +51,47 @@ export const Footer = () => {
                         <p className={styles.tagline}>Mr. Coach – India’s Smart Fitness App</p>
                     </div>
 
-                    <nav className={styles.navCol}>
-                        {FOOTER_LINKS.map(link => (
-                            <Link key={link.label} href={link.href} className={styles.link}>
-                                {link.label}
-                            </Link>
-                        ))}
-                    </nav>
+                    <div className={styles.linksWrapper}>
+                        <nav className={`${styles.navCol} ${expandedSections.quicklinks ? styles.expanded : ''}`}>
+                            <button
+                                className={styles.navHeader}
+                                onClick={() => toggleSection('quicklinks')}
+                                aria-expanded={expandedSections.quicklinks}
+                            >
+                                <h3 className={styles.navTitle}>quicklinks</h3>
+                                <ChevronDown size={16} className={styles.chevron} />
+                            </button>
+                            <div className={styles.dropdownContent}>
+                                <div className={styles.linkList}>
+                                    {QUICK_LINKS.map(link => (
+                                        <Link key={link.label} href={link.href} className={styles.link}>
+                                            {link.label}
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+                        </nav>
+
+                        <nav className={`${styles.navCol} ${expandedSections.policies ? styles.expanded : ''}`}>
+                            <button
+                                className={styles.navHeader}
+                                onClick={() => toggleSection('policies')}
+                                aria-expanded={expandedSections.policies}
+                            >
+                                <h3 className={styles.navTitle}>policies</h3>
+                                <ChevronDown size={16} className={styles.chevron} />
+                            </button>
+                            <div className={styles.dropdownContent}>
+                                <div className={styles.policyGrid}>
+                                    {POLICY_LINKS.map(link => (
+                                        <Link key={link.label} href={link.href} className={styles.link}>
+                                            {link.label}
+                                        </Link>
+                                    ))}
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
 
                     <div className={styles.contactCol}>
                         <h3 className={styles.contactTitle}>GET IN TOUCH</h3>
