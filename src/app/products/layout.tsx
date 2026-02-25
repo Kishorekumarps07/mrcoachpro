@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import { ShopProvider } from './context/ShopContext';
 import { ShopNavbar } from '@/components/layout/ShopNavbar';
 import { ShopCartDrawer } from '@/components/shop/ShopCartDrawer';
@@ -17,7 +17,9 @@ export default function ShopLayout({
             {/* Wrap in shop-wrapper to enforce light theme */}
             <div className="shop-wrapper min-h-screen bg-gray-50" style={{ overflowX: 'hidden' }}>
                 <Toaster position="bottom-center" />
-                <ShopNavbar />
+                <Suspense fallback={null}>
+                    <ShopNavbar />
+                </Suspense>
                 <main>
                     {children}
                 </main>

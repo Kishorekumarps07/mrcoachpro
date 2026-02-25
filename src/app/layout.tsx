@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Roboto, Josefin_Sans } from 'next/font/google';
 import './globals.css';
+import { Suspense } from 'react';
 import { Footer } from '@/components/layout/Footer';
 import { MobileBottomNav } from '@/components/layout/MobileBottomNav';
 import { Providers } from '@/components/providers/Providers';
@@ -79,7 +80,9 @@ export default function RootLayout({
       <body suppressHydrationWarning>
         <Providers>
           {children}
-          <MobileBottomNav />
+          <Suspense fallback={null}>
+            <MobileBottomNav />
+          </Suspense>
           <Footer />
         </Providers>
       </body>

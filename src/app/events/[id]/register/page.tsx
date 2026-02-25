@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Navbar } from '@/components/layout/Navbar';
 import { eventService } from '@/services/eventService';
@@ -11,7 +11,8 @@ import styles from './registration.module.css';
 import { initializeRazorpayPayment } from '@/utils/razorpaySetup';
 import toast from 'react-hot-toast';
 
-export default function RegistrationPage() {
+// Separate content component to use useSearchParams within a Suspense boundary
+function RegistrationPageContent() {
     const params = useParams();
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -667,5 +668,19 @@ export default function RegistrationPage() {
                 </div>
             </div>
         </main>
+    );
+}
+
+// Main page component with Suspense boundary
+export default function RegistrationPage() {
+    return (
+        <Suspense fallback={
+            <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fdfdfd' }}>
+                <div className="spinner"></div>
+                <p>Loading application...</p>
+            </main>
+        }>
+            <RegistrationPageContent />
+        </Suspense>
     );
 }
