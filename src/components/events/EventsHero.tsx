@@ -195,14 +195,16 @@ export const EventsHero = ({ events }: EventsHeroProps) => {
                                 transition={{ duration: 0.6, ease: "easeOut" }}
                                 className={styles.posterWrapper}
                             >
-                                <Image
-                                    src={featuredEvent.image}
-                                    alt={featuredEvent.title}
-                                    width={500}
-                                    height={600}
-                                    className={styles.posterImage}
-                                    priority
-                                />
+                                <Link href={`/events/${featuredEvent.id}/register`} className={styles.posterLink}>
+                                    <Image
+                                        src={featuredEvent.image}
+                                        alt={featuredEvent.title}
+                                        width={500}
+                                        height={600}
+                                        className={styles.posterImage}
+                                        priority
+                                    />
+                                </Link>
                             </motion.div>
                         </AnimatePresence>
                     </div>
