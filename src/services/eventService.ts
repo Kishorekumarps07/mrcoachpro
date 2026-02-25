@@ -32,14 +32,18 @@ interface BackendEvent {
         title: string;
         description: string;
         price: string;
-        features: string[];
+        features?: string | string[];
+        features_json?: string;
         adult_price?: string | number;
         kids_price?: string | number;
         tshirt_required?: string | boolean; // "yes"/"no" or true/false
-        tshirt_sizes?: string; // "S, M, L"
+        tshirt_sizes?: string | string[]; // "S, M, L" or ["S", "M", "L"]
+        tshirt_sizes_json?: string;
     }[];
-    event_highlights?: string; // JSON string or array
-    event_schedule?: string; // JSON string
+    event_highlights?: string | string[]; // JSON string or array
+    highlights?: { highlight_text: string }[];
+    event_schedule?: string | any[]; // JSON string or array
+    schedule?: { schedule_time: string; title: string; short_description: string }[];
     status: string;
     created_at: string;
     updated_at: string;
@@ -83,13 +87,15 @@ interface ApiResponse<T> {
 const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
     // Parse highlights/features
     let highlights: string[] = [];
-    if (backendEvent.event_highlights) {
+    if (backendEvent.highlights && Array.isArray(backendEvent.highlights)) {
+        highlights = backendEvent.highlights.map(h => h.highlight_text);
+    } else if (backendEvent.event_highlights) {
         try {
             // Check if already an array or needs parsing
             if (Array.isArray(backendEvent.event_highlights)) {
                 highlights = backendEvent.event_highlights;
             } else {
-                highlights = JSON.parse(backendEvent.event_highlights);
+                highlights = JSON.parse(backendEvent.event_highlights as string);
             }
         } catch (e) {
             // If parse fails, maybe it's a comma separated string or plain text
@@ -166,9 +172,27 @@ const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
                 isTshirtRequired = ticket.tshirt_required;
             }
 
+            // Parse features
+            let features: string[] = [];
+            if (Array.isArray(ticket.features)) {
+                features = ticket.features;
+            } else if (ticket.features_json) {
+                try {
+                    features = JSON.parse(ticket.features_json);
+                } catch (e) { }
+            } else if (typeof ticket.features === 'string') {
+                features = (ticket.features as string).split(',').map(f => f.trim()).filter(f => f.length > 0);
+            }
+
             // Parse T-shirt sizes
             let tshirtSizes: string[] = ['S', 'M', 'L', 'XL', 'XXL']; // Default
-            if (ticket.tshirt_sizes && typeof ticket.tshirt_sizes === 'string') {
+            if (Array.isArray(ticket.tshirt_sizes)) {
+                tshirtSizes = ticket.tshirt_sizes;
+            } else if (ticket.tshirt_sizes_json) {
+                try {
+                    tshirtSizes = JSON.parse(ticket.tshirt_sizes_json);
+                } catch (e) { }
+            } else if (ticket.tshirt_sizes && typeof ticket.tshirt_sizes === 'string') {
                 tshirtSizes = ticket.tshirt_sizes.split(',').map(s => s.trim()).filter(s => s.length > 0);
             }
 
@@ -177,7 +201,7 @@ const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
                 name: ticket.title,
                 price: `₹${basePrice.toLocaleString()}`,
                 description: ticket.description || '',
-                features: ticket.features || [],
+                features: features.length > 0 ? features : (Array.isArray(ticket.features) ? ticket.features : []),
                 adultPrice: adultPrice || basePrice,
                 childPrice: childPrice || basePrice,
                 isTshirtRequired,
@@ -253,6 +277,14 @@ const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
         socialMediaUrl: backendEvent.social_media_url,
 
         agenda: (() => {
+            if (backendEvent.schedule && Array.isArray(backendEvent.schedule)) {
+                return backendEvent.schedule.map(item => ({
+                    time: item.schedule_time || '',
+                    title: item.title || '',
+                    description: item.short_description || '',
+                    speaker: ''
+                }));
+            }
             if (!backendEvent.event_schedule) return [];
             try {
                 // If it's already an object/array
