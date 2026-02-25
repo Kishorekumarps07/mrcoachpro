@@ -241,12 +241,12 @@
 /* --- Print Styles --- */
 @media print {
 
-    header,
-    footer,
-    nav,
-    [class*="navigation"],
-    [class*="actions"],
-    [class*="infoBox"] {
+    :global(header),
+    :global(footer),
+    :global(nav),
+    :global([class*="navigation"]),
+    :global([class*="actions"]),
+    :global([class*="infoBox"]) {
         display: none !important;
     }
 
@@ -278,7 +278,7 @@
         background: #fff !important;
     }
 
-    * {
+    :global(*) {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
     }
