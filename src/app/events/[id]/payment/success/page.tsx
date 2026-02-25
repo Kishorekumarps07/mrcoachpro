@@ -89,11 +89,48 @@ export default function PaymentSuccessPage() {
                     </div>
 
                     <div className={styles.actions}>
-                        <Button size="lg" className={styles.actionButton}>
+                        <Button
+                            size="lg"
+                            className={styles.actionButton}
+                            onClick={() => window.print()}
+                        >
                             <Download size={18} />
                             Download Ticket
                         </Button>
-                        <Button size="lg" variant="secondary" className={styles.actionButton}>
+                        <Button
+                            size="lg"
+                            variant="secondary"
+                            className={styles.actionButton}
+                            onClick={() => {
+                                if (!event) return;
+
+                                // Format dates for ICS (YYYYMMDDTHHMMSSZ)
+                                const startDate = event.isoDate ? event.isoDate.replace(/-/g, '') : new Date().toISOString().split('T')[0].replace(/-/g, '');
+                                const startTime = "050000"; // Default to 5AM as per event data
+
+                                const icsContent = [
+                                    'BEGIN:VCALENDAR',
+                                    'VERSION:2.0',
+                                    'BEGIN:VEVENT',
+                                    `URL:${window.location.href}`,
+                                    `DTSTART:${startDate}T${startTime}`,
+                                    `DTEND:${startDate}T080000`, // Assume 3 hour duration
+                                    `SUMMARY:${event.title}`,
+                                    `DESCRIPTION:Registration confirmed. Booking ID: ${bookingId}`,
+                                    `LOCATION:${event.location}`,
+                                    'END:VEVENT',
+                                    'END:VCALENDAR'
+                                ].join('\r\n');
+
+                                const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+                                const link = document.createElement('a');
+                                link.href = window.URL.createObjectURL(blob);
+                                link.setAttribute('download', 'event-ticket.ics');
+                                document.body.appendChild(link);
+                                link.click();
+                                document.body.removeChild(link);
+                            }}
+                        >
                             <Calendar size={18} />
                             Add to Calendar
                         </Button>
