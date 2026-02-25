@@ -249,10 +249,10 @@ const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
         image: imageUrl,
         price: priceFormatted,
         category: category,
-        description: backendEvent.about_event || backendEvent.description || '',
+        description: backendEvent.description || backendEvent.about_event || '',
         highlights: highlights.length > 0 ? highlights : ['Join us for this event!'],
 
-        detailedDescription: [backendEvent.description || backendEvent.about_event || ''],
+        detailedDescription: (backendEvent.about_event || backendEvent.description || '').split('\n').filter(p => p.trim() !== ''),
 
         organizer: backendEvent.organizers && backendEvent.organizers.length > 0 ? {
             name: backendEvent.organizers[0].name,
