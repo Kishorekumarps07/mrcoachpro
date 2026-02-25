@@ -8,7 +8,7 @@
     overflow: hidden;
     color: #000;
     /* Deep Black for contrast */
-    padding-top: 50px;
+    padding-top: 20px;
     padding-bottom: 80px;
     background: #ffffff;
     /* Pure White Base */
@@ -251,6 +251,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: -40px;
 }
 
 .posterWrapper {
