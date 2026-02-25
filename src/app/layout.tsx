@@ -62,6 +62,11 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  icons: {
+    icon: '/mrcoach-logo-new.png',
+    shortcut: '/mrcoach-logo-new.png',
+    apple: '/mrcoach-logo-new.png',
+  },
 };
 
 export default function RootLayout({
