@@ -130,7 +130,7 @@ export const Footer = () => {
                         rel="noopener noreferrer"
                         className={styles.poweredBy}
                     >
-                        powered by <span className={styles.brandName}>Promptix.pro</span>
+                        developed by <span className={styles.brandName}>Promptix.pro</span>
                     </a>
                 </div>
             </div>

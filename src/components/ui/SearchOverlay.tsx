@@ -31,10 +31,12 @@ const SERVICE_ITEMS: SearchItem[] = SEARCHABLE_SERVICES.map((service, index) => 
 }));
 
 const STATIC_SERVICE_ITEMS: SearchItem[] = [
-    { id: 'static-1', title: 'Start Personal Training', category: 'Action', href: '/contact-us' },
-    { id: 'static-2', title: 'Weight Loss Transformation', category: 'Goal', href: '/services' },
-    { id: 'static-3', title: 'Muscle Building Programs', category: 'Program', href: '/services' },
-    { id: 'static-4', title: 'Nutrition & Diet Plans', category: 'Goal', href: '/services' },
+    { id: 'svc-0', title: 'Fitness', category: 'Service', href: '/services#fitness' },
+    { id: 'svc-1', title: 'Physio', category: 'Service', href: '/services#physio' },
+    { id: 'svc-2', title: 'Sports', category: 'Service', href: '/services#sports' },
+    { id: 'svc-3', title: 'Yoga', category: 'Service', href: '/services#yoga' },
+    { id: 'svc-4', title: 'Online', category: 'Service', href: '/services#online' },
+    { id: 'svc-5', title: 'Nutrition', category: 'Service', href: '/services#nutrition' },
 ];
 
 const STATIC_EVENT_ITEMS: SearchItem[] = [
@@ -72,7 +74,7 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose, t
 
     // Select data based on type
     const searchData = React.useMemo(() =>
-        type === 'events' ? [...STATIC_EVENT_ITEMS, ...dynamicEventItems] : [...STATIC_SERVICE_ITEMS, ...SERVICE_ITEMS],
+        type === 'events' ? [...STATIC_EVENT_ITEMS, ...dynamicEventItems] : STATIC_SERVICE_ITEMS,
         [type, dynamicEventItems]
     );
 
@@ -81,7 +83,7 @@ export const SearchOverlay: React.FC<SearchOverlayProps> = ({ isOpen, onClose, t
         [type]
     );
 
-    const placeholder = type === 'events' ? 'Search events, locations, categories...' : 'Search goals, programs, services...';
+    const placeholder = type === 'events' ? 'Search events, locations, categories...' : 'Search for our services...';
 
     useEffect(() => {
         if (isOpen) {

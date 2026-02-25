@@ -26,7 +26,7 @@ export const CORE_SERVICES = [
     "Physio",
     "Sports",
     "Yoga",
-    "Online Coaching",
+    "Online",
     "Nutrition"
 ];
 
