@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { Home, Calendar, Zap, Info, ShoppingBag } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useModal } from '@/context/ModalContext'; // Import context
+import { useAppView } from '@/hooks/useAppView';
 import styles from './MobileBottomNav.module.css';
 
 // Custom Doctor Icon to match user preference
@@ -31,10 +32,12 @@ const DoctorIcon = ({ size = 24, className }: { size?: number, className?: strin
 export const MobileBottomNav = () => {
     const pathname = usePathname();
     const { openModal } = useModal(); // Use context
+    const isAppView = useAppView();
 
-    // Hide bottom nav on cart & checkout pages so sticky pay bar is unobstructed
+    // Hide bottom nav on cart & checkout pages
+    // OR if we are viewing through the native App
     const hideOnRoutes = ['/products/cart', '/products/checkout'];
-    if (hideOnRoutes.includes(pathname)) return null;
+    if (isAppView || hideOnRoutes.includes(pathname)) return null;
 
     const navItems = [
         { href: '/', label: 'HOME', icon: Home },

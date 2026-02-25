@@ -6,8 +6,10 @@ import Image from 'next/image';
 import { Search, Menu, Filter, ShoppingCart, User, X } from 'lucide-react';
 import styles from './ShopNavbar.module.css';
 import { useShop } from '@/app/products/context/ShopContext';
+import { useAppView } from '@/hooks/useAppView';
 
 export const ShopNavbar = () => {
+    const isAppView = useAppView();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [inputValue, setInputValue] = useState('');
