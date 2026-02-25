@@ -15,15 +15,21 @@
 }
 
 /* --- RESET & LAYOUT --- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 .shop-wrapper {
     background-color: var(--retail-grey-bg);
     color: var(--retail-black);
     font-family: var(--font-main);
     min-height: 100vh;
     padding-bottom: 80px;
-    /* Space for global bottom bar */
-    overflow-x: hidden;
-    /* prevent scroll rows from creating horizontal bleed */
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden !important;
 }
 
 /* --- CATEGORY RAIL (ICONS) --- */
@@ -153,6 +159,7 @@
 .category-item:hover .all-cat-img {
     transform: scale(1.5) rotate(2deg);
 }
+
 .category-item.active .category-icon-box .all-cat-img {
     transform: scale(1.45);
 }

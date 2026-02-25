@@ -15,11 +15,13 @@
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 24px;
+    /* Increased from 20px */
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
+    box-sizing: border-box;
 }
 
 .topRow {
@@ -89,7 +91,8 @@
     .container {
         flex-direction: column;
         gap: 12px;
-        padding: 0 16px;
+        padding: 0 24px;
+        /* Increased for mobile gutter */
     }
 
     .topRow {
@@ -140,6 +143,11 @@
     .logo img {
         height: 30px !important;
         width: auto !important;
+    }
+
+    .appViewNavbar {
+        padding-top: 20px !important;
+        padding-bottom: 20px !important;
     }
 }
 

@@ -13,12 +13,12 @@ export const useAppView = () => {
 
     useEffect(() => {
         const mode = searchParams.get('mode');
-        if (mode === 'app') {
+        const isWebView = /wv|mrc-app|coach-app/i.test(navigator.userAgent);
+
+        if (mode === 'app' || isWebView) {
             setIsAppView(true);
-            // Optionally save to localStorage to persist throughout the session
             localStorage.setItem('mrc_view_mode', 'app');
         } else {
-            // Check persistence
             const savedMode = localStorage.getItem('mrc_view_mode');
             if (savedMode === 'app') {
                 setIsAppView(true);

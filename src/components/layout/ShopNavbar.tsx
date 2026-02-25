@@ -87,39 +87,41 @@ export const ShopNavbar = () => {
 
     return (
         <>
-            <header className={styles.shopNavbar}>
+            <header className={`${styles.shopNavbar} ${isAppView ? styles.appViewNavbar : ''}`}>
                 <div className={styles.container}>
-                    {/* Top Row: Menu, Logo, and Icons (User, Cart) */}
-                    <div className={styles.topRow}>
-                        <div className={styles.leftSection}>
-                            <button
-                                className={styles.iconBtn}
-                                onClick={() => setIsMenuOpen(true)}
-                                aria-label="Toggle Menu"
-                            >
-                                <Menu size={24} />
-                            </button>
-                            <Link href="/" className={styles.logo}>
-                                <Image
-                                    src="/mrcoach-logo-new.png"
-                                    alt="MR.COACH"
-                                    width={220}
-                                    height={50}
-                                    priority
-                                    className={styles.logoImage}
-                                />
-                            </Link>
-                        </div>
+                    {/* Top Row: Menu, Logo, and Icons (User, Cart) - Hidden in App Mode for cleaner look */}
+                    {!isAppView && (
+                        <div className={styles.topRow}>
+                            <div className={styles.leftSection}>
+                                <button
+                                    className={styles.iconBtn}
+                                    onClick={() => setIsMenuOpen(true)}
+                                    aria-label="Toggle Menu"
+                                >
+                                    <Menu size={24} />
+                                </button>
+                                <Link href="/" className={styles.logo}>
+                                    <Image
+                                        src="/mrcoach-logo-new.png"
+                                        alt="MR.COACH"
+                                        width={220}
+                                        height={50}
+                                        priority
+                                        className={styles.logoImage}
+                                    />
+                                </Link>
+                            </div>
 
-                        <div className={styles.rightSectionMobile}>
-                            <button className={styles.iconBtn} aria-label="User Profile">
-                                <User size={24} />
-                            </button>
-                            <Link href="/products/cart" className={styles.iconBtn} aria-label="Cart">
-                                <ShoppingCart size={24} />
-                            </Link>
+                            <div className={styles.rightSectionMobile}>
+                                <button className={styles.iconBtn} aria-label="User Profile">
+                                    <User size={24} />
+                                </button>
+                                <Link href="/products/cart" className={styles.iconBtn} aria-label="Cart">
+                                    <ShoppingCart size={24} />
+                                </Link>
+                            </div>
                         </div>
-                    </div>
+                    )}
 
                     {/* Bottom Row / Search Section for Mobile & Desktop */}
                     <div className={styles.bottomRow}>
