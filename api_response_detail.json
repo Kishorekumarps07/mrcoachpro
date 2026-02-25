@@ -1,0 +1,157 @@
+{
+  "success": true,
+  "data": {
+    "id": 8,
+    "title": "CHENNAI'S WALK FOR ZERO CRIME AGAINST WOMEN",
+    "description": "3KM WALKATHON - OPEN TO ALL",
+    "about_event": "About Event:\nChennai’s Walk for Zero Crime Against Women is a 3KM awareness walkathon aimed at promoting safety, respect, and zero tolerance towards violence against women. This community-driven event invites citizens of all ages to come together and take a stand against abuse and injustice.\n\nParticipants will receive a T-shirt, medal, refreshments, physiotherapy support, certificate, bib, and saplings. The event is designed to spread awareness, encourage fitness, and build a safer society through collective action.\n\nJoin us on 29th March 2026 and be part of a meaningful movement for change.",
+    "event_date": "2026-03-29T06:00:00.000Z",
+    "end_date": "2026-03-29T08:00:00.000Z",
+    "registration_close_date": "2026-03-27T00:00:00.000Z",
+    "total_slots": 500,
+    "location": "VELAMMAL VIDYALAYA, MOGAPPAIAR WEST",
+    "venue": null,
+    "city": "",
+    "district": "",
+    "state_id": 23,
+    "district_id": 49,
+    "image_url": "https://api-dev.mrcoachpro.in/uploads/event_image-1771928104282-392722636.jpeg",
+    "external_event_id": null,
+    "external_url": "",
+    "social_media_url": "",
+    "status": "upcoming",
+    "created_at": "2026-02-24T10:15:04.000Z",
+    "updated_at": "2026-02-24T10:24:47.000Z",
+    "categories": [
+      {
+        "id": 1,
+        "name": "Running",
+        "status": "active",
+        "created_at": "2026-02-04T03:19:48.000Z",
+        "updated_at": "2026-02-04T03:19:48.000Z"
+      },
+      {
+        "id": 2,
+        "name": "Wellness",
+        "status": "active",
+        "created_at": "2026-02-04T03:20:16.000Z",
+        "updated_at": "2026-02-04T03:20:16.000Z"
+      }
+    ],
+    "tags": [
+      {
+        "id": 1,
+        "name": "Marathon",
+        "status": "active",
+        "created_at": "2026-02-04T03:20:32.000Z",
+        "updated_at": "2026-02-04T03:20:32.000Z"
+      },
+      {
+        "id": 2,
+        "name": "Running",
+        "status": "active",
+        "created_at": "2026-02-04T03:20:34.000Z",
+        "updated_at": "2026-02-04T03:20:34.000Z"
+      },
+      {
+        "id": 3,
+        "name": "Fitness",
+        "status": "active",
+        "created_at": "2026-02-04T03:20:40.000Z",
+        "updated_at": "2026-02-04T03:20:40.000Z"
+      }
+    ],
+    "highlights": [
+      {
+        "id": 80,
+        "event_id": 8,
+        "highlight_text": "3KM Walkathon for Women Safety Awareness",
+        "sort_order": 0,
+        "created_at": "2026-02-24T11:08:59.000Z"
+      },
+      {
+        "id": 81,
+        "event_id": 8,
+        "highlight_text": "Free T-shirt, Medal, Certificate & Refreshments",
+        "sort_order": 1,
+        "created_at": "2026-02-24T11:08:59.000Z"
+      },
+      {
+        "id": 82,
+        "event_id": 8,
+        "highlight_text": "Physiotherapy Support & Sapling Distribution",
+        "sort_order": 2,
+        "created_at": "2026-02-24T11:08:59.000Z"
+      },
+      {
+        "id": 83,
+        "event_id": 8,
+        "highlight_text": "Community Participation for a Social Cause",
+        "sort_order": 3,
+        "created_at": "2026-02-24T11:08:59.000Z"
+      }
+    ],
+    "schedule": [
+      {
+        "id": 82,
+        "event_id": 8,
+        "schedule_time": "06:00 AM",
+        "title": "Registration & Warm-up",
+        "short_description": "Participant check-in, bib collection, warm-up exercises.",
+        "sort_order": 0,
+        "created_at": "2026-02-24T11:08:59.000Z"
+      },
+      {
+        "id": 83,
+        "event_id": 8,
+        "schedule_time": "06:30 AM",
+        "title": "Walkathon Flag-off",
+        "short_description": "Official start of the 3KM awareness walk.",
+        "sort_order": 1,
+        "created_at": "2026-02-24T11:08:59.000Z"
+      },
+      {
+        "id": 84,
+        "event_id": 8,
+        "schedule_time": "07:45 AM",
+        "title": "Cool Down & Refreshments",
+        "short_description": "Stretching, refreshments, and certificate distribution.",
+        "sort_order": 2,
+        "created_at": "2026-02-24T11:08:59.000Z"
+      }
+    ],
+    "organizers": [],
+    "tickets": [
+      {
+        "id": 54,
+        "event_id": 8,
+        "title": "General Entry",
+        "description": "Entry for Chennai’s Walk for Zero Crime Against Women 3KM Walkathon. Includes T-shirt, medal, refreshments, certificate, bib, physiotherapy support, and sapling.",
+        "features_json": "[\"T-shirt\",\"Medal\",\"Certificate\",\"Refreshments\",\"Bib\",\"Physiotherapy Support\",\"Sapling\"]",
+        "price": "1.00",
+        "adult_price": "1.00",
+        "kids_price": "1.00",
+        "tshirt_required": true,
+        "tshirt_sizes_json": "[\"XS-36\",\"S-38\",\"M-40\",\"L-42\",\"XL-44\",\"XXL-46\"]",
+        "created_at": "2026-02-24T11:08:59.000Z",
+        "tshirt_sizes": [
+          "XS-36",
+          "S-38",
+          "M-40",
+          "L-42",
+          "XL-44",
+          "XXL-46"
+        ],
+        "features": [
+          "T-shirt",
+          "Medal",
+          "Certificate",
+          "Refreshments",
+          "Bib",
+          "Physiotherapy Support",
+          "Sapling"
+        ]
+      }
+    ]
+  }
+}

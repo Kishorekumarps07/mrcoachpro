@@ -22,6 +22,9 @@ interface BackendEvent {
     social_media_url?: string;
     total_slots: number; // Changed from capacity
     booked_slots?: number;
+    booked_count?: number; // Potential alternative
+    ticket_price?: string | number; // Potential for detail view
+    min_ticket_price?: string | number; // List view uses this
 
     // Optional/Derived fields
     tickets?: {
@@ -130,6 +133,13 @@ const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
     // If tickets exist, get lowest price. If not, check if 'price' field exists (legacy?). 
     // If all fail, "Free" or "Register"
     let priceFormatted = 'Free';
+
+    // Check for fixed price fields if tickets array is empty
+    const directPrice = backendEvent.min_ticket_price || backendEvent.ticket_price;
+    if (directPrice && parseFloat(String(directPrice)) > 0) {
+        priceFormatted = `₹${parseFloat(String(directPrice)).toLocaleString()}`;
+    }
+
     let pricingTiers: any[] = [];
 
     if (backendEvent.tickets && backendEvent.tickets.length > 0) {
@@ -193,7 +203,8 @@ const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
 
     // Slots
     const totalSlots = backendEvent.total_slots || 0;
-    const bookedSlots = backendEvent.booked_slots || 0;
+    // Check for both booked_slots and booked_count
+    const bookedSlots = backendEvent.booked_slots ?? backendEvent.booked_count ?? 0;
     const spotsLeft = Math.max(0, totalSlots - bookedSlots);
 
     // List View (`/api/events`) returns `image`
