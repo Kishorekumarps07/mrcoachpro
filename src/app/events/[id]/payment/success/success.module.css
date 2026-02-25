@@ -237,3 +237,49 @@
         font-size: 0.8rem;
     }
 }
+
+/* --- Print Styles --- */
+@media print {
+
+    header,
+    footer,
+    nav,
+    [class*="navigation"],
+    [class*="actions"],
+    [class*="infoBox"] {
+        display: none !important;
+    }
+
+    .main {
+        background: #fff !important;
+        min-height: auto !important;
+        padding: 0 !important;
+    }
+
+    .container {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: none !important;
+        display: block !important;
+    }
+
+    .successCard {
+        box-shadow: none !important;
+        border: 2px solid #1a1a1a !important;
+        margin: 0 auto !important;
+        padding: 40px !important;
+        width: 100% !important;
+        max-width: 650px !important;
+        border-radius: 0 !important;
+    }
+
+    .bookingDetails {
+        border-color: #1a1a1a !important;
+        background: #fff !important;
+    }
+
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}
