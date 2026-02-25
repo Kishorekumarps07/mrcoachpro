@@ -91,8 +91,8 @@
     width: 100%;
     max-width: var(--container-width);
     margin: 0 auto;
-    padding-top: 70px;
-    /* 20px breathing room below 40px bar */
+    padding-top: 45px;
+    /* 5px breathing room below 40px bar */
     padding-left: 20px;
     padding-right: 20px;
     display: grid;
@@ -106,7 +106,7 @@
 @media (max-width: 768px) {
     .heroContent {
         grid-template-columns: 1fr;
-        padding-top: 70px;
+        padding-top: 45px;
         /* Reduced from 160px for tighter fit */
         gap: 60px;
     }
@@ -120,6 +120,7 @@
     align-items: flex-start;
     /* Pushed to top to reduce space from announcement bar */
     justify-content: center;
+    padding-top: 40px;
     padding-left: 20px;
 }
 
@@ -472,7 +473,7 @@
         flex-direction: column;
         gap: 24px;
         /* Reduced gap */
-        padding-top: 50px;
+        padding-top: 45px;
         /* Reduced from 80px to pull content up */
         padding-bottom: 40px;
         height: auto;
@@ -522,6 +523,7 @@
     .carouselZone {
         height: 300px;
         /* Constrain carousel height */
+        padding-top: 20px;
         padding-left: 0;
     }
 
