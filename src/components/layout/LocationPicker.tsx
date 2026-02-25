@@ -59,7 +59,7 @@ const POPULAR_CITIES = [
 const STORAGE_KEY = 'mrcoach_user_location';
 
 export const LocationPicker = () => {
-    const [location, setLocation] = useState('Nungambakkam, Chennai');
+    const [location, setLocation] = useState<string | null>(null);
     const [isOpen, setIsOpen] = useState(false);
     const [search, setSearch] = useState('');
     const [isLocating, setIsLocating] = useState(false);
@@ -151,7 +151,7 @@ export const LocationPicker = () => {
                 aria-expanded={isOpen}
             >
                 <MapPin size={15} className={styles.mapIcon} />
-                <span className={styles.locationText}>{location}</span>
+                <span className={styles.locationText}>{location || 'Select Location'}</span>
                 <ChevronDown
                     size={14}
                     className={`${styles.chevIcon} ${isOpen ? styles.chevOpen : ''}`}

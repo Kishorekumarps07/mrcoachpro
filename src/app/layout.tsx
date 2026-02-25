@@ -63,9 +63,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/mrcoach-logo-new.png',
-    shortcut: '/mrcoach-logo-new.png',
-    apple: '/mrcoach-logo-new.png',
+    icon: '/favicon-mrcoach.jpg',
+    shortcut: '/favicon-mrcoach.jpg',
+    apple: '/favicon-mrcoach.jpg',
   },
 };
 

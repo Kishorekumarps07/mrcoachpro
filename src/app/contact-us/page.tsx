@@ -27,6 +27,13 @@ const CONTACT_METHODS = [
         info: 'mrcoachofficial@gmail.com',
         action: 'Send Email',
         href: 'mailto:mrcoachofficial@gmail.com'
+    },
+    {
+        icon: <MapPin size={32} />,
+        title: 'Our Office',
+        info: 'PC1C , 2nd Block , 1st Floor , Mogappair West, Chennai - 600037',
+        action: 'View on Maps',
+        href: 'https://maps.app.goo.gl/vc82EiDqAGRPqh2SA'
     }
 ];
 
