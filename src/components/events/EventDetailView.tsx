@@ -41,6 +41,9 @@ export const EventDetailView = ({ event }: EventDetailViewProps) => {
                     <div className={styles.heroContent}>
                         <div className={styles.categoryBadge}>{event.category}</div>
                         <h1 className={styles.title}>{event.title}</h1>
+                        {event.description && (
+                            <p className={styles.summary}>{event.description}</p>
+                        )}
                         <div className={styles.metaInfo}>
                             <div className={styles.metaItem}>
                                 <Calendar size={20} />

@@ -78,7 +78,7 @@ export default function AboutPage() {
                             </p>
                             <div className={styles.appImageWrapper}>
                                 <Image
-                                    src="/images/user-app-poster.jpg"
+                                    src="/images/user-app-v2.jpg"
                                     alt="Mr.Coach User App Poster"
                                     fill
                                     className={styles.mockupImageFull}
@@ -95,7 +95,7 @@ export default function AboutPage() {
                             </p>
                             <div className={styles.appImageWrapper}>
                                 <Image
-                                    src="/images/pro-app-poster.jpg"
+                                    src="/images/pro-app-v2.jpg"
                                     alt="Mr.Coach Pro App Poster"
                                     fill
                                     className={styles.mockupImageFull}

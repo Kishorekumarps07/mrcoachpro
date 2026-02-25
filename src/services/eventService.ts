@@ -249,7 +249,7 @@ const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
         image: imageUrl,
         price: priceFormatted,
         category: category,
-        description: backendEvent.description || backendEvent.about_event || '',
+        description: backendEvent.description || '',
         highlights: highlights.length > 0 ? highlights : ['Join us for this event!'],
 
         detailedDescription: (backendEvent.about_event || backendEvent.description || '').split('\n').filter(p => p.trim() !== ''),

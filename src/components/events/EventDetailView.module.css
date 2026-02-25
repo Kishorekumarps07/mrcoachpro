@@ -86,8 +86,16 @@
     line-height: 1.15;
     font-family: var(--font-heading);
     letter-spacing: -0.02em;
-    text-shadow: none;
     /* Remove any shadows */
+}
+
+.summary {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #555555;
+    margin-bottom: 32px;
+    max-width: 600px;
+    font-weight: 500;
 }
 
 .metaInfo {
