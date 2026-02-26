@@ -9,9 +9,9 @@ export const metadata: Metadata = {
 
 export default function BookDemoPage() {
     return (
-        <main style={{ minHeight: '100vh', background: '#FAFAFA' }}>
+        <main style={{ minHeight: '100vh', background: '#FFFFFF', display: 'flex', flexDirection: 'column' }}>
             <Navbar />
-            <div style={{ padding: '20px' }}>
+            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
                 <BookDemoForm isPage={true} />
             </div>
         </main>
