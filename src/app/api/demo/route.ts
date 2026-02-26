@@ -12,9 +12,6 @@ export async function POST(request: Request) {
             'User-Agent': 'MrCoachPro-Web/1.0'
         };
 
-        console.log('--- PROXYING REQUEST ---');
-        console.log('Target:', externalApiUrl);
-
         const response = await fetch(externalApiUrl, {
             method: 'POST',
             headers: headers,

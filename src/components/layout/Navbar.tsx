@@ -23,7 +23,6 @@ const NAV_LINKS = [
 export const Navbar = () => {
     const pathname = usePathname();
     const isEventsPage = pathname === '/events';
-    console.log('Current pathname:', pathname, '| Is Events Page:', isEventsPage); // Debug log
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
