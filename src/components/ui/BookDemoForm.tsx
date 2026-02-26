@@ -181,14 +181,15 @@ export const BookDemoForm = ({ onClose, isPage = false }: BookDemoFormProps) => 
     // Initial Fetch
     useEffect(() => {
         const fetchData = async () => {
+            const apiBase = process.env.NEXT_PUBLIC_API_URL || 'https://api.mrcoachpro.in/api';
             try {
                 // Fetch States
-                const statesRes = await fetch('https://api.mrcoachpro.in/api/locations/states');
+                const statesRes = await fetch(`${apiBase}/locations/states`);
                 const statesData = await statesRes.json();
                 if (statesData.success) setStatesList(statesData.data);
 
                 // Fetch Categories (Specializations)
-                const catsRes = await fetch('https://api.mrcoachpro.in/api/categories');
+                const catsRes = await fetch(`${apiBase}/categories`);
                 const catsData = await catsRes.json();
                 if (catsData.success) setCategoriesList(catsData.data);
             } catch (err) {
@@ -223,12 +224,13 @@ export const BookDemoForm = ({ onClose, isPage = false }: BookDemoFormProps) => 
         }
 
         const fetchDistricts = async () => {
+            const apiBase = process.env.NEXT_PUBLIC_API_URL || 'https://api.mrcoachpro.in/api';
             setLoadingDistricts(true);
             try {
                 // Find state ID from name (not ideal, but form stores name currently)
                 const selectedState = statesList.find(s => s.name === formData.state);
                 if (selectedState) {
-                    const res = await fetch(`https://api.mrcoachpro.in/api/locations/districts?state_id=${selectedState.id}`);
+                    const res = await fetch(`${apiBase}/locations/districts?state_id=${selectedState.id}`);
                     const data = await res.json();
                     if (data.success) {
                         setDistrictsList(data.data);
