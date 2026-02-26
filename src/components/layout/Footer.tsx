@@ -9,6 +9,7 @@ import styles from './Footer.module.css';
 const QUICK_LINKS = [
     { label: 'About', href: '/about' },
     { label: 'Contact Us', href: '/contact-us' },
+    { label: 'Book a Demo', href: '/book-demo' },
 ];
 
 const POLICY_LINKS = [
