@@ -181,8 +181,10 @@ export const BookDemoForm = ({ onClose, isPage = false }: BookDemoFormProps) => 
     // Initial Fetch
     useEffect(() => {
         const fetchData = async () => {
-            const apiBase = process.env.NEXT_PUBLIC_API_URL || 'https://api.mrcoachpro.in/api';
             try {
+                // Force production API for intake to match submission endpoint
+                const apiBase = 'https://api.mrcoachpro.in/api';
+
                 // Fetch States
                 const statesRes = await fetch(`${apiBase}/locations/states`);
                 const statesData = await statesRes.json();
@@ -191,7 +193,14 @@ export const BookDemoForm = ({ onClose, isPage = false }: BookDemoFormProps) => 
                 // Fetch Categories (Specializations)
                 const catsRes = await fetch(`${apiBase}/categories`);
                 const catsData = await catsRes.json();
-                if (catsData.success) setCategoriesList(catsData.data);
+                if (catsData.success) {
+                    // Strip emojis (like 🟡) for a clean UI
+                    const cleanedCats = catsData.data.map((cat: any) => ({
+                        ...cat,
+                        displayName: cat.name.replace(/[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]/gu, '').trim()
+                    }));
+                    setCategoriesList(cleanedCats);
+                }
             } catch (err) {
                 console.error("Failed to fetch initial data", err);
             }
@@ -224,7 +233,7 @@ export const BookDemoForm = ({ onClose, isPage = false }: BookDemoFormProps) => 
         }
 
         const fetchDistricts = async () => {
-            const apiBase = process.env.NEXT_PUBLIC_API_URL || 'https://api.mrcoachpro.in/api';
+            const apiBase = 'https://api.mrcoachpro.in/api';
             setLoadingDistricts(true);
             try {
                 // Find state ID from name (not ideal, but form stores name currently)
@@ -374,11 +383,13 @@ export const BookDemoForm = ({ onClose, isPage = false }: BookDemoFormProps) => 
         try {
             const selectedState = statesList.find(s => s.name === formData.state);
             const selectedDistrict = districtsList.find(d => d.name === formData.district);
-            const selectedCategory = categoriesList.find(c => c.name === formData.specializations);
+            // Match against displayName now
+            const selectedCategory = categoriesList.find((c: any) => (c.displayName || c.name) === formData.specializations);
 
             // Double check category ID
             if (!selectedCategory) {
                 console.error('Category mapping failed for:', formData.specializations);
+                console.log('Available Categories:', categoriesList);
                 alert(`Error: Could not find ID for category "${formData.specializations}". Please re-select the specialization and try again.`);
                 setIsSubmitting(false);
                 return;
@@ -457,7 +468,7 @@ export const BookDemoForm = ({ onClose, isPage = false }: BookDemoFormProps) => 
     };
 
     const getActiveSubcategories = () => {
-        const activeCat = categoriesList.find(c => c.name === formData.specializations);
+        const activeCat = categoriesList.find((c: any) => (c.displayName || c.name) === formData.specializations);
         return activeCat ? activeCat.subcategories : [];
     };
 
@@ -614,7 +625,7 @@ export const BookDemoForm = ({ onClose, isPage = false }: BookDemoFormProps) => 
                             <label className={styles.label}>Professional Specializations</label>
                             <select className={styles.select} value={formData.specializations} onChange={(e) => { handleChange('specializations', e.target.value); handleChange('servicesProvided', ''); }}>
                                 <option value="">Select an option</option>
-                                {categoriesList.map((c) => <option key={c.id} value={c.name}>{c.name}</option>)}
+                                {categoriesList.map((c: any) => <option key={c.id} value={c.displayName || c.name}>{c.displayName || c.name}</option>)}
                             </select>
                         </div>
                         <div className={styles.formGroup}>
