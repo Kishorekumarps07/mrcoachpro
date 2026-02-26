@@ -1,6 +1,6 @@
 import { Event, EventCategory } from '@/data/events';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api-dev.mrcoachpro.in/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.mrcoachpro.in/api';
 
 // Backend Interface (snake_case)
 // Backend Interface (snake_case)
