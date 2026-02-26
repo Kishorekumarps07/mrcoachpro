@@ -369,6 +369,8 @@ export const BookDemoForm = ({ onClose, isPage = false }: BookDemoFormProps) => 
 
         setIsSubmitting(true);
 
+        let payload: any = {};
+
         try {
             const selectedState = statesList.find(s => s.name === formData.state);
             const selectedDistrict = districtsList.find(d => d.name === formData.district);
@@ -388,7 +390,7 @@ export const BookDemoForm = ({ onClose, isPage = false }: BookDemoFormProps) => 
                     .map(sub => sub.id)
                 : [];
 
-            const payload = {
+            payload = {
                 name: formData.name,
                 email: formData.email,
                 phone: formData.phone,
@@ -413,13 +415,15 @@ export const BookDemoForm = ({ onClose, isPage = false }: BookDemoFormProps) => 
                 body: JSON.stringify(payload)
             });
 
+            console.log('Submission Payload:', payload);
+
             let data;
             if (!res.ok) {
                 const text = await res.text();
                 try {
                     data = JSON.parse(text);
                 } catch (e) {
-                    alert(`Submission failed (Status ${res.status}): ${text.substring(0, 100)}`);
+                    alert(`Submission failed (Status ${res.status}): ${text.substring(0, 100)}\n\nPayload sent: ${JSON.stringify(payload, null, 2)}`);
                     return;
                 }
             } else {
@@ -431,11 +435,11 @@ export const BookDemoForm = ({ onClose, isPage = false }: BookDemoFormProps) => 
             } else {
                 const errorMsg = data.message || 'Unknown error';
                 const details = data.details ? JSON.stringify(data.details) : '';
-                alert(`Submission failed: ${errorMsg}\n${details}`);
+                alert(`Submission failed: ${errorMsg}\n${details}\n\nPayload sent: ${JSON.stringify(payload, null, 2)}`);
             }
         } catch (error) {
             console.error('Submission error:', error);
-            alert('An error occurred. Please try again.');
+            alert(`An error occurred: ${error}\n\nPayload check: ${JSON.stringify(payload || {}, null, 2)}`);
         } finally {
             setIsSubmitting(false);
         }
