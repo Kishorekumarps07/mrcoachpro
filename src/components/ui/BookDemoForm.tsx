@@ -374,6 +374,14 @@ export const BookDemoForm = ({ onClose, isPage = false }: BookDemoFormProps) => 
             const selectedDistrict = districtsList.find(d => d.name === formData.district);
             const selectedCategory = categoriesList.find(c => c.name === formData.specializations);
 
+            // Double check category ID
+            if (!selectedCategory) {
+                console.error('Category mapping failed for:', formData.specializations);
+                alert(`Error: Could not find ID for category "${formData.specializations}". Please re-select the specialization and try again.`);
+                setIsSubmitting(false);
+                return;
+            }
+
             const subcategoryIds = selectedCategory
                 ? selectedCategory.subcategories
                     .filter(sub => formData.servicesProvided.includes(sub.name))
@@ -384,18 +392,18 @@ export const BookDemoForm = ({ onClose, isPage = false }: BookDemoFormProps) => 
                 name: formData.name,
                 email: formData.email,
                 phone: formData.phone,
-                gender: formData.gender.toLowerCase(),
+                gender: formData.gender.toLowerCase() || 'other',
                 area: formData.area,
                 pincode: formData.pincode,
                 start_plan: formData.startPreference === 'Immediately' ? 'immediately'
                     : formData.startPreference === 'Within a Month' ? 'within_a_month'
                         : 'not_sure',
-                available_days: null,
+                available_days: formData.availability || null,
                 source_website: 'mrcoachpro_web',
                 state_id: selectedState ? selectedState.id : 0,
                 district_id: selectedDistrict ? selectedDistrict.id : 0,
                 service_type: formData.serviceType === 'Home Services' ? 'home_services' : 'online_services',
-                category_id: selectedCategory ? selectedCategory.id : 0,
+                category_id: selectedCategory.id,
                 subcategory_ids: subcategoryIds
             };
 
