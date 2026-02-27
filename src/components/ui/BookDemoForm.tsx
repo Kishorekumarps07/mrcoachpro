@@ -411,7 +411,9 @@ export const BookDemoForm = ({ onClose, isPage = false }: BookDemoFormProps) => 
                 start_plan: formData.startPreference === 'Immediately' ? 'immediately'
                     : formData.startPreference === 'Within a Month' ? 'within_a_month'
                         : 'not_sure',
-                available_days: formData.availability || null,
+                available_days: formData.availability === 'Any Day' ? 'any_day'
+                    : formData.availability === 'Weekdays' ? 'weekdays'
+                        : formData.availability === 'Weekends' ? 'weekends' : null,
                 source_website: 'mrcoachpro_web',
                 state_id: selectedState ? selectedState.id : 0,
                 district_id: selectedDistrict ? selectedDistrict.id : 0,
