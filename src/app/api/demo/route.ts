@@ -3,7 +3,8 @@ import { NextResponse } from 'next/server';
 export async function POST(request: Request) {
     try {
         const body = await request.json();
-        const externalApiUrl = 'https://api.mrcoachpro.in/api/users/receive';
+        const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.mrcoachpro.in/api';
+        const externalApiUrl = `${API_BASE_URL}/users/receive`;
 
         // Public API - no authentication required
         const headers: HeadersInit = {

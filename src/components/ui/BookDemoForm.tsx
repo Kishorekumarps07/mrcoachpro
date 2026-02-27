@@ -183,7 +183,7 @@ export const BookDemoForm = ({ onClose, isPage = false }: BookDemoFormProps) => 
         const fetchData = async () => {
             try {
                 // Force production API for intake to match submission endpoint
-                const apiBase = 'https://api.mrcoachpro.in/api';
+                const apiBase = process.env.NEXT_PUBLIC_API_URL || 'https://api.mrcoachpro.in/api';
 
                 // Fetch States
                 const statesRes = await fetch(`${apiBase}/locations/states`);
