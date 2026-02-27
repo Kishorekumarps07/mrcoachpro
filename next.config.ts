@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
         hostname: 'api-dev.mrcoachpro.in',
       },
       {
+        protocol: 'https',
+        hostname: 'api.mrcoachpro.in',
+      },
+      {
         protocol: 'http',
         hostname: 'localhost',
       },

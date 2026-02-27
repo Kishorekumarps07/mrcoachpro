@@ -1,6 +1,8 @@
 import { Event, EventCategory } from '@/data/events';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'https://api.mrcoachpro.in/api';
+const UPLOADS_BASE_URL = `${API_BASE_URL.replace(/\/api$/, '')}/uploads`;
+
 
 // Backend Interface (snake_case)
 // Backend Interface (snake_case)
@@ -261,7 +263,7 @@ const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
             image: backendEvent.organizers[0].image ?
                 (backendEvent.organizers[0].image.startsWith('http') ?
                     backendEvent.organizers[0].image :
-                    `https://api-dev.mrcoachpro.in/uploads/${backendEvent.organizers[0].image}`) :
+                    `${UPLOADS_BASE_URL}/${backendEvent.organizers[0].image}`) :
                 '/images/default-organizer.svg'
         } : {
             name: 'Mr. Coach Team',
