@@ -20,6 +20,7 @@ interface BackendEvent {
     image: string; // List View uses this
     image_url?: string; // Detail View uses this
     event_image?: string; // Potential other variation
+    eventsUrl?: string; // Added this variation seen in API
     external_url?: string;
     social_media_url?: string;
     total_slots: number; // Changed from capacity
@@ -235,10 +236,14 @@ const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
 
     // List View (`/api/events`) returns `image`
     // Detail View (`/api/events/:id`) returns `image_url`
-    const imageUrl = backendEvent.image ||
+    const rawImage = backendEvent.image ||
         backendEvent.image_url ||
         backendEvent.event_image ||
-        '/images/event-placeholder.jpg';
+        backendEvent.eventsUrl;
+
+    const imageUrl = rawImage
+        ? (rawImage.startsWith('http') ? rawImage : `${UPLOADS_BASE_URL}/${rawImage}`)
+        : '/images/event-placeholder.jpg';
 
     return {
         id: String(backendEvent.id),
