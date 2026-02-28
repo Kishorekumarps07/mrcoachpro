@@ -173,13 +173,12 @@ function RegistrationPageContent() {
             const needsTshirt = tier?.isTshirtRequired;
 
             const unfilledParticipants = formData.participants.slice(0, formData.quantity).some(p => {
-                const nameMissing = !p.name;
                 const tshirtMissing = needsTshirt && !p.tshirtSize;
-                return nameMissing || tshirtMissing;
+                return tshirtMissing;
             });
 
             if (unfilledParticipants) {
-                alert(`Please provide name${tier?.isTshirtRequired ? ' and T-shirt size' : ''} for all ${formData.quantity} participants.`);
+                alert(`Please provide T-shirt size for all ${formData.quantity} participants.`);
                 return;
             }
         }
@@ -209,6 +208,9 @@ function RegistrationPageContent() {
         return sum + price;
     }, 0);
 
+    const gstAmount = Math.round(totalPrice * 0.18);
+    const totalWithGst = totalPrice + gstAmount;
+
     const handleSubmit = async () => {
         if (!formData.agreeToTerms) {
             toast.error('Please agree to the terms and conditions');
@@ -230,7 +232,7 @@ function RegistrationPageContent() {
                 user_email: formData.email,
                 user_phone: formData.phone,
                 user_address: formData.location,
-                total_amount: totalPrice,
+                total_amount: totalWithGst,
                 payment_provider: "Razorpay",
                 attendees: formData.participants.slice(0, formData.quantity).map(p => ({
                     ticket_id: selectedTier?.id || 0,
@@ -245,7 +247,7 @@ function RegistrationPageContent() {
             if (response.success) {
                 // Now trigger Razorpay payment
                 await initializeRazorpayPayment({
-                    amount: totalPrice,
+                    amount: totalWithGst,
                     name: "Mr Coach Pro Events",
                     description: `Registration for ${event.title}`,
                     prefill: {
@@ -503,14 +505,13 @@ function RegistrationPageContent() {
                                                 <h4 className={styles.participantTitle}>Participant #{index + 1}</h4>
 
                                                 <div className={styles.formGroup}>
-                                                    <label className={styles.label}>Full Name *</label>
+                                                    <label className={styles.label}>Full Name (Optional)</label>
                                                     <input
                                                         type="text"
                                                         value={formData.participants[index]?.name || ''}
                                                         onChange={(e) => handleParticipantChange(index, 'name', e.target.value)}
                                                         className={styles.input}
                                                         placeholder="Enter participant's name"
-                                                        required
                                                     />
                                                 </div>
 
@@ -600,7 +601,17 @@ function RegistrationPageContent() {
                                                     ))}
                                                 </div>
                                             </div>
-                                            <p className={styles.ticketReviewTotal} style={{ marginTop: '16px' }}>Total: ₹{totalPrice.toLocaleString()}</p>
+                                            <div style={{ marginTop: '16px', borderTop: '1px solid #EEE', paddingTop: '16px' }}>
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#666', marginBottom: '8px' }}>
+                                                    <span>Subtotal:</span>
+                                                    <span>₹{totalPrice.toLocaleString()}</span>
+                                                </div>
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#666', marginBottom: '12px' }}>
+                                                    <span>GST (18%):</span>
+                                                    <span>₹{gstAmount.toLocaleString()}</span>
+                                                </div>
+                                                <p className={styles.ticketReviewTotal}>Grand Total: ₹{totalWithGst.toLocaleString()}</p>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className={styles.termsGroup}>
@@ -640,7 +651,7 @@ function RegistrationPageContent() {
                                 </Button>
                             ) : (
                                 <Button onClick={handleSubmit} className={styles.nextButton} disabled={isSubmitting}>
-                                    {isSubmitting ? 'Processing...' : `Pay ₹${totalPrice.toLocaleString()}`}
+                                    {isSubmitting ? 'Processing...' : `Pay ₹${totalWithGst.toLocaleString()}`}
                                 </Button>
                             )}
                         </div>
@@ -659,9 +670,18 @@ function RegistrationPageContent() {
                                 <span>{formData.quantity}</span>
                             </div>
                             <div className={styles.summaryDivider} />
-                            <div className={styles.summaryTotal}>
-                                <span>Total:</span>
+                            <div className={styles.summaryTotal} style={{ fontSize: '1rem', color: '#666', marginBottom: '8px' }}>
+                                <span>Subtotal:</span>
                                 <span>₹{totalPrice.toLocaleString()}</span>
+                            </div>
+                            <div className={styles.summaryTotal} style={{ fontSize: '0.9rem', color: '#888', marginBottom: '16px' }}>
+                                <span>GST (18%):</span>
+                                <span>₹{gstAmount.toLocaleString()}</span>
+                            </div>
+                            <div className={styles.summaryDivider} />
+                            <div className={styles.summaryTotal}>
+                                <span>Grand Total:</span>
+                                <span>₹{totalWithGst.toLocaleString()}</span>
                             </div>
                         </div>
                     </aside>
