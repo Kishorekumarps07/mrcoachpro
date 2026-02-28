@@ -109,6 +109,32 @@
     font-size: 1.1rem;
 }
 
+.buttonGroup {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.whatsappButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #25D366;
+    color: white;
+    padding: 16px 32px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.whatsappButton:hover {
+    background: #128C7E;
+    transform: scale(1.02);
+}
+
 .emailButton {
     display: inline-flex;
     align-items: center;
