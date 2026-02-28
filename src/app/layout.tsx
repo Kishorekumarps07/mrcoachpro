@@ -21,12 +21,13 @@ const josefin = Josefin_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://mrcoach.in'),
   title: {
     default: 'Mr.Coach Fitness Company',
     template: '%s | Mr.Coach Fitness Company'
   },
-  description: 'A performance-first coaching platform for athletes of all ages. Built on discipline, consistency, and measurable results.',
-  keywords: ['fitness coaching', 'performance training', 'athletic development', 'online coaching', 'Mr.Coach Fitness Company', 'personal training India'],
+  description: 'A performance-first coaching platform and premium supplement store for athletes of all ages. Built on discipline, consistency, and measurable results.',
+  keywords: ['fitness coaching', 'performance training', 'athletic development', 'online coaching', 'Mr.Coach Fitness Company', 'personal training India', 'buy gym supplements'],
   authors: [{ name: 'Mr.Coach Team' }],
   creator: 'Mr.Coach Fitness Company',
   openGraph: {
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
     siteName: 'Mr.Coach Fitness Company',
     images: [
       {
-        url: 'https://mrcoach.in/og-image.jpg',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Mr.Coach Fitness Company',
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
     title: 'Mr.Coach Fitness Company',
     description: 'A performance-first coaching platform for athletes of all ages.',
     creator: '@mrcoach',
-    images: ['https://mrcoach.in/twitter-image.jpg'],
+    images: ['/twitter-image.jpg'],
   },
   robots: {
     index: true,
@@ -68,6 +69,9 @@ export const metadata: Metadata = {
     shortcut: '/favicon-mrcoach.jpg',
     apple: '/favicon-mrcoach.jpg',
   },
+  verification: {
+    google: 'verification_token', // Place holder if they want to add HTML tag verification later
+  }
 };
 
 export default function RootLayout({
