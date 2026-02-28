@@ -1,17 +1,16 @@
 .main {
     min-height: 100vh;
-    background-color: #050505;
-    color: #ffffff;
-    padding-top: 80px;
-    /* Account for navbar */
+    background-color: #ffffff;
+    color: #111111;
 }
 
 .hero {
     position: relative;
     padding: 100px 20px 60px;
     text-align: center;
-    background: linear-gradient(135deg, #111 0%, #000 100%);
+    background: #ffffff;
     overflow: hidden;
+    border-bottom: 1px solid #eaeaea;
 }
 
 .heroContent {
@@ -27,23 +26,19 @@
     text-transform: uppercase;
     letter-spacing: -1px;
     margin-bottom: 20px;
-    background: linear-gradient(to right, #fff, #999);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #111111;
 }
 
 .highlight {
-    color: #E63946;
-    -webkit-text-fill-color: #E63946;
+    color: var(--accent-yellow);
 }
 
 .subtitle {
     font-size: 1.25rem;
-    color: #a0a0a0;
+    color: #444444;
     line-height: 1.6;
     margin-bottom: 40px;
-    font-weight: 400;
+    font-weight: 500;
 }
 
 .contentSection {
@@ -60,21 +55,23 @@
 }
 
 .card {
-    background: #111;
-    border: 1px solid #222;
+    background: #ffffff;
+    border: 1px solid #eaeaea;
     border-radius: 12px;
     padding: 40px 30px;
     text-align: left;
     transition: transform 0.3s ease, border-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
 }
 
 .card:hover {
     transform: translateY(-5px);
-    border-color: #E63946;
+    border-color: var(--accent-yellow);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
 }
 
 .iconWrapper {
-    color: #E63946;
+    color: var(--accent-yellow);
     margin-bottom: 20px;
 }
 
@@ -82,31 +79,32 @@
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 15px;
-    color: #fff;
+    color: #111111;
 }
 
 .cardDesc {
-    color: #888;
+    color: #444444;
     line-height: 1.6;
 }
 
 .ctaSection {
     text-align: center;
     padding: 60px 20px;
-    background: #0a0a0a;
+    background: #fafafa;
     border-radius: 16px;
     margin-top: 40px;
-    border: 1px solid #222;
+    border: 1px solid #eaeaea;
 }
 
 .ctaTitle {
     font-size: 2rem;
     font-weight: 800;
     margin-bottom: 20px;
+    color: #111111;
 }
 
 .ctaText {
-    color: #888;
+    color: #444444;
     margin-bottom: 30px;
     font-size: 1.1rem;
 }
@@ -115,8 +113,8 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    background: #E63946;
-    color: white;
+    background: var(--accent-yellow);
+    color: #111111;
     padding: 16px 32px;
     border-radius: 8px;
     font-weight: 700;
@@ -126,6 +124,6 @@
 }
 
 .emailButton:hover {
-    background: #d62828;
+    background: #e5c535;
     transform: scale(1.02);
 }
