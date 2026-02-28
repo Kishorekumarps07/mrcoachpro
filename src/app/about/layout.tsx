@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: 'About MR.COACH | Coaching With Purpose and Discipline',
-    description: 'Driven by discipline, consistency, and performance. We build athletes for life. Discover the mission and values behind MR.COACH.',
+    title: 'Our Story & Mission | Mr.Coach Fitness Company',
+    description: 'Learn how MR.COACH is revolutionizing the fitness industry with a relentless commitment to discipline, performance, and measurable improvement.',
+    keywords: ['fitness mission', 'mr.coach story', 'performance coaching philosophy'],
 };
 
 export default function AboutLayout({
