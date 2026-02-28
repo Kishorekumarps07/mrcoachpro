@@ -399,7 +399,8 @@
 .ticketPrice {
     font-size: 1.4rem;
     font-weight: 800;
-    color: var(--accent-yellow);
+    color: #D4A000;
+    /* Darker yellow for contrast */
 }
 
 .ticketDescription {
@@ -581,7 +582,8 @@
 .ticketReviewTotal {
     text-align: right;
     font-weight: 800;
-    color: var(--accent-yellow);
+    color: #D4A000;
+    /* Darker yellow for contrast */
     font-size: 1.1rem;
     margin: 0;
 }
@@ -651,7 +653,8 @@
 }
 
 .summaryTotal span:last-child {
-    color: var(--accent-yellow);
+    color: #D4A000;
+    /* Darker yellow for contrast */
     font-size: 1.7rem;
     text-shadow: 0 2px 4px rgba(212, 160, 0, 0.2);
 }

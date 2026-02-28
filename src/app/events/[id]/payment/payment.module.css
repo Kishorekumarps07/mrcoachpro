@@ -284,7 +284,8 @@
 }
 
 .summaryTotal span:last-child {
-    color: var(--accent-yellow);
+    color: #D4A000;
+    /* Darker yellow for contrast */
 }
 
 @media (max-width: 1024px) {
