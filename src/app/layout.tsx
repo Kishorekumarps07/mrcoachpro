@@ -22,32 +22,32 @@ const josefin = Josefin_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: 'MR.COACH | Performance. Discipline. Energy.',
-    template: '%s | MR.COACH'
+    default: 'Mr.Coach Fitness Company',
+    template: '%s | Mr.Coach Fitness Company'
   },
   description: 'A performance-first coaching platform for athletes of all ages. Built on discipline, consistency, and measurable results.',
-  keywords: ['fitness coaching', 'performance training', 'athletic development', 'online coaching', 'MR.COACH', 'personal training India'],
-  authors: [{ name: 'MR.COACH Team' }],
-  creator: 'MR.COACH',
+  keywords: ['fitness coaching', 'performance training', 'athletic development', 'online coaching', 'Mr.Coach Fitness Company', 'personal training India'],
+  authors: [{ name: 'Mr.Coach Team' }],
+  creator: 'Mr.Coach Fitness Company',
   openGraph: {
     type: 'website',
     locale: 'en_IN',
     url: 'https://mrcoach.in',
-    title: 'MR.COACH | Performance. Discipline. Energy.',
+    title: 'Mr.Coach Fitness Company',
     description: 'A performance-first coaching platform for athletes of all ages. Join the elite.',
-    siteName: 'MR.COACH',
+    siteName: 'Mr.Coach Fitness Company',
     images: [
       {
         url: 'https://mrcoach.in/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'MR.COACH Performance Coaching',
+        alt: 'Mr.Coach Fitness Company',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'MR.COACH | Performance. Discipline. Energy.',
+    title: 'Mr.Coach Fitness Company',
     description: 'A performance-first coaching platform for athletes of all ages.',
     creator: '@mrcoach',
     images: ['https://mrcoach.in/twitter-image.jpg'],
