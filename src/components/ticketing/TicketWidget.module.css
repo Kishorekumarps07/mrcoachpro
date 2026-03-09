@@ -1,6 +1,6 @@
 .draggableContainer {
     position: fixed;
-    bottom: 80px;
+    bottom: 110px;
     right: 20px;
     z-index: 9999;
     font-family: var(--font-roboto), sans-serif;
