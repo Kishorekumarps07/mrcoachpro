@@ -40,10 +40,16 @@ export function TicketWidget() {
         }
     };
 
-    const handleDragStop: DraggableEventHandler = () => {
-        // If we just clicked, isDragging will be false, so we don't do anything here.
-        // The click handler on the button will fire.
-        // If we were dragging, we leave it true so the click handler knows to ignore it.
+    const handleDragStop: DraggableEventHandler = (e, data) => {
+        const dx = Math.abs(data.x - dragStartPos.x);
+        const dy = Math.abs(data.y - dragStartPos.y);
+
+        // If it's a tap (moved less than 5px) and it's currently closed, open it.
+        if (dx < 5 && dy < 5 && !isOpen) {
+            setIsOpen(true);
+        }
+
+        // Delay resetting isDragging so that no accidental clicks are caught
         setTimeout(() => {
             setIsDragging(false);
         }, 100);
@@ -122,17 +128,21 @@ export function TicketWidget() {
             onDrag={handleDrag}
             onStop={handleDragStop}
         >
-            <div ref={nodeRef} className={styles.draggableContainer}>
+            <div
+                ref={nodeRef}
+                className={`${styles.draggableContainer} ${isDragging ? styles.isDragging : ''}`}
+            >
                 {!isOpen ? (
-                    <button
+                    <div
                         className={styles.chatButton}
-                        onClick={toggleOpen}
                         aria-label="Raise a ticket"
+                        role="button"
+                        tabIndex={0}
                     >
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
                         </svg>
-                    </button>
+                    </div>
                 ) : (
                     <div className={styles.widgetPanel}>
                         {/* Draggable Header */}
