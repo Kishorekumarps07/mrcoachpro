@@ -23,6 +23,20 @@ export function TicketWidget() {
 
     const nodeRef = useRef<HTMLDivElement>(null);
 
+    // Lock body scroll when the enquiry form is open
+    React.useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+            // On some mobile browsers, we might need to lock touchmove as well or use more robust methods
+            // but overflow: hidden is the standard starting point for Next.js/React apps
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen]);
+
     // Get window width to determine if we should disable dragging for the full-screen mobile view
     const [isMobile, setIsMobile] = useState(false);
     React.useEffect(() => {
@@ -138,17 +152,19 @@ export function TicketWidget() {
             onStart={handleDragStart}
             onDrag={handleDrag}
             onStop={handleDragStop}
+            // Constrain to window so it doesn't go off-screen
+            bounds="window"
             // Reset position to (0,0) when it becomes full-screen on mobile
             position={(isMobile && isOpen) ? { x: 0, y: 0 } : undefined}
         >
             <div
                 ref={nodeRef}
-                className={`${styles.draggableContainer} ${isDragging ? styles.isDragging : ''}`}
+                className={`${styles.draggableContainer} ${isDragging ? styles.isDragging : ''} ${isOpen ? styles.isOpen : ''}`}
             >
                 {!isOpen ? (
                     <div
                         className={styles.chatButton}
-                        aria-label="Raise a ticket"
+                        aria-label="Customer Enquiry Form"
                         role="button"
                         tabIndex={0}
                     >
@@ -164,7 +180,7 @@ export function TicketWidget() {
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
                                 </svg>
-                                Raise a Ticket
+                                Customer Enquiry Form
                             </h3>
                             <button
                                 className={styles.closeButton}
@@ -183,14 +199,14 @@ export function TicketWidget() {
                                         <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                                         <polyline points="22 4 12 14.01 9 11.01"></polyline>
                                     </svg>
-                                    <span className={styles.successText}>Ticket Submitted!</span>
-                                    <p style={{ color: '#666', fontSize: '14px', margin: 0 }}>Our support team will get back to you shortly.</p>
+                                    <span className={styles.successText}>Enquiry Submitted!</span>
+                                    <p style={{ color: '#666', fontSize: '14px', margin: 0 }}>Our team will get back to you shortly.</p>
                                     <button
                                         className={styles.submitBtn}
-                                        style={{ background: '#333', marginTop: '16px' }}
+                                        style={{ marginTop: '16px' }}
                                         onClick={() => setIsSuccess(false)}
                                     >
-                                        Raise Another
+                                        Submit Another Enquiry
                                     </button>
                                 </div>
                             ) : (
@@ -294,7 +310,7 @@ export function TicketWidget() {
                                         className={styles.submitBtn}
                                         disabled={isSubmitting}
                                     >
-                                        {isSubmitting ? 'Submitting...' : 'Submit Ticket'}
+                                        {isSubmitting ? 'Submitting...' : 'Submit Enquiry'}
                                     </button>
                                 </form>
                             )}
