@@ -152,8 +152,8 @@ export function TicketWidget() {
             onStart={handleDragStart}
             onDrag={handleDrag}
             onStop={handleDragStop}
-            // Constrain to window so it doesn't go off-screen
-            bounds="window"
+            // Constrain to body so it doesn't go off-screen
+            bounds="body"
             // Reset position to (0,0) when it becomes full-screen on mobile
             position={(isMobile && isOpen) ? { x: 0, y: 0 } : undefined}
         >
