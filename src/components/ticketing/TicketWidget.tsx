@@ -23,6 +23,15 @@ export function TicketWidget() {
 
     const nodeRef = useRef<HTMLDivElement>(null);
 
+    // Get window width to determine if we should disable dragging for the full-screen mobile view
+    const [isMobile, setIsMobile] = useState(false);
+    React.useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     // We need to differentiate between a click (to open) and a drag (to move)
     // react-draggable fires onStart, onDrag, onStop
     const handleDragStart: DraggableEventHandler = (e, data) => {
@@ -123,10 +132,14 @@ export function TicketWidget() {
     return (
         <Draggable
             nodeRef={nodeRef}
-            handle={isOpen ? `.${styles.dragHandle}` : undefined} // Drag by header when open, whole button when closed
+            // Disable dragging on mobile when open to allow full-screen fixed positioning
+            disabled={isMobile && isOpen}
+            handle={isOpen ? `.${styles.dragHandle}` : undefined}
             onStart={handleDragStart}
             onDrag={handleDrag}
             onStop={handleDragStop}
+            // Reset position to (0,0) when it becomes full-screen on mobile
+            position={(isMobile && isOpen) ? { x: 0, y: 0 } : undefined}
         >
             <div
                 ref={nodeRef}
