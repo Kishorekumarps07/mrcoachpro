@@ -7,6 +7,7 @@ import styles from "./TicketWidget.module.css";
 export function TicketWidget() {
     const [isOpen, setIsOpen] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
+    const [dragStartPos, setDragStartPos] = useState({ x: 0, y: 0 });
 
     const [subject, setSubject] = useState("");
     const [description, setDescription] = useState("");
@@ -24,12 +25,19 @@ export function TicketWidget() {
 
     // We need to differentiate between a click (to open) and a drag (to move)
     // react-draggable fires onStart, onDrag, onStop
-    const handleDragStart: DraggableEventHandler = () => {
+    const handleDragStart: DraggableEventHandler = (e, data) => {
         setIsDragging(false);
+        setDragStartPos({ x: data.x, y: data.y });
     };
 
-    const handleDrag: DraggableEventHandler = () => {
-        setIsDragging(true);
+    const handleDrag: DraggableEventHandler = (e, data) => {
+        const dx = Math.abs(data.x - dragStartPos.x);
+        const dy = Math.abs(data.y - dragStartPos.y);
+
+        // Only consider it a drag if moved more than 5 pixels
+        if (dx > 5 || dy > 5) {
+            setIsDragging(true);
+        }
     };
 
     const handleDragStop: DraggableEventHandler = () => {
