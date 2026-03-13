@@ -29,6 +29,7 @@ import { FAQSection } from '@/components/ui/FAQSection';
 import { CorporateBookingSection } from '@/components/ui/CorporateBookingSection';
 import { AppDownloadBanner } from '@/components/ui/AppDownloadBanner';
 import { TopAppBanner } from '@/components/ui/TopAppBanner';
+import { TrustedCoaches } from '@/components/ui/TrustedCoaches';
 
 // ... (existing imports)
 
@@ -80,6 +81,9 @@ export default function Home() {
 
       {/* TRUST METRICS */}
       <TrustMetrics />
+
+      {/* TRUSTED COACHES */}
+      <TrustedCoaches />
 
       {/* TRENDING EVENTS */}
       <TrendingEvents />

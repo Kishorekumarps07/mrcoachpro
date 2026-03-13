@@ -1,0 +1,809 @@
+/* =============================================
+   TRUSTED COACHES SECTION
+   ============================================= */
+
+.section {
+  padding: 96px 0 80px;
+  background: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ambient glow blobs */
+.section::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  left: -180px;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(249, 217, 73, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.section::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  right: -150px;
+  width: 450px;
+  height: 450px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(249, 217, 73, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── HEADER ── */
+.header {
+  text-align: center;
+  margin-bottom: 56px;
+  padding: 0 24px;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-yellow);
+  background: rgba(249, 217, 73, 0.1);
+  border: 1px solid rgba(249, 217, 73, 0.25);
+  border-radius: 100px;
+  padding: 4px 16px;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #0E0E0E;
+  margin-bottom: 12px;
+  line-height: 1.1;
+}
+
+.titleHighlight {
+  color: var(--accent-yellow);
+}
+
+.subtitle {
+  font-size: 15px;
+  color: #555555;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ── CAROUSEL WRAPPER ── */
+.carouselWrapper {
+  position: relative;
+  padding: 0 24px;
+}
+
+.carouselTrack {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 16px 48px 32px;
+  cursor: grab;
+  /* Critical for native touch scroll */
+  touch-action: pan-x;
+}
+
+.carouselTrack::-webkit-scrollbar {
+  display: none;
+}
+
+.carouselTrack:active {
+  cursor: grabbing;
+}
+
+/* ── COACH CARD ── */
+.card {
+  flex: 0 0 300px;
+  scroll-snap-align: center;
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  height: 400px;
+  cursor: pointer;
+  /* Glassmorphism base — adapted for white bg */
+  background: rgba(20, 20, 20, 0.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.4s ease,
+              border-color 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(249, 217, 73, 0.6);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.18),
+    0 0 40px rgba(249, 217, 73, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* ── PHOTO AREA ── */
+.photoArea {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.coachPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 0.6s ease;
+  display: block;
+}
+
+.card:hover .coachPhoto {
+  transform: scale(1.04);
+}
+
+/* Gradient overlay always present */
+.photoOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 30%,
+    rgba(14, 14, 14, 0.5) 55%,
+    rgba(14, 14, 14, 0.95) 100%
+  );
+  pointer-events: none;
+}
+
+/* ── CARD BOTTOM INFO (always visible) ── */
+.cardInfo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  z-index: 2;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s ease;
+}
+
+.rolePill {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-yellow);
+  background: rgba(249, 217, 73, 0.15);
+  border: 1px solid rgba(249, 217, 73, 0.3);
+  border-radius: 100px;
+  padding: 3px 10px;
+  margin-bottom: 6px;
+}
+
+.coachName {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #fff;
+  margin: 0 0 6px;
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+
+.expBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.expDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent-yellow);
+  flex-shrink: 0;
+}
+
+/* ── DETAIL PANEL (slides up on hover to cover full card) ── */
+.detailPanel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Push content towards bottom naturally */
+  z-index: 3;
+  /* True glassmorphism */
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(28px) saturate(2) brightness(1.1);
+  -webkit-backdrop-filter: blur(28px) saturate(2) brightness(1.1);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.1),
+              inset 0 1px 0 rgba(255, 255, 255, 0.9),
+              inset 0 0 0 0.5px rgba(249, 217, 73, 0.3);
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s ease;
+}
+
+.card:hover .detailPanel {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Also show detail panel when tapped (mobile) */
+.card.tapped .detailPanel {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.card.tapped .cardInfo {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.detailName {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #0E0E0E;
+  margin: 0 0 2px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.detailRole {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-yellow);
+  margin-bottom: 10px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.detailBio {
+  font-size: 13px;
+  color: #444444;
+  line-height: 1.55;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0.01em;
+  margin-bottom: 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.specialties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.specialtyTag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #333333;
+  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  padding: 3px 8px;
+}
+
+.viewProfileBtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 0;
+  background: linear-gradient(135deg, #0e0e0e, #222222);
+  color: var(--accent-yellow);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+/* Staggered entrance animations on hover/tap */
+.card:hover .detailName, .card.tapped .detailName { opacity: 1; transform: translateY(0); transition-delay: 0.05s; }
+.card:hover .detailRole, .card.tapped .detailRole { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+.card:hover .detailBio,  .card.tapped .detailBio  { opacity: 1; transform: translateY(0); transition-delay: 0.15s; }
+.card:hover .specialties, .card.tapped .specialties { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+.card:hover .viewProfileBtn, .card.tapped .viewProfileBtn { opacity: 1; transform: translateY(0); transition-delay: 0.25s; }
+
+
+/* Button Inner Shine */
+.viewProfileBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+  z-index: -1;
+}
+
+.viewProfileBtn:hover {
+  background: var(--accent-yellow);
+  color: #0E0E0E;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(249, 217, 73, 0.35);
+  border-color: var(--accent-yellow);
+}
+
+.viewProfileBtn:hover::before {
+  left: 150%;
+}
+
+.viewProfileBtn svg {
+  transition: transform 0.3s ease;
+}
+
+.viewProfileBtn:hover svg {
+  transform: translateX(4px);
+}
+
+/* ── PLACEHOLDER (no photo) ── */
+.photoPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+  font-size: 72px;
+  user-select: none;
+}
+
+/* ── CAROUSEL CONTROLS ── */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.navBtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(10px);
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.navBtn:hover {
+  border-color: var(--accent-yellow);
+  background: rgba(249, 217, 73, 0.1);
+  color: var(--accent-yellow);
+  transform: scale(1.05);
+}
+
+.dots {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.dotActive {
+  width: 22px;
+  border-radius: 3px;
+  background: var(--accent-yellow);
+}
+
+/* ── CTA ROW ── */
+.ctaRow {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+  padding: 0 24px;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 36px;
+  background: transparent;
+  color: var(--accent-yellow);
+  border: 1.5px solid var(--accent-yellow);
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.ctaBtn:hover {
+  background: var(--accent-yellow);
+  color: #0E0E0E;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(249, 217, 73, 0.25);
+  background-image: none;
+}
+
+/* ── RESPONSIVE / MOBILE ── */
+@media (max-width: 768px) {
+  .section {
+    padding: 56px 0 48px;
+  }
+
+  .header {
+    margin-bottom: 36px;
+    padding: 0 16px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .carouselWrapper {
+    padding: 0;
+  }
+
+  .carouselTrack {
+    /* On mobile: left-align, don't center — allows scroll to left edge */
+    justify-content: flex-start;
+    padding: 12px 24px 28px;
+    gap: 16px;
+    /* Disable grab cursor on touch */
+    cursor: default;
+  }
+
+  .card {
+    /* Near full-width on mobile */
+    flex: 0 0 82vw;
+    max-width: 320px;
+    height: 420px;
+    /* On mobile: always show detail panel on tap via JS class */
+  }
+
+  /* On touch screens, hide the hover state — rely on tap class instead */
+  @media (hover: none) {
+    .card:hover .detailPanel {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+
+    .card:hover .cardInfo {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card:hover {
+      transform: none;
+    }
+  }
+
+  /* Tap hint badge on mobile */
+  .card::after {
+    content: 'TAP';
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: #0E0E0E;
+    background: rgba(249, 217, 73, 0.9);
+    border-radius: 6px;
+    padding: 3px 7px;
+    z-index: 4;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .card.tapped::after {
+    opacity: 0;
+  }
+
+  .controls {
+    margin-top: 8px;
+  }
+
+  .ctaRow {
+    margin-top: 32px;
+    padding: 0 16px;
+  }
+
+  .ctaBtn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* =============================================
+   COACH PROFILE MODAL
+   ============================================= */
+
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modalBackdropBlur {
+  position: absolute;
+  inset: 0;
+  background: rgba(14, 14, 14, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.modalContainer {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  max-height: 90vh;
+  background: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6),
+              0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 101;
+}
+
+@media (min-width: 768px) {
+  .modalContainer {
+    flex-direction: row;
+    height: 600px;
+  }
+}
+
+.modalCloseBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: #0E0E0E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.modalCloseBtn:hover {
+  background: var(--accent-yellow);
+  transform: scale(1.05);
+}
+
+.modalPhotoArea {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  flex-shrink: 0;
+  background: #f5f5f5;
+}
+
+@media (min-width: 768px) {
+  .modalPhotoArea {
+    width: 45%;
+    height: 100%;
+  }
+}
+
+.modalPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.modalPhotoPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+}
+
+.modalContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 24px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 768px) {
+  .modalContent {
+    padding: 48px 40px;
+  }
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.modalRolePill {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #0E0E0E;
+  background: var(--accent-yellow);
+  padding: 4px 12px;
+  border-radius: 100px;
+}
+
+.modalExpBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+}
+
+.modalName {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #0E0E0E;
+  margin-bottom: 24px;
+  line-height: 1.1;
+}
+
+.modalSpecialties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.modalSpecialtyTag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #333;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+
+.modalBioScroller {
+  flex: 1;
+  margin-bottom: 32px;
+}
+
+.modalBioText {
+  font-size: 15px;
+  color: #444;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+.modalFooter {
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.bookSessionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 18px 24px;
+  background: #0E0E0E;
+  color: var(--accent-yellow);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bookSessionBtn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+  background: #1a1a1a;
+}
