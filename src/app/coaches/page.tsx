@@ -27,9 +27,7 @@ export default function CoachesPage() {
         {/* ── HEADER ── */}
         <header className={styles.header}>
           <div className={styles.eyebrowContainer}>
-            <div className={styles.eyebrowLine} />
             <span className={styles.eyebrow}>THE ELITE COLLECTIVE</span>
-            <div className={styles.eyebrowLine} />
           </div>
           
           <h1 className={styles.title}>
@@ -39,7 +37,7 @@ export default function CoachesPage() {
           
           <div className={styles.subtitleContainer}>
             <p className={styles.subtitleTop}>
-              Book certified physiotherapists ,fitness trainers, yoga instructors and wellness experts near you.
+              Book certified fitness trainers, yoga instructors, physiotherapists and wellness experts near you.
             </p>
             <div className={styles.subtitleBottom}>
               <div className={styles.decorationLine} />
@@ -47,7 +45,6 @@ export default function CoachesPage() {
               <div className={styles.decorationLine} />
             </div>
           </div>
-          <div className={styles.bottomSeparator} />
         </header>
 
         {/* ── GRID ── */}

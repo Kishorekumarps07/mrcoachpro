@@ -21,18 +21,10 @@
 
 .eyebrowContainer {
   display: flex;
-  align-items: center;
-  gap: 32px;
+  justify-content: center;
   width: 100%;
   max-width: 800px;
-  margin-bottom: 48px;
-}
-
-.eyebrowLine {
-  flex: 1;
-  height: 0.5px;
-  background: #BDBDBD;
-  opacity: 0.6;
+  margin-bottom: 32px;
 }
 
 .eyebrow {
@@ -80,7 +72,7 @@
 }
 
 .subtitleContainer {
-  margin: 0 auto 48px;
+  margin: 0 auto 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -115,14 +107,6 @@
 
 .decorationLine {
   flex: 1;
-  height: 0.5px;
-  background: #BDBDBD;
-  opacity: 0.6;
-}
-
-.bottomSeparator {
-  width: 100%;
-  max-width: 800px;
   height: 0.5px;
   background: #BDBDBD;
   opacity: 0.6;
