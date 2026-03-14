@@ -37,39 +37,11 @@
 /* ── HEADER ── */
 .header {
   text-align: center;
-  margin-bottom: 56px;
+  margin-bottom: 48px;
   padding: 0 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.eyebrowContainer {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  width: 100%;
-  max-width: 600px;
-  margin-bottom: 24px;
-}
-
-.eyebrowLine {
-  flex: 1;
-  height: 0.5px;
-  background: #BDBDBD;
-  opacity: 0.5;
-}
-
-.eyebrow {
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.35em;
-  text-transform: uppercase;
-  color: #0E0E0E;
-  white-space: nowrap;
-  background: rgba(249, 217, 73, 0.2);
-  padding: 4px 12px;
-  border-radius: 4px;
 }
 
 .title {
