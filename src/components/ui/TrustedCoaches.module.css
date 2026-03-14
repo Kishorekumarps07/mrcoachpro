@@ -39,45 +39,68 @@
   text-align: center;
   margin-bottom: 56px;
   padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.eyebrowContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 24px;
+}
+
+.eyebrowLine {
+  flex: 1;
+  height: 0.5px;
+  background: #BDBDBD;
+  opacity: 0.5;
 }
 
 .eyebrow {
-  display: inline-block;
   font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
+  font-weight: 800;
+  letter-spacing: 0.35em;
   text-transform: uppercase;
   color: #0E0E0E;
+  white-space: nowrap;
   background: rgba(249, 217, 73, 0.2);
-  border: 1px solid rgba(249, 217, 73, 0.3);
+  padding: 4px 12px;
   border-radius: 4px;
-  padding: 4px 16px;
-  margin-bottom: 16px;
 }
 
 .title {
-  font-size: clamp(28px, 5vw, 44px);
-  font-weight: 800;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #0E0E0E;
-  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   line-height: 1.1;
+  margin-bottom: 0;
 }
 
-.titleHighlight {
-  color: var(--accent-yellow);
-}
-
-.subtitle {
-  font-size: 15px;
-  color: #555555;
-  font-weight: 400;
-  letter-spacing: 0.01em;
+.titleSerif {
+  font-family: var(--font-crimson), serif;
+  font-style: italic;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 800;
+  color: #0E0E0E;
   text-transform: none;
-  max-width: 480px;
-  margin: 0 auto;
-  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+.titleMain {
+  font-family: var(--font-josefin), sans-serif;
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 700;
+  background: linear-gradient(180deg, #FFD600 0%, #FF8A00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-transform: none;
+  letter-spacing: -0.01em;
+  margin-top: -2px;
 }
 
 /* ── CAROUSEL WRAPPER ── */

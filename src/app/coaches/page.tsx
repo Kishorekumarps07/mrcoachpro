@@ -39,11 +39,11 @@ export default function CoachesPage() {
           
           <div className={styles.subtitleContainer}>
             <p className={styles.subtitleTop}>
-              Book certified physiotherapists ,fitness trainers, yoga instructors
+              Book certified physiotherapists ,fitness trainers, yoga instructors and wellness experts
             </p>
             <div className={styles.subtitleBottom}>
               <div className={styles.decorationLine} />
-              <p className={styles.subtitleText}>and wellness experts near you.</p>
+              <p className={styles.subtitleText}>near you.</p>
               <div className={styles.decorationLine} />
             </div>
           </div>

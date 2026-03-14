@@ -44,13 +44,16 @@ export const TrustedCoaches = () => {
     <section className={styles.section}>
       {/* ── HEADER ── */}
       <div className={styles.header}>
-        <div className={styles.eyebrow}>ELITE PERFORMANCE SQUAD</div>
+        <div className={styles.eyebrowContainer}>
+          <div className={styles.eyebrowLine} />
+          <span className={styles.eyebrow}>THE ELITE COLLECTIVE</span>
+          <div className={styles.eyebrowLine} />
+        </div>
+        
         <h2 className={styles.title}>
-          Forge Your <span className={styles.titleHighlight}>Legacy</span>
+          <span className={styles.titleSerif}>Train with India's Trusted</span>
+          <span className={styles.titleMain}>Health & Wellness Coaches</span>
         </h2>
-        <p className={styles.subtitle}>
-          Meet the architects of physical excellence. World-class expertise, tailored specifically to your ambition.
-        </p>
       </div>
 
       {/* ── CAROUSEL ── */}
