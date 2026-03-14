@@ -3,7 +3,7 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, X, Calendar, BadgeCheck } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight, X, Calendar, BadgeCheck } from 'lucide-react';
 import { useModal } from '@/context/ModalContext';
 import styles from './TrustedCoaches.module.css';
 
@@ -86,7 +86,7 @@ const CoachCard = ({ coach, index, onViewProfile }: { coach: typeof COACHES[0]; 
     >
       {/* ── VERIFIED BADGE (Mobile Hint + Trust) ── */}
       <div className={styles.verifiedBadge}>
-        <BadgeCheck size={12} className={styles.verifiedIcon} />
+        <BadgeCheck size={10} className={styles.verifiedIcon} />
         VERIFIED
       </div>
 
@@ -150,6 +150,19 @@ export const TrustedCoaches = () => {
     setMounted(true);
   }, []);
 
+  const scrollTo = useCallback((index: number) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const card = track.children[index] as HTMLElement;
+    if (!card) return;
+    const offset = card.offsetLeft - track.offsetLeft - 32;
+    track.scrollTo({ left: offset, behavior: 'smooth' });
+    setActiveIndex(index);
+  }, []);
+
+  const handlePrev = () => scrollTo(Math.max(0, activeIndex - 1));
+  const handleNext = () => scrollTo(Math.min(COACHES.length - 1, activeIndex + 1));
+
   return (
     <section className={styles.section}>
       {/* ── HEADER ── */}
@@ -159,22 +172,38 @@ export const TrustedCoaches = () => {
           Meet Our <span className={styles.titleHighlight}>Trusted</span> Coaches
         </h2>
         <p className={styles.subtitle}>
-          Hand-picked professionals with proven records — watch them glide or hover to explore.
+          Hand-picked professionals with proven records — hover or tap a card to learn more.
         </p>
       </div>
 
-      {/* ── CONTINUOUS MARQUEE ── */}
+      {/* ── CAROUSEL ── */}
       <div className={styles.carouselWrapper}>
-        <div className={`${styles.carouselTrack} ${selectedCoach ? styles.paused : ''}`}>
-          {/* Triple the content for a perfectly seamless infinite loop on all screen sizes */}
-          {[...COACHES, ...COACHES, ...COACHES].map((coach, i) => (
-            <CoachCard 
-              key={`${coach.name}-${i}`} 
-              coach={coach} 
-              index={i % COACHES.length} 
-              onViewProfile={setSelectedCoach} 
-            />
+        <div className={styles.carouselTrack} ref={trackRef}>
+          {COACHES.map((coach, i) => (
+            <CoachCard key={coach.name} coach={coach} index={i} onViewProfile={setSelectedCoach} />
           ))}
+        </div>
+
+        {/* Controls */}
+        <div className={styles.controls}>
+          <button className={styles.navBtn} onClick={handlePrev} aria-label="Previous coach">
+            <ChevronLeft size={18} />
+          </button>
+
+          <div className={styles.dots}>
+            {COACHES.map((_, i) => (
+              <button
+                key={i}
+                className={`${styles.dot} ${i === activeIndex ? styles.dotActive : ''}`}
+                onClick={() => scrollTo(i)}
+                aria-label={`Go to coach ${i + 1}`}
+              />
+            ))}
+          </div>
+
+          <button className={styles.navBtn} onClick={handleNext} aria-label="Next coach">
+            <ChevronRight size={18} />
+          </button>
         </div>
       </div>
 

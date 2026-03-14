@@ -83,73 +83,21 @@
 /* ── CAROUSEL WRAPPER ── */
 .carouselWrapper {
   position: relative;
-  overflow: hidden;
-  padding: 0;
-  margin: 0;
-}
-
-/* Edge masks for professional fade-in/out */
-.carouselWrapper::before,
-.carouselWrapper::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100px;
-  z-index: 5;
-  pointer-events: none;
-}
-
-.carouselWrapper::before {
-  left: 0;
-  background: linear-gradient(to right, #ffffff, transparent);
-}
-
-.carouselWrapper::after {
-  right: 0;
-  background: linear-gradient(to left, #ffffff, transparent);
+  padding: 0 24px;
 }
 
 .carouselTrack {
   display: flex;
-  width: max-content; /* Critical for marquee */
+  justify-content: center;
   gap: 24px;
-  padding: 24px 0 48px;
-  animation: marquee 40s linear infinite;
-  /* Reset scroll-specific properties */
-  overflow-x: visible;
-  scroll-snap-type: none;
-  -webkit-overflow-scrolling: auto;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  touch-action: pan-y; /* Allow vertical scroll but disable horizontal snap */
-  cursor: default;
-}
-
-/* Pause animation on hover */
-.carouselTrack:hover,
-.carouselTrack.paused {
-  animation-play-state: paused;
-}
-
-@keyframes marquee {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%); /* Moving halfway through doubled content */
-  }
-}
-
-@media (max-width: 768px) {
-  .carouselWrapper::before,
-  .carouselWrapper::after {
-    width: 60px;
-  }
-  
-  .carouselTrack {
-    gap: 16px;
-    animation-duration: 30s; /* Slightly faster on small screens */
-  }
+  padding: 16px 48px 32px;
+  cursor: grab;
+  /* Critical for native touch scroll */
+  touch-action: pan-x;
 }
 
 .carouselTrack::-webkit-scrollbar {
@@ -200,26 +148,26 @@
 /* ── VERIFIED BADGE ── */
 .verifiedBadge {
   position: absolute;
-  top: 14px;
-  right: 14px;
+  top: 10px;
+  right: 10px;
   display: flex;
   align-items: center;
-  gap: 4px;
-  font-size: 10px;
+  gap: 3px;
+  font-size: 8px;
   font-weight: 800;
-  letter-spacing: 0.1em;
-  color: #0E0E0E;
-  background: var(--accent-yellow, #f9d949);
-  border-radius: 8px;
-  padding: 4px 8px;
+  letter-spacing: 0.12em;
+  color: #FFFFFF;
+  background: #00A3FF; /* Professional Blue */
+  border-radius: 6px;
+  padding: 3px 6px;
   z-index: 10;
   pointer-events: none; /* Let clicks pass through to the card */
-  box-shadow: 0 4px 12px rgba(249, 217, 73, 0.3);
+  box-shadow: 0 2px 8px rgba(0, 163, 255, 0.25);
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .verifiedIcon {
-  color: #0E0E0E; /* Dark checkmark inside the yellow badge */
+  color: #FFFFFF; /* White checkmark inside the blue badge */
 }
 
 /* Hide verified badge when the card is hovered/tapped so the detail panel takes over completely */
@@ -636,61 +584,80 @@
   }
 
   .card {
-    /* More compact size on mobile */
-    flex: 0 0 250px;
-    max-width: 250px;
-    height: 340px;
-    border-radius: 18px;
+    /* Refined, more compact size on mobile */
+    flex: 0 0 210px;
+    max-width: 210px;
+    height: 290px;
+    border-radius: 16px;
   }
 
   .cardInfo {
-    padding: 14px;
+    padding: 12px;
   }
 
   .coachName {
-    font-size: 16px;
+    font-size: 14px;
     margin-bottom: 2px;
   }
 
   .rolePill {
-    font-size: 9px;
-    padding: 2px 8px;
-    margin-bottom: 4px;
+    font-size: 8px;
+    padding: 2px 6px;
+    margin-bottom: 3px;
   }
 
   .expBadge {
-    font-size: 11px;
+    font-size: 10px;
+    gap: 4px;
+  }
+
+  .expDot {
+    width: 4px;
+    height: 4px;
   }
 
   .detailPanel {
-    padding: 20px 16px;
+    padding: 16px 12px;
   }
 
   .detailName {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .detailRole {
-    font-size: 9px;
-    padding: 3px 8px;
-    margin-bottom: 8px;
+    font-size: 8px;
+    padding: 2px 8px;
+    margin-bottom: 6px;
   }
 
   .detailBio {
-    font-size: 12px;
-    line-height: 1.4;
+    font-size: 11px;
+    line-height: 1.3;
+    margin-bottom: 8px;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+
+  .specialties {
+    gap: 4px;
     margin-bottom: 10px;
   }
 
   .specialtyTag {
-    font-size: 9px;
-    padding: 2px 6px;
+    font-size: 8px;
+    padding: 2px 5px;
   }
 
   .viewProfileBtn {
-    padding: 10px 0;
-    font-size: 10px;
-    border-radius: 10px;
+    padding: 8px 0;
+    font-size: 9px;
+    border-radius: 8px;
+    gap: 4px;
+  }
+
+  .viewProfileBtn svg {
+    width: 10px;
+    height: 10px;
   }
 
   /* On touch screens, disable all CSS hover effects entirely */
