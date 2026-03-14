@@ -1,0 +1,120 @@
+.pageContainer {
+  min-height: 100vh;
+  background-color: #fcfcfc;
+  padding: 0 0 80px;
+}
+
+.maxContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 64px;
+  padding-top: 64px;
+}
+
+.eyebrow {
+  margin-top: 14px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent-yellow);
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #0E0E0E;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 24px;
+}
+
+.titleHighlight {
+  color: var(--accent-yellow);
+  -webkit-text-stroke: 1.5px #0E0E0E;
+  paint-order: stroke fill;
+}
+
+.subtitle {
+  font-size: clamp(16px, 1.2vw, 18px);
+  color: #444;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 32px;
+  justify-items: center;
+}
+
+.footer {
+  margin-top: 80px;
+  text-align: center;
+  padding-top: 48px;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.footerText {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0E0E0E;
+  margin-bottom: 24px;
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 48px;
+  background: linear-gradient(135deg, #FFD000 0%, #FFC700 100%);
+  color: #0E0E0E;
+  border: none;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 12px 40px rgba(249, 217, 73, 0.3);
+}
+
+.ctaBtn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(249, 217, 73, 0.5);
+}
+
+/* ── MODAL STYLES (Copied/Adapted for Portals if needed, but we share styles) ── */
+/* If the modal uses TrustedCoaches.module.css styles, we might need to import or duplicate them. 
+   For now, we'll try to keep logic consistent. */
+
+@media (max-width: 768px) {
+  .pageContainer {
+    padding: 0 0 60px;
+  }
+
+  .maxContent {
+    padding: 0 16px;
+  }
+
+  .header {
+    margin-bottom: 40px;
+    padding-top: 40px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+  }
+}

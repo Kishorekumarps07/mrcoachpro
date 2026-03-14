@@ -3,135 +3,13 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, ArrowRight, X, Calendar, BadgeCheck } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight, X, Calendar, MapPin } from 'lucide-react';
 import { useModal } from '@/context/ModalContext';
+import { CoachCard, Coach } from './CoachCard';
+import { COACHES } from '@/data/coaches';
 import styles from './TrustedCoaches.module.css';
 
-// ─────────────────────────────────────────
-//  COACH DATA — update with real details
-//  Drop photos into: public/images/coaches/
-// ─────────────────────────────────────────
-export const COACHES = [
-  {
-    name: 'Govindraju',
-    role: 'Personal Fitness Trainer',
-    experience: '20 yrs exp.',
-    bio: 'Nearly two decades as a freelance personal fitness trainer across Bangalore. Expert in functional, weight & HIIT training — serving Whitefield, Mahadevapura, Thannisandhra & Hennur.',
-    specialties: ['Functional Training', 'Weight Training', 'HIIT', 'Cardio Kickboxing'],
-    image: '/images/coaches/govindraju.jpeg',
-    emoji: '💪',
-  },
-  {
-    name: 'Mohammed Aslam',
-    role: 'Strength & Conditioning Coach',
-    experience: '6 yrs exp.',
-    bio: 'Specialist in muscle building, fat loss, and post-rehab strength training. Trains cricketers, kabaddi & basketball players, and special populations including hypertensive individuals and senior citizens. Based in Pammal, Chennai.',
-    specialties: ['Muscle Building', 'Fat Loss', 'Post-Rehab', 'Sports Conditioning'],
-    image: '/images/coaches/mohammed-aslam.jpeg',
-    emoji: '🏋️',
-  },
-  {
-    name: 'Faraz Khan',
-    role: 'Certified Transformation Coach',
-    experience: '22 yrs exp.',
-    bio: 'Multi-certified coach (ACE, NASM, ISSA, ACSM & more) with 22 years in fitness, bodybuilding & nutrition, plus 2 years in physiotherapy & post-operative rehab. Specialist in prehab/rehab, prenatal/postnatal, geriatric & medical exercise. Based in Aligarh, U.P.',
-    specialties: ['Bodybuilding Prep', 'Clinical Nutrition', 'Prehab & Rehab', 'Medical Exercise'],
-    image: '/images/coaches/faraz-khan.jpeg',
-    emoji: '🏆',
-  },
-  {
-    name: 'K. Kalyan Kumar',
-    role: 'Personal Trainer',
-    experience: '4 yrs exp.',
-    bio: 'Results-driven personal trainer based in Bangalore, specialising in weight loss, muscle gain and body toning. Crafts structured programs tailored to individual goals and fitness levels.',
-    specialties: ['Weight Loss', 'Muscle Gain', 'Body Toning', 'Strength Training'],
-    image: '/images/coaches/kalyan-kumar.jpeg',
-    emoji: '🏅',
-  },
-];
-
-// ─────────────────────────────────────────
-//  COACH CARD
-// ─────────────────────────────────────────
-const CoachCard = ({ coach, index, onViewProfile }: { coach: typeof COACHES[0]; index: number; onViewProfile: (coach: typeof COACHES[0]) => void }) => {
-  const [tapped, setTapped] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
-
-  // Detect touch support on mount
-  useEffect(() => {
-    const checkTouch = () => {
-      setIsTouchDevice(window.matchMedia('(hover: none)').matches);
-    };
-    checkTouch();
-  }, []);
-
-  const handleCardClick = () => {
-    // On touch devices, click toggles the panel.
-    if (isTouchDevice) {
-      setTapped((prev) => !prev);
-    }
-  };
-
-  const handleViewProfileClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent the card from closing when clicking the button
-    onViewProfile(coach);
-  };
-
-  return (
-    <div
-      className={`${styles.card} ${tapped ? styles.tapped : ''} ${isTouchDevice ? styles['no-hover-device'] : ''}`}
-      onMouseEnter={() => { if (!isTouchDevice) setTapped(true); }}
-      onMouseLeave={() => { if (!isTouchDevice) setTapped(false); }}
-      onClick={handleCardClick}
-    >
-      {/* ── VERIFIED BADGE (Mobile Hint + Trust) ── */}
-      <div className={styles.verifiedBadge}>
-        <BadgeCheck size={10} className={styles.verifiedIcon} />
-        VERIFIED
-      </div>
-
-      {/* ── PHOTO / PLACEHOLDER ── */}
-      <div className={styles.photoArea}>
-        {coach.image ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={coach.image}
-            alt={coach.name}
-            className={styles.coachPhoto}
-          />
-        ) : (
-          <div className={styles.photoPlaceholder}>{coach.emoji}</div>
-        )}
-        <div className={styles.photoOverlay} />
-      </div>
-
-      {/* ── ALWAYS-VISIBLE INFO ── */}
-      <div className={styles.cardInfo}>
-        <div className={styles.rolePill}>{coach.role}</div>
-        <h3 className={styles.coachName}>{coach.name}</h3>
-        <div className={styles.expBadge}>
-          <span className={styles.expDot} />
-          {coach.experience}
-        </div>
-      </div>
-
-      {/* ── HOVER DETAIL PANEL ── */}
-      <div className={styles.detailPanel}>
-        <div className={styles.detailName}>{coach.name}</div>
-        <div className={styles.detailRole}>{coach.role}</div>
-        <p className={styles.detailBio}>{coach.bio}</p>
-        <div className={styles.specialties}>
-          {coach.specialties.map((s) => (
-            <span key={s} className={styles.specialtyTag}>{s}</span>
-          ))}
-        </div>
-        <button className={styles.viewProfileBtn} onClick={handleViewProfileClick}>
-          View Profile <ArrowRight size={13} />
-        </button>
-      </div>
-    </div>
-  );
-};
+// (Moved to standalone files)
 
 // ─────────────────────────────────────────
 //  MAIN SECTION
@@ -139,7 +17,7 @@ const CoachCard = ({ coach, index, onViewProfile }: { coach: typeof COACHES[0]; 
 export const TrustedCoaches = () => {
   const trackRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [selectedCoach, setSelectedCoach] = useState<typeof COACHES[0] | null>(null);
+  const [selectedCoach, setSelectedCoach] = useState<Coach | null>(null);
   const [mounted, setMounted] = useState(false);
   
   // Use existing modal context for booking
@@ -209,7 +87,7 @@ export const TrustedCoaches = () => {
 
       {/* ── CTA ── */}
       <div className={styles.ctaRow}>
-        <a href="/about" className={styles.ctaBtn}>
+        <a href="/coaches" className={styles.ctaBtn}>
           View All Coaches <ArrowRight size={15} />
         </a>
       </div>
@@ -250,10 +128,14 @@ export const TrustedCoaches = () => {
 
                 <div className={styles.modalContent}>
                   <div className={styles.modalHeader}>
-                    <span className={styles.modalRolePill}>{selectedCoach.role}</span>
-                    <div className={styles.modalExpBadge}>
-                      <span className={styles.expDot} />
-                      {selectedCoach.experience}
+                    <div className={styles.modalRolePill}>{selectedCoach.role}</div>
+                    <div className={styles.modalInfoGroup}>
+                      <div className={styles.modalExpBadge}>
+                        <Calendar size={14} /> {selectedCoach.experience}
+                      </div>
+                      <div className={styles.modalLocationBadge}>
+                        <MapPin size={14} /> {selectedCoach.location}
+                      </div>
                     </div>
                   </div>
 

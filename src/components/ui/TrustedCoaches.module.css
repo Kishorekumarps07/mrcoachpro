@@ -533,26 +533,33 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 14px 36px;
-  background: transparent;
-  color: var(--accent-yellow);
-  border: 1.5px solid var(--accent-yellow);
-  border-radius: 12px;
+  padding: 16px 48px;
+  background: linear-gradient(135deg, #FFD000 0%, #FFC700 100%);
+  color: #0E0E0E; /* Professional dark text */
+  border: none;
+  border-radius: 14px;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-decoration: none;
+  box-shadow: 0 10px 30px rgba(249, 217, 73, 0.3);
 }
 
 .ctaBtn:hover {
-  background: var(--accent-yellow);
-  color: #0E0E0E;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(249, 217, 73, 0.25);
-  background-image: none;
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px rgba(249, 217, 73, 0.5);
+  filter: brightness(1.05);
+}
+
+.ctaBtn svg {
+  transition: transform 0.3s ease;
+}
+
+.ctaBtn:hover svg {
+  transform: translateX(4px);
 }
 
 /* ── RESPONSIVE / MOBILE ── */
@@ -584,11 +591,11 @@
   }
 
   .card {
-    /* Refined, more compact size on mobile */
-    flex: 0 0 210px;
-    max-width: 210px;
-    height: 290px;
-    border-radius: 16px;
+    /* Refined, more prominent size on mobile */
+    flex: 0 0 240px;
+    max-width: 240px;
+    height: 330px;
+    border-radius: 20px;
   }
 
   .cardInfo {
@@ -596,14 +603,25 @@
   }
 
   .coachName {
-    font-size: 14px;
-    margin-bottom: 2px;
+    font-size: 16px;
+    margin-bottom: 4px;
   }
 
   .rolePill {
     font-size: 8px;
     padding: 2px 6px;
     margin-bottom: 3px;
+  }
+
+  .locationBadge {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 9px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: none;
+    letter-spacing: 0.02em;
   }
 
   .expBadge {
@@ -665,8 +683,15 @@
     /* (The :not(.no-hover-device) class handles this globally, but leaving media query for safety) */
   }
 
-  .controls {
-    margin-top: 8px;
+  .ctaRow {
+    margin-top: 32px;
+  }
+
+  .ctaBtn {
+    padding: 12px 32px;
+    font-size: 12px;
+    border-radius: 12px;
+    width: auto; /* Ensure it stays centered and doesn't stretch to full width unnecessarily */
   }
 
   .ctaRow {
@@ -805,12 +830,34 @@
   }
 }
 
+/* Cleaned up header */
+
 .modalHeader {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.modalInfoGroup {
+  display: flex;
   flex-wrap: wrap;
+  gap: 16px;
+}
+
+.modalExpBadge,
+.modalLocationBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666666;
+  text-transform: none;
+}
+
+.modalLocationBadge svg {
+  color: var(--accent-yellow);
 }
 
 .modalRolePill {
@@ -824,14 +871,7 @@
   border-radius: 100px;
 }
 
-.modalExpBadge {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #555;
-}
+/* Consolidated badge styles */
 
 .modalName {
   font-size: clamp(24px, 4vw, 36px); /* Slightly smaller text */
