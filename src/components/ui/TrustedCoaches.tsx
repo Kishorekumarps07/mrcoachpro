@@ -3,7 +3,7 @@
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, ArrowRight, X, Calendar, BadgeCheck } from 'lucide-react';
+import { ArrowRight, X, Calendar, BadgeCheck } from 'lucide-react';
 import { useModal } from '@/context/ModalContext';
 import styles from './TrustedCoaches.module.css';
 
@@ -78,12 +78,8 @@ const CoachCard = ({ coach, index, onViewProfile }: { coach: typeof COACHES[0]; 
   };
 
   return (
-    <motion.div
+    <div
       className={`${styles.card} ${tapped ? styles.tapped : ''} ${isTouchDevice ? styles['no-hover-device'] : ''}`}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.6, delay: index * 0.1, ease: [0.215, 0.61, 0.355, 1] }}
       onMouseEnter={() => { if (!isTouchDevice) setTapped(true); }}
       onMouseLeave={() => { if (!isTouchDevice) setTapped(false); }}
       onClick={handleCardClick}
@@ -133,7 +129,7 @@ const CoachCard = ({ coach, index, onViewProfile }: { coach: typeof COACHES[0]; 
           View Profile <ArrowRight size={13} />
         </button>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
@@ -154,81 +150,40 @@ export const TrustedCoaches = () => {
     setMounted(true);
   }, []);
 
-  const scrollTo = useCallback((index: number) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const card = track.children[index] as HTMLElement;
-    if (!card) return;
-    const offset = card.offsetLeft - track.offsetLeft - 32;
-    track.scrollTo({ left: offset, behavior: 'smooth' });
-    setActiveIndex(index);
-  }, []);
-
-  const handlePrev = () => scrollTo(Math.max(0, activeIndex - 1));
-  const handleNext = () => scrollTo(Math.min(COACHES.length - 1, activeIndex + 1));
-
   return (
     <section className={styles.section}>
       {/* ── HEADER ── */}
-      <motion.div
-        className={styles.header}
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-      >
+      <div className={styles.header}>
         <div className={styles.eyebrow}>Expert Team</div>
         <h2 className={styles.title}>
           Meet Our <span className={styles.titleHighlight}>Trusted</span> Coaches
         </h2>
         <p className={styles.subtitle}>
-          Hand-picked professionals with proven records — hover or tap a card to learn more.
+          Hand-picked professionals with proven records — watch them glide or hover to explore.
         </p>
-      </motion.div>
+      </div>
 
-      {/* ── CAROUSEL ── */}
+      {/* ── CONTINUOUS MARQUEE ── */}
       <div className={styles.carouselWrapper}>
-        <div className={styles.carouselTrack} ref={trackRef}>
-          {COACHES.map((coach, i) => (
-            <CoachCard key={coach.name} coach={coach} index={i} onViewProfile={setSelectedCoach} />
+        <div className={`${styles.carouselTrack} ${selectedCoach ? styles.paused : ''}`}>
+          {/* Triple the content for a perfectly seamless infinite loop on all screen sizes */}
+          {[...COACHES, ...COACHES, ...COACHES].map((coach, i) => (
+            <CoachCard 
+              key={`${coach.name}-${i}`} 
+              coach={coach} 
+              index={i % COACHES.length} 
+              onViewProfile={setSelectedCoach} 
+            />
           ))}
-        </div>
-
-        {/* Controls */}
-        <div className={styles.controls}>
-          <button className={styles.navBtn} onClick={handlePrev} aria-label="Previous coach">
-            <ChevronLeft size={18} />
-          </button>
-
-          <div className={styles.dots}>
-            {COACHES.map((_, i) => (
-              <button
-                key={i}
-                className={`${styles.dot} ${i === activeIndex ? styles.dotActive : ''}`}
-                onClick={() => scrollTo(i)}
-                aria-label={`Go to coach ${i + 1}`}
-              />
-            ))}
-          </div>
-
-          <button className={styles.navBtn} onClick={handleNext} aria-label="Next coach">
-            <ChevronRight size={18} />
-          </button>
         </div>
       </div>
 
       {/* ── CTA ── */}
-      <motion.div
-        className={styles.ctaRow}
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-      >
+      <div className={styles.ctaRow}>
         <a href="/about" className={styles.ctaBtn}>
           View All Coaches <ArrowRight size={15} />
         </a>
-      </motion.div>
+      </div>
 
       {/* ── COACH PROFILE MODAL (PORTALED) ── */}
       {mounted && createPortal(
