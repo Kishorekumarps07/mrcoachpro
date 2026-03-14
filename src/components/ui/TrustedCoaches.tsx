@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, ArrowRight, X, Calendar } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight, X, Calendar, BadgeCheck } from 'lucide-react';
 import { useModal } from '@/context/ModalContext';
 import styles from './TrustedCoaches.module.css';
 
@@ -54,33 +55,37 @@ export const COACHES = [
 // ─────────────────────────────────────────
 const CoachCard = ({ coach, index, onViewProfile }: { coach: typeof COACHES[0]; index: number; onViewProfile: (coach: typeof COACHES[0]) => void }) => {
   const [tapped, setTapped] = useState(false);
-  const dragRef = useRef(false);
+  const [hasTouch, setHasTouch] = useState(false);
 
-  // Detect drag vs tap (so horizontal scroll doesn't trigger open)
-  const handlePointerDown = () => { dragRef.current = false; };
-  const handlePointerMove = () => { dragRef.current = true; };
-  const handleClick = () => {
-    if (dragRef.current) return; // was a drag/scroll, not a tap
-    // Only toggle the tap state if clicking the card generally; button handled separately
+  // Use a simple onClick for mobile tap support. Mobile browsers fire onClick for taps.
+  const handleCardClick = () => {
+    // If it's a touch device, click toggles the panel.
+    setHasTouch(true);
     setTapped((prev) => !prev);
   };
 
   const handleViewProfileClick = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent card tap toggle
+    e.stopPropagation(); // Prevent the card from closing when clicking the button
     onViewProfile(coach);
   };
 
   return (
     <motion.div
-      className={`${styles.card} ${tapped ? styles.tapped : ''}`}
+      className={`${styles.card} ${tapped ? styles.tapped : ''} ${hasTouch ? styles['no-hover-device'] : ''}`}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.215, 0.61, 0.355, 1] }}
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onClick={handleClick}
+      onMouseEnter={() => { if (!hasTouch) setTapped(true); }}
+      onMouseLeave={() => { if (!hasTouch) setTapped(false); }}
+      onClick={handleCardClick}
     >
+      {/* ── VERIFIED BADGE (Mobile Hint + Trust) ── */}
+      <div className={styles.verifiedBadge}>
+        <BadgeCheck size={12} className={styles.verifiedIcon} />
+        VERIFIED
+      </div>
+
       {/* ── PHOTO / PLACEHOLDER ── */}
       <div className={styles.photoArea}>
         {coach.image ? (
@@ -131,9 +136,15 @@ export const TrustedCoaches = () => {
   const trackRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [selectedCoach, setSelectedCoach] = useState<typeof COACHES[0] | null>(null);
+  const [mounted, setMounted] = useState(false);
   
   // Use existing modal context for booking
   const { openModal } = useModal();
+
+  // Next.js hydration safety for Portals
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const scrollTo = useCallback((index: number) => {
     const track = trackRef.current;
@@ -211,77 +222,81 @@ export const TrustedCoaches = () => {
         </a>
       </motion.div>
 
-      {/* ── COACH PROFILE MODAL ── */}
-      <AnimatePresence>
-        {selectedCoach && (
-          <div className={styles.modalBackdrop} onClick={() => setSelectedCoach(null)}>
+      {/* ── COACH PROFILE MODAL (PORTALED) ── */}
+      {mounted && createPortal(
+        <AnimatePresence>
+          {selectedCoach && (
             <motion.div
-              className={styles.modalBackdropBlur}
+              className={styles.modalBackdrop}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
-            />
-            <motion.div
-              className={styles.modalContainer}
-              onClick={(e: React.MouseEvent) => e.stopPropagation()} // Prevent closing when clicking inside modal
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              onClick={() => setSelectedCoach(null)}
             >
-              <button className={styles.modalCloseBtn} onClick={() => setSelectedCoach(null)} aria-label="Close modal">
-                <X size={20} />
-              </button>
+              <div className={styles.modalBackdropBlur} />
+              <motion.div
+                className={styles.modalContainer}
+                onClick={(e: React.MouseEvent) => e.stopPropagation()} // Prevent closing when clicking inside modal
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                transition={{ type: 'spring', damping: 25, stiffness: 300, delay: 0.1 }}
+              >
+                <button className={styles.modalCloseBtn} onClick={() => setSelectedCoach(null)} aria-label="Close modal">
+                  <X size={20} />
+                </button>
 
-              <div className={styles.modalPhotoArea}>
-                {selectedCoach.image ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={selectedCoach.image} alt={selectedCoach.name} className={styles.modalPhoto} />
-                ) : (
-                  <div className={styles.modalPhotoPlaceholder}>{selectedCoach.emoji}</div>
-                )}
-              </div>
+                <div className={styles.modalPhotoArea}>
+                  {selectedCoach.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={selectedCoach.image} alt={selectedCoach.name} className={styles.modalPhoto} />
+                  ) : (
+                    <div className={styles.modalPhotoPlaceholder}>{selectedCoach.emoji}</div>
+                  )}
+                </div>
 
-              <div className={styles.modalContent}>
-                <div className={styles.modalHeader}>
-                  <span className={styles.modalRolePill}>{selectedCoach.role}</span>
-                  <div className={styles.modalExpBadge}>
-                    <span className={styles.expDot} />
-                    {selectedCoach.experience}
+                <div className={styles.modalContent}>
+                  <div className={styles.modalHeader}>
+                    <span className={styles.modalRolePill}>{selectedCoach.role}</span>
+                    <div className={styles.modalExpBadge}>
+                      <span className={styles.expDot} />
+                      {selectedCoach.experience}
+                    </div>
+                  </div>
+
+                  <h3 className={styles.modalName}>{selectedCoach.name}</h3>
+
+                  <div className={styles.modalSpecialties}>
+                    {selectedCoach.specialties.map((s) => (
+                      <span key={s} className={styles.modalSpecialtyTag}>{s}</span>
+                    ))}
+                  </div>
+
+                  <div className={styles.modalBioScroller}>
+                    <p className={styles.modalBioText}>{selectedCoach.bio}</p>
+                  </div>
+
+                  <div className={styles.modalFooter}>
+                    <button 
+                      className={styles.bookSessionBtn}
+                      onClick={() => {
+                        setSelectedCoach(null);
+                        // Add small delay to let coach modal shrink before opening booking modal
+                        setTimeout(() => openModal(), 150);
+                      }}
+                    >
+                      <Calendar size={16} />
+                      Book Session with {selectedCoach.name.split(' ')[0]}
+                    </button>
                   </div>
                 </div>
-
-                <h3 className={styles.modalName}>{selectedCoach.name}</h3>
-
-                <div className={styles.modalSpecialties}>
-                  {selectedCoach.specialties.map((s) => (
-                    <span key={s} className={styles.modalSpecialtyTag}>{s}</span>
-                  ))}
-                </div>
-
-                <div className={styles.modalBioScroller}>
-                  <p className={styles.modalBioText}>{selectedCoach.bio}</p>
-                </div>
-
-                <div className={styles.modalFooter}>
-                  <button 
-                    className={styles.bookSessionBtn}
-                    onClick={() => {
-                      setSelectedCoach(null);
-                      // Add small delay to let coach modal shrink before opening booking modal
-                      setTimeout(() => openModal(), 150);
-                    }}
-                  >
-                    <Calendar size={16} />
-                    Book Session with {selectedCoach.name.split(' ')[0]}
-                  </button>
-                </div>
-              </div>
+              </motion.div>
             </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </section>
   );
 };

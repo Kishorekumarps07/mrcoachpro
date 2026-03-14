@@ -17,8 +17,8 @@
     width: 64px;
     height: 64px;
     border-radius: 50%;
-    background: #FFD000;
-    color: white;
+    background: var(--accent-yellow);
+    color: #0E0E0E;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -121,8 +121,8 @@
 }
 
 .dragHandle {
-    background: #FFD000;
-    color: #1a1a1a;
+    background: var(--accent-yellow);
+    color: #0E0E0E;
     padding: 18px 20px;
     display: flex;
     justify-content: space-between;
@@ -221,7 +221,7 @@
 
 .inputField:focus {
     outline: none;
-    border-color: #FFD000;
+    border-color: var(--accent-yellow);
     background-color: #fff;
     box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.15);
 }
@@ -232,8 +232,8 @@ textarea.inputField {
 }
 
 .submitBtn {
-    background: #FFD000;
-    color: white;
+    background: var(--accent-yellow);
+    color: #0E0E0E;
     border: none;
     padding: 14px;
     border-radius: 8px;

@@ -139,6 +139,38 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
+/* ── VERIFIED BADGE ── */
+.verifiedBadge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #0E0E0E;
+  background: var(--accent-yellow, #f9d949);
+  border-radius: 8px;
+  padding: 4px 8px;
+  z-index: 10;
+  pointer-events: none; /* Let clicks pass through to the card */
+  box-shadow: 0 4px 12px rgba(249, 217, 73, 0.3);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.verifiedIcon {
+  color: #0E0E0E; /* Dark checkmark inside the yellow badge */
+}
+
+/* Hide verified badge when the card is hovered/tapped so the detail panel takes over completely */
+.card.tapped .verifiedBadge,
+.card:hover:not(.no-hover-device) .verifiedBadge {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
 /* ── PHOTO AREA ── */
 .photoArea {
   position: relative;
@@ -254,18 +286,14 @@
               opacity 0.3s ease;
 }
 
-.card:hover .detailPanel {
+.card.tapped .detailPanel,
+.card:hover:not(.no-hover-device) .detailPanel {
   transform: translateY(0);
   opacity: 1;
 }
 
-/* Also show detail panel when tapped (mobile) */
-.card.tapped .detailPanel {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.card.tapped .cardInfo {
+.card.tapped .cardInfo,
+.card:hover:not(.no-hover-device) .cardInfo {
   opacity: 0;
   transform: translateY(8px);
 }
@@ -283,12 +311,16 @@
 }
 
 .detailRole {
-  font-size: 11px;
-  font-weight: 600;
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent-yellow);
-  margin-bottom: 10px;
+  color: #0E0E0E; 
+  background: var(--accent-yellow);
+  padding: 4px 10px;
+  border-radius: 100px;
+  margin-bottom: 12px;
   opacity: 0;
   transform: translateY(12px);
   transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -342,17 +374,17 @@
   gap: 8px;
   width: 100%;
   padding: 12px 0;
-  background: linear-gradient(135deg, #0e0e0e, #222222);
-  color: var(--accent-yellow);
+  background: var(--accent-yellow);
+  color: #0E0E0E;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: none;
   cursor: pointer;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(249, 217, 73, 0.25);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1;
 
@@ -361,11 +393,11 @@
 }
 
 /* Staggered entrance animations on hover/tap */
-.card:hover .detailName, .card.tapped .detailName { opacity: 1; transform: translateY(0); transition-delay: 0.05s; }
-.card:hover .detailRole, .card.tapped .detailRole { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
-.card:hover .detailBio,  .card.tapped .detailBio  { opacity: 1; transform: translateY(0); transition-delay: 0.15s; }
-.card:hover .specialties, .card.tapped .specialties { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
-.card:hover .viewProfileBtn, .card.tapped .viewProfileBtn { opacity: 1; transform: translateY(0); transition-delay: 0.25s; }
+.card:hover:not(.no-hover-device) .detailName, .card.tapped .detailName { opacity: 1; transform: translateY(0); transition-delay: 0.05s; }
+.card:hover:not(.no-hover-device) .detailRole, .card.tapped .detailRole { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+.card:hover:not(.no-hover-device) .detailBio,  .card.tapped .detailBio  { opacity: 1; transform: translateY(0); transition-delay: 0.15s; }
+.card:hover:not(.no-hover-device) .specialties, .card.tapped .specialties { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+.card:hover:not(.no-hover-device) .viewProfileBtn, .card.tapped .viewProfileBtn { opacity: 1; transform: translateY(0); transition-delay: 0.25s; }
 
 
 /* Button Inner Shine */
@@ -376,18 +408,15 @@
   left: -100%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
   transform: skewX(-20deg);
   transition: left 0.6s ease;
   z-index: -1;
 }
 
 .viewProfileBtn:hover {
-  background: var(--accent-yellow);
-  color: #0E0E0E;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(249, 217, 73, 0.35);
-  border-color: var(--accent-yellow);
+  box-shadow: 0 8px 24px rgba(249, 217, 73, 0.4);
 }
 
 .viewProfileBtn:hover::before {
@@ -538,43 +567,9 @@
     /* On mobile: always show detail panel on tap via JS class */
   }
 
-  /* On touch screens, hide the hover state — rely on tap class instead */
+  /* On touch screens, disable all CSS hover effects entirely */
   @media (hover: none) {
-    .card:hover .detailPanel {
-      transform: translateY(100%);
-      opacity: 0;
-    }
-
-    .card:hover .cardInfo {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .card:hover {
-      transform: none;
-    }
-  }
-
-  /* Tap hint badge on mobile */
-  .card::after {
-    content: 'TAP';
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    color: #0E0E0E;
-    background: rgba(249, 217, 73, 0.9);
-    border-radius: 6px;
-    padding: 3px 7px;
-    z-index: 4;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-  }
-
-  .card.tapped::after {
-    opacity: 0;
+    /* (The :not(.no-hover-device) class handles this globally, but leaving media query for safety) */
   }
 
   .controls {
@@ -599,26 +594,34 @@
 .modalBackdrop {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: 99999;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 16px;
+}
+
+@media (min-width: 768px) {
+  .modalBackdrop {
+    padding: 32px;
+  }
 }
 
 .modalBackdropBlur {
   position: absolute;
   inset: 0;
-  background: rgba(14, 14, 14, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 0;
 }
 
 .modalContainer {
   position: relative;
   width: 100%;
   max-width: 900px;
-  max-height: 90vh;
+  height: auto; /* Fit to content dynamically */
+  max-height: calc(100vh - 32px); /* Prevents clipping off bottom of device */
   background: #ffffff;
   border-radius: 24px;
   overflow: hidden;
@@ -633,6 +636,8 @@
   .modalContainer {
     flex-direction: row;
     height: 600px;
+    max-height: 90vh;
+    margin-top: 0;
   }
 }
 
@@ -663,7 +668,7 @@
 .modalPhotoArea {
   position: relative;
   width: 100%;
-  height: 300px;
+  height: 250px; /* Shorter image to prevent vertical push */
   flex-shrink: 0;
   background: #f5f5f5;
 }
@@ -696,7 +701,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 32px 24px;
+  padding: 16px 20px 0px; /* Tighter padding for mobile */
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -736,20 +741,20 @@
 }
 
 .modalName {
-  font-size: clamp(28px, 4vw, 40px);
+  font-size: clamp(24px, 4vw, 36px); /* Slightly smaller text */
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #0E0E0E;
-  margin-bottom: 24px;
+  margin-bottom: 16px; /* Reduced from 24px */
   line-height: 1.1;
 }
 
 .modalSpecialties {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 32px;
+  gap: 6px;
+  margin-bottom: 20px; /* Reduced from 32px */
 }
 
 .modalSpecialtyTag {
@@ -766,20 +771,22 @@
 
 .modalBioScroller {
   flex: 1;
-  margin-bottom: 32px;
+  margin-bottom: 16px; /* Reduced from 24px */
 }
 
 .modalBioText {
-  font-size: 15px;
+  font-size: 14px; /* Reduced by 1px */
   color: #444;
-  line-height: 1.7;
+  line-height: 1.6; /* Slightly tighter line-height */
   font-weight: 400;
 }
 
 .modalFooter {
   margin-top: auto;
-  padding-top: 24px;
+  padding-top: 20px;
+  padding-bottom: 12px; /* Extra padding on mobile to lift button off bottom bezel */
   border-top: 1px solid rgba(0, 0, 0, 0.08);
+  flex-shrink: 0; /* Prevent the button container from shrinking */
 }
 
 .bookSessionBtn {
@@ -788,22 +795,70 @@
   justify-content: center;
   gap: 10px;
   width: 100%;
-  padding: 18px 24px;
-  background: #0E0E0E;
-  color: var(--accent-yellow);
-  font-size: 14px;
+  padding: 16px 24px;
+  background: var(--accent-yellow);
+  color: #0E0E0E;
+  font-size: 13px;
   font-weight: 800;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  border-radius: 16px;
+  border-radius: 14px;
   border: none;
   cursor: pointer;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 24px rgba(249, 217, 73, 0.25);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .bookSessionBtn:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
-  background: #1a1a1a;
+  box-shadow: 0 12px 32px rgba(249, 217, 73, 0.4);
+  background: #ffec6e; /* Slightly lighter yellow hover */
+}
+
+/* =============================================
+   SHORT MOBILE DEVICE FIXES
+   Aggressively compress elements so modal fits without scrolling
+   ============================================= */
+@media (max-height: 750px) and (max-width: 767px) {
+  .modalPhotoArea {
+    height: 180px; /* Highly compressed photo on short screens */
+  }
+
+  .modalContent {
+    padding: 12px 16px 0px;
+  }
+
+  .modalName {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .modalSpecialties {
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+  
+  .modalSpecialtyTag {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+
+  .modalBioScroller {
+    margin-bottom: 8px;
+  }
+
+  .modalBioText {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .modalFooter {
+    padding-top: 12px;
+    padding-bottom: 8px;
+  }
+
+  .bookSessionBtn {
+    padding: 12px 16px;
+    font-size: 12px;
+  }
 }
