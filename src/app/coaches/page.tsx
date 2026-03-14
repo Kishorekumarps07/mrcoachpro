@@ -37,7 +37,7 @@ export default function CoachesPage() {
           
           <div className={styles.subtitleContainer}>
             <p className={styles.subtitleTop}>
-              Book certified fitness trainers, yoga instructors, physiotherapists and wellness experts near you.
+              Book certified physiotherapists,fitness coaches, yoga instructors, and wellness experts near you.
             </p>
             <div className={styles.subtitleBottom}>
               <div className={styles.decorationLine} />
