@@ -130,13 +130,19 @@
               border-color 0.3s ease;
 }
 
-.card:hover {
-  transform: translateY(-10px);
-  border-color: rgba(249, 217, 73, 0.6);
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.18),
-    0 0 40px rgba(249, 217, 73, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(249, 217, 73, 0.6);
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.18),
+      0 0 40px rgba(249, 217, 73, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  }
+
+  .card:hover .coachPhoto {
+    transform: scale(1.04);
+  }
 }
 
 /* ── VERIFIED BADGE ── */
@@ -188,9 +194,7 @@
   display: block;
 }
 
-.card:hover .coachPhoto {
-  transform: scale(1.04);
-}
+/* .card:hover .coachPhoto moved into media query above */
 
 /* Gradient overlay always present */
 .photoOverlay {
@@ -286,16 +290,28 @@
               opacity 0.3s ease;
 }
 
-.card.tapped .detailPanel,
-.card:hover:not(.no-hover-device) .detailPanel {
+.card.tapped .detailPanel {
   transform: translateY(0);
   opacity: 1;
 }
 
-.card.tapped .cardInfo,
-.card:hover:not(.no-hover-device) .cardInfo {
+@media (hover: hover) {
+  .card:not(.no-hover-device):hover .detailPanel {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.card.tapped .cardInfo {
   opacity: 0;
   transform: translateY(8px);
+}
+
+@media (hover: hover) {
+  .card:not(.no-hover-device):hover .cardInfo {
+    opacity: 0;
+    transform: translateY(8px);
+  }
 }
 
 .detailName {
@@ -393,11 +409,19 @@
 }
 
 /* Staggered entrance animations on hover/tap */
-.card:hover:not(.no-hover-device) .detailName, .card.tapped .detailName { opacity: 1; transform: translateY(0); transition-delay: 0.05s; }
-.card:hover:not(.no-hover-device) .detailRole, .card.tapped .detailRole { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
-.card:hover:not(.no-hover-device) .detailBio,  .card.tapped .detailBio  { opacity: 1; transform: translateY(0); transition-delay: 0.15s; }
-.card:hover:not(.no-hover-device) .specialties, .card.tapped .specialties { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
-.card:hover:not(.no-hover-device) .viewProfileBtn, .card.tapped .viewProfileBtn { opacity: 1; transform: translateY(0); transition-delay: 0.25s; }
+.card.tapped .detailName { opacity: 1; transform: translateY(0); transition-delay: 0.05s; }
+.card.tapped .detailRole { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+.card.tapped .detailBio  { opacity: 1; transform: translateY(0); transition-delay: 0.15s; }
+.card.tapped .specialties { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+.card.tapped .viewProfileBtn { opacity: 1; transform: translateY(0); transition-delay: 0.25s; }
+
+@media (hover: hover) {
+  .card:not(.no-hover-device):hover .detailName { opacity: 1; transform: translateY(0); transition-delay: 0.05s; }
+  .card:not(.no-hover-device):hover .detailRole { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+  .card:not(.no-hover-device):hover .detailBio  { opacity: 1; transform: translateY(0); transition-delay: 0.15s; }
+  .card:not(.no-hover-device):hover .specialties { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+  .card:not(.no-hover-device):hover .viewProfileBtn { opacity: 1; transform: translateY(0); transition-delay: 0.25s; }
+}
 
 
 /* Button Inner Shine */

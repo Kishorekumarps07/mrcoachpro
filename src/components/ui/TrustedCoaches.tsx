@@ -55,13 +55,21 @@ export const COACHES = [
 // ─────────────────────────────────────────
 const CoachCard = ({ coach, index, onViewProfile }: { coach: typeof COACHES[0]; index: number; onViewProfile: (coach: typeof COACHES[0]) => void }) => {
   const [tapped, setTapped] = useState(false);
-  const [hasTouch, setHasTouch] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
-  // Use a simple onClick for mobile tap support. Mobile browsers fire onClick for taps.
+  // Detect touch support on mount
+  useEffect(() => {
+    const checkTouch = () => {
+      setIsTouchDevice(window.matchMedia('(hover: none)').matches);
+    };
+    checkTouch();
+  }, []);
+
   const handleCardClick = () => {
-    // If it's a touch device, click toggles the panel.
-    setHasTouch(true);
-    setTapped((prev) => !prev);
+    // On touch devices, click toggles the panel.
+    if (isTouchDevice) {
+      setTapped((prev) => !prev);
+    }
   };
 
   const handleViewProfileClick = (e: React.MouseEvent) => {
@@ -71,13 +79,13 @@ const CoachCard = ({ coach, index, onViewProfile }: { coach: typeof COACHES[0]; 
 
   return (
     <motion.div
-      className={`${styles.card} ${tapped ? styles.tapped : ''} ${hasTouch ? styles['no-hover-device'] : ''}`}
+      className={`${styles.card} ${tapped ? styles.tapped : ''} ${isTouchDevice ? styles['no-hover-device'] : ''}`}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.215, 0.61, 0.355, 1] }}
-      onMouseEnter={() => { if (!hasTouch) setTapped(true); }}
-      onMouseLeave={() => { if (!hasTouch) setTapped(false); }}
+      onMouseEnter={() => { if (!isTouchDevice) setTapped(true); }}
+      onMouseLeave={() => { if (!isTouchDevice) setTapped(false); }}
       onClick={handleCardClick}
     >
       {/* ── VERIFIED BADGE (Mobile Hint + Trust) ── */}
