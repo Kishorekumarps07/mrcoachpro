@@ -1,10 +1,10 @@
 export const SPECIALIZATION_SERVICES: Record<string, string[]> = {
     "Fitness & Personal Training": [
-        "Aerobics Instructor", "Body transformation", "CrossFit Trainer",
-        "Fitness Trainer at Home", "Functional Trainer", "Group Fitness Trainer",
-        "Home Yoga Trainer", "Muscle building Trainer", "Online Personal Trainer",
-        "Online Yoga Instructor", "Personal Trainer", "Strength & Conditioning Coach",
-        "Weight Loss Trainer", "Zumba Trainer"
+        "Aerobics Instructor", "Body transformation", "CrossFit Coach",
+        "Fitness Coach at Home", "Functional Coach", "Group Fitness Coach",
+        "Home Yoga Coach", "Muscle building Coach", "Online Personal Coach",
+        "Online Yoga Instructor", "Personal Coach", "Strength & Conditioning Coach",
+        "Weight Loss Coach", "Zumba Coach"
     ],
     "Health & Wellness": [
         "Accupressure Therapist", "Accupuncture Therapist", "Body Massage Therapist",

@@ -1,11 +1,11 @@
 /* ── COACH CARD ── */
 .card {
-  flex: 0 0 300px;
+  flex: 0 0 320px;
   scroll-snap-align: center;
   position: relative;
   border-radius: 24px;
   overflow: hidden;
-  height: 400px;
+  height: 440px;
   cursor: pointer;
   background: rgba(20, 20, 20, 0.06);
   backdrop-filter: blur(20px);
@@ -120,7 +120,7 @@
 }
 
 .coachName {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 800;
   letter-spacing: 0.04em;
   color: #fff;
@@ -314,9 +314,9 @@
 /* ── RESPONSIVE / MOBILE ── */
 @media (max-width: 768px) {
   .card {
-    flex: 0 0 240px;
-    max-width: 240px;
-    height: 330px;
+    flex: 0 0 260px;
+    max-width: 260px;
+    height: 360px;
     border-radius: 20px;
   }
 
@@ -325,7 +325,7 @@
   }
 
   .coachName {
-    font-size: 16px;
+    font-size: 18px;
     margin-bottom: 4px;
   }
 

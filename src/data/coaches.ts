@@ -1,10 +1,10 @@
 export const COACHES = [
   {
     name: 'Govindraju',
-    role: 'Personal Fitness Trainer',
+    role: 'Personal Fitness Coach',
     experience: '20 yrs exp.',
     location: 'Bangalore',
-    bio: 'Nearly two decades as a freelance personal fitness trainer across Bangalore. Expert in functional, weight & HIIT training — serving Whitefield, Mahadevapura, Thannisandhra & Hennur.',
+    bio: 'Nearly two decades as a freelance personal fitness coach across Bangalore. Expert in functional, weight & HIIT training — serving Whitefield, Mahadevapura, Thannisandhra & Hennur.',
     specialties: ['Functional Training', 'Weight Training', 'HIIT', 'Cardio Kickboxing'],
     image: '/images/coaches/govindraju.jpeg',
     emoji: '💪',
@@ -31,10 +31,10 @@ export const COACHES = [
   },
   {
     name: 'K. Kalyan Kumar',
-    role: 'Personal Trainer',
+    role: 'Personal Coach',
     experience: '4 yrs exp.',
     location: 'Bangalore',
-    bio: 'Results-driven personal trainer based in Bangalore, specialising in weight loss, muscle gain and body toning. Crafts structured programs tailored to individual goals and fitness levels.',
+    bio: 'Results-driven personal coach based in Bangalore, specialising in weight loss, muscle gain and body toning. Crafts structured programs tailored to individual goals and fitness levels.',
     specialties: ['Weight Loss', 'Muscle Gain', 'Body Toning', 'Strength Training'],
     image: '/images/coaches/kalyan-kumar.jpeg',
     emoji: '🏅',
