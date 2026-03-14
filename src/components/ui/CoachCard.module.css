@@ -139,10 +139,10 @@
 .locationBadge {
   display: flex;
   align-items: center;
-  gap: 5px;
-  font-size: 13px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.7);
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
   text-transform: none;
   letter-spacing: 0.02em;
 }
@@ -150,17 +150,17 @@
 .expBadge {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
   text-transform: none;
   letter-spacing: 0.02em;
 }
 
 .expDot {
-  width: 5px;
-  height: 5px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--accent-yellow);
   flex-shrink: 0;
@@ -343,23 +343,24 @@
   .locationBadge {
     display: flex;
     align-items: center;
-    gap: 4px;
-    font-size: 11px;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.8);
+    gap: 5px;
+    font-size: 14px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.95);
     text-transform: none;
     letter-spacing: 0.02em;
   }
 
   .expBadge {
-    font-size: 11px;
-    gap: 5px;
-    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+    gap: 6px;
+    color: #fff;
+    font-weight: 700;
   }
 
   .expDot {
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
   }
 
   .detailPanel {
