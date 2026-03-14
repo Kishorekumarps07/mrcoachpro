@@ -1,6 +1,6 @@
 export const COACHES = [
   {
-    name: 'Govindraju',
+    name: 'Govind raju',
     role: 'Personal Fitness Coach',
     experience: '20 yrs exp.',
     location: 'Bangalore',
@@ -31,7 +31,7 @@ export const COACHES = [
   },
   {
     name: 'K. Kalyan Kumar',
-    role: 'Personal Coach',
+    role: 'Personal Fitness Coach',
     experience: '4 yrs exp.',
     location: 'Bangalore',
     bio: 'Results-driven personal coach based in Bangalore, specialising in weight loss, muscle gain and body toning. Crafts structured programs tailored to individual goals and fitness levels.',

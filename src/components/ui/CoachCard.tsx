@@ -41,7 +41,7 @@ export const CoachCard = ({ coach, index, onViewProfile }: CoachCardProps) => {
       className={`${styles.card} ${isTouchDevice ? styles['no-hover-device'] : ''}`}
       onClick={handleCardClick}
     >
-      {/* ── VERIFIED BADGE (Mobile Hint + Trust) ── */}
+      {/* ── VERIFIED BADGE (Integrated) ── */}
       <div className={styles.verifiedBadge}>
         <BadgeCheck size={10} className={styles.verifiedIcon} />
         VERIFIED
