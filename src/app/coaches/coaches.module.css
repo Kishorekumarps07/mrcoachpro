@@ -17,12 +17,16 @@
 }
 
 .eyebrow {
-  margin-top: 14px;
-  font-size: 13px;
+  display: inline-block;
+  font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--accent-yellow);
+  color: #0E0E0E;
+  background: rgba(249, 217, 73, 0.15);
+  border: 1px solid rgba(249, 217, 73, 0.4);
+  border-radius: 100px;
+  padding: 4px 16px;
   margin-bottom: 12px;
 }
 

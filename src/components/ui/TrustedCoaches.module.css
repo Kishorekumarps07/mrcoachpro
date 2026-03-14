@@ -47,7 +47,7 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--accent-yellow);
+  color: #0E0E0E;
   background: rgba(249, 217, 73, 0.1);
   border: 1px solid rgba(249, 217, 73, 0.25);
   border-radius: 100px;
