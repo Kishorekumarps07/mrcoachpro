@@ -81,18 +81,23 @@
 }
 
 .titleSerif {
+  display: inline-block;
   font-family: var(--font-crimson), serif;
   font-style: italic;
-  font-size: clamp(24px, 4vw, 36px);
-  font-weight: 800;
+  font-size: clamp(18px, 3.5vw, 30px);
+  font-weight: 900;
   color: #0E0E0E;
   text-transform: none;
   letter-spacing: -0.01em;
+  background: linear-gradient(120deg, rgba(249, 217, 73, 0.4) 0%, rgba(255, 210, 0, 0.15) 100%);
+  padding: 2px 12px;
+  border-radius: 4px;
+  margin-bottom: 4px;
 }
 
 .titleMain {
   font-family: var(--font-josefin), sans-serif;
-  font-size: clamp(28px, 5vw, 48px);
+  font-size: clamp(22px, 4.5vw, 40px);
   font-weight: 700;
   background: linear-gradient(180deg, #FFD600 0%, #FF8A00 100%);
   -webkit-background-clip: text;

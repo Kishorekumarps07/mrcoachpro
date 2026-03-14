@@ -51,8 +51,8 @@ export const TrustedCoaches = () => {
         </div>
         
         <h2 className={styles.title}>
-          <span className={styles.titleSerif}>Train with India's Trusted</span>
-          <span className={styles.titleMain}>Health & Wellness Coaches</span>
+          <span className={styles.titleSerif}>India's Most Trusted Coaching Platform</span>
+          <span className={styles.titleMain}>Verified coaches, Real results</span>
         </h2>
       </div>
 
