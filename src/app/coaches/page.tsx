@@ -26,13 +26,28 @@ export default function CoachesPage() {
       <div className={styles.maxContent}>
         {/* ── HEADER ── */}
         <header className={styles.header}>
-          <div className={styles.eyebrow}>THE ELITE COLLECTIVE</div>
+          <div className={styles.eyebrowContainer}>
+            <div className={styles.eyebrowLine} />
+            <span className={styles.eyebrow}>THE ELITE COLLECTIVE</span>
+            <div className={styles.eyebrowLine} />
+          </div>
+          
           <h1 className={styles.title}>
-            Train with the <span className={styles.titleHighlight}>Masters</span>
+            <span className={styles.titleSerif}>Train with India's Trusted</span>
+            <span className={styles.titleMain}>Health & Wellness Coaches</span>
           </h1>
-          <p className={styles.subtitle}>
-            Unlock your ultimate potential. Our hand-picked specialists bridge the gap between where you are and where you belong.
-          </p>
+          
+          <div className={styles.subtitleContainer}>
+            <p className={styles.subtitleTop}>
+              Book certified physiotherapists ,fitness trainers, yoga instructors
+            </p>
+            <div className={styles.subtitleBottom}>
+              <div className={styles.decorationLine} />
+              <p className={styles.subtitleText}>and wellness experts near you.</p>
+              <div className={styles.decorationLine} />
+            </div>
+          </div>
+          <div className={styles.bottomSeparator} />
         </header>
 
         {/* ── GRID ── */}

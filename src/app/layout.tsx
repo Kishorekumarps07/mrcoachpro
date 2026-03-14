@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
-import { Roboto, Josefin_Sans } from 'next/font/google';
+import { Roboto, Josefin_Sans, Crimson_Pro } from 'next/font/google';
 import './globals.css';
 import { Suspense } from 'react';
 import { Footer } from '@/components/layout/Footer';
@@ -19,6 +19,13 @@ const josefin = Josefin_Sans({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-josefin',
+  display: 'swap',
+});
+
+const crimsonPro = Crimson_Pro({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+  variable: '--font-crimson',
   display: 'swap',
 });
 
@@ -82,7 +89,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${roboto.variable} ${josefin.variable}`}>
+    <html lang="en" className={`${roboto.variable} ${josefin.variable} ${crimsonPro.variable}`}>
       <body suppressHydrationWarning>
         <Script id="meta-pixel" strategy="afterInteractive" dangerouslySetInnerHTML={{
           __html: `
