@@ -26,12 +26,12 @@ export default function CoachesPage() {
       <div className={styles.maxContent}>
         {/* ── HEADER ── */}
         <header className={styles.header}>
-          <div className={styles.eyebrow}>Professional Team</div>
+          <div className={styles.eyebrow}>THE ELITE COLLECTIVE</div>
           <h1 className={styles.title}>
-            Our <span className={styles.titleHighlight}>Expert</span> Coaches
+            Train with the <span className={styles.titleHighlight}>Masters</span>
           </h1>
           <p className={styles.subtitle}>
-            Connect with the best fitness professionals dedicated to your growth and performance.
+            Unlock your ultimate potential. Our hand-picked specialists bridge the gap between where you are and where you belong.
           </p>
         </header>
 

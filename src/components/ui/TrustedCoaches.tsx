@@ -44,12 +44,12 @@ export const TrustedCoaches = () => {
     <section className={styles.section}>
       {/* ── HEADER ── */}
       <div className={styles.header}>
-        <div className={styles.eyebrow}>Expert Team</div>
+        <div className={styles.eyebrow}>ELITE PERFORMANCE SQUAD</div>
         <h2 className={styles.title}>
-          Meet Our <span className={styles.titleHighlight}>Trusted</span> Coaches
+          Forge Your <span className={styles.titleHighlight}>Legacy</span>
         </h2>
         <p className={styles.subtitle}>
-          Hand-picked professionals with proven records — hover or tap a card to learn more.
+          Meet the architects of physical excellence. World-class expertise, tailored specifically to your ambition.
         </p>
       </div>
 
