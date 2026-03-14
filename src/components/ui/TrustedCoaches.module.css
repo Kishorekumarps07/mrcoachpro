@@ -248,10 +248,10 @@
 .expBadge {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 12px;
+  gap: 8px;
+  font-size: 14px;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: rgba(255, 255, 255, 0.9);
   text-transform: none;
   letter-spacing: 0.02em;
 }
@@ -616,22 +616,22 @@
   .locationBadge {
     display: flex;
     align-items: center;
-    gap: 3px;
-    font-size: 9px;
+    gap: 4px;
+    font-size: 11px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.8);
     text-transform: none;
     letter-spacing: 0.02em;
   }
 
   .expBadge {
-    font-size: 10px;
-    gap: 4px;
+    font-size: 11px;
+    gap: 5px;
   }
 
   .expDot {
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
   }
 
   .detailPanel {
