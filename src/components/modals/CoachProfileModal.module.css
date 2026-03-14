@@ -1,0 +1,288 @@
+/* =============================================
+   COACH PROFILE MODAL
+   ============================================= */
+
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+@media (min-width: 768px) {
+  .modalBackdrop {
+    padding: 32px;
+  }
+}
+
+.modalBackdropBlur {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 0;
+}
+
+.modalContainer {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: auto; /* Fit to content dynamically */
+  max-height: calc(100vh - 32px); /* Prevents clipping off bottom of device */
+  background: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6),
+              0 0 0 1px rgba(255, 255, 255, 0.1);
+  z-index: 101;
+}
+
+@media (min-width: 768px) {
+  .modalContainer {
+    flex-direction: row;
+    height: 600px;
+    max-height: 90vh;
+    margin-top: 0;
+  }
+}
+
+.modalCloseBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: #0E0E0E;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.modalCloseBtn:hover {
+  background: #f9d949; /* Explicit yellow sync */
+  transform: scale(1.05);
+}
+
+.modalPhotoArea {
+  width: 100%;
+  height: auto; /* Let image dictate height to show full photo */
+  max-height: 450px; /* Cap it so it doesn't take too much space */
+  flex-shrink: 0;
+  background: #f5f5f5;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .modalPhotoArea {
+    width: 45%;
+    height: 100%;
+  }
+}
+
+.modalPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Show the full photo without any cropping */
+  background: #f5f5f5; /* Match area background */
+}
+
+.modalPhotoPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+}
+
+.modalContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px 20px 0px; /* Tighter padding for mobile */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 768px) {
+  .modalContent {
+    padding: 48px 40px;
+  }
+}
+
+.modalHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.modalInfoGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.modalExpBadge,
+.modalLocationBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666666;
+  text-transform: none;
+}
+
+.modalLocationBadge svg {
+  color: #f9d949; /* Explicit yellow sync */
+}
+
+.modalRolePill {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #0E0E0E;
+  background: #f9d949; /* Explicit yellow sync */
+  padding: 4px 12px;
+  border-radius: 100px;
+}
+
+.modalName {
+  font-size: clamp(24px, 4vw, 36px); /* Slightly smaller text */
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #0E0E0E;
+  margin-bottom: 16px; /* Reduced from 24px */
+  line-height: 1.1;
+}
+
+.modalSpecialties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px; /* Reduced from 32px */
+}
+
+.modalSpecialtyTag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #333;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 6px 12px;
+}
+
+.modalBioScroller {
+  flex: 1;
+  margin-bottom: 16px; /* Reduced from 24px */
+}
+
+.modalBioText {
+  font-size: 14px; /* Reduced by 1px */
+  color: #444;
+  line-height: 1.6; /* Slightly tighter line-height */
+  font-weight: 400;
+}
+
+.modalFooter {
+  margin-top: auto;
+  padding-top: 20px;
+  padding-bottom: 12px; /* Extra padding on mobile to lift button off bottom bezel */
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  flex-shrink: 0; /* Prevent the button container from shrinking */
+}
+
+.bookSessionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 16px 24px;
+  background: #f9d949; /* Explicit yellow sync */
+  color: #0E0E0E;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(249, 217, 73, 0.25);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bookSessionBtn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(249, 217, 73, 0.4);
+  background: #ffec6e; /* Slightly lighter yellow hover */
+}
+
+/* =============================================
+   SHORT MOBILE DEVICE FIXES
+   Aggressively compress elements so modal fits without scrolling
+   ============================================= */
+@media (max-height: 750px) and (max-width: 767px) {
+  .modalPhotoArea {
+    height: 180px; /* Highly compressed photo on short screens */
+  }
+
+  .modalContent {
+    padding: 12px 16px 0px;
+  }
+
+  .modalName {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .modalSpecialties {
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+  
+  .modalSpecialtyTag {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+
+  .modalBioScroller {
+    margin-bottom: 8px;
+  }
+
+  .modalBioText {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .modalFooter {
+    padding-top: 12px;
+    padding-bottom: 8px;
+  }
+
+  .bookSessionBtn {
+    padding: 12px 16px;
+    font-size: 12px;
+  }
+}

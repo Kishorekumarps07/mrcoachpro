@@ -1,12 +1,11 @@
 'use client';
 
 import React, { useRef, useState, useCallback, useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, ArrowRight, X, Calendar, MapPin } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { useModal } from '@/context/ModalContext';
 import { CoachCard, Coach } from './CoachCard';
 import { COACHES } from '@/data/coaches';
+import { CoachProfileModal } from '@/components/modals/CoachProfileModal';
 import styles from './TrustedCoaches.module.css';
 
 // (Moved to standalone files)
@@ -92,85 +91,11 @@ export const TrustedCoaches = () => {
         </a>
       </div>
 
-      {/* ── COACH PROFILE MODAL (PORTALED) ── */}
-      {mounted && createPortal(
-        <AnimatePresence>
-          {selectedCoach && (
-            <motion.div
-              className={styles.modalBackdrop}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              onClick={() => setSelectedCoach(null)}
-            >
-              <div className={styles.modalBackdropBlur} />
-              <motion.div
-                className={styles.modalContainer}
-                onClick={(e: React.MouseEvent) => e.stopPropagation()} // Prevent closing when clicking inside modal
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                transition={{ type: 'spring', damping: 25, stiffness: 300, delay: 0.1 }}
-              >
-                <button className={styles.modalCloseBtn} onClick={() => setSelectedCoach(null)} aria-label="Close modal">
-                  <X size={20} />
-                </button>
-
-                <div className={styles.modalPhotoArea}>
-                  {selectedCoach.image ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={selectedCoach.image} alt={selectedCoach.name} className={styles.modalPhoto} />
-                  ) : (
-                    <div className={styles.modalPhotoPlaceholder}>{selectedCoach.emoji}</div>
-                  )}
-                </div>
-
-                <div className={styles.modalContent}>
-                  <div className={styles.modalHeader}>
-                    <div className={styles.modalRolePill}>{selectedCoach.role}</div>
-                    <div className={styles.modalInfoGroup}>
-                      <div className={styles.modalExpBadge}>
-                        <Calendar size={14} /> {selectedCoach.experience}
-                      </div>
-                      <div className={styles.modalLocationBadge}>
-                        <MapPin size={14} /> {selectedCoach.location}
-                      </div>
-                    </div>
-                  </div>
-
-                  <h3 className={styles.modalName}>{selectedCoach.name}</h3>
-
-                  <div className={styles.modalSpecialties}>
-                    {selectedCoach.specialties.map((s) => (
-                      <span key={s} className={styles.modalSpecialtyTag}>{s}</span>
-                    ))}
-                  </div>
-
-                  <div className={styles.modalBioScroller}>
-                    <p className={styles.modalBioText}>{selectedCoach.bio}</p>
-                  </div>
-
-                  <div className={styles.modalFooter}>
-                    <button 
-                      className={styles.bookSessionBtn}
-                      onClick={() => {
-                        setSelectedCoach(null);
-                        // Add small delay to let coach modal shrink before opening booking modal
-                        setTimeout(() => openModal(), 150);
-                      }}
-                    >
-                      <Calendar size={16} />
-                      Book Session with {selectedCoach.name.split(' ')[0]}
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>,
-        document.body
-      )}
+      {/* ── COACH PROFILE MODAL (CENTRALIZED) ── */}
+      <CoachProfileModal 
+        coach={selectedCoach} 
+        onClose={() => setSelectedCoach(null)} 
+      />
     </section>
   );
 };
