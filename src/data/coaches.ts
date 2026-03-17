@@ -39,4 +39,14 @@ export const COACHES = [
     image: '/images/coaches/kalyan-kumar.jpeg',
     emoji: '🏅',
   },
+  {
+    name: 'Deva. S',
+    role: 'BRAIN TABATA Fitness Coach',
+    experience: '31 yrs exp.',
+    location: 'Bangalore',
+    bio: 'A veteran fitness expert and BRAIN TABATA specialist with over 3 decades of experience. Deva brings a science-backed, high-intensity approach to metabolic conditioning and functional performance.',
+    specialties: ['BRAIN TABATA', 'Metabolic Conditioning', 'High-Intensity Training', 'Functional Fitness'],
+    image: '/images/coaches/deva-s.png',
+    emoji: '🧠',
+  },
 ];

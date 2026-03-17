@@ -88,7 +88,7 @@
 
 .carouselTrack {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 24px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -98,6 +98,11 @@
   cursor: grab;
   /* Allow both horizontal track scroll and vertical page scroll */
   touch-action: pan-x pan-y;
+}
+
+.carouselTrack > div {
+  flex: 0 0 320px;
+  scroll-snap-align: center;
 }
 
 .carouselTrack::-webkit-scrollbar {

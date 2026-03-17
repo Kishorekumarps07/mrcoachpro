@@ -1,11 +1,11 @@
-/* ── COACH CARD ── */
 .card {
-  flex: 0 0 320px;
-  scroll-snap-align: center;
+  width: 100%;
+  max-width: 340px; /* Slightly wider for better text flow */
+  margin: 0 auto;
   position: relative;
   border-radius: 24px;
   overflow: hidden;
-  height: 440px;
+  height: 480px; /* Increased height to accommodate longer roles/experience */
   cursor: pointer;
   background: rgba(20, 20, 20, 0.06);
   backdrop-filter: blur(20px);
