@@ -5,11 +5,16 @@
 .modalBackdrop {
   position: fixed;
   inset: 0;
+  width: 100vw;
+  height: 100dvh; /* Stable viewport height */
+  min-height: 100dvh;
   z-index: 99999;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 16px;
+  overscroll-behavior: none; /* Trap all scroll gestures */
+  touch-action: none; /* Prevent browser UI from reacting to backdrop touches */
 }
 
 @media (min-width: 768px) {
@@ -32,15 +37,16 @@
   width: 100%;
   max-width: 900px;
   height: auto; /* Fit to content dynamically */
-  max-height: calc(100vh - 32px); /* Prevents clipping off bottom of device */
+  max-height: calc(100dvh - 32px); /* Prevents clipping off bottom of device */
   background: #ffffff;
   border-radius: 24px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6),
-              0 0 0 1px rgba(255, 255, 255, 0.1);
+               0 0 0 1px rgba(255, 255, 255, 0.1);
   z-index: 101;
+  touch-action: pan-y; /* Allow vertical scrolling inside the modal, but nothing else */
 }
 
 @media (min-width: 768px) {
@@ -78,8 +84,7 @@
 
 .modalPhotoArea {
   width: 100%;
-  height: auto; /* Let image dictate height to show full photo */
-  max-height: 450px; /* Cap it so it doesn't take too much space */
+  height: 300px; /* Fixed height for stability on mobile */
   flex-shrink: 0;
   background: #f5f5f5;
   position: relative;
@@ -117,6 +122,7 @@
   padding: 16px 20px 0px; /* Tighter padding for mobile */
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain; /* Don't chain scroll to background */
 }
 
 @media (min-width: 768px) {
@@ -245,7 +251,7 @@
    ============================================= */
 @media (max-height: 750px) and (max-width: 767px) {
   .modalPhotoArea {
-    height: 180px; /* Highly compressed photo on short screens */
+    height: 220px; /* Consistent compressed height */
   }
 
   .modalContent {

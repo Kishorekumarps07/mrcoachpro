@@ -21,6 +21,26 @@ export const CoachProfileModal = ({ coach, onClose }: CoachProfileModalProps) =>
     setMounted(true);
   }, []);
 
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (coach) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.touchAction = 'none'; // Prevent background touch-drag scrolling
+      // Optional: Add padding to prevent layout shift if scrollbar disappears
+      document.body.style.paddingRight = 'var(--scrollbar-width, 0px)';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+      document.body.style.paddingRight = '';
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.touchAction = '';
+      document.body.style.paddingRight = '';
+    };
+  }, [coach]);
+
   if (!mounted) return null;
 
   return createPortal(
