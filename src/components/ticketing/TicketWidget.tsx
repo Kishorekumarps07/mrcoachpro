@@ -26,14 +26,15 @@ export function TicketWidget() {
     // Lock body scroll when the enquiry form is open
     React.useEffect(() => {
         if (isOpen) {
-            document.body.style.overflow = 'hidden';
-            // On some mobile browsers, we might need to lock touchmove as well or use more robust methods
-            // but overflow: hidden is the standard starting point for Next.js/React apps
+            document.documentElement.classList.add('no-scroll');
+            document.body.classList.add('no-scroll');
         } else {
-            document.body.style.overflow = 'unset';
+            document.documentElement.classList.remove('no-scroll');
+            document.body.classList.remove('no-scroll');
         }
         return () => {
-            document.body.style.overflow = 'unset';
+            document.documentElement.classList.remove('no-scroll');
+            document.body.classList.remove('no-scroll');
         };
     }, [isOpen]);
 

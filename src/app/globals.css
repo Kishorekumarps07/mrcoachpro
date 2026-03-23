@@ -63,6 +63,16 @@ body {
   /* Increased from 400 for bolder body text */
 }
 
+/* ── MODAL SCROLL LOCK ── */
+.no-scroll {
+  overflow: hidden !important;
+  height: 100dvh !important;
+  width: 100% !important;
+  position: relative !important;
+  touch-action: none !important;
+  -webkit-overflow-scrolling: none !important;
+}
+
 a {
   color: inherit;
   text-decoration: none;
