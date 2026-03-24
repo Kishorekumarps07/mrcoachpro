@@ -1,31 +1,16 @@
-'use client';
+import type { Metadata } from 'next';
+import { ShopClientWrapper } from './ShopClientWrapper';
 
-import React, { Suspense } from 'react';
-import { ShopProvider } from './context/ShopContext';
-import { ShopNavbar } from '@/components/layout/ShopNavbar';
-import { ShopCartDrawer } from '@/components/shop/ShopCartDrawer';
-import { Toaster } from 'react-hot-toast';
-import './shop-rugged.css'; // Import the RUGGED-TECH CSS Engine
+export const metadata: Metadata = {
+    title: 'Premium Supplements & Elite Gear | Mr.Coach Shop',
+    description: 'Fuel your transformation with high-performance supplements and elite training gear curated by the Mr.Coach Collective. Quality without compromise.',
+    keywords: ['buy gym supplements India', 'elite workout gear', 'Mr.Coach products', 'performance nutrition'],
+};
 
 export default function ShopLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
-    return (
-        <ShopProvider>
-            {/* Wrap in shop-wrapper to enforce light theme */}
-            <div className="shop-wrapper min-h-screen bg-gray-50" style={{ overflowX: 'hidden' }}>
-                <Toaster position="bottom-center" />
-                <Suspense fallback={null}>
-                    <ShopNavbar />
-                </Suspense>
-                <main>
-                    {children}
-                </main>
-                <ShopCartDrawer />
-            </div>
-        </ShopProvider>
-    );
+    return <ShopClientWrapper>{children}</ShopClientWrapper>;
 }
-
