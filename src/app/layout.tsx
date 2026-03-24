@@ -32,34 +32,49 @@ const crimsonPro = Crimson_Pro({
 export const metadata: Metadata = {
   metadataBase: new URL('https://mrcoach.in'),
   title: {
-    default: 'Mr.Coach Fitness Company',
-    template: '%s | Mr.Coach Fitness Company'
+    default: 'Mr.Coach | India\'s Most Trusted Collective of Elite Fitness Coaches',
+    template: '%s | Mr.Coach - The Elite Collective'
   },
-  description: 'A performance-first coaching platform and premium supplement store for athletes of all ages. Built on discipline, consistency, and measurable results.',
-  keywords: ['fitness coaching', 'performance training', 'athletic development', 'online coaching', 'Mr.Coach Fitness Company', 'personal training India', 'buy gym supplements'],
-  authors: [{ name: 'Mr.Coach Team' }],
+  description: 'Connect with India\'s premier fitness professionals. The Mr.Coach Trusted Collective offers world-class personal training, physiotherapy, and performance coaching tailored for high-achievers. Choose expertise. Choose Mr.Coach.',
+  keywords: [
+    'elite fitness coaches India', 
+    'luxury personal trainers Bangalore', 
+    'Mr.Coach Elite Collective', 
+    'best physiotherapists Bangalore', 
+    'performance coaching India', 
+    'body recomposition experts',
+    'certified fitness coaches',
+    'premium wellness collective'
+  ],
+  authors: [{ name: 'Mr.Coach Elite Team' }],
   creator: 'Mr.Coach Fitness Company',
+  publisher: 'Mr.Coach Fitness Company',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
     type: 'website',
     locale: 'en_IN',
     url: 'https://mrcoach.in',
-    title: 'Mr.Coach Fitness Company',
-    description: 'A performance-first coaching platform for athletes of all ages. Join the elite.',
-    siteName: 'Mr.Coach Fitness Company',
+    title: 'Mr.Coach | India\'s Most Trusted Collective of Elite Fitness Coaches',
+    description: 'Join the most elite fitness collective in India. World-class coaches, physiotherapists, and performance experts in one trusted platform.',
+    siteName: 'Mr.Coach Elite Collective',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Mr.Coach Fitness Company',
+        alt: 'Mr.Coach Elite Collective - India\'s Most Trusted Coaches',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Mr.Coach Fitness Company',
-    description: 'A performance-first coaching platform for athletes of all ages.',
-    creator: '@mrcoach',
+    title: 'Mr.Coach | Elite Fitness Collective',
+    description: 'Transform your performance with India\'s premier coaching collective.',
+    creator: '@mrcoach_official',
     images: ['/twitter-image.jpg'],
   },
   robots: {
@@ -78,8 +93,8 @@ export const metadata: Metadata = {
     shortcut: '/favicon-mrcoach.jpg',
     apple: '/favicon-mrcoach.jpg',
   },
-  verification: {
-    google: 'verification_token', // Place holder if they want to add HTML tag verification later
+  alternates: {
+    canonical: 'https://mrcoach.in',
   }
 };
 
@@ -88,8 +103,50 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: 'Mr.Coach Elite Collective',
+    image: 'https://mrcoach.in/favicon-mrcoach.jpg',
+    '@id': 'https://mrcoach.in',
+    url: 'https://mrcoach.in',
+    telephone: '+910000000000', // Placeholder
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Bangalore',
+      addressRegion: 'Karnataka',
+      addressCountry: 'IN',
+    },
+    description: 'India\'s most trusted collective of elite fitness coaches and health professionals.',
+    openingHoursSpecification: {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: [
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+        'Sunday'
+      ],
+      opens: '00:00',
+      closes: '23:59',
+    },
+    sameAs: [
+      'https://www.facebook.com/mrcoach',
+      'https://www.instagram.com/mrcoach',
+      'https://www.linkedin.com/company/mrcoach'
+    ]
+  };
+
   return (
     <html lang="en" className={`${roboto.variable} ${josefin.variable} ${crimsonPro.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body suppressHydrationWarning>
         <Script id="meta-pixel" strategy="afterInteractive" dangerouslySetInnerHTML={{
           __html: `
