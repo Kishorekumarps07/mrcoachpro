@@ -86,7 +86,12 @@ export const CoachProfileModal = ({ coach, onClose }: CoachProfileModalProps) =>
 
             <div className={styles.modalContent}>
               <div className={styles.modalHeader}>
-                <div className={styles.modalRolePill}>{coach.role}</div>
+                <div 
+                  className={styles.modalRolePill}
+                  style={coach.color ? { backgroundColor: coach.color } : {}}
+                >
+                  {coach.role}
+                </div>
                 <div className={styles.modalInfoGroup}>
                   <div className={styles.modalExpBadge}>
                     <Calendar size={14} /> {coach.experience}

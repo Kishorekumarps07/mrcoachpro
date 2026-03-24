@@ -8,6 +8,7 @@ export const COACHES = [
     specialties: ['Functional Training', 'Weight Training', 'HIIT', 'Cardio Kickboxing'],
     image: '/images/coaches/govindraju.jpeg',
     emoji: '💪',
+    color: '#F9D949', // Yellow
   },
   {
     name: 'Mohammed Aslam',
@@ -18,6 +19,7 @@ export const COACHES = [
     specialties: ['Muscle Building', 'Fat Loss', 'Post-Rehab', 'Sports Conditioning'],
     image: '/images/coaches/mohammed-aslam.jpeg',
     emoji: '🏋️',
+    color: '#00D4FF', // Electric Blue
   },
   {
     name: 'Faraz Khan',
@@ -28,6 +30,7 @@ export const COACHES = [
     specialties: ['Bodybuilding Prep', 'Clinical Nutrition', 'Prehab & Rehab', 'Medical Exercise'],
     image: '/images/coaches/faraz-khan.jpeg',
     emoji: '🏆',
+    color: '#FF2E7E', // Vivid Pink
   },
   {
     name: 'K. Kalyan Kumar',
@@ -38,6 +41,7 @@ export const COACHES = [
     specialties: ['Weight Loss', 'Muscle Gain', 'Body Toning', 'Strength Training'],
     image: '/images/coaches/kalyan-kumar.jpeg',
     emoji: '🏅',
+    color: '#448AFF', // Azure Blue
   },
   {
     name: 'Deva. S',
@@ -48,6 +52,7 @@ export const COACHES = [
     specialties: ['BRAIN TABATA', 'Metabolic Conditioning', 'High-Intensity Training', 'Functional Fitness'],
     image: '/images/coaches/deva-s.png',
     emoji: '🧠',
+    color: '#FF9100', // Deep Orange
   },
   {
     name: 'Dr. Deepika Singh',
@@ -58,6 +63,7 @@ export const COACHES = [
     specialties: ['Physiotherapy', 'Musculoskeletal Rehab', 'Weight Loss', 'Home Exercise Programs'],
     image: '/images/coaches/dr-deepika-singh.jpg',
     emoji: '👩‍⚕️',
+    color: '#FF5252', // Coral Red
   },
   {
     name: 'Rohith',
@@ -68,5 +74,6 @@ export const COACHES = [
     specialties: ['Strength Training', 'Body Recomposition', 'Fat Loss', 'Muscle Building', 'Injury Prevention', 'Corrective Exercise'],
     image: '/images/coaches/rohith.png',
     emoji: '🧔',
+    color: '#9C27B0', // Royal Purple
   },
 ];

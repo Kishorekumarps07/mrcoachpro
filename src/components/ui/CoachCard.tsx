@@ -13,6 +13,7 @@ export interface Coach {
   specialties: string[];
   image: string;
   emoji: string;
+  color?: string;
 }
 
 interface CoachCardProps {
@@ -64,7 +65,12 @@ export const CoachCard = ({ coach, index, onViewProfile }: CoachCardProps) => {
 
       {/* ── ALWAYS-VISIBLE INFO ── */}
       <div className={styles.cardInfo}>
-        <div className={styles.rolePill}>{coach.role}</div>
+        <div 
+          className={styles.rolePill}
+          style={coach.color ? { backgroundColor: coach.color } : {}}
+        >
+          {coach.role}
+        </div>
         <h3 className={styles.coachName}>{coach.name}</h3>
         <div className={styles.infoRow}>
           <div className={styles.expBadge}>
@@ -78,10 +84,14 @@ export const CoachCard = ({ coach, index, onViewProfile }: CoachCardProps) => {
         </div>
       </div>
 
-      {/* ── HOVER DETAIL PANEL ── */}
       <div className={styles.detailPanel}>
         <div className={styles.detailName}>{coach.name}</div>
-        <div className={styles.detailRole}>{coach.role}</div>
+        <div 
+          className={styles.detailRole}
+          style={coach.color ? { backgroundColor: coach.color } : {}}
+        >
+          {coach.role}
+        </div>
         <p className={styles.detailBio}>{coach.bio}</p>
         <div className={styles.specialties}>
           {coach.specialties.map((s) => (
