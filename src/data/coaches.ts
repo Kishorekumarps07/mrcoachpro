@@ -76,4 +76,15 @@ export const COACHES = [
     emoji: '🧔',
     color: '#9C27B0', // Royal Purple
   },
+  {
+    name: 'Akhil Sudhakaran',
+    role: 'Personal Fitness Coach',
+    experience: '8 months exp.',
+    location: 'Thiruvananthapuram, Kerala',
+    bio: 'A passionate transformation specialist from Kerala, focusing on functional muscle building and metabolic health. Akhil brings a dedicated approach to personal training, specializing in sustainable fat loss and specialized weight training for senior clients.',
+    specialties: ['Fat Loss', 'Muscle Gain', 'Strength Gain', 'Geriatric Fitness'],
+    image: '/images/coaches/akhil.png',
+    emoji: '🏃‍♂️',
+    color: '#00C853', // Emerald Green
+  },
 ];
