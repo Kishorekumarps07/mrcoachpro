@@ -67,7 +67,7 @@ export const COACHES = [
   },
   {
     name: 'Rohith',
-    role: 'Strength & Conditioning Professional',
+    role: 'Strength & Conditioning Coach',
     experience: '20 yrs exp.',
     location: 'Mangalore',
     bio: 'With two decades of elite coaching experience, Rohith is a Strength and Conditioning professional dedicated to body recomposition and injury prevention. He specializes in building muscle and fat loss through scientifically-backed corrective exercises and high-performance training.',
