@@ -62,6 +62,13 @@ function RegistrationPageContent() {
         agreeToTerms: false,
     });
 
+    // Coupon State
+    const [couponCode, setCouponCode] = useState('');
+    const [isApplyingCoupon, setIsApplyingCoupon] = useState(false);
+    const [couponDiscount, setCouponDiscount] = useState(0);
+    const [couponError, setCouponError] = useState('');
+    const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
+
     // Handle early loading/error states
     if (isLoadingEvent) {
         return (
@@ -200,6 +207,55 @@ function RegistrationPageContent() {
         }
     };
 
+    const handleApplyCoupon = async () => {
+        if (!couponCode.trim()) {
+            setCouponError('Please enter a coupon code');
+            return;
+        }
+        
+        setIsApplyingCoupon(true);
+        setCouponError('');
+        
+        try {
+            const result = await eventService.validateCoupon({
+                code: couponCode,
+                event_id: parseInt(event!.id),
+                user_email: formData.email,
+                subtotal: totalPrice
+            });
+            
+            if (result.success) {
+                // Adjusting based on standard API response patterns (result.data.data.discount_amount)
+                const discount = result.data?.data?.discount_amount || result.data?.discount_amount || 0;
+                
+                if (discount > 0) {
+                    setCouponDiscount(discount);
+                    setAppliedCoupon(couponCode);
+                    toast.success('Coupon applied successfully!');
+                } else {
+                    setCouponError('This coupon provides no discount for this order');
+                    setCouponDiscount(0);
+                    setAppliedCoupon(null);
+                }
+            } else {
+                setCouponError(result.message || 'Invalid coupon code');
+                setCouponDiscount(0);
+                setAppliedCoupon(null);
+            }
+        } catch (error) {
+            setCouponError('Failed to validate coupon. Please try again.');
+        } finally {
+            setIsApplyingCoupon(false);
+        }
+    };
+
+    const handleRemoveCoupon = () => {
+        setAppliedCoupon(null);
+        setCouponDiscount(0);
+        setCouponCode('');
+        setCouponError('');
+    };
+
     const selectedTier = event.pricingTiers[formData.selectedTier] || event.pricingTiers[0];
 
     // Calculate total price based on individual participant age category
@@ -208,8 +264,9 @@ function RegistrationPageContent() {
         return sum + price;
     }, 0);
 
-    const gstAmount = Math.round(totalPrice * 0.18);
-    const totalWithGst = totalPrice + gstAmount;
+    const discountedSubtotal = Math.max(0, totalPrice - couponDiscount);
+    const gstAmount = Math.round(discountedSubtotal * 0.18);
+    const totalWithGst = discountedSubtotal + gstAmount;
 
     const handleSubmit = async () => {
         if (!formData.agreeToTerms) {
@@ -552,6 +609,48 @@ function RegistrationPageContent() {
                             <div className={styles.step}>
                                 <h2 className={styles.stepTitle}>Review & Pay</h2>
                                 <div className={styles.reviewSection}>
+                                    {/* Coupon Section */}
+                                    <div className={styles.couponSection}>
+                                        <h3 className={styles.couponTitle}>Have a Coupon?</h3>
+                                        {!appliedCoupon ? (
+                                            <>
+                                                <div className={styles.couponInputGroup}>
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Enter code"
+                                                        value={couponCode}
+                                                        onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                                                        className={styles.couponInput}
+                                                        disabled={isApplyingCoupon}
+                                                    />
+                                                    <button
+                                                        type="button"
+                                                        onClick={handleApplyCoupon}
+                                                        disabled={isApplyingCoupon || !couponCode.trim()}
+                                                        className={styles.applyBtn}
+                                                    >
+                                                        {isApplyingCoupon ? '...' : 'Apply'}
+                                                    </button>
+                                                </div>
+                                                {couponError && <p className={styles.couponError}>{couponError}</p>}
+                                            </>
+                                        ) : (
+                                            <div className={styles.appliedCoupon}>
+                                                <span className={styles.appliedText}>
+                                                    <Check size={16} style={{ marginRight: '6px', verticalAlign: 'middle' }} />
+                                                    Coupon '{appliedCoupon}' applied (-₹{couponDiscount.toLocaleString()})
+                                                </span>
+                                                <button
+                                                    type="button"
+                                                    onClick={handleRemoveCoupon}
+                                                    className={styles.removeCouponBtn}
+                                                >
+                                                    Remove
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
+
                                     <div className={styles.reviewGroup}>
                                         <h3 className={styles.reviewTitle}>Attendee Information</h3>
                                         <div className={styles.reviewGrid}>
@@ -604,8 +703,16 @@ function RegistrationPageContent() {
                                             <div style={{ marginTop: '16px', borderTop: '1px solid #EEE', paddingTop: '16px' }}>
                                                 <div style={{ display: 'flex', justifyContent: 'space-between', color: '#666', marginBottom: '8px' }}>
                                                     <span>Subtotal:</span>
-                                                    <span>₹{totalPrice.toLocaleString()}</span>
+                                                    <span style={{ textDecoration: couponDiscount > 0 ? 'line-through' : 'none', opacity: couponDiscount > 0 ? 0.6 : 1 }}>
+                                                        ₹{totalPrice.toLocaleString()}
+                                                    </span>
                                                 </div>
+                                                {couponDiscount > 0 && (
+                                                    <div style={{ display: 'flex', justifyContent: 'space-between', color: '#2E7D32', marginBottom: '8px', fontWeight: 600 }}>
+                                                        <span>Discount:</span>
+                                                        <span>-₹{couponDiscount.toLocaleString()}</span>
+                                                    </div>
+                                                )}
                                                 <div style={{ display: 'flex', justifyContent: 'space-between', color: '#666', marginBottom: '12px' }}>
                                                     <span>GST (18%):</span>
                                                     <span>₹{gstAmount.toLocaleString()}</span>
@@ -672,8 +779,16 @@ function RegistrationPageContent() {
                             <div className={styles.summaryDivider} />
                             <div className={styles.summaryTotal} style={{ fontSize: '1rem', color: '#666', marginBottom: '8px' }}>
                                 <span>Subtotal:</span>
-                                <span>₹{totalPrice.toLocaleString()}</span>
+                                <span style={{ textDecoration: couponDiscount > 0 ? 'line-through' : 'none', opacity: couponDiscount > 0 ? 0.5 : 1 }}>
+                                    ₹{totalPrice.toLocaleString()}
+                                </span>
                             </div>
+                            {couponDiscount > 0 && (
+                                <div className={styles.summaryTotal} style={{ fontSize: '0.95rem', color: '#2E7D32', marginBottom: '8px', background: '#E8F5E9', padding: '8px 12px' }}>
+                                    <span>Discount:</span>
+                                    <span>-₹{couponDiscount.toLocaleString()}</span>
+                                </div>
+                            )}
                             <div className={styles.summaryTotal} style={{ fontSize: '0.9rem', color: '#888', marginBottom: '16px' }}>
                                 <span>GST (18%):</span>
                                 <span>₹{gstAmount.toLocaleString()}</span>

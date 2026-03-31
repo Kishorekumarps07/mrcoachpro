@@ -449,5 +449,32 @@ export const eventService = {
             console.error('Error confirming payment:', error);
             return { success: false, message: 'Network error during payment confirmation' };
         }
+    },
+
+    /**
+     * Validate event coupon code
+     */
+    async validateCoupon(payload: { code: string; event_id: number; user_email: string; subtotal: number }): Promise<{ success: boolean; message?: string; data?: any }> {
+        try {
+            const res = await fetch(`https://api-dev.mrcoachpro.in/api/events/coupons/validate`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const json = await res.json();
+
+            if (!res.ok) {
+                return { success: false, message: json.message || 'Invalid coupon code' };
+            }
+
+            return { success: true, data: json };
+        } catch (error) {
+            console.error('Error validating coupon:', error);
+            return { success: false, message: 'Network error during coupon validation' };
+        }
     }
 };
