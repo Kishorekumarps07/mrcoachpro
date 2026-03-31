@@ -122,10 +122,10 @@
 }
 
 .stepTitle {
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     font-weight: 800;
     color: #1a1a1a;
-    margin-bottom: 12px;
+    margin-bottom: 24px;
     font-family: var(--font-heading);
 }
 
@@ -243,16 +243,16 @@
 .select,
 .textarea {
     width: 100%;
-    padding: 6px 10px;
+    padding: 10px 16px;
     border: 1px solid #E0E0E0;
-    border-radius: 6px;
-    font-size: 0.8rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
     color: #1a1a1a;
     background: #fff;
     transition: all 0.2s ease;
     outline: none;
     font-weight: 500;
-    min-height: 40px;
+    min-height: 44px;
 }
 .input:focus,
 .select:focus {
@@ -619,10 +619,10 @@
 }
 
 .summaryTitle {
-    font-size: 1.05rem;
+    font-size: 1.2rem;
     font-weight: 800;
     color: #1a1a1a;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
@@ -704,15 +704,15 @@
     }
 
     .progressBar {
-        gap: 12px;
-        margin-bottom: 24px;
+        gap: 20px;
+        margin-bottom: 32px;
         width: 100%;
         justify-content: center;
     }
 
     .progressBar::before {
-        left: 25%;
-        right: 25%;
+        left: 20%;
+        right: 20%;
     }
 
     .progressCircle {
@@ -730,37 +730,40 @@
 
     .formGrid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+        grid-template-columns: 1fr;
+        gap: 16px;
     }
 
     .formSection {
-        padding: 12px;
+        padding: 20px;
     }
 
     .stepTitle {
-        font-size: 0.95rem;
-        margin-bottom: 8px;
+        font-size: 1.25rem;
+        margin-bottom: 12px;
     }
 
     .stepVibe {
-        display: none;
+        display: block;
+        font-size: 0.85rem;
+        color: #666;
+        margin-bottom: 20px;
     }
 
     .input,
     .select,
     .selectInput {
-        font-size: 14px;
-        /* Balanced between zoom prevention and size */
-        height: 40px;
-        padding: 8px 10px;
+        font-size: 16px;
+        /* Standard size to prevent iOS zoom */
+        height: 44px;
+        padding: 10px 14px;
     }
 
     .inputWithIcon,
     .selectInput {
         font-size: 16px;
-        height: 48px;
-        padding-left: 40px;
+        height: 44px;
+        padding-left: 44px;
     }
 
     /* Participant Cards Mobile */

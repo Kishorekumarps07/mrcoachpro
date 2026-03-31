@@ -248,7 +248,7 @@
     .bottomSection {
         flex-direction: row;
         justify-content: space-between;
-        font-size: 0.75rem;
+        font-size: 0.8rem;
     }
 }
 
@@ -292,66 +292,66 @@
 
 @media (max-width: 768px) {
     .footer {
-        padding: 20px 0 90px;
+        padding: 32px 0 120px;
     }
 
     .topSection {
-        gap: 12px;
-        margin-bottom: 12px;
-        padding-bottom: 12px;
+        gap: 24px;
+        margin-bottom: 24px;
+        padding-bottom: 24px;
     }
 
     .brandCol {
-        gap: 6px;
+        gap: 8px;
     }
 
     .logoImage {
-        width: 100px;
+        width: 120px;
         height: auto;
     }
 
     .tagline {
-        font-size: 0.75rem;
+        font-size: 0.85rem;
         white-space: normal;
     }
 
     .linksWrapper {
-        gap: 12px;
+        gap: 20px;
     }
 
     .navCol {
-        min-width: 120px;
+        min-width: 140px;
     }
 
     .navTitle {
-        font-size: 0.7rem;
+        font-size: 0.8rem;
     }
 
     .linkList,
     .policyGrid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 8px 12px;
+        gap: 12px 16px;
         text-align: left;
         align-items: start;
     }
 
     .link {
-        font-size: 0.75rem;
+        font-size: 0.85rem;
         white-space: normal;
     }
 
     .contactCol {
         align-items: center;
-        gap: 6px;
+        gap: 8px;
     }
 
     .contactTitle {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
     }
 
     .contactButton {
-        padding: 6px 10px;
-        font-size: 0.75rem;
+        padding: 8px 12px;
+        font-size: 0.8rem;
     }
 }

@@ -662,7 +662,7 @@
 
     .hero {
         min-height: auto;
-        padding: 8px 0;
+        padding: 24px 0;
     }
 
     .container {
@@ -687,16 +687,16 @@
     }
 
     .title {
-        font-size: 1.15rem;
+        font-size: 1.5rem;
         word-break: break-word;
         text-align: left;
-        margin-bottom: 4px;
+        margin-bottom: 12px;
     }
     
     .summary {
-        font-size: 0.8rem;
-        margin-bottom: 12px;
-        line-height: 1.4;
+        font-size: 0.95rem;
+        margin-bottom: 24px;
+        line-height: 1.5;
     }
     
     .categoryBadge {
@@ -715,22 +715,22 @@
     }
 
     .sectionTitle {
-        font-size: 1.1rem;
-        margin-bottom: 8px;
+        font-size: 1.3rem;
+        margin-bottom: 16px;
     }
     
     .section {
-        gap: 8px;
+        gap: 16px;
     }
 
     .highlightsList {
         grid-template-columns: 1fr;
-        gap: 4px;
+        gap: 8px;
     }
 
     .highlightItem {
-        padding: 8px;
-        font-size: 0.8rem;
+        padding: 12px;
+        font-size: 0.9rem;
     }
 
     .agendaItem {
