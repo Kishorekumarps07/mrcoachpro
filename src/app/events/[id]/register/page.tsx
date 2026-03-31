@@ -6,7 +6,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { eventService } from '@/services/eventService';
 import { Event } from '@/data/events';
 import { Button } from '@/components/ui/Button';
-import { ChevronLeft, ChevronRight, Check, MapPin, Shirt, Droplet, Lock } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Check, MapPin, Shirt, Droplet, Lock, User, Info, Ticket } from 'lucide-react';
 import styles from './registration.module.css';
 import { initializeRazorpayPayment } from '@/utils/razorpaySetup';
 import toast from 'react-hot-toast';
@@ -611,7 +611,10 @@ function RegistrationPageContent() {
                                 <div className={styles.reviewSection}>
                                     {/* Coupon Section */}
                                     <div className={styles.couponSection}>
-                                        <h3 className={styles.couponTitle}>Have a Coupon?</h3>
+                                        <h3 className={styles.couponTitle}>
+                                            <Droplet size={18} style={{ transform: 'rotate(180deg)' }} />
+                                            Have a Coupon?
+                                        </h3>
                                         {!appliedCoupon ? (
                                             <>
                                                 <div className={styles.couponInputGroup}>
@@ -652,7 +655,10 @@ function RegistrationPageContent() {
                                     </div>
 
                                     <div className={styles.reviewGroup}>
-                                        <h3 className={styles.reviewTitle}>Attendee Information</h3>
+                                        <h3 className={styles.reviewTitle}>
+                                            <Shirt size={18} />
+                                            Attendee Information
+                                        </h3>
                                         <div className={styles.reviewGrid}>
                                             <p><strong>Name:</strong> {formData.firstName} {formData.lastName}</p>
                                             <p><strong>Email:</strong> {formData.email}</p>
@@ -663,7 +669,10 @@ function RegistrationPageContent() {
                                         </div>
                                     </div>
                                     <div className={styles.reviewGroup}>
-                                        <h3 className={styles.reviewTitle}>Ticket Details</h3>
+                                        <h3 className={styles.reviewTitle}>
+                                            <MapPin size={18} />
+                                            Ticket Details
+                                        </h3>
                                         <div className={styles.ticketReviewCard}>
                                             <div className={styles.ticketReviewHeader}>
                                                 <span className={styles.ticketReviewName}>{selectedTier?.name}</span>
@@ -746,7 +755,7 @@ function RegistrationPageContent() {
                         {/* Navigation Buttons */}
                         <div className={styles.navigation}>
                             {currentStep > 1 && (
-                                <Button variant="secondary" onClick={handleBack} disabled={isSubmitting}>
+                                <Button variant="secondary" onClick={handleBack} disabled={isSubmitting} className={styles.backButtonNav}>
                                     <ChevronLeft size={18} />
                                     Back
                                 </Button>

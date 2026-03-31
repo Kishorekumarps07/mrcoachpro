@@ -36,8 +36,12 @@ export const MobileBottomNav = () => {
 
     // Hide bottom nav on cart & checkout pages
     // OR if we are viewing through the native App
-    const hideOnRoutes = ['/products/cart', '/products/checkout'];
-    if (isAppView || hideOnRoutes.includes(pathname)) return null;
+    const shouldHide = isAppView || 
+                      pathname.includes('/products/cart') || 
+                      pathname.includes('/products/checkout') || 
+                      pathname.includes('/register');
+    
+    if (shouldHide) return null;
 
     const navItems = [
         { href: '/', label: 'HOME', icon: Home },

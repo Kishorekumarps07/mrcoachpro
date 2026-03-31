@@ -122,10 +122,10 @@
 }
 
 .stepTitle {
-    font-size: 1.8rem;
+    font-size: 1.1rem;
     font-weight: 800;
     color: #1a1a1a;
-    margin-bottom: 24px;
+    margin-bottom: 12px;
     font-family: var(--font-heading);
 }
 
@@ -240,17 +240,20 @@
 }
 
 .input,
-.select {
-    padding: 12px 16px;
-    border: 2px solid #E0E0E0;
-    border-radius: 10px;
-    font-size: 1rem;
+.select,
+.textarea {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid #E0E0E0;
+    border-radius: 6px;
+    font-size: 0.8rem;
     color: #1a1a1a;
-    background: #FFFFFF;
+    background: #fff;
     transition: all 0.2s ease;
     outline: none;
+    font-weight: 500;
+    min-height: 40px;
 }
-
 .input:focus,
 .select:focus {
     border-color: var(--accent-yellow);
@@ -616,12 +619,22 @@
 }
 
 .summaryTitle {
-    font-size: 1.4rem;
+    font-size: 1.05rem;
     font-weight: 800;
     color: #1a1a1a;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.05em;
+}
+
+.label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #444;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .summaryItem {
@@ -655,7 +668,7 @@
 .summaryTotal span:last-child {
     color: #D4A000;
     /* Darker yellow for contrast */
-    font-size: 1.7rem;
+    font-size: 1.3rem;
     text-shadow: 0 2px 4px rgba(212, 160, 0, 0.2);
 }
 
@@ -667,7 +680,8 @@
 
     .sidebar {
         position: static;
-        order: -1;
+        width: 100%;
+        margin-top: 40px;
     }
 }
 
@@ -676,63 +690,70 @@
         padding: 24px 16px;
     }
 
+    .header {
+        margin-bottom: 24px;
+    }
+
     .title {
-        font-size: 1.6rem;
+        font-size: 1.15rem;
+        line-height: 1.15;
     }
 
     .subtitle {
-        font-size: 0.95rem;
+        font-size: 0.85rem;
     }
 
     .progressBar {
         gap: 12px;
-        margin-bottom: 32px;
+        margin-bottom: 24px;
         width: 100%;
-        justify-content: space-between;
+        justify-content: center;
     }
 
     .progressBar::before {
-        left: 35px;
-        right: 35px;
+        left: 25%;
+        right: 25%;
     }
 
     .progressCircle {
-        width: 36px;
-        height: 36px;
-        font-size: 0.85rem;
+        width: 28px;
+        height: 28px;
+        font-size: 0.75rem;
     }
 
     .progressLabel {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
         text-align: center;
-        max-width: 60px;
+        margin-top: 2px;
+        white-space: nowrap;
     }
 
     .formGrid {
-        grid-template-columns: 1fr;
-        gap: 16px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
     }
 
     .formSection {
-        padding: 16px;
+        padding: 12px;
     }
 
     .stepTitle {
-        font-size: 1.4rem;
+        font-size: 0.95rem;
+        margin-bottom: 8px;
     }
 
     .stepVibe {
-        font-size: 0.9rem;
+        display: none;
     }
 
     .input,
     .select,
     .selectInput {
-        font-size: 16px;
-        /* Prevent iOS zoom */
-        height: 48px;
-        /* Taller touch targets */
-        padding: 12px 14px;
+        font-size: 14px;
+        /* Balanced between zoom prevention and size */
+        height: 40px;
+        padding: 8px 10px;
     }
 
     .inputWithIcon,
@@ -839,32 +860,38 @@
 
     /* Navigation Mobile */
     .navigation {
-        flex-direction: column;
-        gap: 12px;
-        position: sticky;
+        position: fixed;
         bottom: 0;
         left: 0;
         right: 0;
         background: #FFFFFF;
-        padding: 16px;
-        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
-        z-index: 10;
-        margin: 0 -16px;
+        padding: 16px 24px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        border-top: 1px solid #EEE;
     }
 
     .nextButton {
-        width: 100%;
+        flex: 1;
         justify-content: center;
         margin-left: 0;
-        min-height: 50px;
-        font-size: 1rem;
+        min-height: 48px;
+        font-size: 0.95rem;
     }
 
-    /* Order Summary Mobile */
+    .backButtonNav {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+
+    /* Order Summary Mobile - HIDDEN on Step 3 as it's redundant */
     .sidebar {
-        order: -1;
-        margin-bottom: 20px;
-        position: static;
+        display: none !important;
     }
 
     .summaryCard {
@@ -892,28 +919,43 @@
     }
 
     .summaryTotal span:last-child {
-        font-size: 1.4rem;
+        font-size: 1.1rem;
     }
 
     /* Review Section Mobile */
     .reviewSection {
-        padding: 0;
+        gap: 16px;
     }
 
     .reviewGroup {
-        margin-bottom: 20px;
+        background: #FFFFFF;
+        border: 1px solid #E0E0E0;
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 0;
     }
 
     .reviewTitle {
-        font-size: 1.1rem;
+        font-size: 1rem;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
 
-    .reviewGrid {
-        gap: 12px;
+    /* Reset potential icon circles */
+    .reviewTitle svg,
+    .navigation svg,
+    .couponTitle svg {
+        background: none !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
     }
 
-    .checkboxLabel {
-        font-size: 0.9rem;
+    .ticketReviewCard {
+        padding: 12px;
+        border-left: 3px solid var(--accent-yellow);
     }
 }
 
@@ -978,6 +1020,21 @@
     font-size: 0.85rem;
     margin-top: 8px;
     font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .couponSection {
+        padding: 16px;
+    }
+    
+    .couponInputGroup {
+        gap: 8px;
+    }
+    
+    .applyBtn {
+        min-width: 80px;
+        padding: 10px 12px;
+    }
 }
 
 .appliedCoupon {
