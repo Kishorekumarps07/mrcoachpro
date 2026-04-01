@@ -199,8 +199,7 @@ export const EventsHero = ({ events }: EventsHeroProps) => {
                                     <Image
                                         src={featuredEvent.image}
                                         alt={featuredEvent.title}
-                                        width={500}
-                                        height={600}
+                                        fill
                                         className={styles.posterImage}
                                         priority
                                     />

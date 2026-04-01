@@ -77,8 +77,9 @@
 
 @media (min-width: 1024px) {
     .contentGrid {
-        grid-template-columns: 1fr 480px;
-        gap: 120px;
+        grid-template-columns: 1fr 1.2fr;
+        /* Allow poster more space for horizontal ratio */
+        gap: 80px;
     }
 }
 
@@ -88,90 +89,46 @@
     /* Prevent layout shift during carousel transitions */
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
-@media (max-width: 768px) {
-    .container {
-        padding: 0 16px;
-    }
-
-    .infoColumn {
-        min-height: auto;
-        gap: 12px;
-        /* Reduced from 16px */
-    }
-
-    .heroSection {
-        padding-top: 30px;
-        padding-bottom: 24px;
-        min-height: auto;
-        display: block;
-    }
-
-    .contentGrid {
-        gap: 20px;
-        /* Reduced from 32px */
-    }
-
-    .title {
-        font-size: 1.75rem;
-        line-height: 1.2;
-        margin-bottom: 16px;
-        /* Reduced from 24px */
-        max-width: 100%;
-    }
-
-    .dateBadge {
-        margin-bottom: 12px;
-        /* Reduced from 16px */
-        font-size: 0.75rem;
-        padding: 4px 12px;
-    }
-}
 
 
 .dateBadge {
-    font-size: 0.85rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    /* Reduced from 32px */
-    color: #1a1a1a;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    display: inline-block;
-
-    /* Yellow Glassmorphic Highlight */
-    background: rgba(255, 215, 0, 0.25);
+    display: inline-flex;
+    align-items: center;
+    background: rgba(249, 217, 73, 0.25);
+    /* Navbar Yellow with transparency */
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 215, 0, 0.4);
+    border: 1px solid rgba(249, 217, 73, 0.4);
+    color: #000;
     padding: 8px 20px;
     border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 24px;
     align-self: flex-start;
 }
 
-
+/* Base Title (Must stay before Desktop Overrides) */
 .title {
     font-family: var(--font-heading);
     font-size: 2rem;
     font-weight: 600;
-    /* Lighter weight for editorial feel */
     line-height: 1.25;
-    /* Slightly increased */
     margin-bottom: 24px;
-    /* Reduced from 40px for tighter layout */
-    /* Increased spacing */
     letter-spacing: 0.12em;
-    /* Wider tracking */
     color: #000;
     text-transform: uppercase;
     max-width: 700px;
-    /* Constrain width */
 }
 
 @media (min-width: 768px) {
     .title {
-        font-size: 3.5rem;
-        line-height: 1.2;
+        font-size: 2.5rem;
+        line-height: 1.1;
     }
 }
 
@@ -251,18 +208,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: -40px;
 }
 
 .posterWrapper {
     position: relative;
-    border-radius: 24px;
+    border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-    aspect-ratio: 4/5;
     width: 100%;
-    max-width: 380px;
-    /* Reduced max width from 440px to match text scale */
+    max-width: 600px;
+    min-height: 350px;
+    /* Height constraint to align with content column */
+    background: rgba(0, 0, 0, 0.05);
+    /* Light background to fill empty space for non-16:9 images */
     transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
@@ -278,9 +236,12 @@
 }
 
 .posterImage {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
+    object-fit: contain;
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute !important;
+    top: 0;
+    left: 0;
 }
 
 .navArrows {
@@ -348,22 +309,20 @@
 
 .timerSeparator {
     font-family: var(--font-heading);
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 800;
     line-height: 1;
     color: #000;
     opacity: 0.3;
-    /* Manually centered against the 2rem digits */
     padding-top: 3px;
     display: flex;
     align-items: center;
-    height: 32px;
-    /* Match digit height approximately */
+    height: 24px;
 }
 
 .timerValue {
     font-family: var(--font-heading);
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 800;
     line-height: 1;
     color: #000;
@@ -382,59 +341,96 @@
 }
 
 @media (max-width: 768px) {
+    .container {
+        padding: 0 16px;
+    }
+
+    .infoColumn {
+        min-height: auto;
+        gap: 12px;
+    }
+
+    .heroSection {
+        padding-top: 30px;
+        padding-bottom: 24px;
+        min-height: auto;
+        display: block;
+    }
+
+    .contentGrid {
+        gap: 20px;
+    }
+
+    .title {
+        font-size: 1.05rem;
+        font-weight: 600;
+        line-height: 1.2;
+        margin-bottom: 12px;
+        max-width: 100%;
+        letter-spacing: 0.04em;
+    }
+
+    .dateBadge {
+        margin-bottom: 12px;
+        font-size: 0.65rem;
+        padding: 5px 12px;
+        letter-spacing: 0.05em;
+    }
+
     .countdownWrapper {
-        gap: 16px;
-        /* Reduced from 20px */
-        margin-bottom: 28px;
-        /* Reduced spacing */
-        padding-top: 16px;
-        /* Reduced padding */
+        gap: 10px;
+        margin-bottom: 16px;
+        padding-top: 10px;
     }
 
     .timerValue {
-        font-size: 1.5rem;
+        font-size: 1.05rem;
     }
 
     .timerSeparator {
-        font-size: 1.5rem;
+        font-size: 1.05rem;
         padding-top: 2px;
-        height: 24px;
+        height: 18px;
+    }
+
+    .timerLabel {
+        font-size: 0.6rem;
+        margin-top: 3px;
     }
 
     .location {
-        margin-bottom: 16px;
-        /* Reduced from 24px */
+        margin-bottom: 14px;
+        font-size: 0.75rem;
     }
 
     .price {
-        margin-bottom: 28px;
-        /* Reduced from 48px */
+        margin-bottom: 24px;
+        font-size: 0.95rem;
+        padding: 8px 20px;
     }
 
-    /* Center book button on mobile */
     .bookBtn {
         align-self: center;
-        /* Center the button */
         width: 100%;
-        /* Full width for mobile */
         max-width: 280px;
-        /* But not too wide */
     }
 
     .actions {
         display: flex;
         justify-content: center;
-        /* Center wrapper */
-        margin-bottom: 40px;
+        margin-bottom: 12px;
         position: relative;
         z-index: 10;
     }
 
     .posterColumn {
-        margin-top: 20px !important;
+        margin-top: 0px !important;
         position: relative;
         z-index: 1;
     }
 
-    /* Mobile separator adjustments removed in favor of explicit span */
+    .posterWrapper {
+        min-height: 220px;
+        max-height: 400px;
+    }
 }
