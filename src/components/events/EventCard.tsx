@@ -42,7 +42,7 @@ export const EventCard = ({ event }: EventCardProps) => {
                         <Clock size={12} />
                         {event.date}
                     </div>
-                    <div className={styles.categoryTag}>{event.category}</div>
+                      <div>{/* Category removed */}</div>
                 </div>
 
                 <h3 className={styles.title} title={event.title}>{event.title}</h3>

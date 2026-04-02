@@ -4,140 +4,310 @@
 }
 
 /* Premium Split Hero Section */
-/* Clean Split Hero Section */
+/* Clean White Split Hero Section */
 .hero {
     position: relative;
-    min-height: 500px;
-    background: #FFFFFF;
-    /* Pure white background */
-    padding: 40px 0;
+    width: 100%;
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: #000;
+    padding-top: 20px;
+    padding-bottom: 80px;
+    background: #ffffff;
 }
 
-/* Removed blurBackground and overlay as they are no longer needed for the white layout */
+.blurBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
 
-.heroContent {
-    flex: 1.2;
-    /* Takes slightly more space for text */
-    position: relative;
-    z-index: 2;
+.bgImage {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    filter: blur(20px) brightness(1.1);
+    transform: scale(1.1);
+    opacity: 0.85;
+}
+
+.bgOverlay {
+    position: absolute;
+    inset: 0;
+    /* Soft left-to-right vignette for editorial look */
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0.95) 0%,
+            rgba(255, 255, 255, 0.7) 40%,
+            rgba(255, 255, 255, 0.3) 100%);
+    z-index: 1;
+    backdrop-filter: blur(8px);
+}
+
+.bgOverlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* Subtle noise/grain could go here, or a radial rim light */
+    background: radial-gradient(circle at 10% 20%,
+            rgba(255, 255, 255, 0.4) 0%,
+            transparent 50%);
+    pointer-events: none;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 24px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 60px;
-    /* Space between text and image */
-}
-
-/* Right Side: Image Wrapper */
-.heroImageWrapper {
-    flex: 1;
     position: relative;
-    height: 400px;
-    /* Fixed height for the event poster */
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-    /* Subtle shadow for premium feel */
-}
-
-.heroImage {
+    z-index: 10;
     width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
 }
 
-/* Glassmorphic box wrapping the text details */
-.contentBox {
-    background: rgba(15, 23, 42, 0.75);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 24px;
-    padding: 48px;
-    max-width: 750px;
-    /* Constrain box width */
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+.contentGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 60px;
+    align-items: center;
 }
 
-.categoryBadge {
-    display: inline-block;
-    background: var(--accent-yellow);
-    color: #1a1a1a;
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 0.85rem;
+@media (min-width: 1024px) {
+    .contentGrid {
+        grid-template-columns: 1fr 1.2fr;
+        gap: 80px;
+    }
+}
+
+.heroContent {
+    max-width: 700px;
+    min-height: 550px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+
+.dateBadge {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(249, 217, 73, 0.15);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(249, 217, 73, 0.3);
+    color: #000;
+    padding: 6px 18px;
+    border-radius: 30px;
+    font-size: 0.8rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 16px;
+    letter-spacing: 0.12em;
+    margin-bottom: 12px;
+    align-self: flex-start;
 }
 
 .title {
-    font-size: 3rem;
-    font-weight: 900;
-    color: #1a1a1a;
-    /* Bold dark text */
-    margin-bottom: 24px;
-    line-height: 1.15;
     font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 20px;
     letter-spacing: -0.02em;
-    /* Remove any shadows */
+    color: #000;
+    text-transform: uppercase;
+}
+
+@media (min-width: 1024px) {
+    .title {
+        font-size: 3.5rem;
+        /* Increased for WOW factor */
+        letter-spacing: -0.03em;
+    }
 }
 
 .summary {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    color: #555555;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
     margin-bottom: 32px;
-    max-width: 600px;
     font-weight: 500;
+    opacity: 0.9;
+    max-width: 650px;
 }
 
 .metaInfo {
-    display: flex;
-    gap: 32px;
-    flex-wrap: wrap;
+    font-size: 0.85rem;
+    font-weight: 700;
     margin-bottom: 24px;
+    color: #000;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-start;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.6;
 }
 
-.metaItem {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #444444;
-    /* Darker grey for legibility */
-    font-size: 1rem;
+.metaIcon {
+    color: #000;
+    opacity: 0.8;
+}
+
+.priceLabel {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #888;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.priceHighlight {
+    font-family: var(--font-heading);
+    font-size: 2.2rem; /* Larger for 'Satisfying' impact */
+    font-weight: 900;
+    margin-bottom: 32px;
+    color: #000;
+    align-self: flex-start;
+    position: relative;
+    letter-spacing: -0.02em;
+}
+
+.priceHighlight span {
+    font-size: 0.9rem;
     font-weight: 600;
+    color: #666;
+    margin-left: 6px;
+    text-transform: lowercase;
+    opacity: 0.8;
+}
+
+.ctaGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 10px;
+}
+
+@media (min-width: 1024px) {
+    .ctaGroup {
+        flex-direction: row;
+        align-items: flex-end;
+        gap: 40px;
+    }
+}
+
+.priceInfo {
+    display: flex;
+    flex-direction: column;
 }
 
 .actionButtons {
     display: flex;
+    justify-content: flex-start;
+    align-items: center;
     gap: 16px;
-    flex-wrap: wrap;
-    margin-top: 32px;
+    position: relative;
+    z-index: 10;
 }
 
-.actionButton,
-.shareButton {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #f5f5f5;
-    /* Light grey button */
-    color: #1a1a1a;
-    border: 1px solid #e0e0e0;
-    padding: 12px 24px;
-    border-radius: 12px;
+.registerButtonHero {
+    background: linear-gradient(135deg, #F9D949 0%, #f5d02e 100%);
+    color: #000;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 18px 48px;
     font-size: 0.95rem;
-    font-weight: 700;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: 12px;
+    min-width: 220px;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
     cursor: pointer;
-    transition: all 0.2s ease;
-    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(249, 217, 73, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.registerButtonHero:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(249, 217, 73, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    background: linear-gradient(135deg, #fce169 0%, #F9D949 100%);
+}
+
+.shareButton {
+    background: rgba(15, 23, 42, 0.05);
+    color: #000;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    padding: 18px 32px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.shareButton:hover {
+    background: rgba(15, 23, 42, 0.1);
+    transform: translateY(-2px);
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Right Column: Poster */
+.heroImageWrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.posterWrapper {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.25);
+    /* Deeper shadow */
+    width: 100%;
+    max-width: 650px;
+    /* Larger scale */
+    min-height: 450px;
+    /* Taller poster presence */
+    background: rgba(0, 0, 0, 0.03);
+    transition: all 0.6s cubic-bezier(0.2, 0.1, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.posterWrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* More visible rim light */
+    border-radius: 24px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.posterWrapper:hover {
+    transform: translateY(-12px) scale(1.01);
+    box-shadow: 0 50px 120px rgba(0, 0, 0, 0.3);
+}
+
+.heroImage {
+    object-fit: contain;
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute !important;
+    top: 0;
+    left: 0;
 }
 
 .shareButton {
@@ -165,6 +335,7 @@
     grid-template-columns: 1fr 400px;
     gap: 48px;
     padding: 60px 0;
+    align-items: flex-start; /* Ensure top alignment */
 }
 
 .mainContent {
@@ -310,6 +481,55 @@
     font-weight: 600;
 }
 
+/* Countdown Timer High-Fidelity upgrade */
+.countdownWrapper {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 40px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 20px;
+    width: fit-content;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.timerBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 60px;
+}
+
+.timerSeparator {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #000;
+    opacity: 0.15;
+    margin-top: -16px;
+}
+
+.timerValue {
+    font-family: 'JetBrains Mono', 'Roboto Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 800;
+    line-height: 1;
+    color: #000;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+}
+
+.timerLabel {
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #888;
+    margin-top: 8px;
+    font-weight: 700;
+}
+
 .organizerBio {
     font-size: 1rem;
     color: #444;
@@ -381,6 +601,7 @@
     position: sticky;
     top: 100px;
     height: fit-content;
+    margin-top: 6px; /* Fine-tuned to align card top with heading text */
 }
 
 .pricingCard {
@@ -479,7 +700,16 @@
 .deadline {
     text-align: center;
     font-size: 0.85rem;
-    color: #666;
+    color: #cc0000; /* Subtle urgency color */
+    font-weight: 700;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 8px;
 }
 
 .tagsCard {
@@ -538,25 +768,25 @@
 .mobileCtaInfo {
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 .mobileCtaPrice {
-    font-size: 1.25rem;
-    font-weight: 800;
+    font-size: 1.5rem;
+    font-weight: 900;
     color: #1a1a1a;
-
-    /* Yellow Glassmorphic Highlight */
-    background: rgba(255, 215, 0, 0.25);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 215, 0, 0.4);
-    padding: 6px 12px;
-    border-radius: 12px;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    margin-bottom: 2px;
 }
 
 .mobileCtaLabel {
-    font-size: 0.75rem;
-    color: #666;
-    font-weight: 500;
+    font-size: 0.65rem;
+    color: #888;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1;
 }
 
 /* Bulk Booking Card */
@@ -654,114 +884,251 @@
     }
 }
 
+/* Mobile Responsive Overrides for Hero - PRO Satisfaction Overhaul */
 @media (max-width: 768px) {
     .main {
-        padding-bottom: 80px;
-        /* Space for sticky CTA */
+        padding-bottom: 140px; /* Safe space for footer and floating widgets */
     }
 
     .hero {
+        padding-top: 10px;
+        /* Balanced for top navbar */
+        padding-bottom: 30px;
         min-height: auto;
-        padding: 24px 0;
+        display: block;
     }
 
     .container {
+        padding: 0 24px; /* Professional breathing room for mobile */
         flex-direction: column;
-        /* Stack image on top, text below on mobile */
-        gap: 32px;
-        padding: 0 20px;
+        gap: 0;
     }
 
-    .heroImageWrapper {
-        width: 100%;
-        max-width: 320px;
-        margin: 0 auto;
-        height: auto;
-        aspect-ratio: 1/1.2;
-        /* More compact poster ratio */
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    .contentGrid {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
     }
 
     .heroContent {
+        min-height: auto;
+        gap: 8px;
+        max-width: 100%;
+        align-items: flex-start;
         text-align: left;
+        padding: 24px 0; /* Horizontal padding handled by .container */
+        order: 2;
     }
 
     .title {
-        font-size: 1.5rem;
-        word-break: break-word;
-        text-align: left;
+        font-size: 1.6rem;
+        /* Larger for pro impact */
+        font-weight: 900;
+        line-height: 1.1;
         margin-bottom: 12px;
+        max-width: 100%;
+        letter-spacing: -0.02em;
+        text-align: left;
+        word-break: break-word;
+        hyphens: auto;
     }
-    
+
+    .dateBadge {
+        margin-bottom: 16px;
+        font-size: 0.75rem;
+        padding: 6px 14px;
+        letter-spacing: 0.05em;
+        align-self: flex-start;
+    }
+
     .summary {
         font-size: 0.95rem;
-        margin-bottom: 24px;
-        line-height: 1.5;
+        margin-bottom: 40px;
+        line-height: 1.6;
+        text-align: left;
+        padding: 0 4px;
+        color: #555;
     }
-    
-    .categoryBadge {
-        padding: 4px 12px;
-        font-size: 0.75rem;
-        margin-bottom: 8px;
+
+    .countdownWrapper {
+        gap: 8px;
+        margin-bottom: 24px;
+        padding: 14px;
+        border-radius: 16px;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .timerBlock {
+        min-width: 50px;
+    }
+
+    .timerValue {
+        font-size: 1.4rem;
+    }
+
+    .timerSeparator {
+        font-size: 1.4rem;
+        height: 14px;
+    }
+
+    .timerLabel {
+        font-size: 0.55rem;
     }
 
     .metaInfo {
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .metaItem {
-        font-size: 0.9rem;
-    }
-
-    .sectionTitle {
-        font-size: 1.3rem;
         margin-bottom: 16px;
+        font-size: 0.8rem;
+        align-self: center;
     }
-    
-    .section {
-        gap: 16px;
+
+    .priceInfo {
+        display: none;
+        /* Hide in hero, show in sticky footer */
+    }
+
+    .actionButtons {
+        display: none;
+        /* Hide in hero, show in sticky footer */
+    }
+
+    .heroImageWrapper {
+        order: 1;
+        width: calc(100% + 48px) !important; /* Pull out of .container padding */
+        margin: 0 -24px !important; /* Counter-act container padding */
+    }
+
+    .posterWrapper {
+        min-height: 250px;
+        max-height: 450px;
+        border-radius: 0;
+        /* Modern edge-to-edge look for mobile */
+        border: none;
+        box-shadow: none;
+    }
+
+    /* Content Overhaul for Pro Mobile feel */
+    .sectionTitle {
+        font-size: 1.25rem; /* Scaled down for mobile */
+        margin-bottom: 12px;
+        letter-spacing: 0.02em;
+    }
+
+    .paragraph {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 16px;
+        color: #444;
     }
 
     .highlightsList {
         grid-template-columns: 1fr;
-        gap: 8px;
+        gap: 12px;
     }
 
     .highlightItem {
-        padding: 12px;
+        padding: 12px 14px;
         font-size: 0.9rem;
     }
 
     .agendaItem {
         grid-template-columns: 1fr;
-        gap: 6px;
-        padding: 12px;
-    }
-
-    .agendaTime {
-        font-size: 0.85rem;
-        padding: 4px 10px;
+        gap: 12px;
+        padding: 16px;
     }
 
     .organizerCard {
         flex-direction: column;
+        align-items: center;
         text-align: center;
-        padding: 16px;
+        padding: 24px 16px;
+        gap: 16px;
     }
 
     .organizerImage {
-        width: 64px;
-        height: 64px;
+        width: 100px;
+        height: 100px;
     }
 
     .organizerName {
-        font-size: 1.1rem;
+        font-size: 1.25rem;
     }
 
+    .urgencyText {
+        display: block;
+        background: #FFF9C4;
+        color: #827717;
+        padding: 10px 16px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin: 16px 20px 0;
+        border-radius: 8px;
+    }
+
+    /* Redefining Sticky Footer to be definitely Visible & Premium */
     .mobileStickyCta {
         display: block;
-        padding: 10px 16px;
-        padding-bottom: max(8px, env(safe-area-inset-bottom));
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.98); 
+        backdrop-filter: blur(20px);
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+        padding: 12px 20px;
+        padding-bottom: max(12px, env(safe-area-inset-bottom));
+        z-index: 10000;
+        box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.1);
     }
-}
+
+    .mobileCtaContent {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+    }
+
+    .mobileCtaInfo {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /* Note: If the Next.js dev server 'N' icon appears in the bottom left, */
+        /* it will naturally be pushed to the left of this content in local dev */
+    }
+
+    .mobileCtaPrice {
+        font-size: 1.6rem;
+        font-weight: 900;
+        color: #000;
+        letter-spacing: -0.01em;
+        line-height: 1;
+        margin-bottom: 2px;
+    }
+
+    .mobileCtaLabel {
+        font-size: 0.65rem;
+        color: #888;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        line-height: 1;
+    }
+
+    .mobileRegisterBtn {
+        background: linear-gradient(135deg, #F9D949 0%, #f5d02e 100%);
+        color: #000;
+        border: none !important;
+        padding: 12px 24px;
+        font-size: 0.85rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(249, 217, 73, 0.3);
+        min-width: 140px;
+    }
+}

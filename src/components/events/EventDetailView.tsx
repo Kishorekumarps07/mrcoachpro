@@ -15,6 +15,53 @@ interface EventDetailViewProps {
 
 export const EventDetailView = ({ event }: EventDetailViewProps) => {
     const router = useRouter();
+    const [timeLeft, setTimeLeft] = React.useState({ days: 0, hours: 0, mins: 0, secs: 0 });
+
+    React.useEffect(() => {
+        if (!event) return;
+
+        const calculateTimeLeft = () => {
+            let targetDate = new Date();
+            if (event.isoDate) {
+                targetDate = new Date(event.isoDate);
+                if (event.time) {
+                    const timeParts = event.time.match(/(\d+):(\d+)\s*(AM|PM)/i);
+                    if (timeParts) {
+                        let hours = parseInt(timeParts[1]);
+                        const minutes = parseInt(timeParts[2]);
+                        const ampm = timeParts[3].toUpperCase();
+                        if (ampm === 'PM' && hours < 12) hours += 12;
+                        if (ampm === 'AM' && hours === 12) hours = 0;
+                        targetDate.setHours(hours, minutes, 0, 0);
+                    }
+                }
+            } else {
+                return { days: 0, hours: 0, mins: 0, secs: 0 };
+            }
+
+            const now = new Date();
+            const difference = targetDate.getTime() - now.getTime();
+
+            if (difference > 0) {
+                return {
+                    days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+                    hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+                    mins: Math.floor((difference / 1000 / 60) % 60),
+                    secs: Math.floor((difference / 1000) % 60)
+                };
+            }
+            return { days: 0, hours: 0, mins: 0, secs: 0 };
+        };
+
+        setTimeLeft(calculateTimeLeft());
+        const timer = setInterval(() => {
+            setTimeLeft(calculateTimeLeft());
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [event]);
+
+    const fmt = (n: number) => n.toString().padStart(2, '0');
 
     const handleShare = async () => {
         if (navigator.share) {
@@ -32,61 +79,120 @@ export const EventDetailView = ({ event }: EventDetailViewProps) => {
 
     return (
         <main className={styles.main}>
+            {/* Nuclear suppression for global mobile nav on this page to avoid overlaps */}
+            <style dangerouslySetInnerHTML={{
+                __html: `
+                #mobile-bottom-nav,
+                nav[class*="MobileBottomNav_bottomNav"], 
+                [class*="MobileBottomNav_bottomNav"],
+                .MobileBottomNav_bottomNav__* { 
+                    display: none !important; 
+                    visibility: hidden !important; 
+                    opacity: 0 !important; 
+                    pointer-events: none !important;
+                    height: 0 !important;
+                    width: 0 !important;
+                    position: absolute !important;
+                    clip-path: circle(0) !important;
+                }
+            ` }} />
             <Navbar />
 
             {/* Clean White Split Hero Section */}
             <section className={styles.hero}>
-                <div className={styles.container}>
-                    {/* Left Side: Content */}
-                    <div className={styles.heroContent}>
-                        <div className={styles.categoryBadge}>{event.category}</div>
-                        <h1 className={styles.title}>{event.title}</h1>
-                        {event.description && (
-                            <p className={styles.summary}>{event.description}</p>
-                        )}
-                        <div className={styles.metaInfo}>
-                            <div className={styles.metaItem}>
-                                <Calendar size={20} />
-                                <span>{event.date} at {event.time}</span>
-                            </div>
-                            <div className={styles.metaItem}>
-                                <MapPin size={20} />
-                                <span>{event.location}</span>
-                            </div>
-                            <div className={styles.metaItem}>
-                                <Users size={20} />
-                                <span>{event.spotsLeft} / {event.capacity} spots left</span>
-                            </div>
-                        </div>
-                        <div className={styles.actionButtons}>
-                            {event.externalUrl && (
-                                <a href={event.externalUrl} target="_blank" rel="noopener noreferrer" className={styles.actionButton}>
-                                    <Globe size={18} />
-                                    Website
-                                </a>
-                            )}
-                            {event.socialMediaUrl && (
-                                <a href={event.socialMediaUrl} target="_blank" rel="noopener noreferrer" className={styles.actionButton}>
-                                    <LinkIcon size={18} />
-                                    Social
-                                </a>
-                            )}
-                            <button onClick={handleShare} className={styles.shareButton}>
-                                <Share2 size={18} />
-                                Share Event
-                            </button>
-                        </div>
-                    </div>
+                <div className={styles.blurBackground}>
+                    <Image
+                        src={event.image}
+                        alt="Background"
+                        fill
+                        className={styles.bgImage}
+                        priority
+                    />
+                    <div className={styles.bgOverlay} />
+                </div>
 
-                    {/* Right Side: Image */}
-                    <div className={styles.heroImageWrapper}>
-                        <img
-                            src={event.image}
-                            alt={event.title}
-                            className={styles.heroImage}
-                            loading="eager"
-                        />
+                <div className={styles.container}>
+                    <div className={styles.contentGrid}>
+                        {/* Left Side: Content */}
+                        <div className={styles.heroContent}>
+                            <div className={styles.dateBadge}>
+                                <Calendar size={14} className="mr-2" />
+                                {event.date}, {event.time}
+                            </div>
+                            <h1 className={styles.title}>{event.title}</h1>
+                            <div className={styles.metaInfo}>
+                                <MapPin size={16} className={styles.metaIcon} />
+                                {event.location}
+                            </div>
+
+
+                            {/* Countdown Timer */}
+                            <div className={styles.countdownWrapper}>
+                                <div className={styles.timerBlock}>
+                                    <span className={styles.timerValue}>{fmt(timeLeft.days)}</span>
+                                    <span className={styles.timerLabel}>Days</span>
+                                </div>
+                                <span className={styles.timerSeparator}>:</span>
+                                <div className={styles.timerBlock}>
+                                    <span className={styles.timerValue}>{fmt(timeLeft.hours)}</span>
+                                    <span className={styles.timerLabel}>Hrs</span>
+                                </div>
+                                <span className={styles.timerSeparator}>:</span>
+                                <div className={styles.timerBlock}>
+                                    <span className={styles.timerValue}>{fmt(timeLeft.mins)}</span>
+                                    <span className={styles.timerLabel}>Mins</span>
+                                </div>
+                                <span className={styles.timerSeparator}>:</span>
+                                <div className={styles.timerBlock}>
+                                    <span className={styles.timerValue}>{fmt(timeLeft.secs)}</span>
+                                    <span className={styles.timerLabel}>Secs</span>
+                                </div>
+                            </div>
+
+                            <div className={styles.ctaGroup}>
+                                <div className={styles.priceInfo}>
+                                    <p className={styles.priceLabel}>Entry Starts From</p>
+                                    <div className={styles.priceHighlight}>
+                                        {event.pricingTiers[0].price} <span>per person</span>
+                                    </div>
+                                </div>
+
+                                <div className={styles.actionButtons}>
+                                    <button
+                                        onClick={() => router.push(`/events/${event.id}/register`)}
+                                        className={styles.registerButtonHero}
+                                    >
+                                        Book Tickets
+                                    </button>
+                                    <button onClick={handleShare} className={styles.shareButton}>
+                                        <Share2 size={18} />
+                                        Share
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Summary moved below for professional mobile flow priority */}
+                            <p className={styles.summary}>{event.description}</p>
+                        </div>
+
+                        {/* Right Side: Image */}
+                        <div className={styles.heroImageWrapper}>
+                            <div className={styles.posterWrapper}>
+                                <Image
+                                    src={event.image}
+                                    alt={event.title}
+                                    fill
+                                    className={styles.heroImage}
+                                    priority
+                                />
+                            </div>
+                        </div>
                     </div>
+                </div>
+
+                {/* Registration Urgency Banner (Mobile only styled in CSS) */}
+                <div className={styles.urgencyText}>
+                    Hurry! Secure Your Spot – Registration Closes Soon
                 </div>
             </section>
 
@@ -141,7 +247,6 @@ export const EventDetailView = ({ event }: EventDetailViewProps) => {
                         <section className={styles.section}>
                             <h2 className={styles.sectionTitle}>Meet the Organizer</h2>
                             <div className={styles.organizerCard}>
-                                {/* Use standard img tag to bypass Next/Image optimization issues */}
                                 <img
                                     src={event.organizer.image}
                                     alt={event.organizer.name}
@@ -228,14 +333,19 @@ export const EventDetailView = ({ event }: EventDetailViewProps) => {
                             <Button
                                 fullWidth
                                 size="lg"
-                                onClick={() => router.push(`/events/${event.id}/register?tier=0`)} // Default to first tier
+                                onClick={() => router.push(`/events/${event.id}/register?tier=0`)}
                                 className={styles.registerButton}
                             >
                                 Register Now
                             </Button>
-                            <p className={styles.deadline}>
-                                Registration closes: {event.registrationDeadline}
-                            </p>
+                            <div className={styles.deadline}>
+                                <Clock size={14} className="mr-1" />
+                                Registration closes: {new Date(event.registrationDeadline).toLocaleDateString('en-US', { 
+                                    day: 'numeric', 
+                                    month: 'long', 
+                                    year: 'numeric' 
+                                })}
+                            </div>
                         </div>
 
                         {/* Bulk / Corporate Booking */}
@@ -258,16 +368,6 @@ export const EventDetailView = ({ event }: EventDetailViewProps) => {
                                 Get Corporate Quote
                             </Button>
                         </div>
-
-                        {/* Event Tags */}
-                        <div className={styles.tagsCard}>
-                            <h4 className={styles.tagsTitle}>Event Tags</h4>
-                            <div className={styles.tags}>
-                                {event.tags.map((tag, index) => (
-                                    <span key={index} className={styles.tag}>{tag}</span>
-                                ))}
-                            </div>
-                        </div>
                     </aside>
                 </div>
             </div>
@@ -288,6 +388,6 @@ export const EventDetailView = ({ event }: EventDetailViewProps) => {
                     </Button>
                 </div>
             </div>
-        </main >
+        </main>
     );
 };

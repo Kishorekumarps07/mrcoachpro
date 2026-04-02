@@ -1,8 +1,8 @@
 .draggableContainer {
     position: fixed;
-    bottom: 130px;
+    bottom: 100px; /* Offset to clear the event booking footer */
     right: 20px;
-    z-index: 9999;
+    z-index: 10001; /* Stay above everything else */
     font-family: var(--font-roboto), sans-serif;
 }
 

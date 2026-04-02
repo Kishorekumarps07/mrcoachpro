@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Home, Calendar, Zap, Info, ShoppingBag } from 'lucide-react';
@@ -33,15 +34,17 @@ export const MobileBottomNav = () => {
     const pathname = usePathname();
     const { openModal } = useModal(); // Use context
     const isAppView = useAppView();
+    const [mounted, setMounted] = useState(false);
 
-    // Hide bottom nav on cart & checkout pages
-    // OR if we are viewing through the native App
-    const shouldHide = isAppView || 
-                      pathname.includes('/products/cart') || 
-                      pathname.includes('/products/checkout') || 
-                      pathname.includes('/register');
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    // Definitive hide logic for individual event pages to avoid UI overlaps
+    const isSpecificEvent = pathname.startsWith('/events/') && pathname !== '/events';
+    const shouldHide = isAppView || isSpecificEvent;
     
-    if (shouldHide) return null;
+    if (!mounted || shouldHide) return null;
 
     const navItems = [
         { href: '/', label: 'HOME', icon: Home },
@@ -53,6 +56,7 @@ export const MobileBottomNav = () => {
 
     return (
         <motion.nav
+            id="mobile-bottom-nav"
             initial={{ y: 0 }}
             animate={{ y: 0 }}
             transition={{ type: 'spring', damping: 20, stiffness: 300 }}

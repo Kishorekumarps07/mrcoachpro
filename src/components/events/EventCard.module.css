@@ -229,8 +229,12 @@
 /* Small Device Optimizations */
 @media (max-width: 480px) {
     .title {
-        font-size: 1rem;
-        /* Smaller title */
+        font-size: 0.9rem;
+        line-height: 1.35;
+        display: block;
+        -webkit-line-clamp: unset;
+        line-clamp: unset;
+        overflow: visible;
     }
 
     .price {
