@@ -1,14 +1,14 @@
 export const COACHES = [
   {
-    name: 'Govind raju',
-    role: 'Personal Fitness Coach',
-    experience: '20 yrs exp.',
-    location: 'Bangalore',
-    bio: 'Nearly two decades as a freelance personal fitness coach across Bangalore. Expert in functional, weight & HIIT training — serving Whitefield, Mahadevapura, Thannisandhra & Hennur.',
-    specialties: ['Functional Training', 'Weight Training', 'HIIT', 'Cardio Kickboxing'],
-    image: '/images/coaches/govindraju.jpeg',
-    emoji: '💪',
-    color: '#F9D949', // Yellow
+    name: 'Dr. Deepika Singh',
+    role: 'Physiotherapist',
+    experience: '6+ yrs exp.',
+    location: 'Palwal, Haryana',
+    bio: 'Dr. Deepika Singh is a highly skilled Physiotherapist specializing in Musculoskeletal rehabilitation and weight loss. With over 6 years of clinical experience, she is dedicated to crafting personalized home exercise programs that empower patients to recover effectively and maintain long-term wellness.',
+    specialties: ['Physiotherapy', 'Musculoskeletal Rehab', 'Weight Loss', 'Home Exercise Programs'],
+    image: '/images/coaches/dr-deepika-singh.jpg',
+    emoji: '👩‍⚕️',
+    color: '#FF5252', // Coral Red
   },
   {
     name: 'Mohammed Aslam',
@@ -55,15 +55,15 @@ export const COACHES = [
     color: '#FF9100', // Deep Orange
   },
   {
-    name: 'Dr. Deepika Singh',
-    role: 'Physiotherapist',
-    experience: '6+ yrs exp.',
-    location: 'Palwal, Haryana',
-    bio: 'Dr. Deepika Singh is a highly skilled Physiotherapist specializing in Musculoskeletal rehabilitation and weight loss. With over 6 years of clinical experience, she is dedicated to crafting personalized home exercise programs that empower patients to recover effectively and maintain long-term wellness.',
-    specialties: ['Physiotherapy', 'Musculoskeletal Rehab', 'Weight Loss', 'Home Exercise Programs'],
-    image: '/images/coaches/dr-deepika-singh.jpg',
-    emoji: '👩‍⚕️',
-    color: '#FF5252', // Coral Red
+    name: 'Govind raju',
+    role: 'Personal Fitness Coach',
+    experience: '20 yrs exp.',
+    location: 'Bangalore',
+    bio: 'Nearly two decades as a freelance personal fitness coach across Bangalore. Expert in functional, weight & HIIT training — serving Whitefield, Mahadevapura, Thannisandhra & Hennur.',
+    specialties: ['Functional Training', 'Weight Training', 'HIIT', 'Cardio Kickboxing'],
+    image: '/images/coaches/govindraju.jpeg',
+    emoji: '💪',
+    color: '#F9D949', // Yellow
   },
   {
     name: 'Rohith',
