@@ -87,4 +87,15 @@ export const COACHES = [
     emoji: '🏃‍♂️',
     color: '#00C853', // Emerald Green
   },
+  {
+    name: 'Ajay Barath',
+    role: 'Fitness & Boxing Coach',
+    experience: '5 yrs exp.',
+    location: 'Porur, Chennai',
+    bio: 'A dedicated fitness and boxing specialist based in Porur, Chennai. With 5 years of experience, Ajay combines high-intensity boxing drills with structured fitness training to help clients build endurance, strength, and confidence.',
+    specialties: ['Fitness Training', 'Boxing', 'Strength Training', 'Conditioning'],
+    image: '/images/coaches/ajay-barath.png',
+    emoji: '🥊',
+    color: '#D32F2F', // Boxing Red
+  },
 ];

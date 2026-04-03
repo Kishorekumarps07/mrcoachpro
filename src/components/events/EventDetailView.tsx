@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Navbar } from '@/components/layout/Navbar';
 import { Event } from '@/data/events';
-import { Calendar, Clock, MapPin, Users, Share2, CheckCircle, Building2, Globe, Link as LinkIcon } from 'lucide-react';
+import { Calendar, Clock, MapPin, Users, Share2, CheckCircle, Building2, Globe, Link as LinkIcon, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import styles from './EventDetailView.module.css';
 
@@ -97,6 +97,15 @@ export const EventDetailView = ({ event }: EventDetailViewProps) => {
                 }
             ` }} />
             <Navbar />
+
+            {/* Fixed Back Button */}
+            <button 
+                className={styles.backButtonFixed} 
+                onClick={() => router.push('/events')}
+                aria-label="Back to Events"
+            >
+                <ArrowLeft size={24} />
+            </button>
 
             {/* Clean White Split Hero Section */}
             <section className={styles.hero}>
