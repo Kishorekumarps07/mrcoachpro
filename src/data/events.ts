@@ -41,6 +41,8 @@ export interface Event {
     title: string;
     date: string;
     time: string;
+    startTime?: string; // New field for exact dashboard mapping
+    endTime?: string;   // New field for exact dashboard mapping
     location: string;
     price: string;
     image: string;
@@ -50,7 +52,8 @@ export interface Event {
     externalUrl?: string;
     socialMediaUrl?: string;
     isoDate?: string;
-
+    endDate?: string;
+    endDateFormatted?: string;
     // Enhanced fields
     detailedDescription: string[];
     highlights: string[];

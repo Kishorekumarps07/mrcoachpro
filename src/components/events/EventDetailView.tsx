@@ -126,9 +126,29 @@ export const EventDetailView = ({ event }: EventDetailViewProps) => {
                         <div className={styles.heroContent}>
                             <div className={styles.dateBadge}>
                                 <Calendar size={14} className="mr-2" />
-                                {event.date}, {event.time}
+                                {(() => {
+                                    if (!event.endDateFormatted || event.date === event.endDateFormatted) {
+                                        // Same day or no end date
+                                        return `${event.date}, ${event.startTime}${event.endTime ? ` - ${event.endTime}` : ''}`;
+                                    } else {
+                                        // Multi-day event
+                                        return `${event.date}, ${event.startTime} - ${event.endDateFormatted}, ${event.endTime}`;
+                                    }
+                                })()}
                             </div>
                             <h1 className={styles.title}>{event.title}</h1>
+
+                            {/* Tags Section */}
+                            {event.tags && event.tags.length > 0 && (
+                                <div className={styles.tagsContainer}>
+                                    {event.tags.map((tag, index) => (
+                                        <span key={index} className={styles.tagBadge}>
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+
                             <div className={styles.metaInfo}>
                                 <MapPin size={16} className={styles.metaIcon} />
                                 {event.location}

@@ -58,6 +58,7 @@ interface BackendEvent {
     };
     category_id?: number;
     organizers?: BackendOrganizer[]; // Changed from string
+    tags?: string | string[]; // Added this to capture dashboard tags
 }
 
 interface BackendOrganizer {
@@ -67,6 +68,7 @@ interface BackendOrganizer {
     designation: string;
     short_description: string;
     image: string;
+    image_url?: string | null; // Added this to support both backend variations
     created_at: string;
     tags: any[];
 }
@@ -108,21 +110,37 @@ const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
         }
     }
 
-    // Format Date: "2026-02-27" -> "Feb 27"
-    // Handle invalid dates gracefully
-    let formattedDate = 'Date TBA';
-    try {
-        if (backendEvent.event_date) {
-            const dateObj = new Date(backendEvent.event_date);
-            if (!isNaN(dateObj.getTime())) {
-                formattedDate = dateObj.toLocaleDateString('en-US', {
-                    month: 'short',
-                    day: 'numeric'
-                });
-            }
-        }
-    } catch (e) {
-        console.error('Date parsing error', e);
+    const formatTimeUTC = (isoString?: string) => {
+        if (!isoString) return '';
+        const d = new Date(isoString);
+        let hours = d.getUTCHours();
+        const minutes = d.getUTCMinutes();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        const strMinutes = minutes < 10 ? '0' + minutes : minutes;
+        return `${hours}:${strMinutes} ${ampm}`;
+    };
+
+    const formatDateUTC = (isoString?: string) => {
+        if (!isoString) return '';
+        const d = new Date(isoString);
+        const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+        return `${months[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()}`;
+    };
+
+    let startFormattedDate = 'DATE TBA';
+    let endFormattedDate = '';
+    let startTime = '';
+    let endTime = '';
+
+    if (backendEvent.event_date) {
+        startFormattedDate = formatDateUTC(backendEvent.event_date).replace(/, \d{4}$/, ''); // "MAY 24"
+        startTime = formatTimeUTC(backendEvent.event_date);
+    }
+    if (backendEvent.end_date) {
+        endFormattedDate = formatDateUTC(backendEvent.end_date).replace(/, \d{4}$/, ''); // "MAY 24"
+        endTime = formatTimeUTC(backendEvent.end_date);
     }
 
     // Determine category
@@ -248,9 +266,13 @@ const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
         id: String(backendEvent.id),
         slug: backendEvent.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, ''),
         title: backendEvent.title,
-        date: formattedDate,
-        isoDate: backendEvent.event_date, // "YYYY-MM-DD"
-        time: '5:00 AM', // Default or fetch if available (API didn't show time field in logs)
+        date: startFormattedDate,
+        isoDate: backendEvent.event_date,
+        endDate: backendEvent.end_date,
+        endDateFormatted: endFormattedDate,
+        startTime: startTime,
+        endTime: endTime,
+        time: startTime, // Legacy field support
         location: locationStr,
         image: imageUrl,
         price: priceFormatted,
@@ -260,16 +282,22 @@ const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
 
         detailedDescription: (backendEvent.about_event || backendEvent.description || '').split('\n').filter(p => p.trim() !== ''),
 
-        organizer: backendEvent.organizers && backendEvent.organizers.length > 0 ? {
-            name: backendEvent.organizers[0].name,
-            role: backendEvent.organizers[0].designation,
-            bio: backendEvent.organizers[0].short_description,
-            image: backendEvent.organizers[0].image ?
-                (backendEvent.organizers[0].image.startsWith('http') ?
-                    backendEvent.organizers[0].image :
-                    `${UPLOADS_BASE_URL}/${backendEvent.organizers[0].image}`) :
-                '/images/default-organizer.svg'
-        } : {
+        organizer: backendEvent.organizers && backendEvent.organizers.length > 0 ? (() => {
+            const org = backendEvent.organizers[0];
+            const rawImage = org.image_url || org.image;
+            const imageUrl = rawImage ?
+                (rawImage.startsWith('http') ?
+                    rawImage :
+                    `${UPLOADS_BASE_URL}/${rawImage.replace(/^\//, '')}`) :
+                '/images/default-organizer.svg';
+
+            return {
+                name: org.name,
+                role: org.designation,
+                bio: org.short_description,
+                image: encodeURI(imageUrl)
+            };
+        })() : {
             name: 'Mr. Coach Team',
             role: 'Organizer',
             bio: 'Official event organizer',
@@ -319,7 +347,17 @@ const mapBackendEventToFrontend = (backendEvent: BackendEvent): Event => {
             }
         })(),
         pricingTiers: pricingTiers,
-        tags: [category],
+        tags: (() => {
+            if (Array.isArray(backendEvent.tags)) {
+                return backendEvent.tags.map(t => {
+                    if (typeof t === 'string') return t;
+                    if (typeof t === 'object' && t !== null && 'name' in t) return (t as any).name;
+                    return '';
+                }).filter(t => t !== '');
+            }
+            if (typeof backendEvent.tags === 'string') return backendEvent.tags.split(',').map(t => t.trim()).filter(t => t.length > 0);
+            return [category];
+        })(),
         testimonials: [],
         featured: false
     };
