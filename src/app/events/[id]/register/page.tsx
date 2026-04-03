@@ -340,6 +340,7 @@ function RegistrationPageContent() {
                                         emergencyContact: `${formData.emergencyContact} (${formData.emergencyPhone})`,
                                         amountPaid: totalWithGst,
                                         tickets: formData.quantity,
+                                        participantsInfo: formData.participants.slice(0, formData.quantity).map(p => `${p.name} (Size: ${p.tshirtSize || 'NA'})`).join(' | '),
                                         timestamp: new Date().toISOString()
                                     })
                                 });
