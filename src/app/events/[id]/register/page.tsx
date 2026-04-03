@@ -51,6 +51,7 @@ function RegistrationPageContent() {
         // New Fields
         bloodGroup: '',
         location: '',
+        dateOfBirth: '',
 
         // Step 2: Ticket Selection
         selectedTier: !isNaN(initialTier) ? initialTier : 0,
@@ -166,7 +167,7 @@ function RegistrationPageContent() {
         // Validation for Step 1
         if (currentStep === 1) {
             if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone ||
-                !formData.bloodGroup || !formData.location) {
+                !formData.bloodGroup || !formData.location || !formData.dateOfBirth) {
                 alert('Please fill in all required fields');
                 return;
             }
@@ -316,6 +317,38 @@ function RegistrationPageContent() {
                         toast.success('Payment successful!');
                         const orderId = response.data?.data?.order_id;
 
+                        // Google Sheets Webhook Integration
+                        try {
+                            const webhookUrl = process.env.NEXT_PUBLIC_GOOGLE_SHEETS_WEBHOOK;
+                            if (webhookUrl) {
+                                await fetch(webhookUrl, {
+                                    method: 'POST',
+                                    mode: 'no-cors', // Important for Apps Script webhooks
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({
+                                        eventTitle: event.title,
+                                        eventId: event.id,
+                                        orderId: orderId || 'N/A',
+                                        paymentId: paymentId,
+                                        firstName: formData.firstName,
+                                        lastName: formData.lastName,
+                                        email: formData.email,
+                                        phone: formData.phone,
+                                        dateOfBirth: formData.dateOfBirth || 'N/A',
+                                        bloodGroup: formData.bloodGroup,
+                                        location: formData.location,
+                                        emergencyContact: `${formData.emergencyContact} (${formData.emergencyPhone})`,
+                                        amountPaid: totalWithGst,
+                                        tickets: formData.quantity,
+                                        timestamp: new Date().toISOString()
+                                    })
+                                });
+                            }
+                        } catch (sheetError) {
+                            console.error('Failed to save to Google Sheets', sheetError);
+                            // Do not block user flow if analytics/sheet write fails
+                        }
+
                         if (orderId) {
                             const paymentPayload = {
                                 payment_status: "success",
@@ -459,6 +492,17 @@ function RegistrationPageContent() {
                                                 required
                                             />
                                         </div>
+                                    </div>
+
+                                    <div className={styles.formGroup}>
+                                        <label className={styles.label}>Date of Birth *</label>
+                                        <input
+                                            type="date"
+                                            value={formData.dateOfBirth}
+                                            onChange={(e) => handleInputChange('dateOfBirth', e.target.value)}
+                                            className={styles.input}
+                                            required
+                                        />
                                     </div>
 
                                     <div className={styles.emergencySection}>
