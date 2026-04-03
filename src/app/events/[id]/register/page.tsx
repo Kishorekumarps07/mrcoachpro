@@ -266,8 +266,8 @@ function RegistrationPageContent() {
     }, 0);
 
     const discountedSubtotal = Math.max(0, totalPrice - couponDiscount);
-    const gstAmount = Math.round(discountedSubtotal * 0.18);
-    const totalWithGst = discountedSubtotal + gstAmount;
+    const gstAmount = 0; // GST removed per request
+    const totalWithGst = discountedSubtotal;
 
     const handleSubmit = async () => {
         if (!formData.agreeToTerms) {
@@ -766,11 +766,7 @@ function RegistrationPageContent() {
                                                         <span>-₹{couponDiscount.toLocaleString()}</span>
                                                     </div>
                                                 )}
-                                                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#666', marginBottom: '12px' }}>
-                                                    <span>GST (18%):</span>
-                                                    <span>₹{gstAmount.toLocaleString()}</span>
-                                                </div>
-                                                <p className={styles.ticketReviewTotal}>Grand Total: ₹{totalWithGst.toLocaleString()}</p>
+                                                <p className={styles.ticketReviewTotal} style={{ marginTop: '12px' }}>Grand Total: ₹{totalWithGst.toLocaleString()}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -842,10 +838,6 @@ function RegistrationPageContent() {
                                     <span>-₹{couponDiscount.toLocaleString()}</span>
                                 </div>
                             )}
-                            <div className={styles.summaryTotal} style={{ fontSize: '0.9rem', color: '#888', marginBottom: '16px' }}>
-                                <span>GST (18%):</span>
-                                <span>₹{gstAmount.toLocaleString()}</span>
-                            </div>
                             <div className={styles.summaryDivider} />
                             <div className={styles.summaryTotal}>
                                 <span>Grand Total:</span>
