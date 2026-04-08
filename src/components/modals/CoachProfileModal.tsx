@@ -24,18 +24,15 @@ export const CoachProfileModal = ({ coach, onClose }: CoachProfileModalProps) =>
   // Lock body scroll when modal is open
   useEffect(() => {
     if (coach) {
-      document.documentElement.classList.add('no-scroll');
       document.body.classList.add('no-scroll');
       // Optional: Add padding to prevent layout shift if scrollbar disappears
       document.body.style.paddingRight = 'var(--scrollbar-width, 0px)';
     } else {
-      document.documentElement.classList.remove('no-scroll');
       document.body.classList.remove('no-scroll');
       document.body.style.paddingRight = '';
     }
     
     return () => {
-      document.documentElement.classList.remove('no-scroll');
       document.body.classList.remove('no-scroll');
       document.body.style.paddingRight = '';
     };

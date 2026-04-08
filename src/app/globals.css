@@ -66,11 +66,6 @@ body {
 /* ── MODAL SCROLL LOCK ── */
 .no-scroll {
   overflow: hidden !important;
-  height: 100dvh !important;
-  width: 100% !important;
-  position: relative !important;
-  touch-action: none !important;
-  -webkit-overflow-scrolling: none !important;
 }
 
 a {

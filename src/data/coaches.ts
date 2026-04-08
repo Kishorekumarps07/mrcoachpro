@@ -98,4 +98,59 @@ export const COACHES = [
     emoji: '🥊',
     color: '#D32F2F', // Boxing Red
   },
+  {
+    name: 'Dr. Bharti Pawar',
+    role: 'Orthopedic & Women\'s Health Specialist',
+    experience: '16 yrs exp.',
+    location: 'Nashik, Maharashtra',
+    bio: 'Expert in Orthopedic Rehabilitation and Women\'s Health with 16 years of clinical excellence. Dr. Bharti specializes in restoring mobility and enhancing pelvic wellness through specialized therapeutic techniques and personalized care plans.',
+    specialties: ['Orthopedic Rehab', 'Women\'s Health', 'Clinical Physio', 'Pelvic Health'],
+    image: '/images/coaches/dr-bharti-pawar.jpg',
+    emoji: '👩‍⚕️',
+    color: '#673AB7', // Deep Purple
+  },
+  {
+    name: 'Dr. Sriram S, PT',
+    role: 'Consultant Physiotherapist',
+    experience: '7 years exp.',
+    location: 'Bangalore',
+    bio: 'Specialized in Orthopedic and Neuro Physiotherapy, Dr. Sriram excels in musculoskeletal pain management and advanced manual therapy techniques. He is dedicated to post-injury rehabilitation and precision corrective care through evidence-based practice.',
+    specialties: ['Orthopedic PT', 'Neuro Physiotherapy', 'Manual Therapy', 'Pain Management'],
+    image: '/images/coaches/dr-sriram-s.jpg',
+    emoji: '🧔',
+    color: '#009688', // Teal
+  },
+  {
+    name: 'Aishwarya',
+    role: 'Physiotherapist & Women\'s Health Specialist',
+    experience: '6 years exp.',
+    location: 'Banashankari, Bangalore',
+    bio: 'A dedicated Physiotherapist based in Bangalore with 6 years of expertise. Aishwarya specializes in Orthopedic care, Women\'s Health, and Ergonomic assessments, delivering personalized wellness and recovery plans.',
+    specialties: ['Orthopedic PT', 'Women\'s Health', 'Ergonomics', 'Physiotherapy'],
+    image: '/images/coaches/aishwarya.png',
+    emoji: '👩‍⚕️',
+    color: '#E91E63', // Vibrant Pink
+  },
+  {
+    name: 'Vk Power Palani',
+    role: 'A to Z Fitness Specialist',
+    experience: '30 years exp.',
+    location: 'K.K Nagar, Chennai',
+    bio: 'A veteran fitness powerhouse with 3 decades of elite coaching experience. Palani specializes in holistic body transformations, including weight loss, fat loss, inch loss, and body toning using comprehensive "A to Z" fitness methodologies.',
+    specialties: ['Weight Loss', 'Fat Loss', 'Body Toning', 'Metabolic Health'],
+    image: '/images/coaches/vk-power-palani.png',
+    emoji: '💪',
+    color: '#FFC107', // Amber / Golden Power
+  },
+  {
+    name: 'Shanal Chandra',
+    role: 'Certified Personal Trainer (REPs Level 3)',
+    experience: '6 years exp.',
+    location: 'Kakkanad, Ernakulam, Kerala',
+    bio: 'A multi-certified transformation specialist (REPs India Level 3, NSQF Level 4) with expertise in fat loss, muscle building, and injury rehabilitation. Shanal provides elite personal training with a focus on sustainable weight management and specialized athletic conditioning.',
+    specialties: ['Fat Loss', 'Muscle Building', 'Injury Rehab', 'Weight Management'],
+    image: '/images/coaches/shanal-chandra.jpg',
+    emoji: '🏋️‍♂️',
+    color: '#CDDC39', // Lime Green
+  },
 ];
