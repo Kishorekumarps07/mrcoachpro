@@ -153,4 +153,15 @@ export const COACHES = [
     emoji: '🏋️‍♂️',
     color: '#CDDC39', // Lime Green
   },
+  {
+    name: 'Mohammad Yusuf Hasan',
+    role: 'Strength & Calisthenics Coach',
+    experience: '1 year exp.',
+    location: 'Palava, Dombivli, Navi Mumbai',
+    bio: 'Specialist in high-performance training methodologies including Strength Training, Calisthenics, and CrossFit. Mohammad Yusuf Hasan focuses on functional muscle gain, fat loss, and body recomposition through structured, versatile movement patterns. Based in Palava, Dombivli.',
+    specialties: ['Strength Training', 'Calisthenics', 'CrossFit', 'Functional Fitness'],
+    image: '/images/coaches/mohammad-yusuf-hasan.png',
+    emoji: '🤸‍♂️',
+    color: '#00BFA5', // Deep Teal / Calisthenics focus
+  },
 ];
