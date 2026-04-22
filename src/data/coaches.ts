@@ -171,7 +171,7 @@ export const COACHES = [
     location: 'Mumbai',
     bio: 'With 8 years of elite coaching experience and over 300 successful transformations, Bitul is a specialist in body recomposition and functional recovery. He excels in integrating strength and conditioning with posture correction and specialized rehab training to ensure pain-free, sustainable results. Based in Mumbai.',
     specialties: ['Fat Loss', 'Muscle Gain', 'Posture Correction', 'Rehab Training', 'Strength & Conditioning'],
-    image: '/images/coaches/bitul-bhagawati.jpg',
+    image: '/images/coaches/bitul-bhagawati.png',
     emoji: '🦾',
     color: '#FFB300', // Vivid Gold / Veteran focus
   },
