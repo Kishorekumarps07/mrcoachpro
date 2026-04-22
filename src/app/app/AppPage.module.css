@@ -1,11 +1,7 @@
 .main {
   min-height: 100vh;
   background-color: #FFFFFF;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 100%;
   font-family: var(--font-roboto), sans-serif;
   color: #1A1A1A;
 }
@@ -13,8 +9,9 @@
 .container {
   width: 100%;
   max-width: 1200px;
-  padding: 40px 20px;
-  padding-bottom: 100px; /* Base padding */
+  margin: 0 auto;
+  padding: 80px 20px;
+  padding-bottom: 120px; /* Space for Mobile Nav */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,12 +21,7 @@
 
 /* Removed Decorative Elements per request for plain white background */
 
-/* ── HEADER ── */
-.header {
-  margin-top: 40px;
-  margin-bottom: 20px;
-  text-align: center;
-}
+/* Removed Header styles as standard Navbar is used */
 
 .logoWrapper {
   display: flex;
