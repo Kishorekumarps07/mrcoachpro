@@ -4,6 +4,8 @@ import React from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ShieldCheck, Lock, CheckCircle, Smartphone, ArrowRight, Activity, Utensils, TrendingUp } from 'lucide-react';
+import { Navbar } from '@/components/layout/Navbar';
+import { TopAppBanner } from '@/components/ui/TopAppBanner';
 import styles from './AppPage.module.css';
 
 export default function AppPage() {
@@ -22,28 +24,10 @@ export default function AppPage() {
 
   return (
     <main className={styles.main}>
-      {/* Decorative Background Elements */}
-      <div className={styles.blob1} />
-      <div className={styles.blob2} />
-      <div className={styles.dotPattern1} />
-      <div className={styles.dotPattern2} />
+      <TopAppBanner />
+      <Navbar />
 
       <div className={styles.container}>
-        {/* HEADER SECTION */}
-        <header className={styles.header}>
-          <div className={styles.logoWrapper}>
-            <Image 
-              src="/mrcoach-logo-new.png"
-              alt="MR.COACH"
-              width={220}
-              height={60}
-              priority
-              className={styles.logo}
-            />
-            <p className={styles.tagline}>YOUR PERSONAL FITNESS COACH</p>
-          </div>
-        </header>
-
         {/* HERO SECTION */}
         <section className={styles.hero}>
           <motion.h1 

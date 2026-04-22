@@ -22,54 +22,12 @@
   z-index: 10;
 }
 
-/* ── DECORATIVE ELEMENTS ── */
-.blob1 {
-  position: absolute;
-  top: -10%;
-  right: -5%;
-  width: 40%;
-  height: 40%;
-  background: radial-gradient(circle, rgba(249, 217, 73, 0.4) 0%, rgba(249, 217, 73, 0) 70%);
-  z-index: 1;
-}
-
-.blob2 {
-  position: absolute;
-  bottom: 10%;
-  left: -5%;
-  width: 35%;
-  height: 35%;
-  background: radial-gradient(circle, rgba(249, 217, 73, 0.3) 0%, rgba(249, 217, 73, 0) 70%);
-  z-index: 1;
-}
-
-.dotPattern1 {
-  position: absolute;
-  top: 5%;
-  left: 5%;
-  width: 100px;
-  height: 80px;
-  background-image: radial-gradient(#F9D949 20%, transparent 20%);
-  background-size: 15px 15px;
-  opacity: 0.3;
-  z-index: 1;
-}
-
-.dotPattern2 {
-  position: absolute;
-  bottom: 10%;
-  right: 5%;
-  width: 100px;
-  height: 80px;
-  background-image: radial-gradient(#F9D949 20%, transparent 20%);
-  background-size: 15px 15px;
-  opacity: 0.3;
-  z-index: 1;
-}
+/* Removed Decorative Elements per request for plain white background */
 
 /* ── HEADER ── */
 .header {
-  margin-bottom: 30px;
+  margin-top: 40px;
+  margin-bottom: 20px;
   text-align: center;
 }
 
