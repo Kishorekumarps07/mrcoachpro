@@ -14,6 +14,7 @@
   width: 100%;
   max-width: 1200px;
   padding: 40px 20px;
+  padding-bottom: 100px; /* Base padding */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -396,17 +397,27 @@
 
 /* ── RESPONSIVENESS ── */
 @media (max-width: 768px) {
-  .headline { font-size: 2.2rem; }
-  .iphoneFrame { width: 280px; height: 570px; border-radius: 38px; }
-  .storeButtons { flex-direction: column; gap: 12px; }
-  .storeBtn { min-width: 260px; }
-  .trustBadges { flex-wrap: wrap; justify-content: center; }
+  .container { padding-bottom: 120px; }
+  .logo { width: 180px; height: auto; }
+  .headline { font-size: 2.2rem; margin-bottom: 12px; }
+  .subtext { font-size: 1rem; }
+  .iphoneFrame { width: 280px; height: 570px; border-radius: 38px; transform: scale(0.95); margin-bottom: 40px; }
+  .downloadHeading { font-size: 1.5rem; }
+  .storeButtons { flex-direction: column; gap: 12px; width: 100%; max-width: 320px; }
+  .storeBtn { min-width: unset; width: 100%; padding: 14px 20px; border-radius: 14px; }
+  .storeName { font-size: 1.1rem; }
+  .trustBadges { flex-wrap: wrap; justify-content: center; gap: 16px; background: transparent; padding: 0; }
+  .badge { font-size: 0.75rem; }
   .badgeSeparator { display: none; }
 }
 
 @media (max-width: 480px) {
-  .headline { font-size: 1.8rem; }
-  .subtext { font-size: 0.95rem; }
-  .iphoneFrame { width: 250px; height: 510px; border-radius: 34px; padding: 10px; }
-  .notch { width: 80px; height: 20px; top: 14px; }
+  .container { padding-top: 20px; }
+  .headline { font-size: 1.7rem; }
+  .subtext { font-size: 0.9rem; padding: 0 10px; }
+  .iphoneFrame { width: 260px; height: 530px; border-radius: 36px; padding: 10px; transform: scale(1); }
+  .notch { width: 80px; height: 18px; top: 12px; }
+  .appHeadline { font-size: 1.5rem; }
+  .featureGrid { margin-bottom: 40px; }
+  .downloadHeading { font-size: 1.35rem; }
 }

@@ -60,7 +60,7 @@ export default function AppPage() {
             transition={{ delay: 0.3 }}
           >
             India's most trusted platform for Personal Training.<br />
-            Choose your app store to download the Mr.Coach App.
+            Choose your application store to download the Mr.Coach Pro App.
           </motion.p>
         </section>
 
