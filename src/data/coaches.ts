@@ -11,6 +11,28 @@ export const COACHES = [
     color: '#FF5252', // Coral Red
   },
   {
+    name: 'Dr. Bharti Pawar',
+    role: 'Orthopedic & Women\'s Health Specialist',
+    experience: '16 yrs exp.',
+    location: 'Nashik, Maharashtra',
+    bio: 'Expert in Orthopedic Rehabilitation and Women\'s Health with 16 years of clinical excellence. Dr. Bharti specializes in restoring mobility and enhancing pelvic wellness through specialized therapeutic techniques and personalized care plans.',
+    specialties: ['Orthopedic Rehab', 'Women\'s Health', 'Clinical Physio', 'Pelvic Health'],
+    image: '/images/coaches/dr-bharti-pawar.jpg',
+    emoji: '👩‍⚕️',
+    color: '#673AB7', // Deep Purple
+  },
+  {
+    name: 'Aishwarya',
+    role: 'Physiotherapist & Women\'s Health Specialist',
+    experience: '6 years exp.',
+    location: 'Banashankari, Bangalore',
+    bio: 'A dedicated Physiotherapist based in Bangalore with 6 years of expertise. Aishwarya specializes in Orthopedic care, Women\'s Health, and Ergonomic assessments, delivering personalized wellness and recovery plans.',
+    specialties: ['Orthopedic PT', 'Women\'s Health', 'Ergonomics', 'Physiotherapy'],
+    image: '/images/coaches/aishwarya.png',
+    emoji: '👩‍⚕️',
+    color: '#E91E63', // Vibrant Pink
+  },
+  {
     name: 'Mohammed Aslam',
     role: 'Strength & Conditioning Coach',
     experience: '6 yrs exp.',
@@ -99,17 +121,6 @@ export const COACHES = [
     color: '#D32F2F', // Boxing Red
   },
   {
-    name: 'Dr. Bharti Pawar',
-    role: 'Orthopedic & Women\'s Health Specialist',
-    experience: '16 yrs exp.',
-    location: 'Nashik, Maharashtra',
-    bio: 'Expert in Orthopedic Rehabilitation and Women\'s Health with 16 years of clinical excellence. Dr. Bharti specializes in restoring mobility and enhancing pelvic wellness through specialized therapeutic techniques and personalized care plans.',
-    specialties: ['Orthopedic Rehab', 'Women\'s Health', 'Clinical Physio', 'Pelvic Health'],
-    image: '/images/coaches/dr-bharti-pawar.jpg',
-    emoji: '👩‍⚕️',
-    color: '#673AB7', // Deep Purple
-  },
-  {
     name: 'Dr. Sriram S, PT',
     role: 'Consultant Physiotherapist',
     experience: '7 years exp.',
@@ -119,17 +130,6 @@ export const COACHES = [
     image: '/images/coaches/dr-sriram-s.jpg',
     emoji: '🧔',
     color: '#009688', // Teal
-  },
-  {
-    name: 'Aishwarya',
-    role: 'Physiotherapist & Women\'s Health Specialist',
-    experience: '6 years exp.',
-    location: 'Banashankari, Bangalore',
-    bio: 'A dedicated Physiotherapist based in Bangalore with 6 years of expertise. Aishwarya specializes in Orthopedic care, Women\'s Health, and Ergonomic assessments, delivering personalized wellness and recovery plans.',
-    specialties: ['Orthopedic PT', 'Women\'s Health', 'Ergonomics', 'Physiotherapy'],
-    image: '/images/coaches/aishwarya.png',
-    emoji: '👩‍⚕️',
-    color: '#E91E63', // Vibrant Pink
   },
   {
     name: 'Vk Power Palani',
