@@ -87,8 +87,9 @@
 }
 
 .carouselTrack {
-  display: flex;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: repeat(10, 320px);
+  grid-auto-rows: 1fr;
   gap: 24px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -101,7 +102,6 @@
 }
 
 .carouselTrack > div {
-  flex: 0 0 320px;
   scroll-snap-align: center;
 }
 
@@ -231,7 +231,7 @@
 
   .carouselTrack {
     /* On mobile: left-align, don't center — allows scroll to left edge */
-    justify-content: flex-start;
+    grid-template-columns: repeat(10, 260px);
     padding: 12px 24px 28px;
     gap: 16px;
     /* Disable grab cursor on touch */
@@ -240,7 +240,6 @@
 
   .card {
     /* Refined, more prominent size on mobile */
-    flex: 0 0 260px;
     max-width: 260px;
     height: 360px;
     border-radius: 20px;

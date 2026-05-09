@@ -37,8 +37,10 @@ export const TrustedCoaches = () => {
     setActiveIndex(index);
   }, []);
 
+  const numColumns = 10;
+
   const handlePrev = () => scrollTo(Math.max(0, activeIndex - 1));
-  const handleNext = () => scrollTo(Math.min(COACHES.length - 1, activeIndex + 1));
+  const handleNext = () => scrollTo(Math.min(numColumns - 1, activeIndex + 1));
 
   return (
     <section className={styles.section}>
@@ -60,22 +62,22 @@ export const TrustedCoaches = () => {
 
         {/* Controls */}
         <div className={styles.controls}>
-          <button className={styles.navBtn} onClick={handlePrev} aria-label="Previous coach">
+          <button className={styles.navBtn} onClick={handlePrev} aria-label="Previous page">
             <ChevronLeft size={18} />
           </button>
 
           <div className={styles.dots}>
-            {COACHES.map((_, i) => (
+            {Array.from({ length: numColumns }).map((_, i) => (
               <button
                 key={i}
                 className={`${styles.dot} ${i === activeIndex ? styles.dotActive : ''}`}
                 onClick={() => scrollTo(i)}
-                aria-label={`Go to coach ${i + 1}`}
+                aria-label={`Go to page ${i + 1}`}
               />
             ))}
           </div>
 
-          <button className={styles.navBtn} onClick={handleNext} aria-label="Next coach">
+          <button className={styles.navBtn} onClick={handleNext} aria-label="Next page">
             <ChevronRight size={18} />
           </button>
         </div>
