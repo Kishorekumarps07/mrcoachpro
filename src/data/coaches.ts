@@ -175,4 +175,15 @@ export const COACHES = [
     emoji: '🦾',
     color: '#FFB300', // Vivid Gold / Veteran focus
   },
+  {
+    name: 'Mohit Saxena',
+    role: 'Fitness Coach',
+    experience: 'Experienced',
+    location: 'Greater Noida West / Noida / Delhi',
+    bio: 'Mohit is a dedicated fitness coach specializing in weight and strength training, fat loss, marathon coaching, female fitness, and lifestyle improvements. Based across Greater Noida West, Noida, and Delhi, he crafts tailored programs for holistic fitness transformations.',
+    specialties: ['Weight & Strength Training', 'Fat Loss', 'Marathon Coaching', 'Female Fitness', 'Lifestyle'],
+    image: '/images/coaches/mohit-saxena.jpg',
+    emoji: '🏃‍♂️',
+    color: '#512DA8', // Deep Purple (matching his shirt)
+  },
 ];
