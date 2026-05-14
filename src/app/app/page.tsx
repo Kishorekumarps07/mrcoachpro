@@ -78,10 +78,10 @@ export default function AppPage() {
               </a>
 
               <a 
-                href="#" 
-                onClick={(e) => e.preventDefault()}
+                href="https://apps.apple.com/in/app/mrcoach-pro-for-coaches/id6760490034" 
+                target="_blank" 
+                rel="noopener noreferrer"
                 className={styles.storeBtn}
-                title="iOS App - Coming Soon"
               >
                 <div className={styles.storeIcon}>
                   <svg viewBox="0 0 384 512" width="20" height="20">
