@@ -57,7 +57,7 @@ export default function AppPage() {
             
             <div className={styles.storeButtons}>
               <a 
-                href="https://play.google.com/store/apps/details?id=fitness.mrcoach.india" 
+                href="https://play.google.com/store/apps/details?id=com.mrcoach.pro&hl=en" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className={styles.storeBtn}
