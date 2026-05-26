@@ -1,6 +1,6 @@
 .main {
     min-height: 100vh;
-    background-color: var(--bg-primary);
+    background-color: #ffffff !important;
 }
 
 .container {
@@ -13,18 +13,17 @@
 /* Hero with Glassy Image Background */
 .hero {
     position: relative;
-    height: 100vh;
-    min-height: 800px;
-    max-height: 1080px;
+    height: auto;
+    min-height: unset;
+    max-height: unset;
     width: 100%;
     display: flex;
     align-items: flex-start;
-    /* Align to top to control spacing manually */
     justify-content: flex-start;
-    padding: 0 5%;
+    padding: 0 5% 60px;
     overflow: hidden;
     background-color: #FFFFFF;
-    /* Plain white background */
+    border-bottom: 1px solid #d0d0d0;
 }
 
 @media (max-width: 768px) {

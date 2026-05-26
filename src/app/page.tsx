@@ -30,6 +30,7 @@ import { CorporateBookingSection } from '@/components/ui/CorporateBookingSection
 import { AppDownloadBanner } from '@/components/ui/AppDownloadBanner';
 import { TopAppBanner } from '@/components/ui/TopAppBanner';
 import { TrustedCoaches } from '@/components/ui/TrustedCoaches';
+import { InvestmentSection } from '@/components/ui/InvestmentSection';
 
 // ... (existing imports)
 
@@ -41,7 +42,7 @@ export default function Home() {
   const { openModal } = useModal(); // Use context
 
   return (
-    <main className={styles.main}>
+    <main className={styles.main} style={{ backgroundColor: '#ffffff' }}>
       <TopAppBanner />
       <Navbar />
 
@@ -78,6 +79,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* INVESTMENT SECTION */}
+      <InvestmentSection />
 
       {/* TRUST METRICS */}
       <TrustMetrics />
