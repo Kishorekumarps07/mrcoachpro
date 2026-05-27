@@ -351,6 +351,49 @@ function RegistrationPageContent() {
                             // Do not block user flow if analytics/sheet write fails
                         }
 
+                        // Live Backend Event Sync Booking Integration
+                        try {
+                            const syncWebhookUrl = process.env.NEXT_PUBLIC_EVENT_SYNC_WEBHOOK_URL || 'https://mrcoach-backendfile.onrender.com/api/events/sync-booking';
+                            const syncSecret = process.env.NEXT_PUBLIC_EVENT_SYNC_SECRET || 'MRCOACH_EVENT_SYNC_2026_SECRET';
+
+                            await fetch(syncWebhookUrl, {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authorization': `Bearer ${syncSecret}`,
+                                    'X-API-KEY': syncSecret
+                                },
+                                body: JSON.stringify({
+                                    orderId: orderId || 'N/A',
+                                    paymentId: paymentId,
+                                    eventTitle: event.title,
+                                    eventId: event.id,
+                                    firstName: formData.firstName,
+                                    lastName: formData.lastName,
+                                    email: formData.email,
+                                    phone: formData.phone,
+                                    dateOfBirth: formData.dateOfBirth || 'N/A',
+                                    bloodGroup: formData.bloodGroup,
+                                    location: formData.location,
+                                    emergencyContact: formData.emergencyContact,
+                                    emergencyPhone: formData.emergencyPhone,
+                                    amountPaid: totalWithGst,
+                                    ticketType: selectedTier?.name || 'Standard Entry',
+                                    tickets: formData.quantity,
+                                    participantsInfo: formData.participants.slice(0, formData.quantity).map(p => `${p.name} (Size: ${p.tshirtSize || 'NA'})`).join(' | '),
+                                    participants: formData.participants.slice(0, formData.quantity).map(p => ({
+                                        name: p.name,
+                                        ageCategory: p.ageCategory,
+                                        tshirtSize: p.tshirtSize || 'NA'
+                                    })),
+                                    timestamp: new Date().toISOString()
+                                })
+                            });
+                        } catch (syncError) {
+                            console.error('Failed to sync booking to live webhook', syncError);
+                            // Do not block user flow if sync fails
+                        }
+
                         if (orderId) {
                             const paymentPayload = {
                                 payment_status: "success",
