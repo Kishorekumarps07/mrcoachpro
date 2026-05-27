@@ -36,7 +36,7 @@
 
 .logoImage {
     opacity: 1;
-    height: 40px !important;
+    height: 80px !important;
     width: auto !important;
     object-fit: contain !important;
 }
@@ -311,7 +311,7 @@
     }
 
     .logoImage {
-        height: 30px !important;
+        height: 60px !important;
         width: auto !important;
         object-fit: contain !important;
     }
