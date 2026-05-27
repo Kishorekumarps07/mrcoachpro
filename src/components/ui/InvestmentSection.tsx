@@ -30,7 +30,7 @@ export const InvestmentSection = () => {
         {/* ── BANNER IMAGE ── */}
         <div className={styles.imageWrapper}>
           <Image
-            src="/images/invest-banner.png"
+            src="/images/invest-banner.jpeg?v=2"
             alt="Invest in the Future of Fitness – MrCoachPro pitch deck"
             width={1200}
             height={675}
