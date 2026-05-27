@@ -24,7 +24,7 @@ export interface RazorpayOptions {
         email?: string;
         contact?: string;
     };
-    onSuccess?: (paymentId: string) => void;
+    onSuccess?: (paymentId: string, gatewayOrderId?: string) => void;
     onError?: (error: any) => void;
 }
 
@@ -87,7 +87,7 @@ export const initializeRazorpayPayment = async ({
                     const verifyData = await verifyResponse.json();
 
                     if (verifyResponse.ok && verifyData.verified) {
-                        if (onSuccess) onSuccess(response.razorpay_payment_id);
+                        if (onSuccess) onSuccess(response.razorpay_payment_id, response.razorpay_order_id);
                     } else {
                         if (onError) onError(new Error("Payment Verification Failed"));
                     }

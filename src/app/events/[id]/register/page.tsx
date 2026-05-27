@@ -313,7 +313,7 @@ function RegistrationPageContent() {
                         email: formData.email,
                         contact: formData.phone,
                     },
-                    onSuccess: async (paymentId: string) => {
+                    onSuccess: async (paymentId: string, gatewayOrderId?: string) => {
                         toast.success('Payment successful!');
                         const orderId = response.data?.data?.order_id;
 
@@ -356,41 +356,49 @@ function RegistrationPageContent() {
                             const syncWebhookUrl = process.env.NEXT_PUBLIC_EVENT_SYNC_WEBHOOK_URL || 'https://mrcoach-backendfile.onrender.com/api/events/sync-booking';
                             const syncSecret = process.env.NEXT_PUBLIC_EVENT_SYNC_SECRET || 'MRCOACH_EVENT_SYNC_2026_SECRET';
 
-                            await fetch(syncWebhookUrl, {
+                            const bookingId = String(orderId || `BK${Date.now()}`);
+                            const syncPayload = {
+                                user_name: `${formData.firstName} ${formData.lastName}`.trim(),
+                                user_email: formData.email,
+                                verified_mobile_number: formData.phone,
+                                event_id: event.id,
+                                event_title: event.title,
+                                booking_id: bookingId,
+                                website_order_id: bookingId,
+                                payment_gateway_order_id: gatewayOrderId || 'N/A',
+                                payment_id: paymentId,
+                                payment_status: 'PAID',
+                                amount_paid: totalWithGst,
+                                currency: 'INR',
+                                ticket_quantity: formData.quantity,
+                                booking_date_time: new Date().toISOString(),
+                                event_date: event.isoDate || event.date,
+                                booking_source: 'Website'
+                            };
+
+                            console.log('[Sync] Sending booking sync payload:', syncPayload);
+
+                            const syncResponse = await fetch(syncWebhookUrl, {
                                 method: 'POST',
                                 headers: {
                                     'Content-Type': 'application/json',
                                     'Authorization': `Bearer ${syncSecret}`,
                                     'X-API-KEY': syncSecret
                                 },
-                                body: JSON.stringify({
-                                    orderId: orderId || 'N/A',
-                                    paymentId: paymentId,
-                                    eventTitle: event.title,
-                                    eventId: event.id,
-                                    firstName: formData.firstName,
-                                    lastName: formData.lastName,
-                                    email: formData.email,
-                                    phone: formData.phone,
-                                    dateOfBirth: formData.dateOfBirth || 'N/A',
-                                    bloodGroup: formData.bloodGroup,
-                                    location: formData.location,
-                                    emergencyContact: formData.emergencyContact,
-                                    emergencyPhone: formData.emergencyPhone,
-                                    amountPaid: totalWithGst,
-                                    ticketType: selectedTier?.name || 'Standard Entry',
-                                    tickets: formData.quantity,
-                                    participantsInfo: formData.participants.slice(0, formData.quantity).map(p => `${p.name} (Size: ${p.tshirtSize || 'NA'})`).join(' | '),
-                                    participants: formData.participants.slice(0, formData.quantity).map(p => ({
-                                        name: p.name,
-                                        ageCategory: p.ageCategory,
-                                        tshirtSize: p.tshirtSize || 'NA'
-                                    })),
-                                    timestamp: new Date().toISOString()
-                                })
+                                body: JSON.stringify(syncPayload)
                             });
+
+                            const syncStatus = syncResponse.status;
+                            console.log(`[Sync] Booking sync response status: ${syncStatus}`);
+
+                            if (!syncResponse.ok) {
+                                const syncBody = await syncResponse.text().catch(() => '(no body)');
+                                console.error(`[Sync] Booking sync FAILED [${syncStatus}]:`, syncBody);
+                            } else {
+                                console.log('[Sync] Booking sync successful.');
+                            }
                         } catch (syncError) {
-                            console.error('Failed to sync booking to live webhook', syncError);
+                            console.error('[Sync] Failed to sync booking to live webhook:', syncError);
                             // Do not block user flow if sync fails
                         }
 
