@@ -89,9 +89,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: '/favicon-mrcoach.jpg?v=2',
-    shortcut: '/favicon-mrcoach.jpg?v=2',
-    apple: '/favicon-mrcoach.jpg?v=2',
+    icon: '/favicon-mrcoach.jpg?v=3',
+    shortcut: '/favicon-mrcoach.jpg?v=3',
+    apple: '/favicon-mrcoach.jpg?v=3',
   },
   alternates: {
     canonical: 'https://mrcoach.in',
@@ -107,7 +107,7 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     name: 'Mr.Coach Elite Collective',
-    image: 'https://mrcoach.in/logo.png?v=2',
+    image: 'https://mrcoach.in/logo.png?v=3',
     '@id': 'https://mrcoach.in',
     url: 'https://mrcoach.in',
     telephone: '+910000000000', // Placeholder

@@ -54,7 +54,7 @@ export const Navbar = () => {
                 <div className={styles.container}>
                     <Link href="/" className={styles.logo}>
                         <Image
-                            src="/logo.png?v=2"
+                            src="/logo.png?v=3"
                             alt="MR.COACH"
                             width={180}
                             height={48}
@@ -138,7 +138,7 @@ export const Navbar = () => {
                         <div className={styles.mobileMenuHeader}>
                             <Link href="/" className={styles.mobileMenuLogo} onClick={() => setIsMobileMenuOpen(false)}>
                                 <Image
-                                    src="/logo.png?v=2"
+                                    src="/logo.png?v=3"
                                     alt="MR.COACH"
                                     width={140}
                                     height={40}
