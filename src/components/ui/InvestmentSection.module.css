@@ -5,28 +5,55 @@
     overflow: hidden;
 }
 
-.container {
-    position: relative;
-    z-index: 1;
-    max-width: 1200px;
+.splitLayout {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 60px;
+    max-width: 1300px;
     margin: 0 auto;
     padding: 0 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 48px;
+    align-items: start;
     background: #ffffff;
 }
 
-/* ── HERO HEADER ── */
-.heroHeader {
-    text-align: center;
-    max-width: 800px;
+/* ── LEFT COLUMN: STICKY BANNER IMAGE ── */
+.imageCol {
+    width: 100%;
+    position: sticky;
+    top: 120px;
+}
+
+.stickyImageWrapper {
+    width: 100%;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f0f0f0;
+    background: #ffffff;
+}
+
+.bannerImage {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* ── RIGHT COLUMN: CONTENT & FORM ── */
+.contentCol {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 36px;
+    width: 100%;
+    background: #ffffff;
+}
+
+/* Hero Header */
+.heroHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 16px;
-    margin-bottom: 8px;
 }
 
 .badge {
@@ -60,7 +87,7 @@
 }
 
 .heroTitle {
-    font-size: 2.8rem;
+    font-size: 2.4rem;
     font-weight: 900;
     line-height: 1.15;
     color: #0e0e0e;
@@ -76,11 +103,10 @@
 }
 
 .heroSubtitle {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     color: #525252;
     line-height: 1.6;
     font-weight: 500;
-    max-width: 680px;
 }
 
 .urgencyAlert {
@@ -92,323 +118,26 @@
     font-weight: 500;
     border-left: 4px solid #f9d949;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-/* ── PITCH DECK BANNER ── */
-.imageWrapper {
-    width: 100%;
-    max-width: 720px;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
-    border: 1px solid #f0f0f0;
-}
-
-.bannerImage {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-}
-
-/* ── METRICS SECTION ── */
-.metricsWrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-}
-
-.sectionTitle {
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: #0e0e0e;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-    position: relative;
-}
-
-.sectionTitle::after {
-    content: '';
-    display: block;
-    width: 40px;
-    height: 3px;
-    background: #f9d949;
-    margin: 8px auto 0;
-    border-radius: 2px;
-}
-
-.metricsGrid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
     width: 100%;
 }
 
-.metricCard {
-    background: #ffffff;
-    border: 1px solid #e5e5e5;
-    border-radius: 16px;
-    padding: 24px 16px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-}
-
-.metricCard:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
-    border-color: #f9d949;
-}
-
-.metricIcon {
-    color: #b38b00;
-    background: rgba(249, 217, 73, 0.1);
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 4px;
-}
-
-.metricVal {
-    font-size: 1.5rem;
-    font-weight: 900;
-    color: #0e0e0e;
-}
-
-.metricLabel {
-    font-size: 0.85rem;
-    color: #666;
-    font-weight: 600;
-    line-height: 1.4;
-}
-
-/* ── WHY INVEST SECTION ── */
-.whyInvestWrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-}
-
-.cardsGrid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    width: 100%;
-}
-
-.valueCard {
-    background: #ffffff;
-    border: 1px solid #e5e5e5;
-    border-radius: 16px;
-    padding: 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-}
-
-.valueCard:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
-    border-color: #f9d949;
-}
-
-.cardHeader {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.cardIcon {
-    color: #b38b00;
-}
-
-.cardTitle {
-    font-size: 1.15rem;
-    font-weight: 800;
-    color: #0e0e0e;
-    margin: 0;
-}
-
-.cardText {
-    font-size: 0.9rem;
-    color: #666;
-    line-height: 1.6;
-    margin: 0;
-    font-weight: 500;
-}
-
-/* ── TWO-COLUMN CONVERSION LAYOUT ── */
-.splitLayout {
-    display: grid;
-    grid-template-columns: 400px 1fr;
-    gap: 40px;
-    width: 100%;
-    align-items: start;
-    margin-top: 16px;
-}
-
-.infoCol {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    position: sticky;
-    top: 100px;
-}
-
-/* CTA Card */
-.ctaCard {
-    background: #ffffff;
-    border: 1px solid #e5e5e5;
-    border-radius: 20px;
-    padding: 28px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
-}
-
-.ctaCardTitle {
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: #0e0e0e;
-    margin-bottom: 8px;
-}
-
-.ctaCardDesc {
-    font-size: 0.9rem;
-    color: #666;
-    line-height: 1.5;
-    margin-bottom: 20px;
-    font-weight: 500;
-}
-
-.ctaButtonsGroup {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.ctaLinkBtn {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 14px 20px;
-    background: #ffffff;
-    border: 1.5px solid #e5e5e5;
-    border-radius: 12px;
-    color: #0e0e0e;
-    text-decoration: none;
-    font-weight: 700;
-    font-size: 0.9rem;
-    transition: all 0.25s ease;
-}
-
-.ctaLinkBtn span {
-    flex: 1;
-}
-
-.ctaLinkBtn:hover {
-    background: #f9f9f9;
-    border-color: #0e0e0e;
-    transform: translateY(-1px);
-}
-
-.whatsappBtn {
-    background: #25d366;
-    border-color: #25d366;
-    color: #ffffff;
-}
-
-.whatsappBtn:hover {
-    background: #20ba5a;
-    border-color: #20ba5a;
-    color: #ffffff;
-    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.25);
-}
-
-/* Founder Note Card */
-.founderCard {
-    background: #0e0e0e;
-    color: #ffffff;
-    border-radius: 20px;
-    padding: 28px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-}
-
-.founderHeader {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 16px;
-}
-
-.founderAvatar {
-    width: 44px;
-    height: 44px;
-    background: linear-gradient(135deg, #f9d949 0%, #e6b800 100%);
-    border-radius: 50%;
-    color: #0e0e0e;
-    font-weight: 900;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.95rem;
-}
-
-.founderName {
-    font-size: 0.95rem;
-    font-weight: 800;
-    color: #ffffff;
-    margin: 0;
-}
-
-.founderRole {
-    font-size: 0.75rem;
-    color: #b0b0b0;
-    margin: 0;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-
-.founderQuote {
-    font-size: 0.95rem;
-    color: #e5e5e5;
-    line-height: 1.6;
-    font-style: italic;
-    margin: 0;
-    font-weight: 400;
-}
-
-/* ── FORM SECTION ── */
-.formCol {
-    width: 100%;
-}
-
+/* Form Card */
 .formCard {
     background: #ffffff;
     border: 1px solid #e5e5e5;
     border-radius: 20px;
     padding: 40px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+    width: 100%;
 }
 
 .formHeader {
-    text-align: center;
-    margin-bottom: 36px;
+    text-align: left;
+    margin-bottom: 32px;
 }
 
 .formTitle {
-    font-size: 1.6rem;
+    font-size: 1.45rem;
     font-weight: 900;
     color: #0e0e0e;
     letter-spacing: -0.01em;
@@ -418,10 +147,8 @@
 .formSubtitle {
     font-size: 0.9rem;
     color: #525252;
-    line-height: 1.6;
+    line-height: 1.5;
     font-weight: 500;
-    max-width: 480px;
-    margin: 0 auto;
 }
 
 .form {
@@ -444,7 +171,7 @@
 }
 
 .fieldSectionTitle {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 800;
     color: #b38b00;
     text-transform: uppercase;
@@ -594,21 +321,67 @@
     font-weight: 500;
 }
 
+/* CTA Wrapper */
+.ctaWrapper {
+    width: 100%;
+}
+
+.ctaButtonsGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ctaLinkBtn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 20px;
+    background: #ffffff;
+    border: 1.5px solid #e5e5e5;
+    border-radius: 12px;
+    color: #0e0e0e;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.25s ease;
+}
+
+.ctaLinkBtn span {
+    flex: 1;
+}
+
+.ctaLinkBtn:hover {
+    background: #f9f9f9;
+    border-color: #0e0e0e;
+    transform: translateY(-1px);
+}
+
+.whatsappBtn {
+    background: #25d366;
+    border-color: #25d366;
+    color: #ffffff;
+}
+
+.whatsappBtn:hover {
+    background: #20ba5a;
+    border-color: #20ba5a;
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.25);
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
     .splitLayout {
         grid-template-columns: 1fr;
-        gap: 32px;
+        gap: 40px;
+        padding: 0 20px;
     }
 
-    .infoCol {
+    .imageCol {
         position: static;
-        flex-direction: row;
-        width: 100%;
-    }
-
-    .ctaCard, .founderCard {
-        flex: 1;
+        max-width: 720px;
+        margin: 0 auto;
     }
 }
 
@@ -617,30 +390,8 @@
         padding: 0 0 60px;
     }
 
-    .container {
-        padding: 0 20px;
-        gap: 36px;
-    }
-
     .heroTitle {
-        font-size: 2.2rem;
-    }
-
-    .metricsGrid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .metricsGrid > div:last-child {
-        grid-column: span 2;
-    }
-
-    .cardsGrid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
-
-    .infoCol {
-        flex-direction: column;
+        font-size: 2rem;
     }
 
     .formCard {
@@ -648,25 +399,11 @@
     }
 
     .formTitle {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
     }
 
     .inputRow {
         grid-template-columns: 1fr;
         gap: 16px;
-    }
-}
-
-@media (max-width: 480px) {
-    .heroTitle {
-        font-size: 1.8rem;
-    }
-
-    .metricsGrid {
-        grid-template-columns: 1fr;
-    }
-
-    .metricsGrid > div:last-child {
-        grid-column: span 1;
     }
 }
