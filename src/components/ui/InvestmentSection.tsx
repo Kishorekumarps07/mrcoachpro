@@ -28,6 +28,30 @@ export const InvestmentSection = () => {
     expectedRoi: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [currentStep, setCurrentStep] = useState(1);
+
+  const handleNext = () => {
+    const stepEl = document.getElementById(`step-${currentStep}`);
+    if (stepEl) {
+      const inputs = stepEl.querySelectorAll('input, select, textarea');
+      let allValid = true;
+      for (let i = 0; i < inputs.length; i++) {
+        const input = inputs[i];
+        if (input instanceof HTMLInputElement || input instanceof HTMLSelectElement || input instanceof HTMLTextAreaElement) {
+          if (!input.checkValidity()) {
+            input.reportValidity();
+            allValid = false;
+            break;
+          }
+        }
+      }
+      if (allValid) {
+        setCurrentStep((prev) => prev + 1);
+      }
+    } else {
+      setCurrentStep((prev) => prev + 1);
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -81,27 +105,34 @@ export const InvestmentSection = () => {
               priority
             />
           </div>
+
+          {/* Frictionless CTAs */}
+          <div className={styles.ctaWrapper}>
+            <div className={styles.ctaButtonsGroup}>
+              <a href="/images/invest-banner.jpeg?v=2" target="_blank" rel="noopener noreferrer" className={styles.ctaLinkBtn}>
+                <FileText size={18} />
+                <span>Download Pitch Deck</span>
+                <ArrowUpRight size={14} />
+              </a>
+              
+              <a href="mailto:mrcoachofficial@gmail.com?subject=Schedule%20Investment%20Call" className={styles.ctaLinkBtn}>
+                <Calendar size={18} />
+                <span>Schedule a Call</span>
+                <ArrowUpRight size={14} />
+              </a>
+
+              <a href="https://api.whatsapp.com/send/?phone=%2B917448421134&text=I%20am%20interested%20in%20Mr.%20Coach%20investment%20opportunities" target="_blank" rel="noopener noreferrer" className={`${styles.ctaLinkBtn} ${styles.whatsappBtn}`}>
+                <MessageSquare size={18} />
+                <span>WhatsApp Direct Connect</span>
+                <ArrowUpRight size={14} />
+              </a>
+            </div>
+          </div>
         </div>
 
         {/* ── RIGHT COLUMN: CONTENT & FORM ── */}
         <div className={styles.contentCol}>
           
-          {/* Hero Header */}
-          <header className={styles.heroHeader}>
-            <div className={styles.badge}>
-              <span className={styles.badgePulse}></span>
-              Actively onboarding strategic partners
-            </div>
-            <h1 className={styles.heroTitle}>
-              Invest in India’s Next <span className={styles.goldText}>Health & Wellness</span> Ecosystem
-            </h1>
-            <p className={styles.heroSubtitle}>
-              We are building a multi-platform digital ecosystem combining elite personal training, physiotherapy, nutrition, and health commerce — all under one trusted brand.
-            </p>
-            <div className={styles.urgencyAlert}>
-              🔥 <strong>Limited Early Investor Slots Available</strong> — Expansion Phase.
-            </div>
-          </header>
 
           {/* Form Card */}
           <div className={styles.formCard}>
@@ -124,8 +155,22 @@ export const InvestmentSection = () => {
 
                 <form onSubmit={handleSubmit} className={styles.form}>
                   
+                  {/* Progress Bar */}
+                  <div className={styles.progressContainer}>
+                    <div className={styles.progressText}>
+                      <span>Step {currentStep} of 3</span>
+                      <span>{currentStep === 1 ? 'Basic Details' : currentStep === 2 ? 'Investor Profile' : 'Alignment'}</span>
+                    </div>
+                    <div className={styles.progressBarBg}>
+                      <div 
+                        className={styles.progressBarFill} 
+                        style={{ width: `${(currentStep / 3) * 100}%` }}
+                      ></div>
+                    </div>
+                  </div>
+                  
                   {/* Basic Details */}
-                  <div className={styles.formFieldSection}>
+                  <div className={`${styles.formFieldSection} ${currentStep === 1 ? styles.activeStep : styles.hiddenStep}`} id="step-1">
                     <h4 className={styles.fieldSectionTitle}>Basic Details</h4>
                     <div className={styles.inputRow}>
                       <div className={styles.inputGroup}>
@@ -183,7 +228,7 @@ export const InvestmentSection = () => {
                   </div>
 
                   {/* Investor Profile */}
-                  <div className={styles.formFieldSection}>
+                  <div className={`${styles.formFieldSection} ${currentStep === 2 ? styles.activeStep : styles.hiddenStep}`} id="step-2">
                     <h4 className={styles.fieldSectionTitle}>Investor Profile</h4>
                     <div className={styles.inputRow}>
                       <div className={styles.inputGroup}>
@@ -272,7 +317,7 @@ export const InvestmentSection = () => {
                   </div>
 
                   {/* Alignment */}
-                  <div className={styles.formFieldSection}>
+                  <div className={`${styles.formFieldSection} ${currentStep === 3 ? styles.activeStep : styles.hiddenStep}`} id="step-3">
                     <h4 className={styles.fieldSectionTitle}>Alignment</h4>
                     <div className={styles.inputGroup}>
                       <label className={styles.label}>What interests you about Mr. Coach?</label>
@@ -311,38 +356,40 @@ export const InvestmentSection = () => {
                     </div>
                   </div>
 
-                  <button type="submit" className={styles.submitBtn}>
-                    <Send size={18} />
-                    <span>Send Application</span>
-                    <ChevronRight size={16} className={styles.arrow} />
-                  </button>
+                  {/* Navigation Buttons */}
+                  <div className={styles.formNavButtons}>
+                    {currentStep > 1 && (
+                      <button
+                        type="button"
+                        className={styles.prevBtn}
+                        onClick={() => setCurrentStep((prev) => prev - 1)}
+                      >
+                        Back
+                      </button>
+                    )}
+                    
+                    {currentStep < 3 ? (
+                      <button
+                        type="button"
+                        className={styles.nextBtn}
+                        onClick={handleNext}
+                      >
+                        Next Step
+                      </button>
+                    ) : (
+                      <button type="submit" className={styles.submitBtn}>
+                        <Send size={18} />
+                        <span>Send Application</span>
+                        <ChevronRight size={16} className={styles.arrow} />
+                      </button>
+                    )}
+                  </div>
                 </form>
               </>
             )}
           </div>
 
-          {/* Frictionless CTAs */}
-          <div className={styles.ctaWrapper}>
-            <div className={styles.ctaButtonsGroup}>
-              <a href="/images/invest-banner.jpeg?v=2" target="_blank" rel="noopener noreferrer" className={styles.ctaLinkBtn}>
-                <FileText size={18} />
-                <span>Download Pitch Deck</span>
-                <ArrowUpRight size={14} />
-              </a>
-              
-              <a href="mailto:mrcoachofficial@gmail.com?subject=Schedule%20Investment%20Call" className={styles.ctaLinkBtn}>
-                <Calendar size={18} />
-                <span>Schedule a Call</span>
-                <ArrowUpRight size={14} />
-              </a>
 
-              <a href="https://api.whatsapp.com/send/?phone=%2B917448421134&text=I%20am%20interested%20in%20Mr.%20Coach%20investment%20opportunities" target="_blank" rel="noopener noreferrer" className={`${styles.ctaLinkBtn} ${styles.whatsappBtn}`}>
-                <MessageSquare size={18} />
-                <span>WhatsApp Direct Connect</span>
-                <ArrowUpRight size={14} />
-              </a>
-            </div>
-          </div>
 
         </div>
 

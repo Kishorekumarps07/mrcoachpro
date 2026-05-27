@@ -48,78 +48,6 @@
     background: #ffffff;
 }
 
-/* Hero Header */
-.heroHeader {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-}
-
-.badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(249, 217, 73, 0.1);
-    color: #b38b00;
-    border: 1px solid rgba(249, 217, 73, 0.25);
-    padding: 6px 14px;
-    border-radius: 100px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.badgePulse {
-    width: 6px;
-    height: 6px;
-    background-color: #e6b800;
-    border-radius: 50%;
-    display: inline-block;
-    animation: pulse 1.8s infinite ease-in-out;
-}
-
-@keyframes pulse {
-    0% { transform: scale(0.9); opacity: 0.6; }
-    50% { transform: scale(1.3); opacity: 1; }
-    100% { transform: scale(0.9); opacity: 0.6; }
-}
-
-.heroTitle {
-    font-size: 2.4rem;
-    font-weight: 900;
-    line-height: 1.15;
-    color: #0e0e0e;
-    letter-spacing: -0.02em;
-    text-transform: capitalize;
-}
-
-.goldText {
-    background: linear-gradient(135deg, #e6b800 0%, #b38b00 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 950;
-}
-
-.heroSubtitle {
-    font-size: 1.1rem;
-    color: #525252;
-    line-height: 1.6;
-    font-weight: 500;
-}
-
-.urgencyAlert {
-    background: #0e0e0e;
-    color: #ffffff;
-    border-radius: 8px;
-    padding: 10px 20px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    border-left: 4px solid #f9d949;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    width: 100%;
-}
 
 /* Form Card */
 .formCard {
@@ -324,6 +252,7 @@
 /* CTA Wrapper */
 .ctaWrapper {
     width: 100%;
+    margin-top: 24px;
 }
 
 .ctaButtonsGroup {
@@ -370,6 +299,99 @@
     box-shadow: 0 8px 20px rgba(37, 211, 102, 0.25);
 }
 
+/* Multi-step Form Styles */
+.hiddenStep {
+    display: none !important;
+}
+
+.activeStep {
+    display: flex !important;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.progressContainer {
+    margin-bottom: 24px;
+}
+
+.progressText {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #525252;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+}
+
+.progressText span:last-child {
+    color: #b38b00;
+}
+
+.progressBarBg {
+    width: 100%;
+    height: 6px;
+    background: #f0f0f0;
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+.progressBarFill {
+    height: 100%;
+    background: linear-gradient(90deg, #f9d949 0%, #e6b800 100%);
+    border-radius: 100px;
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.formNavButtons {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.prevBtn {
+    flex: 1;
+    padding: 15px 20px;
+    background: #ffffff;
+    border: 1.5px solid #e5e5e5;
+    border-radius: 12px;
+    color: #0e0e0e;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.prevBtn:hover {
+    background: #f9f9f9;
+    border-color: #0e0e0e;
+}
+
+.nextBtn {
+    flex: 2;
+    padding: 15px 28px;
+    background: linear-gradient(135deg, #f9d949 0%, #e6b800 100%);
+    color: #0e0e0e;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nextBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(249, 217, 73, 0.45);
+}
+
+.nextBtn:active {
+    transform: translateY(0);
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
     .splitLayout {
@@ -388,10 +410,6 @@
 @media (max-width: 768px) {
     .section {
         padding: 0 0 60px;
-    }
-
-    .heroTitle {
-        font-size: 2rem;
     }
 
     .formCard {
