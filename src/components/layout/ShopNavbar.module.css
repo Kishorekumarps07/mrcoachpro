@@ -53,7 +53,7 @@
 }
 
 .logoImage {
-    height: 64px !important;
+    height: 56px !important;
     width: auto !important;
     object-fit: contain !important;
     display: block;
@@ -141,7 +141,7 @@
 
     .logo img,
     .logoImage {
-        height: 52px !important;
+        height: 42px !important;
         width: auto !important;
         object-fit: contain !important;
     }
