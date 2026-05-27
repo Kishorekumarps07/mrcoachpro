@@ -102,12 +102,13 @@ export const ShopNavbar = () => {
                                 </button>
                                 <Link href="/" className={styles.logo}>
                                     <Image
-                                        src="/mrcoach-logo-new.png"
+                                        src="/logo.png?v=2"
                                         alt="MR.COACH"
                                         width={220}
                                         height={50}
                                         priority
                                         className={styles.logoImage}
+                                        style={{ objectFit: 'contain' }}
                                     />
                                 </Link>
                             </div>

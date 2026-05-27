@@ -36,7 +36,9 @@
 
 .logoImage {
     opacity: 1;
-    /* Original logo (assumed dark) */
+    height: 40px !important;
+    width: auto !important;
+    object-fit: contain !important;
 }
 
 .tagline {
@@ -309,8 +311,9 @@
     }
 
     .logoImage {
-        width: 120px;
-        height: auto;
+        height: 30px !important;
+        width: auto !important;
+        object-fit: contain !important;
     }
 
     .tagline {

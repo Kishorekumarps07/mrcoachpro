@@ -35,6 +35,8 @@
 }
 
 .logoImage {
+    height: 48px !important;
+    width: auto !important;
     object-fit: contain;
 }
 
@@ -432,16 +434,14 @@
     }
 
     .logoImage {
-        display: none;
+        display: block !important;
+        height: 36px !important;
+        width: auto !important;
+        object-fit: contain;
     }
 
     .logoMobile {
-        display: block;
-        height: 36px;
-        width: auto;
-        object-fit: contain;
-        border-radius: 8px;
-        /* Soften edges */
+        display: none;
     }
 
     .desktopNav {
@@ -585,9 +585,8 @@
         font-size: 0.8rem;
     }
 
-    /* Ensure logo doesn't take too much space */
-    .logoMobile {
-        height: 32px;
+    .logoImage {
+        height: 32px !important;
     }
 
     /* Tweak menu button size/hit area */

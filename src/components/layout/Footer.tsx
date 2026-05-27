@@ -42,7 +42,7 @@ export const Footer = () => {
                     <div className={styles.brandCol}>
                         <Link href="/" className={styles.logo}>
                             <Image
-                                src="/mrcoach-logo-new.png"
+                                src="/logo.png?v=2"
                                 alt="MR.COACH"
                                 width={160}
                                 height={40}

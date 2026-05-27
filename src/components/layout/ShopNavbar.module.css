@@ -53,10 +53,9 @@
 }
 
 .logoImage {
-    height: 45px;
-    /* Even larger to use more of the 70px navbar */
-    width: auto;
-    object-fit: contain;
+    height: 45px !important;
+    width: auto !important;
+    object-fit: contain !important;
     display: block;
 }
 
@@ -140,9 +139,11 @@
         gap: 12px;
     }
 
-    .logo img {
+    .logo img,
+    .logoImage {
         height: 30px !important;
         width: auto !important;
+        object-fit: contain !important;
     }
 
     .appViewNavbar {

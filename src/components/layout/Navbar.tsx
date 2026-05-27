@@ -54,20 +54,11 @@ export const Navbar = () => {
                 <div className={styles.container}>
                     <Link href="/" className={styles.logo}>
                         <Image
-                            src="/mrcoach-logo-new.png"
+                            src="/logo.png?v=2"
                             alt="MR.COACH"
                             width={180}
                             height={48}
                             className={styles.logoImage}
-                            priority
-                            style={{ objectFit: 'contain' }}
-                        />
-                        <Image
-                            src="/mobile-logo.png"
-                            alt="MR.COACH Logo"
-                            width={40}
-                            height={40}
-                            className={styles.logoMobile}
                             priority
                             style={{ objectFit: 'contain' }}
                         />
@@ -147,7 +138,7 @@ export const Navbar = () => {
                         <div className={styles.mobileMenuHeader}>
                             <Link href="/" className={styles.mobileMenuLogo} onClick={() => setIsMobileMenuOpen(false)}>
                                 <Image
-                                    src="/mrcoach-logo-new.png"
+                                    src="/logo.png?v=2"
                                     alt="MR.COACH"
                                     width={140}
                                     height={40}
