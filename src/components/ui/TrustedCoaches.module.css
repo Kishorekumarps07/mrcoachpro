@@ -88,7 +88,9 @@
 
 .carouselTrack {
   display: grid;
-  grid-template-columns: repeat(10, 320px);
+  grid-auto-flow: column;
+  grid-template-rows: repeat(2, 330px); /* Two horizontal rows on desktop */
+  grid-auto-columns: 230px;
   grid-auto-rows: 1fr;
   gap: 24px;
   overflow-x: auto;
@@ -231,7 +233,9 @@
 
   .carouselTrack {
     /* On mobile: left-align, don't center — allows scroll to left edge */
-    grid-template-columns: repeat(10, 260px);
+    grid-auto-flow: column;
+    grid-template-rows: repeat(3, 210px); /* Three horizontal rows on mobile */
+    grid-auto-columns: 150px;
     padding: 12px 24px 28px;
     gap: 16px;
     /* Disable grab cursor on touch */
@@ -240,9 +244,9 @@
 
   .card {
     /* Refined, more prominent size on mobile */
-    max-width: 260px;
-    height: 360px;
-    border-radius: 20px;
+    max-width: 150px;
+    height: 210px;
+    border-radius: 12px;
   }
 
   .cardInfo {

@@ -18,26 +18,34 @@ export const TrustedCoaches = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [selectedCoach, setSelectedCoach] = useState<Coach | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   
   // Use existing modal context for booking
   const { openModal } = useModal();
 
-  // Next.js hydration safety for Portals
+  // Next.js hydration safety for Portals and responsive resize detection
   useEffect(() => {
     setMounted(true);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  const numColumns = isMobile ? Math.ceil(COACHES.length / 3) : Math.ceil(COACHES.length / 2);
 
   const scrollTo = useCallback((index: number) => {
     const track = trackRef.current;
     if (!track) return;
-    const card = track.children[index] as HTMLElement;
+    const cardIndex = isMobile ? index * 3 : index * 2;
+    const card = track.children[cardIndex] as HTMLElement;
     if (!card) return;
     const offset = card.offsetLeft - track.offsetLeft - 32;
     track.scrollTo({ left: offset, behavior: 'smooth' });
     setActiveIndex(index);
-  }, []);
-
-  const numColumns = 10;
+  }, [isMobile]);
 
   const handlePrev = () => scrollTo(Math.max(0, activeIndex - 1));
   const handleNext = () => scrollTo(Math.min(numColumns - 1, activeIndex + 1));

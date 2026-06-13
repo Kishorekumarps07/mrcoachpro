@@ -1,11 +1,11 @@
 .card {
   width: 100%;
-  max-width: 340px; /* Slightly wider for better text flow */
+  max-width: 230px; /* Highly compact card */
   margin: 0 auto;
   position: relative;
-  border-radius: 24px;
+  border-radius: 20px;
   overflow: hidden;
-  height: 480px; /* Increased height to accommodate longer roles/experience */
+  height: 330px; /* Highly compact height */
   cursor: pointer;
   background: rgba(20, 20, 20, 0.06);
   backdrop-filter: blur(20px);
@@ -37,20 +37,20 @@
 
 .verifiedBadge {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 10px;
+  right: 10px;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
   width: fit-content;
-  font-size: 9px;
+  font-size: 7px;
   font-weight: 800;
   letter-spacing: 0.12em;
   color: #FFFFFF;
   background: #0084FF;
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 100px;
-  padding: 4px 12px;
+  padding: 2px 8px;
   z-index: 10;
   pointer-events: none;
   box-shadow: 
@@ -102,7 +102,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 20px;
+  padding: 12px;
   z-index: 2;
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
               opacity 0.3s ease;
@@ -110,7 +110,7 @@
 
 .rolePill {
   display: inline-block;
-  font-size: 10px;
+  font-size: 8px;
   font-weight: 800;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -125,7 +125,7 @@
   );
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 100px;
-  padding: 4px 12px;
+  padding: 3px 8px;
   margin-bottom: 8px;
   box-shadow: 
     inset 0 1px 1px rgba(255, 255, 255, 0.6),
@@ -134,11 +134,11 @@
 }
 
 .coachName {
-  font-size: 22px;
+  font-size: 15px;
   font-weight: 800;
   letter-spacing: 0.04em;
   color: #fff;
-  margin: 0 0 8px;
+  margin: 0 0 4px;
   text-transform: uppercase;
   line-height: 1.15;
 }
@@ -153,7 +153,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 15px;
+  font-size: 11px;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.9);
   text-transform: none;
@@ -165,7 +165,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 16px;
+  font-size: 11px;
   font-weight: 700;
   color: #fff;
   text-transform: none;
@@ -188,7 +188,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 32px 24px;
+  padding: 14px 12px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -225,7 +225,7 @@
 }
 
 .detailName {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 800;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -235,7 +235,7 @@
 
 .detailRole {
   display: inline-block;
-  font-size: 10px;
+  font-size: 8px;
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -256,16 +256,16 @@
 }
 
 .detailBio {
-  font-size: 13px;
+  font-size: 11px;
   color: #444444;
   line-height: 1.55;
   font-weight: 400;
   text-transform: none;
   letter-spacing: 0.01em;
-  margin-bottom: 14px;
+  margin-bottom: 8px;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -274,11 +274,11 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 14px;
+  margin-bottom: 8px;
 }
 
 .specialtyTag {
-  font-size: 10px;
+  font-size: 8px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -286,7 +286,7 @@
   background: rgba(0, 0, 0, 0.06);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 6px;
-  padding: 3px 8px;
+  padding: 2px 5px;
 }
 
 .viewProfileBtn {
@@ -296,14 +296,14 @@
   justify-content: center;
   gap: 8px;
   width: 100%;
-  padding: 12px 0;
+  padding: 8px 0;
   background: var(--accent-yellow);
   color: #0E0E0E;
-  font-size: 11px;
+  font-size: 9px;
   font-weight: 800;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  border-radius: 12px;
+  border-radius: 8px;
   border: none;
   cursor: pointer;
   overflow: hidden;
@@ -332,32 +332,32 @@
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
-  font-size: 72px;
+  font-size: 40px;
   user-select: none;
 }
 
 /* ── RESPONSIVE / MOBILE ── */
 @media (max-width: 768px) {
   .card {
-    flex: 0 0 260px;
-    max-width: 260px;
-    height: 360px;
-    border-radius: 20px;
+    flex: 0 0 150px;
+    max-width: 150px;
+    height: 210px;
+    border-radius: 12px;
   }
 
   .cardInfo {
-    padding: 12px;
+    padding: 8px;
   }
 
   .coachName {
-    font-size: 18px;
-    margin-bottom: 4px;
+    font-size: 10px;
+    margin-bottom: 2px;
   }
 
   .rolePill {
-    font-size: 8px;
-    padding: 2px 6px;
-    margin-bottom: 3px;
+    font-size: 6.5px;
+    padding: 2px 4px;
+    margin-bottom: 2px;
   }
 
   .infoRow {
@@ -370,7 +370,7 @@
     display: flex;
     align-items: center;
     gap: 4px;
-    font-size: 11px;
+    font-size: 7.5px;
     font-weight: 700;
     color: rgba(255, 255, 255, 0.95);
     text-transform: none;
@@ -382,7 +382,7 @@
   }
 
   .expBadge {
-    font-size: 11px;
+    font-size: 7.5px;
     gap: 5px;
     color: #fff;
     font-weight: 700;
@@ -391,28 +391,28 @@
   }
 
   .expDot {
-    width: 8px;
-    height: 8px;
+    width: 5px;
+    height: 5px;
   }
 
   .detailPanel {
-    padding: 16px 12px;
+    padding: 8px;
   }
 
   .detailName {
-    font-size: 14px;
+    font-size: 10px;
   }
 
   .detailRole {
-    font-size: 8px;
-    padding: 2px 8px;
-    margin-bottom: 6px;
+    font-size: 6.5px;
+    padding: 2px 4px;
+    margin-bottom: 4px;
   }
 
   .detailBio {
-    font-size: 11px;
-    line-height: 1.3;
-    margin-bottom: 8px;
+    font-size: 8px;
+    line-height: 1.2;
+    margin-bottom: 4px;
     -webkit-line-clamp: 2;
     line-clamp: 2;
   }
@@ -423,14 +423,14 @@
   }
 
   .specialtyTag {
-    font-size: 8px;
-    padding: 2px 5px;
+    font-size: 6px;
+    padding: 1px 3px;
   }
 
   .viewProfileBtn {
-    padding: 8px 0;
-    font-size: 9px;
-    border-radius: 8px;
+    padding: 4px 0;
+    font-size: 7px;
+    border-radius: 4px;
     gap: 4px;
   }
 

@@ -186,4 +186,95 @@ export const COACHES = [
     emoji: '🏃‍♂️',
     color: '#512DA8', // Deep Purple (matching his shirt)
   },
+  {
+    name: 'Kavi Bharathi',
+    role: 'Neuro Physiotherapist',
+    experience: '6+ yrs exp.',
+    location: 'Perumbakkam, Chennai',
+    bio: 'Kavi Bharathi is a dedicated Neuro Physiotherapist (MPT Neuro) with over 6 years of clinical experience. She specializes in neurological rehabilitation, helping patients restore mobility, motor control, and functional independence through customized care plans.',
+    specialties: ['Neuro Rehabilitation', 'Physiotherapy', 'Stroke Recovery', 'Motor Re-learning'],
+    image: '/images/coaches/kavi-bharathi.png',
+    emoji: '👩‍⚕️',
+    color: '#009688', // Teal
+  },
+  {
+    name: 'Saheem Zaidi',
+    role: 'Strength & Conditioning Coach',
+    experience: '15 yrs exp.',
+    location: 'South Delhi, Delhi',
+    bio: 'With 15 years of elite experience, Saheem Zaidi specializes in strength and conditioning programs, including weight management, sustainable fat loss, and muscle building. He designs customized training methodologies to help clients unlock their peak physical performance.',
+    specialties: ['Strength & Conditioning', 'Weight Management', 'Fat Loss', 'Muscle Building'],
+    image: '/images/coaches/saheem-zaidi.png',
+    emoji: '🏋️‍♂️',
+    color: '#E53935', // Red (matching his shirt)
+  },
+  {
+    name: 'Pratinov Pratim Sharma',
+    role: 'Elite Fitness & Combat Coach',
+    experience: '7 years exp.',
+    location: 'Khanapara, Guwahati, Assam',
+    bio: 'Pratinov Pratim Sharma has 7 years of expertise specializing in freestyle fitness sports, combat sports, and strength and conditioning. He focuses on sustainable fat loss, nutrition planning, MP7 training, and sports injury prevention.',
+    specialties: ['Combat Sports', 'Strength & Conditioning', 'Fat Loss & Nutrition', 'Sports Injury Prevention'],
+    image: '/images/coaches/pratim-sharma.png',
+    emoji: '🥊',
+    color: '#1976D2', // Deep Blue
+  },
+  {
+    name: 'Sheerin Ayesha',
+    role: 'Strength Trainer & Fitness Coach',
+    experience: '5+ yrs exp.',
+    location: 'Khammam, Telangana',
+    bio: 'Sheerin Ayesha is an accomplished Strength Trainer and Fitness Coach with over 5 years of experience. She specializes in guiding clients through holistic body transformations, strength development, and conditioning programs designed to build confidence and sustainable health.',
+    specialties: ['Strength Training', 'Fitness Coaching', 'Body Transformation', 'Conditioning'],
+    image: '/images/coaches/sheerin-ayesha.png',
+    emoji: '🏆',
+    color: '#3F51B5', // Indigo
+  },
+  {
+    name: 'Jivesh Bali',
+    role: 'Strength & Sports Conditioning Coach',
+    experience: '8+ yrs exp.',
+    location: 'Faridabad, Haryana',
+    bio: 'With more than 8 years of experience, Jivesh Bali is a specialist in strength and conditioning, sports-specific conditioning, posture correction, and weight management. He works with athletes and fitness enthusiasts to build physical longevity and peak performance.',
+    specialties: ['Strength & Conditioning', 'Sports Conditioning', 'Posture Correction', 'Weight Management'],
+    image: '/images/coaches/jivesh-bali.jpg',
+    emoji: '🏏',
+    color: '#0284C7', // Sky Blue
+  },
+  {
+    name: 'Kailash M Rathod',
+    role: 'Elite Fitness & Pilates Coach',
+    experience: '8-9 yrs exp.',
+    location: 'Mumbai, Maharashtra',
+    bio: 'With 8 to 9 years of clinical and gym instruction experience, Kailash M Rathod is a versatile trainer specializing in strength training, functional fitness, CrossFit, and Mat & Reformer Pilates. He is committed to crafting holistic physical transformation and conditioning plans.',
+    specialties: ['Strength Training', 'Functional Training', 'Reformer Pilates', 'CrossFit'],
+    image: '/images/coaches/kailash-rathod.jpg',
+    emoji: '🧘‍♂️',
+    color: '#34495E', // Slate / Steel Blue
+  },
+  {
+    name: 'Dr. Mansi Sinha',
+    role: 'Orthopedic Physiotherapist',
+    experience: '4+ yrs exp.',
+    location: 'Chautala, Sirsa, Haryana',
+    bio: 'Dr. Mansi Sinha is a dedicated Orthopedic Physiotherapist (MPT Ortho) with over 4 years of experience. She specializes in orthopedic rehabilitation, joint mobility, pain management, and restoring musculoskeletal health.',
+    specialties: ['Orthopedic Rehab', 'Musculoskeletal PT', 'Pain Management', 'Physiotherapy'],
+    image: '/images/coaches/dr-mansi-sinha.jpg',
+    emoji: '👩‍⚕️',
+    color: '#1E88E5', // Medical Blue (matching her scrubs)
+  },
+  {
+    name: 'Hrishikesh Das',
+    role: 'Personal Fitness Coach',
+    experience: '1+ yrs exp.',
+    location: 'Guwahati, Kamrup, Assam',
+    bio: 'Hrishikesh Das is a dedicated Personal Fitness Coach with over a year of experience. Based in Guwahati, Assam, he specializes in customized 1-on-1 training programs focused on sustainable fat loss and muscle building.',
+    specialties: ['Fat Loss', 'Muscle Building', '1-on-1 Training', 'Fitness Coaching'],
+    image: '/images/coaches/hrishikesh-das.png',
+    emoji: '💪',
+    color: '#333333', // Charcoal Black (matching his polo shirt)
+  },
 ];
+
+
+
