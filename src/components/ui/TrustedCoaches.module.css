@@ -84,12 +84,14 @@
 .carouselWrapper {
   position: relative;
   padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Gap between individually scrollable rows */
 }
 
 .carouselTrack {
   display: grid;
   grid-auto-flow: column;
-  grid-template-rows: repeat(2, 330px); /* Two horizontal rows on desktop */
   grid-auto-columns: 230px;
   grid-auto-rows: 1fr;
   gap: 24px;
@@ -97,7 +99,7 @@
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  padding: 16px 48px 32px;
+  padding: 8px 48px; /* Reduced vertical padding */
   cursor: grab;
   /* Allow both horizontal track scroll and vertical page scroll */
   touch-action: pan-x pan-y;
@@ -234,9 +236,8 @@
   .carouselTrack {
     /* On mobile: left-align, don't center — allows scroll to left edge */
     grid-auto-flow: column;
-    grid-template-rows: repeat(3, 210px); /* Three horizontal rows on mobile */
     grid-auto-columns: 150px;
-    padding: 12px 24px 28px;
+    padding: 8px 24px;
     gap: 16px;
     /* Disable grab cursor on touch */
     cursor: default;

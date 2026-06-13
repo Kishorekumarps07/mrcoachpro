@@ -14,7 +14,7 @@ import styles from './TrustedCoaches.module.css';
 //  MAIN SECTION
 // ─────────────────────────────────────────
 export const TrustedCoaches = () => {
-  const trackRef = useRef<HTMLDivElement>(null);
+  const tracksRef = useRef<(HTMLDivElement | null)[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [selectedCoach, setSelectedCoach] = useState<Coach | null>(null);
   const [mounted, setMounted] = useState(false);
@@ -34,18 +34,31 @@ export const TrustedCoaches = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const numColumns = isMobile ? Math.ceil(COACHES.length / 3) : Math.ceil(COACHES.length / 2);
+  // Partition coaches into rows
+  const rows = isMobile
+    ? [
+        COACHES.filter((_, i) => i % 3 === 0),
+        COACHES.filter((_, i) => i % 3 === 1),
+        COACHES.filter((_, i) => i % 3 === 2),
+      ]
+    : [
+        COACHES.filter((_, i) => i % 2 === 0),
+        COACHES.filter((_, i) => i % 2 === 1),
+      ];
+
+  const maxRowLength = Math.max(...rows.map(r => r.length), 0);
+  const numColumns = maxRowLength;
 
   const scrollTo = useCallback((index: number) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const cardIndex = isMobile ? index * 3 : index * 2;
-    const card = track.children[cardIndex] as HTMLElement;
-    if (!card) return;
-    const offset = card.offsetLeft - track.offsetLeft - 32;
-    track.scrollTo({ left: offset, behavior: 'smooth' });
+    tracksRef.current.forEach((track) => {
+      if (!track) return;
+      const card = track.children[index] as HTMLElement;
+      if (!card) return;
+      const offset = card.offsetLeft - track.offsetLeft - 32;
+      track.scrollTo({ left: offset, behavior: 'smooth' });
+    });
     setActiveIndex(index);
-  }, [isMobile]);
+  }, []);
 
   const handlePrev = () => scrollTo(Math.max(0, activeIndex - 1));
   const handleNext = () => scrollTo(Math.min(numColumns - 1, activeIndex + 1));
@@ -62,11 +75,17 @@ export const TrustedCoaches = () => {
 
       {/* ── CAROUSEL ── */}
       <div className={styles.carouselWrapper}>
-        <div className={styles.carouselTrack} ref={trackRef}>
-          {COACHES.map((coach, i) => (
-            <CoachCard key={coach.name} coach={coach} index={i} onViewProfile={setSelectedCoach} />
-          ))}
-        </div>
+        {rows.map((rowCoaches, rowIndex) => (
+          <div 
+            key={rowIndex} 
+            className={styles.carouselTrack} 
+            ref={(el) => { tracksRef.current[rowIndex] = el; }}
+          >
+            {rowCoaches.map((coach, i) => (
+              <CoachCard key={coach.name} coach={coach} index={i} onViewProfile={setSelectedCoach} />
+            ))}
+          </div>
+        ))}
 
         {/* Controls */}
         <div className={styles.controls}>
