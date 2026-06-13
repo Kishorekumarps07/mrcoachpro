@@ -83,95 +83,66 @@
 /* ── CAROUSEL WRAPPER ── */
 .carouselWrapper {
   position: relative;
-  padding: 0 24px;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 16px; /* Gap between individually scrollable rows */
+  gap: 24px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.trackViewport {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  /* Premium fading edge masks */
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
 }
 
 .carouselTrack {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 230px;
-  grid-auto-rows: 1fr;
+  display: flex;
+  width: max-content;
   gap: 24px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  padding: 8px 48px; /* Reduced vertical padding */
-  cursor: grab;
-  /* Allow both horizontal track scroll and vertical page scroll */
-  touch-action: pan-x pan-y;
+  padding: 12px 0;
 }
 
-.carouselTrack > div {
-  scroll-snap-align: center;
+.scrollLTR {
+  animation: scrollHorizontalLTR 35s linear infinite;
+}
+
+.scrollRTL {
+  animation: scrollHorizontalRTL 35s linear infinite;
+}
+
+.carouselTrack:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scrollHorizontalLTR {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes scrollHorizontalRTL {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .carouselTrack::-webkit-scrollbar {
   display: none;
 }
 
-.carouselTrack:active {
-  cursor: grabbing;
-}
-
 /* redundant card styles removed - now using CoachCard.module.css exclusively */
 
-/* ── CAROUSEL CONTROLS ── */
-.controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 16px;
-}
-
-.navBtn {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  background: rgba(0, 0, 0, 0.05);
-  backdrop-filter: blur(10px);
-  color: #333;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.navBtn:hover {
-  border-color: var(--accent-yellow);
-  background: rgba(249, 217, 73, 0.1);
-  color: var(--accent-yellow);
-  transform: scale(1.05);
-}
-
-.dots {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, 0.2);
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  transition: all 0.3s ease;
-}
-
-.dotActive {
-  width: 22px;
-  border-radius: 3px;
-  background: var(--accent-yellow);
-}
 
 /* ── CTA ROW ── */
 .ctaRow {
@@ -234,13 +205,8 @@
   }
 
   .carouselTrack {
-    /* On mobile: left-align, don't center — allows scroll to left edge */
-    grid-auto-flow: column;
-    grid-auto-columns: 150px;
-    padding: 8px 24px;
     gap: 16px;
-    /* Disable grab cursor on touch */
-    cursor: default;
+    padding: 8px 0;
   }
 
   .card {
